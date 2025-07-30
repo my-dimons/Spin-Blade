@@ -16,7 +16,7 @@ public class EnemyManager : MonoBehaviour
 
     IEnumerator SpawnEnemyLoop()
     {
-        yield return new WaitForSeconds(1f / difficulty);
+        yield return new WaitForSeconds(2f / difficulty);
         SpawnEnemy();
         StartCoroutine(SpawnEnemyLoop());
     }
