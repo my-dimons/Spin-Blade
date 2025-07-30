@@ -46,14 +46,6 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && canMove)
-        {
-            canMove = false;
-        } else if (Input.GetKeyUp(KeyCode.Space) && !canMove)
-        {
-            canMove = true;
-        }
-
         // Reversing input
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
@@ -74,19 +66,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        RotateTowardsTarget(currentWaypoint);
-
         // move player
         if (canMove)
             transform.position = Vector2.MoveTowards(transform.position, currentWaypoint.transform.position, speed * Time.deltaTime);
 
-    }
-
-    void RotateTowardsTarget(GameObject target)
-    {
-        Vector3 vectorToTarget = target.transform.position - transform.position;
-        float angle = Mathf.Atan2(vectorToTarget.y, vectorToTarget.x) * Mathf.Rad2Deg - rotateMultiplier;
-        Quaternion q = Quaternion.AngleAxis(angle, Vector3.forward);
-        transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.deltaTime * speed);
     }
 }

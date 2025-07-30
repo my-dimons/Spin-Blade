@@ -1,7 +1,13 @@
 using UnityEngine;
 
+using UnityEngine.SceneManagement;
+
 public class GameManager : MonoBehaviour
 {
+    private void Start()
+    {
+        Time.timeScale = 1; // Ensure the game is running at normal speed
+    }
     public void LoadMenu()
     {
         LoadScene("Menu");
@@ -13,6 +19,6 @@ public class GameManager : MonoBehaviour
 
     public void LoadScene(string sceneName)
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene(sceneName);
+        SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
     }
 }

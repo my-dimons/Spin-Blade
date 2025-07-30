@@ -53,6 +53,7 @@ public class Enemy : MonoBehaviour
         else if (other.CompareTag("Player"))
         {
             Debug.Log("Destroyed by player");
+            GameObject.FindGameObjectWithTag("MoneyManager").GetComponent<MoneyManager>().money += value;
             Destroy(gameObject);
         }
     }
