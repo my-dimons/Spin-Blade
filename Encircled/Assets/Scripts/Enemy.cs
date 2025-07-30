@@ -3,7 +3,7 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     [Header("Movement")]
-    public GameObject target; // target is also parent
+    public GameObject target;
     public float minTargetDistance = 0.05f;
     public float speed = 5f;
     public float rotateMultiplier = 1f;
@@ -15,13 +15,13 @@ public class Enemy : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     private void FixedUpdate()
@@ -45,10 +45,14 @@ public class Enemy : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("OVERLLAPING ENEMY");
-        if (other.CompareTag("EnemyParent"))
+        if (other.CompareTag("Circle"))
         {
-            Debug.Log("Enemy reached the target!");
+            GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>().TakeDamage(1);
+            Destroy(gameObject);
+        }
+        else if (other.CompareTag("Player"))
+        {
+            Debug.Log("Destroyed by player");
             Destroy(gameObject);
         }
     }
