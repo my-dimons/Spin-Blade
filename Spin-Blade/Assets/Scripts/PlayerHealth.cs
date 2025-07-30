@@ -8,6 +8,13 @@ public class PlayerHealth : MonoBehaviour
     [Header("Health Display")]
     public Image healthBar;
     public GameObject deathScreen;
+
+    [Header("Dealing Damage")]
+    public int damage = 1;
+
+    //[Header("Taking Damage")]
+
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {

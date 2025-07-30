@@ -4,6 +4,7 @@ using UnityEngine;
 public class MoneyManager : MonoBehaviour
 {
     public float money;
+    public float moneyMultiplier = 1f;
     public GameObject shopMenu;
     public GameObject moneyText;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -25,5 +26,10 @@ public class MoneyManager : MonoBehaviour
 
         // update money text
         moneyText.GetComponent<TextMeshProUGUI>().text = "$" + money.ToString("F1");
+    }
+
+    public void AddMoney(float value)
+    {
+        money += value * moneyMultiplier;
     }
 }

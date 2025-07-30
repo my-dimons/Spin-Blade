@@ -10,6 +10,7 @@ public class Enemy : MonoBehaviour
 
     [Header("Other Stats")]
     public float value; // how much this enemy is worth when killed
+    public float health = 1f; // how much hits this enemy can take  
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -52,9 +53,25 @@ public class Enemy : MonoBehaviour
         }
         else if (other.CompareTag("Player"))
         {
-            Debug.Log("Destroyed by player");
-            GameObject.FindGameObjectWithTag("MoneyManager").GetComponent<MoneyManager>().money += value;
-            Destroy(gameObject);
+            health -= other.GetComponent<PlayerHealth>().damage;
+            if (health <= 0)
+            {
+                Debug.Log("Destroyed by player");
+                GameObject.FindGameObjectWithTag("MoneyManager").GetComponent<MoneyManager>().AddMoney(value);
+                Destroy(gameObject);
+            }
+            else
+            {
+                Knockback();
+            }
         }
+    }
+
+    void Knockback()
+    {
+        GetComponent<Rigidbody2D>().AddForce(
+            (transform.position - target.transform.position).normalized * 10f, 
+            ForceMode2D.Impulse
+        );
     }
 }
