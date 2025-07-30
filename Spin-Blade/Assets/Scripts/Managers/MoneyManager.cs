@@ -18,7 +18,7 @@ public class MoneyManager : MonoBehaviour
     {
         // toggle shop
         KeyCode key = KeyCode.Tab;
-        if (Input.GetKeyDown(key))
+        if (Input.GetKeyDown(key) && GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>().currentHealth > 0)
         {
             Time.timeScale = Time.timeScale == 0 ? 1 : 0; // pause or unpause the game
             shopMenu.SetActive(!shopMenu.activeSelf);
