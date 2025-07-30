@@ -1,3 +1,4 @@
+﻿using System.Collections;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
@@ -12,11 +13,14 @@ public class Enemy : MonoBehaviour
     public float value; // how much this enemy is worth when killed
     public float health = 1f; // how much hits this enemy can take  
 
-
+    [Header("Knockback")]
+    private Rigidbody2D rb;
+    private bool isStunned = false;
+    public float rotationForce = 5f;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
+        rb = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
@@ -27,7 +31,8 @@ public class Enemy : MonoBehaviour
 
     private void FixedUpdate()
     {
-        EnemyMovement();
+        if (!isStunned)
+            EnemyMovement();
     }
 
     void RotateTowardsTarget(GameObject target)
@@ -62,16 +67,36 @@ public class Enemy : MonoBehaviour
             }
             else
             {
-                Knockback();
+                Knockback(target.transform);
             }
         }
     }
 
-    void Knockback()
+    public void Knockback(Transform attacker)
     {
-        GetComponent<Rigidbody2D>().AddForce(
-            (transform.position - target.transform.position).normalized * 10f, 
-            ForceMode2D.Impulse
-        );
+        if (isStunned) return;
+
+        StartCoroutine(StunCoroutine());
+
+        Vector2 direction = (transform.position - attacker.position).normalized;
+
+        rb.linearVelocity = Vector2.zero;
+        
+        rb.AddForce(direction * GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>().knockbackForce, ForceMode2D.Impulse);
+
+        float spinDirection = Random.value < 0.5f ? -1 : 1;
+        rb.AddTorque(rotationForce * spinDirection, ForceMode2D.Impulse);
+    }
+    private IEnumerator StunCoroutine()
+    {
+        isStunned = true;
+        rb.bodyType = RigidbodyType2D.Dynamic;
+        rb.gravityScale = 0;
+
+        yield return new WaitForSeconds(GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>().stunDuration);
+
+        isStunned = false;
+        rb.bodyType = RigidbodyType2D.Kinematic;
+        rb.linearVelocity = Vector2.zero;
     }
 }

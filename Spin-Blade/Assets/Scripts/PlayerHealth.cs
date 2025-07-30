@@ -10,7 +10,9 @@ public class PlayerHealth : MonoBehaviour
     public GameObject deathScreen;
 
     [Header("Dealing Damage")]
-    public int damage = 1;
+    public float knockbackForce = 10f;
+    public float stunDuration = 1f;
+    public float damage = 1;
 
     //[Header("Taking Damage")]
 

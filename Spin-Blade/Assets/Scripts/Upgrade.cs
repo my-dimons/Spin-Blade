@@ -37,6 +37,7 @@ public class Upgrade : MonoBehaviour
     float speedIncrease;
     float sizeIncrease;
     float moneyMultiplierIncrease;
+    float damageIncrease;
 
     [Header("Assign Objects")]
     public GameObject player;
@@ -163,6 +164,8 @@ public class Upgrade : MonoBehaviour
             player.transform.localScale = new Vector2(player.transform.localScale.x * sizeIncrease, player.transform.localScale.y * sizeIncrease);
         // increase money multiplier
         moneyManager.moneyMultiplier += moneyMultiplierIncrease;
+        // increase damage
+        playerHealth.damage += damageIncrease;
     }
 
     public void TogglePopup(bool enable)
