@@ -36,10 +36,13 @@ public class Upgrade : MonoBehaviour
     [Header("Effects")]
     float speedIncrease;
     float sizeIncrease;
+    float healthIncrease;
     float moneyMultiplierIncrease;
     float damageIncrease;
     float regenIncrease;
     float enemySpeedMultiplierIncrease;
+    float knockbackIncrease;
+    float stunDurationIncrease;
     bool unlockHealOnKill;
     float healOnKillAmount;
     // mini saw
@@ -48,6 +51,7 @@ public class Upgrade : MonoBehaviour
     float miniSawDamageIncrease;
     // shooting triangles
     bool unlockShootingTriangles;
+    bool rangedAutofire;
     float triangleDamageIncrease;
     float triangleSpeedIncrease;
     float triangleFireRateIncrease;
@@ -185,10 +189,15 @@ public class Upgrade : MonoBehaviour
             player.transform.localScale = new Vector2(player.transform.localScale.x * sizeIncrease, player.transform.localScale.y * sizeIncrease);
         // increase money multiplier
         moneyManager.moneyMultiplier += moneyMultiplierIncrease;
+        // increase max health
+        playerHealth.IncreaseMaxHealth(healthIncrease);
         // increase damage
         playerHealth.damage += damageIncrease;
         // increase regen
         playerHealth.regen += regenIncrease;
+        // increase knockback & stun time
+        playerHealth.knockbackForce += knockbackIncrease;
+        playerHealth.stunDuration += stunDurationIncrease;
         // increase enemy speed multiplier
         enemyManager.enemySpeedMultiplier += enemySpeedMultiplierIncrease;
         // regen on kill
@@ -213,6 +222,8 @@ public class Upgrade : MonoBehaviour
         playerHealth.triangleDamage += triangleDamageIncrease;
         playerHealth.triangleSpeed += triangleSpeedIncrease;
         playerHealth.triangleFireRate += triangleFireRateIncrease;
+        if (!playerHealth.autofireTriangles)
+            playerHealth.autofireTriangles = rangedAutofire;
     }
 
     public void TogglePopup(bool enable)

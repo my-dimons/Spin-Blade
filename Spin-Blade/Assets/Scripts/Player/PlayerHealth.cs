@@ -106,7 +106,7 @@ public class PlayerHealth : MonoBehaviour
         currentHealth -= heal;
         Mathf.Clamp(currentHealth, 0, maxHeath);
     }
-    public void ChangeMaxHealth(float amount)
+    public void IncreaseMaxHealth(float amount)
     {
         maxHeath += amount;
         currentHealth += amount;
