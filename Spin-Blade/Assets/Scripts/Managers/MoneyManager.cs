@@ -1,3 +1,5 @@
+using NUnit.Framework;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -7,7 +9,18 @@ public class MoneyManager : MonoBehaviour
     public float moneyMultiplier = 1f;
     public GameObject shopMenu;
     public GameObject moneyText;
-
+    public GameObject upgradeParent;
+    private List<GameObject> upgrades = new List<GameObject>();
+    private void Start()
+    {
+        foreach (Transform child in upgradeParent.transform)
+        {
+            if (child.GetComponent<Upgrade>())
+            {
+                upgrades.Add(child.gameObject);
+            }
+        }
+    }
     // Update is called once per frame
     void Update()
     {
@@ -17,6 +30,15 @@ public class MoneyManager : MonoBehaviour
         {
             Time.timeScale = Time.timeScale == 0 ? 1 : 0; // pause or unpause the game
             shopMenu.SetActive(!shopMenu.activeSelf);
+            
+            foreach (GameObject upgrade in upgrades)
+            {
+                foreach (Transform child in upgrade.transform)
+                {
+                    if (child.CompareTag("UpgradeDsc"))
+                        child.gameObject.SetActive(false);
+                }
+            }
         }
 
         // update money text

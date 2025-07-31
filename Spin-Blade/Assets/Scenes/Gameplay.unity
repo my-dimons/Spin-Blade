@@ -5121,6 +5121,7 @@ MonoBehaviour:
   moneyMultiplier: 1
   shopMenu: {fileID: 1169816788}
   moneyText: {fileID: 2011003832}
+  upgradeParent: {fileID: 1943324913}
 --- !u!1 &1644625700
 GameObject:
   m_ObjectHideFlags: 0
