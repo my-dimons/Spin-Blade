@@ -272,7 +272,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &1107720655848042539
@@ -557,8 +557,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 633055556131102049}
+  m_Children: []
   m_Father: {fileID: 1907271771778763388}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -901,12 +900,12 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1162985309509912183}
+  m_Father: {fileID: 6568911419865416035}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 3.000061, y: -392}
+  m_SizeDelta: {x: 0, y: -71.9623}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8968406874974706866
 CanvasRenderer:
@@ -965,10 +964,10 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24
+  m_fontSize: 28.95
   m_fontSizeBase: 24
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
@@ -1040,6 +1039,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5388839830578180074}
+  - {fileID: 633055556131102049}
   - {fileID: 1907271771778763388}
   - {fileID: 3943137209729436332}
   m_Father: {fileID: 0}
@@ -1077,6 +1077,7 @@ MonoBehaviour:
   buyButton: {fileID: 2096379976816973022}
   popupObject: {fileID: 1671716976307835811}
   outlineObject: {fileID: 3903720382919740542}
+  backgroundObject: {fileID: 1107720655848042539}
   player: {fileID: 0}
   moneyManager: {fileID: 0}
   enemyManager: {fileID: 0}
@@ -1090,6 +1091,7 @@ MonoBehaviour:
   canBeBoughtOutlineColor: {r: 0.9622642, g: 0.9622642, b: 0.9622642, a: 1}
   boughtOutlineColor: {r: 0.37647066, g: 0.4960528, b: 0.95686275, a: 1}
   fullyBoughtOutlineColor: {r: 0.9748427, g: 0.83408314, b: 0.21765348, a: 1}
+  backgroundTintColor: {r: 1, g: 1, b: 1, a: 1}
   onlyNeedsOnePrecursor: 0
 --- !u!82 &6776718387224579930
 AudioSource:

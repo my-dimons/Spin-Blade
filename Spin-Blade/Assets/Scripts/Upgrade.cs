@@ -32,6 +32,7 @@ public class Upgrade : MonoBehaviour
     public GameObject buyButton;
     public GameObject popupObject;
     public GameObject outlineObject;
+    public GameObject backgroundObject;
 
     [Header("Effects")]
     float speedIncrease;
@@ -75,6 +76,9 @@ public class Upgrade : MonoBehaviour
     public Color boughtOutlineColor;
     public Color fullyBoughtOutlineColor;
 
+    [Header("Background Color")]
+    public Color backgroundTintColor;
+
     public bool onlyNeedsOnePrecursor; // otherwise needs all precursors to be bought
 
 
@@ -85,6 +89,8 @@ public class Upgrade : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         moneyManager = GameObject.FindGameObjectWithTag("MoneyManager").GetComponent<MoneyManager>();
         enemyManager = GameObject.FindGameObjectWithTag("EnemyManager").GetComponent<EnemyManager>();
+
+        backgroundObject.GetComponent<Image>().color = backgroundTintColor;
 
         canBeBought = false;
         if (skillTreePrecursors == null)
@@ -159,7 +165,14 @@ public class Upgrade : MonoBehaviour
         imageObject.GetComponent<Image>().sprite = image;
         titleObject.GetComponent<TextMeshProUGUI>().text = title;
         descriptionObject.GetComponent<TextMeshProUGUI>().text = description;
-        priceObject.GetComponent<TextMeshProUGUI>().text = "$" + price.ToString("F1");
+
+        if (price > 1000)
+            priceObject.GetComponent<TextMeshProUGUI>().text = "$" + price.ToString("F0");
+        else if (price >= 100)
+            priceObject.GetComponent<TextMeshProUGUI>().text = "$" + price.ToString("F1");
+        else 
+            priceObject.GetComponent<TextMeshProUGUI>().text = "$" + price.ToString("F2");
+
         maxLevelObject.GetComponent<TextMeshProUGUI>().text = currentLevel.ToString() + "/" + maxLevel.ToString();
     }
 

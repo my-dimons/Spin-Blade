@@ -20,10 +20,12 @@ public class Enemy : MonoBehaviour
     public float rotationForce = 5f;
 
     EnemyManager enemyManager;
+    PlayerHealth playerHealth;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         enemyManager = GameObject.FindGameObjectWithTag("EnemyManager").GetComponent<EnemyManager>();
+        playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>();
         rb = GetComponent<Rigidbody2D>();
     }
 
@@ -62,17 +64,11 @@ public class Enemy : MonoBehaviour
         }
         else if (other.CompareTag("Player"))
         {
-            PlayerHealth playerHealth = other.GetComponent<PlayerHealth>();
             health -= playerHealth.damage;
             if (health <= 0 && !isStunned)
             {
                 Debug.Log("Destroyed by player");
-                GameObject.FindGameObjectWithTag("MoneyManager").GetComponent<MoneyManager>().AddMoney(value);
-
-                if (playerHealth.regenOnKill)
-                    playerHealth.Heal(playerHealth.killRegenAmount);
-
-                Destroy(gameObject);
+                Death();
             }
             else
             {
@@ -89,8 +85,7 @@ public class Enemy : MonoBehaviour
             {
                 Debug.Log("Destroyed by player");
                 GameObject.FindGameObjectWithTag("MoneyManager").GetComponent<MoneyManager>().AddMoney(value);
-
-                Destroy(gameObject);
+                Death();
             }
             else
             {
@@ -125,5 +120,15 @@ public class Enemy : MonoBehaviour
         isStunned = false;
         rb.bodyType = RigidbodyType2D.Kinematic;
         rb.linearVelocity = Vector2.zero;
+    }
+
+    public void Death()
+    {
+        GameObject.FindGameObjectWithTag("MoneyManager").GetComponent<MoneyManager>().AddMoney(value);
+        if (playerHealth.regenOnKill)
+            playerHealth.Heal(playerHealth.killRegenAmount);
+
+        enemyManager.IncreaseDifficulty();
+        Destroy(gameObject);
     }
 }

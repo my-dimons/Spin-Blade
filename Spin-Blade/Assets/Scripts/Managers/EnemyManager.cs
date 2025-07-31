@@ -9,6 +9,7 @@ public class EnemyManager : MonoBehaviour
     public GameObject enemyParent;
     public float radius = 5f; // Adjustable spawning radius
     public float difficulty = 1f;
+    public float difficultyIncrease = 0.01f;
 
     public float enemySpeedMultiplier = 1f;
     private void Start()
@@ -58,5 +59,10 @@ public class EnemyManager : MonoBehaviour
     {
         Gizmos.color = Color.red; // Circle color
         Gizmos.DrawWireSphere(transform.position, radius); // Draw the wireframe circle
+    }
+
+    public void IncreaseDifficulty()
+    {
+        difficulty += difficultyIncrease;
     }
 }
