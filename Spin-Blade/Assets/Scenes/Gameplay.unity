@@ -2772,8 +2772,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e79c9f32deb1b4b44a93f60df8e471b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  edgePaddingX: -10000
-  edgePaddingY: -10000
+  maxXLimit: 8000
+  maxYLimit: 8000
 --- !u!1 &878763566
 GameObject:
   m_ObjectHideFlags: 0

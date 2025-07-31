@@ -19,6 +19,12 @@ public class GameManager : MonoBehaviour
 
     public void LoadScene(string sceneName)
     {
+        Debug.Log("Loading scene: " + sceneName);
         SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
+    }
+    public void QuitGame()
+    {
+        Debug.Log("Quitting game...");
+        Application.Quit();
     }
 }

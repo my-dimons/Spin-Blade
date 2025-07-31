@@ -3,8 +3,8 @@ using UnityEngine;
 public class DraggableSkillTreeMenu : MonoBehaviour
 {
     [Header("Drag Settings")]
-    public float edgePaddingX = 20f; // Minimum distance from left/right screen edge
-    public float edgePaddingY = 20f; // Minimum distance from top/bottom screen edge
+    public float maxXLimit = 500f; // Max distance you can drag left/right
+    public float maxYLimit = 300f; // Max distance you can drag up/down
 
     private RectTransform rectTransform;
     private Vector2 offset;
@@ -13,46 +13,41 @@ public class DraggableSkillTreeMenu : MonoBehaviour
     void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
-
-        defaultPosition = rectTransform.position;
+        defaultPosition = rectTransform.position; // Store initial position
     }
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(2))
-        {
-            rectTransform.position = defaultPosition;
-        }
-        // Store offset when right-click starts
+        // Start dragging with right-click
         if (Input.GetMouseButtonDown(1))
         {
             offset = (Vector2)rectTransform.position - (Vector2)Input.mousePosition;
         }
 
-        // While holding right-click, drag and clamp
+        // Dragging
         if (Input.GetMouseButton(1))
         {
             Vector3 newPos = Input.mousePosition + (Vector3)offset;
+            rectTransform.position = ClampToBounds(newPos);
+        }
 
-            // Clamp position using padding
-            rectTransform.position = ClampToScreen(newPos);
+        // Reset position
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            ResetPosition();
         }
     }
 
-    private Vector3 ClampToScreen(Vector3 position)
+    private Vector3 ClampToBounds(Vector3 position)
     {
-        // Get the size of the menu
-        Vector2 size = rectTransform.sizeDelta * rectTransform.lossyScale;
-
-        // Calculate clamped boundaries with adjustable padding
-        float minX = (size.x / 2f) + edgePaddingX;
-        float maxX = Screen.width - (size.x / 2f) - edgePaddingX;
-        float minY = (size.y / 2f) + edgePaddingY;
-        float maxY = Screen.height - (size.y / 2f) - edgePaddingY;
-
-        position.x = Mathf.Clamp(position.x, minX, maxX);
-        position.y = Mathf.Clamp(position.y, minY, maxY);
-
+        // Use maxXLimit and maxYLimit, automatically applying the negative min
+        position.x = Mathf.Clamp(position.x, -maxXLimit, maxXLimit);
+        position.y = Mathf.Clamp(position.y, -maxYLimit, maxYLimit);
         return position;
+    }
+
+    public void ResetPosition()
+    {
+        rectTransform.position = defaultPosition;
     }
 }
