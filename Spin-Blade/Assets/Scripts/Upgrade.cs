@@ -35,27 +35,28 @@ public class Upgrade : MonoBehaviour
     public GameObject backgroundObject;
 
     [Header("Effects")]
-    float speedIncrease;
-    float sizeIncrease;
-    float healthIncrease;
-    float moneyMultiplierIncrease;
-    float damageIncrease;
-    float regenIncrease;
-    float enemySpeedMultiplierIncrease;
-    float knockbackIncrease;
-    float stunDurationIncrease;
-    bool unlockHealOnKill;
-    float healOnKillAmount;
+    public float speedIncrease;
+    public float sizeIncrease;
+    public float healthIncrease;
+    public float moneyMultiplierIncrease;
+    public float passiveIncomeIncrease;
+    public float damageIncrease;
+    public float regenIncrease;
+    public float enemySpeedMultiplierIncrease;
+    public float knockbackIncrease;
+    public float stunDurationIncrease;
+    public bool unlockHealOnKill;
+    public float healOnKillAmount;
     // mini saw
-    bool spawnMiniSaw;
-    float miniSawSpeedIncrease;
-    float miniSawDamageIncrease;
+    public bool spawnMiniSaw;
+    public float miniSawSpeedIncrease;
+    public float miniSawDamageIncrease;
     // shooting triangles
-    bool unlockShootingTriangles;
-    bool rangedAutofire;
-    float triangleDamageIncrease;
-    float triangleSpeedIncrease;
-    float triangleFireRateIncrease;
+    public bool unlockShootingTriangles;
+    public bool rangedAutofire;
+    public float triangleDamageIncrease;
+    public float triangleSpeedIncrease;
+    public float triangleFireRateIncrease;
 
     [Header("Assign Objects")]
     public GameObject player;
@@ -64,7 +65,10 @@ public class Upgrade : MonoBehaviour
 
     [Header("Skill Tree")]
     public bool canBeBought;
-    public bool bought;
+    public bool bought; 
+    public bool onlyNeedsOnePrecursor; // otherwise needs all precursors to be bought
+    public bool precursorsMustBeMaxxed;
+
     public GameObject[] skillTreePrecursors; // other skills that need to be bought before this one
     public GameObject[] skillTreeConnectors; // visual connections to other skills
     public Color connectorDisabledColor;
@@ -79,7 +83,6 @@ public class Upgrade : MonoBehaviour
     [Header("Background Color")]
     public Color backgroundTintColor;
 
-    public bool onlyNeedsOnePrecursor; // otherwise needs all precursors to be bought
 
 
     bool updateSkillTree = false;
@@ -131,7 +134,25 @@ public class Upgrade : MonoBehaviour
                     boughtPrecursors.Add(precursor);
             }
             if (boughtPrecursors.Count >= skillTreePrecursors.Length || (onlyNeedsOnePrecursor && boughtPrecursors.Count > 0))
-                canBeBought = true;
+            {
+                if (precursorsMustBeMaxxed)
+                {
+                    // check if all precursors are maxed
+                    bool allMaxed = true;
+                    foreach (GameObject precursor in skillTreePrecursors)
+                    {
+                        Upgrade precursorUpgrade = precursor.GetComponent<Upgrade>();
+                        if (precursorUpgrade.currentLevel < precursorUpgrade.maxLevel)
+                        {
+                            allMaxed = false;
+                            break;
+                        }
+                    }
+                    canBeBought = allMaxed;
+                }
+                else
+                    canBeBought = true;
+            }
         }
 
         // set connector color
@@ -166,7 +187,7 @@ public class Upgrade : MonoBehaviour
         titleObject.GetComponent<TextMeshProUGUI>().text = title;
         descriptionObject.GetComponent<TextMeshProUGUI>().text = description;
 
-        if (price > 1000)
+        if (price >= 1000)
             priceObject.GetComponent<TextMeshProUGUI>().text = "$" + price.ToString("F0");
         else if (price >= 100)
             priceObject.GetComponent<TextMeshProUGUI>().text = "$" + price.ToString("F1");
@@ -198,10 +219,11 @@ public class Upgrade : MonoBehaviour
         // increase speed
         playerMovement.speed += speedIncrease;
         // increase size
-        if (sizeIncrease > 0)
-            player.transform.localScale = new Vector2(player.transform.localScale.x * sizeIncrease, player.transform.localScale.y * sizeIncrease);
+        playerHealth.sizeMultiplier += sizeIncrease;
         // increase money multiplier
         moneyManager.moneyMultiplier += moneyMultiplierIncrease;
+        // increase passive income
+        moneyManager.passiveIncome += passiveIncomeIncrease;
         // increase max health
         playerHealth.IncreaseMaxHealth(healthIncrease);
         // increase damage

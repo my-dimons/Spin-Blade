@@ -7,10 +7,12 @@ public class MoneyManager : MonoBehaviour
 {
     public float money;
     public float moneyMultiplier = 1f;
+    public float passiveIncome;
     public GameObject shopMenu;
     public GameObject moneyText;
     public GameObject upgradeParent;
     private List<GameObject> upgrades = new List<GameObject>();
+
     private void Start()
     {
         foreach (Transform child in upgradeParent.transform)
@@ -24,6 +26,8 @@ public class MoneyManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        PassiveIncome();
+
         // toggle shop
         KeyCode key = KeyCode.Tab;
         if (Input.GetKeyDown(key) && GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>().currentHealth > 0)
@@ -48,5 +52,10 @@ public class MoneyManager : MonoBehaviour
     public void AddMoney(float value)
     {
         money += value * moneyMultiplier;
+    }
+
+    public void PassiveIncome()
+    {
+        money += passiveIncome * Time.deltaTime * moneyMultiplier;
     }
 }

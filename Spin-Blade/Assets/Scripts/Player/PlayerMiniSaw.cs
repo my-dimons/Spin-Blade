@@ -10,15 +10,15 @@ public class PlayerMiniSaw : MonoBehaviour
 
     PlayerHealth playerHealth;
     int direction = 1; // 1 = forward, -1 = backward
-
+    public float rotationSpeed;
+    
     private void Start()
     {
-        transform.position = waypoints[0].transform.position;
-        currentWaypoint = waypoints[0];
         playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>();
     }
     private void Update()
     {
+        transform.Rotate(0, 0, rotationSpeed * Time.deltaTime);
         UpdateHexagonWaypoints();
     }
     private void UpdateHexagonWaypoints()

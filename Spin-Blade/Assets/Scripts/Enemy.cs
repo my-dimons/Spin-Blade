@@ -27,12 +27,10 @@ public class Enemy : MonoBehaviour
         enemyManager = GameObject.FindGameObjectWithTag("EnemyManager").GetComponent<EnemyManager>();
         playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>();
         rb = GetComponent<Rigidbody2D>();
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-
+        health *= enemyManager.difficulty;
+        speed *= enemyManager.difficulty;
+        damage *= enemyManager.difficulty;
     }
 
     private void FixedUpdate()
@@ -89,6 +87,9 @@ public class Enemy : MonoBehaviour
             }
             else
             {
+                if (proj.destroyOnHit)
+                    Destroy(other.gameObject);
+
                 Knockback(target.transform, proj.knockbackForce, proj.stunDuration);
             }
         }

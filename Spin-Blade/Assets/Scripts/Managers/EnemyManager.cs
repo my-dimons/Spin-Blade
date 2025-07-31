@@ -9,7 +9,7 @@ public class EnemyManager : MonoBehaviour
     public GameObject enemyParent;
     public float radius = 5f; // Adjustable spawning radius
     public float difficulty = 1f;
-    public float difficultyIncrease = 0.01f;
+    public float difficultyIncrease = 0.05f;
 
     public float enemySpeedMultiplier = 1f;
     private void Start()

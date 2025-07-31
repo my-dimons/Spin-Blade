@@ -9,12 +9,14 @@ public class PlayerHealth : MonoBehaviour
     public float regen;
 
     public bool regenOnKill; // regen health when killing an enemy
-    public float killRegenAmount = 1f; // amount of health to regen on kill
+    public float killRegenAmount = 0f; // amount of health to regen on kill
     [Header("Health Display")]
     public Image healthBar;
     public GameObject deathScreen;
 
     [Header("Dealing Damage")]
+    private Vector2 baseSize;
+    public float sizeMultiplier = 1f;
     public float knockbackForce = 10f;
     public float stunDuration = 1f;
     public float damage = 1;
@@ -45,11 +47,14 @@ public class PlayerHealth : MonoBehaviour
     void Start()
     {
         currentHealth = maxHeath;
+        baseSize = transform.localScale;
     }
 
     // Update is called once per frame
     void Update()
     {
+        transform.localScale = baseSize * sizeMultiplier;
+
         triangleFireTimer += Time.deltaTime;
 
         if ((Input.GetKeyDown(KeyCode.Space) || autofireTriangles) && triangleFireTimer >= triangleFireRate && unlockedRangedTriangles)
@@ -68,12 +73,11 @@ public class PlayerHealth : MonoBehaviour
     }
     public void SpawnSaw()
     {
-        GameObject hex = Instantiate(miniSawPrefab, transform.position, Quaternion.identity);
-        miniSaws.Add(hex);
-        foreach (GameObject waypoint in miniSawWaypoints)
-        {
-            hex.GetComponent<PlayerMiniSaw>().waypoints.Add(waypoint);
-        }
+        GameObject randomSaw = miniSawWaypoints[Random.Range(0, miniSawWaypoints.Length)];
+        GameObject saw = Instantiate(miniSawPrefab, randomSaw.transform.position, Quaternion.identity);
+        miniSaws.Add(saw);
+        saw.GetComponent<PlayerMiniSaw>().waypoints = new List<GameObject>(miniSawWaypoints);
+        saw.GetComponent<PlayerMiniSaw>().currentWaypoint = randomSaw;
     }
 
     public void SpawnTriangle()

@@ -106,7 +106,8 @@ MonoBehaviour:
   minTargetDistance: 0.1
   speed: 5
   rotateMultiplier: 90
-  value: 1.5
+  value: 0.8
+  damage: 1
   health: 1
   rotationForce: 5
 --- !u!61 &3718328324187099760
