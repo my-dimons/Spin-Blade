@@ -67,6 +67,7 @@ public class Upgrade : MonoBehaviour
 
     [Header("Outline Colors")]
     public Color baseOutlineColor;
+    public Color canBeBoughtOutlineColor;
     public Color boughtOutlineColor;
     public Color fullyBoughtOutlineColor;
 
@@ -134,12 +135,14 @@ public class Upgrade : MonoBehaviour
         }
 
         // update outline color
-        if (bought)
+        if (canBeBought || bought)
         {
             if (currentLevel >= maxLevel)
                 outlineObject.GetComponent<Image>().color = fullyBoughtOutlineColor;
-            else
+            else if (currentLevel > 0)
                 outlineObject.GetComponent<Image>().color = boughtOutlineColor;
+            else 
+                outlineObject.GetComponent<Image>().color = canBeBoughtOutlineColor;
         }
         else
         {

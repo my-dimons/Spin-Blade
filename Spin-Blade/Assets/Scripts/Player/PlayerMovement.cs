@@ -14,6 +14,9 @@ public class PlayerMovement : MonoBehaviour
     int direction = 1; // 1 = forward, -1 = backward
     public float rotateMultiplier;
     public bool canMove;
+
+    public float spinSpeed;
+    public GameObject sprite;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -24,6 +27,7 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        sprite.transform.Rotate(0, 0, spinSpeed * Time.deltaTime);
         // transition to the next waypoint if the player is close enough
         UpdateWaypoints();
 
