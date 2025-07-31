@@ -107,10 +107,8 @@ MonoBehaviour:
   speed: 5
   rotateMultiplier: 90
   value: 1.5
-  health: 2
-  knockbackForce: 10
+  health: 1
   rotationForce: 5
-  stunDuration: 1
 --- !u!61 &3718328324187099760
 BoxCollider2D:
   m_ObjectHideFlags: 0

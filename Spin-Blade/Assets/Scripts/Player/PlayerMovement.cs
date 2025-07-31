@@ -25,6 +25,32 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         // transition to the next waypoint if the player is close enough
+        UpdateWaypoints();
+
+        // Reversing input
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            ReverseDirection();
+        }
+    }
+
+    private void ReverseDirection()
+    {
+        direction *= -1; // Flip direction immediately
+
+        // Move to the previous waypoint if we just reversed
+        int currentIndex = waypoints.IndexOf(currentWaypoint);
+        int nextIndex = currentIndex + direction;
+
+        // Bounds check again (optional but smooth)
+        if (nextIndex >= waypoints.Count) nextIndex = 0;
+        if (nextIndex < 0) nextIndex = waypoints.Count - 1;
+
+        currentWaypoint = waypoints[nextIndex];
+    }
+
+    private void UpdateWaypoints()
+    {
         if (Vector2.Distance(transform.position, currentWaypoint.transform.position) < minWaypointDistance)
         {
             if (Vector2.Distance(transform.position, currentWaypoint.transform.position) < minWaypointDistance)
@@ -45,30 +71,12 @@ public class PlayerMovement : MonoBehaviour
                 currentWaypoint = waypoints[nextIndex];
             }
         }
-
-        // Reversing input
-        if (Input.GetKeyDown(KeyCode.LeftShift))
-        {
-            direction *= -1; // Flip direction immediately
-
-            // Move to the previous waypoint if we just reversed
-            int currentIndex = waypoints.IndexOf(currentWaypoint);
-            int nextIndex = currentIndex + direction;
-
-            // Bounds check again (optional but smooth)
-            if (nextIndex >= waypoints.Count) nextIndex = 0;
-            if (nextIndex < 0) nextIndex = waypoints.Count - 1;
-
-            currentWaypoint = waypoints[nextIndex];
-        }
     }
-
 
     private void FixedUpdate()
     {
         // move player
         if (canMove)
             transform.position = Vector2.MoveTowards(transform.position, currentWaypoint.transform.position, speed * Time.deltaTime);
-
     }
 }

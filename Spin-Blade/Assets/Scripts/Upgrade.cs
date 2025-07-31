@@ -38,10 +38,24 @@ public class Upgrade : MonoBehaviour
     float sizeIncrease;
     float moneyMultiplierIncrease;
     float damageIncrease;
+    float regenIncrease;
+    float enemySpeedMultiplierIncrease;
+    bool unlockHealOnKill;
+    float healOnKillAmount;
+    // mini saw
+    bool spawnMiniSaw;
+    float miniSawSpeedIncrease;
+    float miniSawDamageIncrease;
+    // shooting triangles
+    bool unlockShootingTriangles;
+    float triangleDamageIncrease;
+    float triangleSpeedIncrease;
+    float triangleFireRateIncrease;
 
     [Header("Assign Objects")]
     public GameObject player;
     public MoneyManager moneyManager;
+    public EnemyManager enemyManager;
 
     [Header("Skill Tree")]
     public bool canBeBought;
@@ -63,6 +77,10 @@ public class Upgrade : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player");
+        moneyManager = GameObject.FindGameObjectWithTag("MoneyManager").GetComponent<MoneyManager>();
+        enemyManager = GameObject.FindGameObjectWithTag("EnemyManager").GetComponent<EnemyManager>();
+
         canBeBought = false;
         if (skillTreePrecursors == null)
         {
@@ -156,7 +174,7 @@ public class Upgrade : MonoBehaviour
     {
         PlayerMovement playerMovement = player.GetComponent<PlayerMovement>();
         PlayerHealth playerHealth = player.GetComponent<PlayerHealth>();
-        
+
         // increase speed
         playerMovement.speed += speedIncrease;
         // increase size
@@ -166,6 +184,32 @@ public class Upgrade : MonoBehaviour
         moneyManager.moneyMultiplier += moneyMultiplierIncrease;
         // increase damage
         playerHealth.damage += damageIncrease;
+        // increase regen
+        playerHealth.regen += regenIncrease;
+        // increase enemy speed multiplier
+        enemyManager.enemySpeedMultiplier += enemySpeedMultiplierIncrease;
+        // regen on kill
+        if (!playerHealth.regenOnKill && unlockHealOnKill)
+            playerHealth.regenOnKill = true;
+        playerHealth.killRegenAmount += healOnKillAmount;
+
+        // buy mini saws
+        if (spawnMiniSaw)
+            playerHealth.SpawnSaw();
+        // mini saw stats
+        playerHealth.miniSawSpeed += miniSawSpeedIncrease;
+        foreach (GameObject miniSaw in playerHealth.miniSaws)
+        {
+            miniSaw.GetComponent<Projectile>().damage += miniSawDamageIncrease;
+        }
+
+        // unlock shooting triangles
+        if (unlockShootingTriangles)
+            playerHealth.unlockedRangedTriangles = true;
+        // shooting triangles stats
+        playerHealth.triangleDamage += triangleDamageIncrease;
+        playerHealth.triangleSpeed += triangleSpeedIncrease;
+        playerHealth.triangleFireRate += triangleFireRateIncrease;
     }
 
     public void TogglePopup(bool enable)

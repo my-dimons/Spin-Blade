@@ -9,6 +9,8 @@ public class EnemyManager : MonoBehaviour
     public GameObject enemyParent;
     public float radius = 5f; // Adjustable spawning radius
     public float difficulty = 1f;
+
+    public float enemySpeedMultiplier = 1f;
     private void Start()
     {
         StartCoroutine(SpawnEnemyLoop());

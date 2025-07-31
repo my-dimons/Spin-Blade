@@ -11,15 +11,19 @@ public class Enemy : MonoBehaviour
 
     [Header("Other Stats")]
     public float value; // how much this enemy is worth when killed
-    public float health = 1f; // how much hits this enemy can take  
+    public float damage = 1f;
+    public float health = 1f;
 
     [Header("Knockback")]
     private Rigidbody2D rb;
     private bool isStunned = false;
     public float rotationForce = 5f;
+
+    EnemyManager enemyManager;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        enemyManager = GameObject.FindGameObjectWithTag("EnemyManager").GetComponent<EnemyManager>();
         rb = GetComponent<Rigidbody2D>();
     }
 
@@ -46,54 +50,77 @@ public class Enemy : MonoBehaviour
     void EnemyMovement()
     {
         RotateTowardsTarget(target);
-        transform.position = Vector2.MoveTowards(transform.position, target.transform.position, speed * Time.deltaTime);
+        transform.position = Vector2.MoveTowards(transform.position, target.transform.position, speed * Time.deltaTime * enemyManager.enemySpeedMultiplier);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Circle"))
         {
-            GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>().TakeDamage(1);
+            GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>().TakeDamage(damage);
             Destroy(gameObject);
         }
         else if (other.CompareTag("Player"))
         {
-            health -= other.GetComponent<PlayerHealth>().damage;
-            if (health <= 0)
+            PlayerHealth playerHealth = other.GetComponent<PlayerHealth>();
+            health -= playerHealth.damage;
+            if (health <= 0 && !isStunned)
             {
                 Debug.Log("Destroyed by player");
                 GameObject.FindGameObjectWithTag("MoneyManager").GetComponent<MoneyManager>().AddMoney(value);
+
+                if (playerHealth.regenOnKill)
+                    playerHealth.Heal(playerHealth.killRegenAmount);
+
                 Destroy(gameObject);
             }
             else
             {
-                Knockback(target.transform);
+                Knockback(target.transform, playerHealth.knockbackForce, playerHealth.stunDuration);
+            }
+        }
+        else if (other.CompareTag("PlayerProjectile"))
+        {
+            Projectile proj = other.GetComponent<Projectile>();
+
+            health -= proj.damage;
+
+            if (health <= 0 && !isStunned)
+            {
+                Debug.Log("Destroyed by player");
+                GameObject.FindGameObjectWithTag("MoneyManager").GetComponent<MoneyManager>().AddMoney(value);
+
+                Destroy(gameObject);
+            }
+            else
+            {
+                Knockback(target.transform, proj.knockbackForce, proj.stunDuration);
             }
         }
     }
 
-    public void Knockback(Transform attacker)
+    public void Knockback(Transform attacker, float force, float stunDuration)
     {
         if (isStunned) return;
 
-        StartCoroutine(StunCoroutine());
+        StartCoroutine(StunCoroutine(stunDuration));
 
         Vector2 direction = (transform.position - attacker.position).normalized;
 
         rb.linearVelocity = Vector2.zero;
         
-        rb.AddForce(direction * GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>().knockbackForce, ForceMode2D.Impulse);
+        rb.AddForce(direction * force, ForceMode2D.Impulse);
 
         float spinDirection = Random.value < 0.5f ? -1 : 1;
         rb.AddTorque(rotationForce * spinDirection, ForceMode2D.Impulse);
     }
-    private IEnumerator StunCoroutine()
+    private IEnumerator StunCoroutine(float stunDuration)
     {
         isStunned = true;
         rb.bodyType = RigidbodyType2D.Dynamic;
         rb.gravityScale = 0;
 
-        yield return new WaitForSeconds(GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>().stunDuration);
+        yield return new WaitForSeconds(stunDuration);
 
         isStunned = false;
         rb.bodyType = RigidbodyType2D.Kinematic;

@@ -8,6 +8,8 @@ TagManager:
   - EnemyParent
   - Circle
   - MoneyManager
+  - PlayerProjectile
+  - EnemyManager
   layers:
   - Default
   - TransparentFX
