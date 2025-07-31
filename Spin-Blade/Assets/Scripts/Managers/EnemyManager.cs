@@ -34,9 +34,8 @@ public class EnemyManager : MonoBehaviour
             transform.position.y + Mathf.Sin(angle) * radius
         );
 
-        int enemyNum = Random.Range(0, enemies.Length);
 
-        GameObject enemy = Instantiate(enemies[enemyNum], spawnPos, Quaternion.identity);
+        GameObject enemy = Instantiate(GetRandomEnemy(), spawnPos, Quaternion.identity);
 
         enemy.transform.parent = enemyParent.transform;
         enemy.GetComponent<Enemy>().target = enemyParent;
@@ -47,7 +46,8 @@ public class EnemyManager : MonoBehaviour
         List<GameObject> spawnableEnemies = new List<GameObject>();
         foreach (GameObject enemy in enemies)
         {
-            if (enemy != null)
+            Enemy enemyScript = enemy.GetComponent<Enemy>();
+            if (enemy != null && difficulty > enemyScript.minDiffiucltySpawning)
             {
                 spawnableEnemies.Add(enemy);
             }

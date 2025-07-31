@@ -13,11 +13,13 @@ public class Enemy : MonoBehaviour
     public float value; // how much this enemy is worth when killed
     public float damage = 1f;
     public float health = 1f;
+    public float minDiffiucltySpawning = 0f;
+    public float rotateSpeed = 0;
 
     [Header("Knockback")]
+    public float rotationForce = 5f;
     private Rigidbody2D rb;
     private bool isStunned = false;
-    public float rotationForce = 5f;
 
     EnemyManager enemyManager;
     PlayerHealth playerHealth;
@@ -35,8 +37,12 @@ public class Enemy : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!isStunned)
+        if (!isStunned && target != null)
             EnemyMovement();
+    }
+    private void Update()
+    {
+        transform.Rotate(0, 0, rotateSpeed * Time.deltaTime);
     }
 
     void RotateTowardsTarget(GameObject target)
@@ -49,7 +55,9 @@ public class Enemy : MonoBehaviour
 
     void EnemyMovement()
     {
-        RotateTowardsTarget(target);
+        if (rotateSpeed == 0)
+            RotateTowardsTarget(target);
+
         transform.position = Vector2.MoveTowards(transform.position, target.transform.position, speed * Time.deltaTime * enemyManager.enemySpeedMultiplier);
     }
 

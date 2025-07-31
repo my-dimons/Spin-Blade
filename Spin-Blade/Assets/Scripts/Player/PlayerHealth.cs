@@ -63,8 +63,9 @@ public class PlayerHealth : MonoBehaviour
             SpawnTriangle();
         }
 
-        currentHealth += regen * Time.deltaTime;
-        Mathf.Clamp(currentHealth, 0, maxHeath);
+        if (currentHealth < maxHeath)
+            currentHealth += regen * Time.deltaTime;
+
         healthBar.fillAmount = (float)currentHealth / maxHeath;
         if (currentHealth <= 0)
         {

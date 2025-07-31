@@ -29,6 +29,6 @@ public class TriangleProjectile : MonoBehaviour
         {
             // do homing things
         }
-        transform.position += (Vector3)moveDirection * projectile.speed * Time.deltaTime;
+        transform.position += projectile.speed * Time.deltaTime * (Vector3)moveDirection;
     }
 }

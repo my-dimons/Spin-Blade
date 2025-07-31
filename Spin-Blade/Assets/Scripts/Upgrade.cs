@@ -106,6 +106,8 @@ public class Upgrade : MonoBehaviour
             yield return new WaitForSecondsRealtime(0.1f);
             updateSkillTree = true;
         }
+
+        UpdateStatText();
     }
 
     // Update is called once per frame
@@ -113,12 +115,12 @@ public class Upgrade : MonoBehaviour
     {
         if (updateSkillTree)
             UpdateSkillTree();
-        UpdateStatText();
 
+        Button button = buyButton.GetComponent<Button>();
         if (moneyManager.money > price && canBeBought && currentLevel < maxLevel)
-            buyButton.GetComponent<Button>().interactable = true;
+            button.interactable = true;
         else
-            buyButton.GetComponent<Button>().interactable = false;
+            button.GetComponent<Button>().interactable = false;
     }
 
     private void UpdateSkillTree()
@@ -165,19 +167,20 @@ public class Upgrade : MonoBehaviour
                 connectorImage.color = connectorDisabledColor;  
         }
 
+        Image outlineImage = outlineObject.GetComponent<Image>();
         // update outline color
         if (canBeBought || bought)
         {
             if (currentLevel >= maxLevel)
-                outlineObject.GetComponent<Image>().color = fullyBoughtOutlineColor;
+                outlineImage.color = fullyBoughtOutlineColor;
             else if (currentLevel > 0)
-                outlineObject.GetComponent<Image>().color = boughtOutlineColor;
+                outlineImage.color = boughtOutlineColor;
             else 
-                outlineObject.GetComponent<Image>().color = canBeBoughtOutlineColor;
+                outlineImage.color = canBeBoughtOutlineColor;
         }
         else
         {
-            outlineObject.GetComponent<Image>().color = baseOutlineColor;
+            outlineImage.color = baseOutlineColor;
         }
     }
 
@@ -209,6 +212,7 @@ public class Upgrade : MonoBehaviour
         // increase price & level
         currentLevel++;
         price *= priceIncrease;
+        UpdateStatText();
     }
 
     void ApplyEffects()
