@@ -20,6 +20,7 @@ public class Enemy : MonoBehaviour
     private bool isStunned = false;
 
     [Header("Extra")]
+    public Color damageFlashColor = Color.white;
     public GameObject deathParticles;
     public GameObject hitParticles;
     public Color hitColor;
@@ -120,7 +121,7 @@ public class Enemy : MonoBehaviour
             }
             else
             {
-                Knockback(other.transform, playerHealth.knockbackForce, playerHealth.stunDuration);
+                TakeDamage(other.transform, playerHealth.knockbackForce, playerHealth.stunDuration);
             }
         }
         else if (other.CompareTag("PlayerProjectile") && damageFromProjectiles)
@@ -140,25 +141,25 @@ public class Enemy : MonoBehaviour
                 if (proj.destroyOnHit)
                     Destroy(other.gameObject);
 
-                Knockback(other.transform, proj.knockbackForce, proj.stunDuration);
+                TakeDamage(other.transform, proj.knockbackForce, proj.stunDuration);
             }
         }
     }
 
-    public void Knockback(Transform attacker, float force, float stunDuration)
+    public void TakeDamage(Transform attacker, float force, float stunDuration)
     {
         Utils.PlayClip(hitSound);
         Vector3 particlePos = (attacker.position + transform.position) / 2f;
         Utils.SpawnBurstParticle(hitParticles, particlePos, hitColor);
+        GetComponent<DamageFlash>().Flash(damageFlashColor);
 
         if (isStunned) return;
 
         StartCoroutine(StunCoroutine(stunDuration));
 
+        // knockback
         Vector2 direction = (transform.position - target.transform.position).normalized;
-
         rb.linearVelocity = Vector2.zero;
-        
         rb.AddForce(direction * force, ForceMode2D.Impulse);
     }
     private IEnumerator StunCoroutine(float stunDuration)

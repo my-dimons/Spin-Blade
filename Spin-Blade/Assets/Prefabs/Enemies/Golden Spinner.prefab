@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6950826707024288152}
   - component: {fileID: 4692457329485443140}
   - component: {fileID: 426892457970290321}
+  - component: {fileID: 6676482744992695058}
   m_Layer: 0
   m_Name: Golden Spinner
   m_TagString: Untagged
@@ -58,7 +59,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -110,7 +111,7 @@ MonoBehaviour:
   damage: 0
   health: 0.1
   rotateSpeed: 180
-  rotationForce: 5
+  damageFlashColor: {r: 1, g: 1, b: 1, a: 1}
   deathParticles: {fileID: 8027665320973545451, guid: 4df9d8a8723d05c4686abda48d96cdd3, type: 3}
   hitParticles: {fileID: 8027665320973545451, guid: 355b482682bd0cf40a30ddcfb787b1c7, type: 3}
   hitColor: {r: 1, g: 0.9607843, b: 0.3882353, a: 1}
@@ -202,3 +203,17 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &6676482744992695058
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7839814986260129055}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a87d583b455941a42bc491aa2a263427, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flashMaterial: {fileID: 2100000, guid: 2189cc038fdfa7c439d938b6e7eccaab, type: 2}
+  duration: 0.1

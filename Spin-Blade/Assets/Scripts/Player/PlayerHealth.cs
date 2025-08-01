@@ -13,6 +13,8 @@ public class PlayerHealth : MonoBehaviour
     [Header("Health Display")]
     public Image healthBar;
     public GameObject deathScreen;
+    public DamageFlash circleDamageFlash;
+    public Color circleDamageFlashColor;
 
     [Header("Dealing Damage")]
     private Vector2 baseSize;
@@ -109,6 +111,10 @@ public class PlayerHealth : MonoBehaviour
     {
         Utils.PlayClip(hitSound, 1f);
         currentHealth -= damage;
+
+        if (currentHealth > 0)
+            circleDamageFlash.Flash(circleDamageFlashColor);
+
         Mathf.Clamp(currentHealth, 0, maxHeath);
     }
     public void Heal(float heal)
