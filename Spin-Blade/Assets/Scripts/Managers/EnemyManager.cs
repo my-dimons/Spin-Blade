@@ -10,6 +10,7 @@ public class EnemyManager : MonoBehaviour
     public float radius = 5f; // Adjustable spawning radius
     public float difficulty = 1f;
     public float difficultyIncrease = 0.05f;
+    public float spawnRate = 1f;
 
     public float enemySpeedMultiplier = 1f;
     private void Start()
@@ -19,7 +20,7 @@ public class EnemyManager : MonoBehaviour
 
     IEnumerator SpawnEnemyLoop()
     {
-        yield return new WaitForSeconds(2f / difficulty);
+        yield return new WaitForSeconds(2f / spawnRate);
         SpawnEnemy();
         StartCoroutine(SpawnEnemyLoop());
     }

@@ -33,11 +33,20 @@ public class Enemy : MonoBehaviour
     public Color goodMoneyColor;
     public Color badMoneyColor;
 
+    // when hitting circle
     public float moneyGain;
+    // when killed by player (mainly for dealing damage when player hits enemy)
+    public float healthGain;
+
     public float spawnRate = 1; // 1 is ALWAYS SPAWN (when selected), value is 0 - 1
 
     EnemyManager enemyManager;
     PlayerHealth playerHealth;
+
+    [Header("Special")]
+    public bool randomSize;
+    public float minSize = 0.5f;
+    public float maxSize = 1.5f;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -48,6 +57,12 @@ public class Enemy : MonoBehaviour
         health *= enemyManager.difficulty;
         speed *= enemyManager.difficulty;
         damage *= enemyManager.difficulty;
+
+        if (randomSize)
+        {
+            float randomScale = Random.Range(minSize, maxSize);
+            transform.localScale = new Vector3(randomScale, randomScale, 1f);
+        }
     }
 
     private void FixedUpdate()
@@ -150,6 +165,8 @@ public class Enemy : MonoBehaviour
 
     public void Death()
     {
+        playerHealth.Heal(healthGain);
+
         Utils.PlayClip(deathSound);
         Utils.SpawnBurstParticle(deathParticles, transform.position, hitColor);
         Color color;

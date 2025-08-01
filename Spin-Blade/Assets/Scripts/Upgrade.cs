@@ -61,6 +61,7 @@ public class Upgrade : MonoBehaviour
     // enemies
     public float enemySpeedMultiplierIncrease;
     public float enemyDifficultyIncrease;
+    public float enemySpawnRateIncrease;
     public GameObject addEnemy;
 
     [Header("Assign Objects")]
@@ -277,6 +278,8 @@ public class Upgrade : MonoBehaviour
             EnemyManager enemyManager = GameObject.FindGameObjectWithTag("EnemyManager").GetComponent<EnemyManager>();
             enemyManager.enemies.Add(addEnemy);
         }
+
+        enemyManager.spawnRate += enemySpawnRateIncrease;
     }
 
     public void TogglePopup(bool enable)

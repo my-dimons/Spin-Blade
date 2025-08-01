@@ -1099,7 +1099,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buySound: {fileID: 8300000, guid: c1b74c0eaa630624a8d112f0f28312f0, type: 3}
   audioSource: {fileID: 6776718387224579930}
-  image: {fileID: -7860807266885339288, guid: f988169b3f0b3924582264f1886fa926, type: 3}
+  image: {fileID: 0}
   title: speed
   description: Increase the players movement speed
   price: 5
@@ -1136,6 +1136,7 @@ MonoBehaviour:
   triangleFireRateIncrease: 0
   enemySpeedMultiplierIncrease: 0
   enemyDifficultyIncrease: 0
+  enemySpawnRateIncrease: 0
   addEnemy: {fileID: 0}
   player: {fileID: 0}
   moneyManager: {fileID: 0}

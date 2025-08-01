@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 7984c920e604bd14c91eac67300c64bd
+guid: 3c7ae273dbe6fd249a3ef1308d2965d4
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6343230977965970861
-    second: Enemy-5_0
+      213: -1279583473921883287
+    second: Enemy Spawn-4_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -37,7 +37,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -75,7 +75,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -113,12 +113,12 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Enemy-5_0
+      name: Enemy Spawn-4_0
       rect:
         serializedVersion: 2
-        x: 81
+        x: 62
         y: 61
-        width: 351
+        width: 389
         height: 389
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: da55ae177fea70850800000000000000
-      internalID: 6343230977965970861
+      spriteID: 9630d682c910e3ee0800000000000000
+      internalID: -1279583473921883287
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Enemy-5_0: 6343230977965970861
+      Enemy Spawn-4_0: -1279583473921883287
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

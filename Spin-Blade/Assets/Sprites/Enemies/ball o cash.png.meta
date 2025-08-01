@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 7984c920e604bd14c91eac67300c64bd
+guid: 91a05913ca4f00f45977129d0201a897
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6343230977965970861
-    second: Enemy-5_0
+      213: 3888267430788145660
+    second: ball o cash_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Enemy-5_0
+      name: ball o cash_0
       rect:
         serializedVersion: 2
-        x: 81
-        y: 61
-        width: 351
-        height: 389
+        x: 34
+        y: 36
+        width: 444
+        height: 440
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: da55ae177fea70850800000000000000
-      internalID: 6343230977965970861
+      spriteID: cf129db90a6e5f530800000000000000
+      internalID: 3888267430788145660
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Enemy-5_0: 6343230977965970861
+      ball o cash_0: 3888267430788145660
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
