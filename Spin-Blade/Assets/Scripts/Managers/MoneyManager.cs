@@ -9,6 +9,7 @@ public class MoneyManager : MonoBehaviour
 {
     public float money;
     public float moneyMultiplier = 1f;
+    [HideInInspector()] public float eventMoneyMultiplier = 1;
     public float passiveIncome;
     public GameObject shopMenu;
     public GameObject skillTreeObject;
@@ -93,7 +94,7 @@ public class MoneyManager : MonoBehaviour
 
     public void AddMoney(float value)
     {
-        money += value * moneyMultiplier;
+        money += value * moneyMultiplier * eventMoneyMultiplier;
     }
 
     public void PassiveIncome()

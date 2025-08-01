@@ -1,6 +1,7 @@
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class EnemyManager : MonoBehaviour
@@ -12,19 +13,38 @@ public class EnemyManager : MonoBehaviour
     public float difficultyIncrease = 0.05f;
     public float spawnRate = 1f;
 
+    // used by events
+    float eventSpawnRate = 1f;
+    [HideInInspector] public float eventDifficulty = 1f;
+
     public float enemySpeedMultiplier = 1f;
+
+    [Header("Events")]
+    public TextMeshPro eventText;
+    public AudioClip eventPing;
+    public bool eventHappening;
+    public float eventDuration;
+    public float eventCooldown;
+
+    public float eventEnemySwarmAmount;
+    public float eventMoneyMultiplierAmount;
+    public float eventDifficultyAmount;
+    public GameObject eventBossPrefab;
+    public float bossEventSpawnRate;
     private void Start()
     {
         StartCoroutine(SpawnEnemyLoop());
+        StartCoroutine(EventLoop());
     }
 
     IEnumerator SpawnEnemyLoop()
     {
-        yield return new WaitForSeconds(2f / spawnRate);
+        yield return new WaitForSeconds(2f / spawnRate / eventSpawnRate);
         SpawnEnemy();
         StartCoroutine(SpawnEnemyLoop());
     }
-    public void SpawnEnemy()
+
+    public void SpawnEnemy(GameObject enemyPrefab = null)
     {
         // Get a random angle (in radians)
         float angle = Random.Range(0f, Mathf.PI * 2f);
@@ -35,10 +55,14 @@ public class EnemyManager : MonoBehaviour
             transform.position.y + Mathf.Sin(angle) * radius
         );
 
-        GameObject prefab = GetRandomEnemy();
-        if (prefab != null)
+
+        if (enemyPrefab == null)
         {
-            GameObject enemy = Instantiate(prefab, spawnPos, Quaternion.identity);
+           enemyPrefab = GetRandomEnemy();
+        }
+        if (enemyPrefab != null)
+        {
+            GameObject enemy = Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
 
             enemy.transform.parent = enemyParent.transform;
             enemy.GetComponent<Enemy>().target = enemyParent;
@@ -67,6 +91,118 @@ public class EnemyManager : MonoBehaviour
         }
         return spawnableEnemies[Random.Range(0, spawnableEnemies.Count)];
     }
+
+    public void StartRandomEvent()
+    {
+        int randomNum = Random.Range(0, 4);
+        if (randomNum != 4)
+            Utils.PlayClip(eventPing, 0.8f);
+
+        switch (randomNum)
+        {
+            case 0:
+                StartCoroutine(EnemySwarm(eventEnemySwarmAmount)); 
+                break;
+            case 1:
+                StartCoroutine(MiniBossEvent());
+                break;
+            case 2:
+                StartCoroutine(MoneyMultiplierEvent(eventMoneyMultiplierAmount));
+                break;
+            case 3:
+                StartCoroutine(DifficultyIncreaseEvent());
+                break;
+            case 4: 
+                StartCoroutine(EventLoop());
+                break;
+
+        }
+    }
+
+    IEnumerator EventLoop()
+    {
+        yield return new WaitForSeconds(eventCooldown);
+        if (!eventHappening && enemies.Count > 0)
+        {
+            StartRandomEvent();
+        } else
+        {
+            StartCoroutine(EventLoop());
+        }
+    }
+
+    IEnumerator EnemySwarm(float enemyAmount)
+    {
+        eventHappening = true;
+        eventText.gameObject.SetActive(true);
+        eventText.text = "Enemy Swarm Incoming";
+
+        // Spawn a large number of enemies in a short time
+        for (int i = 0; i < enemyAmount; i++)
+        {
+            SpawnEnemy();
+            yield return new WaitForSeconds(1f); // Short delay between spawns
+        }
+
+        StartCoroutine(EventLoop());
+        eventHappening = false;
+
+        eventText.text = "";
+        eventText.gameObject.SetActive(false);
+    }
+
+    IEnumerator MoneyMultiplierEvent(float multiplier)
+    {
+        eventText.text = "x" + multiplier + " Money Multiplier";
+        eventText.gameObject.SetActive(true);
+        eventHappening = true;
+
+        MoneyManager moneyManager = GameObject.FindGameObjectWithTag("MoneyManager").GetComponent<MoneyManager>();
+        moneyManager.eventMoneyMultiplier *= multiplier;
+
+        yield return new WaitForSeconds(eventDuration);
+
+        moneyManager.eventMoneyMultiplier = 1f;
+        eventHappening = false;
+        eventText.text = "";
+        eventText.gameObject.SetActive(false);
+    }
+
+    IEnumerator MiniBossEvent()
+    {
+        eventText.text = "Boss Incoming";
+        eventText.gameObject.SetActive(true);
+        yield return new WaitForSeconds(5); // Short delay before the event starts
+        eventText.text = "";
+        eventText.gameObject.SetActive(false);
+
+        SpawnEnemy(eventBossPrefab);
+        eventSpawnRate *= bossEventSpawnRate;
+
+        yield return new WaitForSeconds(eventDuration * 3f);
+        eventHappening = true;
+
+        eventSpawnRate = 1f;
+        eventHappening = false;
+    }
+
+    IEnumerator DifficultyIncreaseEvent()
+    {
+        eventText.text = "Difficulty Increase";
+        eventText.gameObject.SetActive(true);
+
+        eventHappening = true;
+        // Increase difficulty
+        eventDifficulty *= eventDifficultyAmount;
+        yield return new WaitForSeconds(eventDuration);
+        eventDifficulty = 1f;
+        eventHappening = false;
+
+        eventText.text = "";
+        eventText.gameObject.SetActive(false);
+    }
+
+
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red; // Circle color

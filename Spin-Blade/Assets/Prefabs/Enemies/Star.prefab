@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4144793320274425136}
   - component: {fileID: 2899428158895113165}
   m_Layer: 0
-  m_Name: Spike Ball
+  m_Name: Star
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -79,7 +79,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: 68a483cc235a259409c8ffd4a508ec43, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2f94d0c0a8882e34f979033ff3496f5f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -106,8 +106,8 @@ MonoBehaviour:
   minTargetDistance: 0.1
   speed: 3.5
   rotateMultiplier: 90
-  value: 6
-  damage: 25
+  value: 6.2
+  damage: 16
   health: 6
   rotateSpeed: 200
   rotationForce: 5

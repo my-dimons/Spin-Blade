@@ -16,7 +16,6 @@ public class Enemy : MonoBehaviour
     public float rotateSpeed = 0;
 
     [Header("Knockback")]
-    public float rotationForce = 5f;
     private Rigidbody2D rb;
     private bool isStunned = false;
 
@@ -40,10 +39,14 @@ public class Enemy : MonoBehaviour
 
     public float spawnRate = 1; // 1 is ALWAYS SPAWN (when selected), value is 0 - 1
 
+    public bool isBoss;
+
     EnemyManager enemyManager;
     PlayerHealth playerHealth;
 
     [Header("Special")]
+    public bool damageFromProjectiles = true;
+    public bool triggerEventOnDeath;
     public bool randomSize;
     public float minSize = 0.5f;
     public float maxSize = 1.5f;
@@ -54,9 +57,18 @@ public class Enemy : MonoBehaviour
         playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>();
         rb = GetComponent<Rigidbody2D>();
 
-        health *= enemyManager.difficulty;
-        speed *= enemyManager.difficulty;
-        damage *= enemyManager.difficulty;
+        speed *= enemyManager.difficulty * enemyManager.eventDifficulty;
+
+        if (!isBoss)
+        {
+            damage *= enemyManager.difficulty * enemyManager.eventDifficulty;
+            health *= enemyManager.difficulty * enemyManager.eventDifficulty;
+        }
+        else
+        {
+            health *= enemyManager.difficulty * enemyManager.eventDifficulty * Mathf.Clamp(playerHealth.damage, 1, Mathf.Infinity);
+            damage = Mathf.Clamp(playerHealth.currentHealth / 1.4f, 1, Mathf.Infinity);
+        }
 
         if (randomSize)
         {
@@ -108,10 +120,10 @@ public class Enemy : MonoBehaviour
             }
             else
             {
-                Knockback(target.transform, playerHealth.knockbackForce, playerHealth.stunDuration);
+                Knockback(other.transform, playerHealth.knockbackForce, playerHealth.stunDuration);
             }
         }
-        else if (other.CompareTag("PlayerProjectile"))
+        else if (other.CompareTag("PlayerProjectile") && damageFromProjectiles)
         {
             Projectile proj = other.GetComponent<Projectile>();
 
@@ -128,7 +140,7 @@ public class Enemy : MonoBehaviour
                 if (proj.destroyOnHit)
                     Destroy(other.gameObject);
 
-                Knockback(target.transform, proj.knockbackForce, proj.stunDuration);
+                Knockback(other.transform, proj.knockbackForce, proj.stunDuration);
             }
         }
     }
@@ -136,20 +148,18 @@ public class Enemy : MonoBehaviour
     public void Knockback(Transform attacker, float force, float stunDuration)
     {
         Utils.PlayClip(hitSound);
-        Utils.SpawnBurstParticle(hitParticles, transform.position, hitColor);
+        Vector3 particlePos = (attacker.position + transform.position) / 2f;
+        Utils.SpawnBurstParticle(hitParticles, particlePos, hitColor);
 
         if (isStunned) return;
 
         StartCoroutine(StunCoroutine(stunDuration));
 
-        Vector2 direction = (transform.position - attacker.position).normalized;
+        Vector2 direction = (transform.position - target.transform.position).normalized;
 
         rb.linearVelocity = Vector2.zero;
         
         rb.AddForce(direction * force, ForceMode2D.Impulse);
-
-        float spinDirection = Random.value < 0.5f ? -1 : 1;
-        rb.AddTorque(rotationForce * spinDirection, ForceMode2D.Impulse);
     }
     private IEnumerator StunCoroutine(float stunDuration)
     {
@@ -183,11 +193,16 @@ public class Enemy : MonoBehaviour
             extraText = "-";
         }
 
-        Utils.SpawnFloatingText(deathMoneyText, transform.position, extraText + "$" + value.ToString("F1"), 6f, 0.3f, 40f, 0.45f, 0.15f, color);
+        MoneyManager moneyManager = GameObject.FindGameObjectWithTag("MoneyManager").GetComponent<MoneyManager>();
+        float value1 = value * moneyManager.moneyMultiplier * moneyManager.eventMoneyMultiplier;
+        Utils.SpawnFloatingText(deathMoneyText, transform.position, extraText + "$" + value1.ToString("F1"), 6f, 0.3f, 40f, 0.45f, 0.15f, color);
 
-        GameObject.FindGameObjectWithTag("MoneyManager").GetComponent<MoneyManager>().AddMoney(value);
+        moneyManager.AddMoney(value);
         if (playerHealth.regenOnKill)
             playerHealth.Heal(playerHealth.killRegenAmount);
+        if (triggerEventOnDeath && !enemyManager.eventHappening)
+            enemyManager.StartRandomEvent();
+
 
         enemyManager.IncreaseDifficulty();
         GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>().kills++;

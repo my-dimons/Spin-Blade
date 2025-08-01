@@ -33,10 +33,13 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        sfxSlider.onValueChanged.AddListener(OnSfxSliderValueChanged);
-        musicSlider.onValueChanged.AddListener(OnMusicSliderValueChanged);
+        if (sfxSlider != null)
+            sfxSlider.onValueChanged.AddListener(OnSfxSliderValueChanged);
+        if (musicSlider != null)
+            musicSlider.onValueChanged.AddListener(OnMusicSliderValueChanged);
 
-        tutorialText.text = tutorialStrings[tutorialStage];
+        if (tutorialText != null)
+            tutorialText.text = tutorialStrings[tutorialStage];
         Time.timeScale = 1; // Ensure the game is running at normal speed
 
         if (musicTracks.Length > 0)
@@ -47,7 +50,7 @@ public class GameManager : MonoBehaviour
     }
     private void Update()
     {
-        if (!tutorialFinished)
+        if (!tutorialFinished && tutorialText != null)
             Tutorial();
 
         if (musicSource != null)

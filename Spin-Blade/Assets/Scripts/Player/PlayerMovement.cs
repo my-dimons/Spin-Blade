@@ -17,6 +17,7 @@ public class PlayerMovement : MonoBehaviour
 
     public float spinSpeed;
     public GameObject sprite;
+    public ParticleSystem movementParticles;
 
     [Header("Audio")]
     public AudioClip reverseDirectionSound;
@@ -47,6 +48,8 @@ public class PlayerMovement : MonoBehaviour
         Utils.PlayClip(reverseDirectionSound, 0.1f);
         direction *= -1;
 
+
+
         // Move to the previous waypoint if we just reversed
         int currentIndex = waypoints.IndexOf(currentWaypoint);
         int nextIndex = currentIndex + direction;
@@ -56,6 +59,16 @@ public class PlayerMovement : MonoBehaviour
         if (nextIndex < 0) nextIndex = waypoints.Count - 1;
 
         currentWaypoint = waypoints[nextIndex];
+
+        // flip movement particles z scale (and rotation)
+        var shape = movementParticles.shape;
+        Vector3 currentScale = shape.scale;
+        currentScale.z = -currentScale.z;
+        shape.scale = currentScale;
+
+        RotateTowardsObject partObj = movementParticles.gameObject.GetComponent<RotateTowardsObject>();
+        partObj.useAltRotationOffset = !partObj.useAltRotationOffset;
+
 
         GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>().lShiftPresses++;
     }

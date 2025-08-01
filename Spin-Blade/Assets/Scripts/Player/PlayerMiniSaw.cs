@@ -10,6 +10,7 @@ public class PlayerMiniSaw : MonoBehaviour
 
     PlayerHealth playerHealth;
     int direction = 1; // 1 = forward, -1 = backward
+    public GameObject sprite;
     public float rotationSpeed;
     
     private void Start()
@@ -18,7 +19,7 @@ public class PlayerMiniSaw : MonoBehaviour
     }
     private void Update()
     {
-        transform.Rotate(0, 0, rotationSpeed * Time.deltaTime);
+        sprite.transform.Rotate(0, 0, rotationSpeed * Time.deltaTime);
         UpdateHexagonWaypoints();
     }
     private void UpdateHexagonWaypoints()
