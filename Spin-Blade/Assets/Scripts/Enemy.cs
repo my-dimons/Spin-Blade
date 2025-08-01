@@ -60,8 +60,9 @@ public class Enemy : MonoBehaviour
 
         if (randomSize)
         {
-            float randomScale = Random.Range(minSize, maxSize);
-            transform.localScale = new Vector3(randomScale, randomScale, 1f);
+            float randomScaleX = Random.Range(minSize, maxSize);
+            float randomScaleY = Random.Range(minSize, maxSize);
+            transform.localScale = new Vector3(randomScaleX, randomScaleY, 1f);
         }
     }
 
