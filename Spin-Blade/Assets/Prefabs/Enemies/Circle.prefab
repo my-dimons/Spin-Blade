@@ -104,9 +104,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   minTargetDistance: 0.1
-  speed: 2.5
+  speed: 2
   rotateMultiplier: 90
-  value: 1.8
+  value: 2.5
   damage: 1.45
   health: 1.4
   rotateSpeed: 0

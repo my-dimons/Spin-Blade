@@ -174,11 +174,16 @@ public class Enemy : MonoBehaviour
 
         // text
         Color color;
+        string extraText = "";
         if (value > 0)
             color = goodMoneyColor;
         else
+        {
             color = badMoneyColor;
-        Utils.SpawnFloatingText(deathMoneyText, transform.position, "$" + value.ToString("F1"), 6f, 0.3f, 40f, 0.45f, 0.15f, color);
+            extraText = "-";
+        }
+
+        Utils.SpawnFloatingText(deathMoneyText, transform.position, extraText + "$" + value.ToString("F1"), 6f, 0.3f, 40f, 0.45f, 0.15f, color);
 
         GameObject.FindGameObjectWithTag("MoneyManager").GetComponent<MoneyManager>().AddMoney(value);
         if (playerHealth.regenOnKill)
