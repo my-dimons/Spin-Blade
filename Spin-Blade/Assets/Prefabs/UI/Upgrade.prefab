@@ -139,6 +139,44 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!1 &77398100168431502
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2550756283633216666}
+  m_Layer: 5
+  m_Name: Tile
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2550756283633216666
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 77398100168431502}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
+  m_Children:
+  - {fileID: 5388839830578180074}
+  - {fileID: 633055556131102049}
+  - {fileID: 1907271771778763388}
+  m_Father: {fileID: 6568911419865416035}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -0.000038146973, y: 0.000030517578}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.52683634, y: -2.6771238}
 --- !u!1 &326570579571107194
 GameObject:
   m_ObjectHideFlags: 0
@@ -385,7 +423,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -65}
-  m_SizeDelta: {x: 106.9778, y: 34.3095}
+  m_SizeDelta: {x: 377.5711, y: 34.3095}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5996604748951314377
 CanvasRenderer:
@@ -734,7 +772,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 6568911419865416035}
+  m_Father: {fileID: 2550756283633216666}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -805,14 +843,14 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3959014835314482356}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 760907618286082906}
   - {fileID: 1162985309509912183}
-  m_Father: {fileID: 6568911419865416035}
+  m_Father: {fileID: 2550756283633216666}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -900,7 +938,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 6568911419865416035}
+  m_Father: {fileID: 2550756283633216666}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -1038,10 +1076,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 5388839830578180074}
-  - {fileID: 633055556131102049}
-  - {fileID: 1907271771778763388}
   - {fileID: 3943137209729436332}
+  - {fileID: 2550756283633216666}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -1078,21 +1114,46 @@ MonoBehaviour:
   popupObject: {fileID: 1671716976307835811}
   outlineObject: {fileID: 3903720382919740542}
   backgroundObject: {fileID: 1107720655848042539}
+  tileObject: {fileID: 77398100168431502}
+  speedIncrease: 0
+  sizeIncrease: 0
+  healthIncrease: 0
+  moneyMultiplierIncrease: 0
+  passiveIncomeIncrease: 0
+  damageIncrease: 0
+  regenIncrease: 0
+  knockbackIncrease: 0
+  stunDurationIncrease: 0
+  unlockHealOnKill: 0
+  healOnKillAmount: 0
+  spawnMiniSaw: 0
+  miniSawSpeedIncrease: 0
+  miniSawDamageIncrease: 0
+  unlockShootingTriangles: 0
+  rangedAutofire: 0
+  triangleDamageIncrease: 0
+  triangleSpeedIncrease: 0
+  triangleFireRateIncrease: 0
+  enemySpeedMultiplierIncrease: 0
+  enemyDifficultyIncrease: 0
+  addEnemy: {fileID: 0}
   player: {fileID: 0}
   moneyManager: {fileID: 0}
   enemyManager: {fileID: 0}
   canBeBought: 0
   bought: 0
+  onlyNeedsOnePrecursor: 0
+  precursorsMustBeMaxxed: 0
   skillTreePrecursors: []
   skillTreeConnectors: []
   connectorDisabledColor: {r: 0.61635214, g: 0.61635214, b: 0.61635214, a: 0.6}
+  connectorDisabledColorMaxxed: {r: 1, g: 0.36163503, b: 0.36163503, a: 0.6}
   connectorEnabledColor: {r: 1, g: 1, b: 1, a: 1}
   baseOutlineColor: {r: 0.106918216, g: 0.106918216, b: 0.106918216, a: 1}
   canBeBoughtOutlineColor: {r: 0.9622642, g: 0.9622642, b: 0.9622642, a: 1}
   boughtOutlineColor: {r: 0.37647066, g: 0.4960528, b: 0.95686275, a: 1}
   fullyBoughtOutlineColor: {r: 0.9748427, g: 0.83408314, b: 0.21765348, a: 1}
   backgroundTintColor: {r: 1, g: 1, b: 1, a: 1}
-  onlyNeedsOnePrecursor: 0
 --- !u!82 &6776718387224579930
 AudioSource:
   m_ObjectHideFlags: 0

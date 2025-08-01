@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using TMPro;
 using Unity.Collections;
 using UnityEngine;
@@ -33,6 +34,7 @@ public class Upgrade : MonoBehaviour
     public GameObject popupObject;
     public GameObject outlineObject;
     public GameObject backgroundObject;
+    public GameObject tileObject;
 
     [Header("Effects")]
     public float speedIncrease;
@@ -42,7 +44,6 @@ public class Upgrade : MonoBehaviour
     public float passiveIncomeIncrease;
     public float damageIncrease;
     public float regenIncrease;
-    public float enemySpeedMultiplierIncrease;
     public float knockbackIncrease;
     public float stunDurationIncrease;
     public bool unlockHealOnKill;
@@ -57,6 +58,10 @@ public class Upgrade : MonoBehaviour
     public float triangleDamageIncrease;
     public float triangleSpeedIncrease;
     public float triangleFireRateIncrease;
+    // enemies
+    public float enemySpeedMultiplierIncrease;
+    public float enemyDifficultyIncrease;
+    public GameObject addEnemy;
 
     [Header("Assign Objects")]
     public GameObject player;
@@ -72,6 +77,7 @@ public class Upgrade : MonoBehaviour
     public GameObject[] skillTreePrecursors; // other skills that need to be bought before this one
     public GameObject[] skillTreeConnectors; // visual connections to other skills
     public Color connectorDisabledColor;
+    public Color connectorDisabledColorMaxxed;
     public Color connectorEnabledColor;
 
     [Header("Outline Colors")]
@@ -82,8 +88,6 @@ public class Upgrade : MonoBehaviour
 
     [Header("Background Color")]
     public Color backgroundTintColor;
-
-
 
     bool updateSkillTree = false;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -117,7 +121,7 @@ public class Upgrade : MonoBehaviour
             UpdateSkillTree();
 
         Button button = buyButton.GetComponent<Button>();
-        if (moneyManager.money > price && canBeBought && currentLevel < maxLevel)
+        if (moneyManager.money >= price && canBeBought && currentLevel < maxLevel)
             button.interactable = true;
         else
             button.GetComponent<Button>().interactable = false;
@@ -163,6 +167,8 @@ public class Upgrade : MonoBehaviour
             Image connectorImage = connector.GetComponent<Image>();
             if (canBeBought)
                 connectorImage.color = connectorEnabledColor;
+            else if (!canBeBought && precursorsMustBeMaxxed)
+                connectorImage.color = connectorDisabledColorMaxxed;
             else
                 connectorImage.color = connectorDisabledColor;  
         }
@@ -204,6 +210,7 @@ public class Upgrade : MonoBehaviour
     {
         moneyManager.money -= price;
         audioSource.PlayOneShot(buySound);
+        Camera.main.GetComponent<CameraScript>().ScreenshakeFunction(0.1f);
         ApplyEffects();
 
         if (!bought)
@@ -263,12 +270,44 @@ public class Upgrade : MonoBehaviour
         playerHealth.triangleFireRate += triangleFireRateIncrease;
         if (!playerHealth.autofireTriangles)
             playerHealth.autofireTriangles = rangedAutofire;
+
+        // add enemy
+        if (addEnemy != null)
+        {
+            EnemyManager enemyManager = GameObject.FindGameObjectWithTag("EnemyManager").GetComponent<EnemyManager>();
+            enemyManager.enemies.Add(addEnemy);
+        }
     }
 
     public void TogglePopup(bool enable)
     {
+        float duration = 0.1f;
         if (enable)
+        {
+            popupObject.SetActive(enable);
             gameObject.transform.SetAsLastSibling(); // bring to front
-        popupObject.SetActive(enable);
+            // popup
+            StartCoroutine(Utils.AnimateValue(0f, .7f, duration, moneyManager.upgradeInfoAnimCurve,
+                value => popupObject.transform.localScale = Vector3.one * value, useRealtime: true));
+            // object (make bigger)
+            StartCoroutine(Utils.AnimateValue(1f, 1.3f, duration, moneyManager.upgradeInfoAnimCurve,
+                value => tileObject.transform.localScale = Vector3.one * value, useRealtime: true));
+        }
+        else
+        {
+            // popup
+            StartCoroutine(Utils.AnimateValue(.7f, 0f, duration, moneyManager.upgradeInfoAnimCurve,
+                 value => popupObject.transform.localScale = Vector3.one * value, useRealtime: true));
+            // object (make smaller)
+            StartCoroutine(Utils.AnimateValue(1.3f, 1f, duration, moneyManager.upgradeInfoAnimCurve,
+                value => tileObject.transform.localScale = Vector3.one * value, useRealtime: true));
+            StartCoroutine(EnableObjectDelay(popupObject, enable));
+        }
+    }
+
+    IEnumerator EnableObjectDelay(GameObject obj, bool enable)
+    {
+        yield return new WaitForSecondsRealtime(0.1f);
+        obj.SetActive(enable);
     }
 }

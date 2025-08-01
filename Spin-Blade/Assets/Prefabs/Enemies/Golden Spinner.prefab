@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &8908154359821757514
+--- !u!1 &7839814986260129055
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,40 +8,40 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7705256687604860029}
-  - component: {fileID: 7838172271823003209}
-  - component: {fileID: 14179453211134900}
-  - component: {fileID: 3718328324187099760}
-  - component: {fileID: 5172888912763648398}
+  - component: {fileID: 1168144529336521533}
+  - component: {fileID: 3269169913831021918}
+  - component: {fileID: 6950826707024288152}
+  - component: {fileID: 4692457329485443140}
+  - component: {fileID: 426892457970290321}
   m_Layer: 0
-  m_Name: Hexagon
+  m_Name: Golden Spinner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &7705256687604860029
+--- !u!4 &1168144529336521533
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8908154359821757514}
+  m_GameObject: {fileID: 7839814986260129055}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.45, y: 0.45, z: 0.45}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &7838172271823003209
+--- !u!212 &3269169913831021918
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8908154359821757514}
+  m_GameObject: {fileID: 7839814986260129055}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -79,8 +79,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 2747690628134850419, guid: 16037dbd798344f57a526d53d48f5ead, type: 3}
-  m_Color: {r: 1, g: 0.27358478, b: 0.27358478, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 75be99f712c24d041b6e494dec5c0afe, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -90,13 +90,13 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &14179453211134900
+--- !u!114 &6950826707024288152
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8908154359821757514}
+  m_GameObject: {fileID: 7839814986260129055}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e59aa49cbc32924498d160c873f829fc, type: 3}
@@ -106,30 +106,30 @@ MonoBehaviour:
   minTargetDistance: 0.1
   speed: 3
   rotateMultiplier: 90
-  value: 1
-  damage: 0.8
-  health: 0.6
-  minDiffiucltySpawning: 1.2
-  rotateSpeed: 0
+  value: -2
+  damage: 0
+  health: 0.8
+  minDiffiucltySpawning: 1.1
+  rotateSpeed: 180
   rotationForce: 5
   deathParticles: {fileID: 8027665320973545451, guid: 4df9d8a8723d05c4686abda48d96cdd3, type: 3}
   hitParticles: {fileID: 8027665320973545451, guid: 355b482682bd0cf40a30ddcfb787b1c7, type: 3}
   hitColor: {r: 1, g: 0.27450982, b: 0.27450982, a: 1}
-  hitCircleColor: {r: 1, g: 0.27450982, b: 0.27450982, a: 1}
+  hitCircleColor: {r: 1, g: 0.9607843, b: 0.3882353, a: 1}
   deathMoneyText: {fileID: 866898650273556627, guid: fdd8250b469e6e94b8751cb4afca164e, type: 3}
   deathSound: {fileID: 8300000, guid: 4c8a0c216c352fa41b1e3af35bc782bd, type: 3}
   hitSound: {fileID: 8300000, guid: 08538fc898dc37940830c7b0f882c7d9, type: 3}
-  goodMoneyColor: {r: 1, g: 0.9607843, b: 0.3882353, a: 1}
-  badMoneyColor: {r: 1, g: 0.3050313, b: 0.3050313, a: 1}
-  moneyGain: 0
-  spawnRate: 1
---- !u!61 &3718328324187099760
+  goodMoneyColor: {r: 0.38823533, g: 1, b: 0.41018024, a: 1}
+  badMoneyColor: {r: 0.54088044, g: 0.19219962, b: 0.19219962, a: 1}
+  moneyGain: 5
+  spawnRate: 0.1
+--- !u!61 &4692457329485443140
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8908154359821757514}
+  m_GameObject: {fileID: 7839814986260129055}
   m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
@@ -157,26 +157,26 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.019205093, y: -0.0014773011}
+  m_Offset: {x: -0.0147731155, y: 0.090193205}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 0.8828125}
+    oldSize: {x: 5.12, y: 5.12}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.719309, y: 0.7084886}
+  m_Size: {x: 3.4937723, y: 3.4937723}
   m_EdgeRadius: 0
---- !u!50 &5172888912763648398
+--- !u!50 &426892457970290321
 Rigidbody2D:
   serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8908154359821757514}
+  m_GameObject: {fileID: 7839814986260129055}
   m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0

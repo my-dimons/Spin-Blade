@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class EnemyManager : MonoBehaviour
 {
-    public GameObject[] enemies;
+    public List<GameObject> enemies;
     public GameObject enemyParent;
     public float radius = 5f; // Adjustable spawning radius
     public float difficulty = 1f;
@@ -34,11 +34,18 @@ public class EnemyManager : MonoBehaviour
             transform.position.y + Mathf.Sin(angle) * radius
         );
 
+        GameObject prefab = GetRandomEnemy();
+        if (prefab != null)
+        {
+            GameObject enemy = Instantiate(prefab, spawnPos, Quaternion.identity);
 
-        GameObject enemy = Instantiate(GetRandomEnemy(), spawnPos, Quaternion.identity);
+            enemy.transform.parent = enemyParent.transform;
+            enemy.GetComponent<Enemy>().target = enemyParent;
+        } else
+        {
+            Debug.LogWarning("No enemy prefab found to spawn.");
+        }
 
-        enemy.transform.parent = enemyParent.transform;
-        enemy.GetComponent<Enemy>().target = enemyParent;
     }
     
     public GameObject GetRandomEnemy()
@@ -47,12 +54,17 @@ public class EnemyManager : MonoBehaviour
         foreach (GameObject enemy in enemies)
         {
             Enemy enemyScript = enemy.GetComponent<Enemy>();
-            if (enemy != null && difficulty > enemyScript.minDiffiucltySpawning)
+            float randomNum = Random.Range(0f, 1f);
+            if (enemy != null && randomNum <= enemyScript.spawnRate)
             {
                 spawnableEnemies.Add(enemy);
             }
         }
-
+        if (spawnableEnemies.Count == 0)
+        {
+            Debug.LogWarning("No enemies available to spawn, spawning defualt enemy");
+            return null;
+        }
         return spawnableEnemies[Random.Range(0, spawnableEnemies.Count)];
     }
     private void OnDrawGizmos()

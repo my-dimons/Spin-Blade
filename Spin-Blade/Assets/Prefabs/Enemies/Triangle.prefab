@@ -78,7 +78,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 4
+  m_SortingOrder: 2
   m_Sprite: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224, type: 3}
   m_Color: {r: 1, g: 0.27358478, b: 0.27358478, a: 1}
   m_FlipX: 0
@@ -112,6 +112,17 @@ MonoBehaviour:
   minDiffiucltySpawning: 0
   rotateSpeed: 0
   rotationForce: 5
+  deathParticles: {fileID: 8027665320973545451, guid: 4df9d8a8723d05c4686abda48d96cdd3, type: 3}
+  hitParticles: {fileID: 8027665320973545451, guid: 355b482682bd0cf40a30ddcfb787b1c7, type: 3}
+  hitColor: {r: 1, g: 0.27450982, b: 0.27450982, a: 1}
+  hitCircleColor: {r: 1, g: 0.27450982, b: 0.27450982, a: 1}
+  deathMoneyText: {fileID: 866898650273556627, guid: fdd8250b469e6e94b8751cb4afca164e, type: 3}
+  deathSound: {fileID: 8300000, guid: 4c8a0c216c352fa41b1e3af35bc782bd, type: 3}
+  hitSound: {fileID: 8300000, guid: 08538fc898dc37940830c7b0f882c7d9, type: 3}
+  goodMoneyColor: {r: 1, g: 0.9607843, b: 0.3882353, a: 1}
+  badMoneyColor: {r: 1, g: 0.3050313, b: 0.3050313, a: 1}
+  moneyGain: 0
+  spawnRate: 1
 --- !u!61 &7232860864092276969
 BoxCollider2D:
   m_ObjectHideFlags: 0

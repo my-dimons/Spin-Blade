@@ -40,8 +40,10 @@ public class PlayerHealth : MonoBehaviour
     public bool autofireTriangles;
     float triangleFireTimer = 0f;
 
-    //[Header("Taking Damage")]
-
+    [Header("Audio")]
+    public AudioClip deathSound;
+    public AudioClip shootSound;
+    public AudioClip hitSound;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -83,14 +85,14 @@ public class PlayerHealth : MonoBehaviour
 
     public void SpawnTriangle()
     {
+        Utils.PlayClip(shootSound, 0.15f);
         GameObject triangle = Instantiate(trianglePrefab, transform.position, Quaternion.identity);
         triangle.GetComponent<Projectile>().damage = triangleDamage;
         triangle.GetComponent<Projectile>().speed = triangleSpeed;
 
-        // 2. Calculate direction AWAY from center
+        // Calculate direction AWAY from center
         Vector2 direction = (transform.position - rotationPivot.transform.position).normalized;
 
-        // 3. Initialize projectile
         triangle.GetComponent<TriangleProjectile>().Initialize(direction);
 
     }
@@ -103,12 +105,13 @@ public class PlayerHealth : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
+        Utils.PlayClip(hitSound, 0.2f);
         currentHealth -= damage;
         Mathf.Clamp(currentHealth, 0, maxHeath);
     }
     public void Heal(float heal)
     {
-        currentHealth -= heal;
+        currentHealth += heal;
         Mathf.Clamp(currentHealth, 0, maxHeath);
     }
     public void IncreaseMaxHealth(float amount)

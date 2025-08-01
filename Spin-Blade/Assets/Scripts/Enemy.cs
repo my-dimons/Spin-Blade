@@ -13,13 +13,28 @@ public class Enemy : MonoBehaviour
     public float value; // how much this enemy is worth when killed
     public float damage = 1f;
     public float health = 1f;
-    public float minDiffiucltySpawning = 0f;
     public float rotateSpeed = 0;
 
     [Header("Knockback")]
     public float rotationForce = 5f;
     private Rigidbody2D rb;
     private bool isStunned = false;
+
+    [Header("Extra")]
+    public GameObject deathParticles;
+    public GameObject hitParticles;
+    public Color hitColor;
+    public Color hitCircleColor;
+
+    public GameObject deathMoneyText;
+    public AudioClip deathSound;
+    public AudioClip hitSound;
+
+    public Color goodMoneyColor;
+    public Color badMoneyColor;
+
+    public float moneyGain;
+    public float spawnRate = 1; // 1 is ALWAYS SPAWN (when selected), value is 0 - 1
 
     EnemyManager enemyManager;
     PlayerHealth playerHealth;
@@ -65,8 +80,7 @@ public class Enemy : MonoBehaviour
     {
         if (other.CompareTag("Circle"))
         {
-            GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>().TakeDamage(damage);
-            Destroy(gameObject);
+            HitCircle();
         }
         else if (other.CompareTag("Player"))
         {
@@ -105,6 +119,9 @@ public class Enemy : MonoBehaviour
 
     public void Knockback(Transform attacker, float force, float stunDuration)
     {
+        Utils.PlayClip(hitSound);
+        Utils.SpawnBurstParticle(deathParticles, transform.position, hitColor);
+
         if (isStunned) return;
 
         StartCoroutine(StunCoroutine(stunDuration));
@@ -133,11 +150,35 @@ public class Enemy : MonoBehaviour
 
     public void Death()
     {
+        Utils.PlayClip(deathSound);
+        Utils.SpawnBurstParticle(deathParticles, transform.position, hitColor);
+        Color color;
+        if (value > 0)
+            color = goodMoneyColor;
+        else
+            color = badMoneyColor;
+
+        Utils.SpawnFloatingText(deathMoneyText, transform.position, "$" + value.ToString("F1"), 6f, 0.3f, 40f, 0.45f, 0.15f, color);
+
         GameObject.FindGameObjectWithTag("MoneyManager").GetComponent<MoneyManager>().AddMoney(value);
         if (playerHealth.regenOnKill)
             playerHealth.Heal(playerHealth.killRegenAmount);
 
         enemyManager.IncreaseDifficulty();
+        Destroy(gameObject);
+    }
+
+    public void HitCircle()
+    {
+        Utils.SpawnBurstParticle(deathParticles, transform.position, hitCircleColor);
+        GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>().TakeDamage(damage);
+        Camera.main.GetComponent<CameraScript>().ScreenshakeFunction(.25f);
+
+        if (moneyGain > 0)
+        {
+            GameObject.FindGameObjectWithTag("MoneyManager").GetComponent<MoneyManager>().AddMoney(moneyGain);
+            Utils.SpawnFloatingText(deathMoneyText, transform.position, "$" + moneyGain.ToString("F1"), 6f, 0.3f, 40f, 0.45f, 0.15f, goodMoneyColor);
+        }
         Destroy(gameObject);
     }
 }

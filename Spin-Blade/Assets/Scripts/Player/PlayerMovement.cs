@@ -17,6 +17,10 @@ public class PlayerMovement : MonoBehaviour
 
     public float spinSpeed;
     public GameObject sprite;
+
+    [Header("Audio")]
+    public AudioClip reverseDirectionSound;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -40,13 +44,14 @@ public class PlayerMovement : MonoBehaviour
 
     private void ReverseDirection()
     {
-        direction *= -1; // Flip direction immediately
+        Utils.PlayClip(reverseDirectionSound, 0.1f);
+        direction *= -1;
 
         // Move to the previous waypoint if we just reversed
         int currentIndex = waypoints.IndexOf(currentWaypoint);
         int nextIndex = currentIndex + direction;
 
-        // Bounds check again (optional but smooth)
+        // Bounds check again
         if (nextIndex >= waypoints.Count) nextIndex = 0;
         if (nextIndex < 0) nextIndex = waypoints.Count - 1;
 
