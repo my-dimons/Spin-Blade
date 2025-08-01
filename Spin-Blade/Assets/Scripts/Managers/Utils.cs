@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public static class Utils
 {
@@ -116,9 +117,66 @@ public static class Utils
 
         UnityEngine.Object.Destroy(obj);
     }
-    public static IEnumerator EnableObjectDelay(GameObject obj, bool enable)
+    public static IEnumerator FadeObject(GameObject obj, float start = 0, float end = 1, float duration = 0.25f)
     {
-        yield return new WaitForSecondsRealtime(0.1f);
+        if (obj == null) yield break;
+
+        // Try to get components that can change opacity
+        CanvasGroup canvasGroup = obj.GetComponent<CanvasGroup>();
+        Image image = obj.GetComponent<Image>();
+        SpriteRenderer spriteRenderer = obj.GetComponent<SpriteRenderer>();
+
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            float t = elapsed / duration;
+            float alpha = Mathf.Lerp(start, end, t);
+
+            // Apply alpha
+            if (canvasGroup != null)
+            {
+                canvasGroup.alpha = alpha;
+            }
+            else if (image != null)
+            {
+                Color c = image.color;
+                c.a = alpha;
+                image.color = c;
+            }
+            else if (spriteRenderer != null)
+            {
+                Color c = spriteRenderer.color;
+                c.a = alpha;
+                spriteRenderer.color = c;
+            }
+
+            elapsed += Time.unscaledDeltaTime;
+            yield return null;
+        }
+
+        // Ensure final value
+        if (canvasGroup != null)
+        {
+            canvasGroup.alpha = end;
+        }
+        else if (image != null)
+        {
+            Color c = image.color;
+            c.a = end;
+            image.color = c;
+        }
+        else if (spriteRenderer != null)
+        {
+            Color c = spriteRenderer.color;
+            c.a = end;
+            spriteRenderer.color = c;
+        }
+    }
+
+    public static IEnumerator EnableObjectDelay(GameObject obj, bool enable, float time)
+    {
+        yield return new WaitForSecondsRealtime(time);
         obj.SetActive(enable);
     }
     public static IEnumerator AnimateValue(float start, float end, float duration, AnimationCurve curve, Action<float> onValueChanged, bool useRealtime = false)

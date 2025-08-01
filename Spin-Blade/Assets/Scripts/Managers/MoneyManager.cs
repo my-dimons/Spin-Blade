@@ -1,5 +1,7 @@
 using NUnit.Framework;
+using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using TMPro;
 using UnityEngine;
 
@@ -9,6 +11,8 @@ public class MoneyManager : MonoBehaviour
     public float moneyMultiplier = 1f;
     public float passiveIncome;
     public GameObject shopMenu;
+    public GameObject skillTreeObject;
+    public Vector2 shopMenuPos;
     public GameObject moneyText;
     public GameObject upgradeParent;
     private List<GameObject> upgrades = new List<GameObject>();
@@ -16,9 +20,11 @@ public class MoneyManager : MonoBehaviour
 
     [Header("Ui Animations")]
     public AnimationCurve upgradeInfoAnimCurve;
+    private bool animatingShop;
 
     private void Start()
     {
+        shopMenuPos = skillTreeObject.GetComponent<RectTransform>().anchoredPosition;
         foreach (Transform child in upgradeParent.transform)
         {
             if (child.GetComponent<Upgrade>())
@@ -34,7 +40,7 @@ public class MoneyManager : MonoBehaviour
 
         // toggle shop
         KeyCode key = KeyCode.Tab;
-        if (Input.GetKeyDown(key) && GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>().currentHealth > 0)
+        if (Input.GetKeyDown(key) && GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>().currentHealth > 0 && !animatingShop)
         {
             ToggleShop();
         }
@@ -55,12 +61,25 @@ public class MoneyManager : MonoBehaviour
     private void ToggleShop()
     {
         Utils.PlayClip(uiSound, 0.3f);
-        if (shopMenu.activeSelf)
-        {
+        float animTime = 0.1f;
 
-            shopMenu.SetActive(!shopMenu.activeSelf);
-        } 
-        Time.timeScale = Time.timeScale == 0 ? 1 : 0; // pause or unpause the game
+        if (shopMenu.activeSelf == true)
+        {
+            animatingShop = true;
+            StartCoroutine(Utils.AnimateValue(1, .6f, animTime, upgradeInfoAnimCurve,
+                value => shopMenu.transform.localScale = Vector3.one * value, useRealtime: true));
+            StartCoroutine(Utils.EnableObjectDelay(shopMenu, false, animTime));
+            StartCoroutine(AnimatingBoolToggle(animTime, false));
+        } else
+        {
+            skillTreeObject.GetComponent<RectTransform>().anchoredPosition = shopMenuPos;
+            animatingShop = true;
+            shopMenu.SetActive(true);
+            StartCoroutine(Utils.AnimateValue(.6f, 1, animTime, upgradeInfoAnimCurve,
+                value => shopMenu.transform.localScale = Vector3.one * value, useRealtime: true));
+            StartCoroutine(AnimatingBoolToggle(animTime, false));
+        }
+            Time.timeScale = Time.timeScale == 0 ? 1 : 0; // pause or unpause the game
 
         foreach (GameObject upgrade in upgrades)
         {
@@ -80,5 +99,11 @@ public class MoneyManager : MonoBehaviour
     public void PassiveIncome()
     {
         money += passiveIncome * Time.deltaTime * moneyMultiplier;
+    }
+
+    IEnumerator AnimatingBoolToggle(float time, bool enable)
+    {
+        yield return new WaitForSecondsRealtime(time);
+        animatingShop = enable;
     }
 }
