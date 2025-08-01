@@ -99,13 +99,15 @@ public class PlayerHealth : MonoBehaviour
 
     void Death()
     {
+        GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>().tutorialText.gameObject.SetActive(false); 
+        Utils.PlayClip(deathSound);
         Time.timeScale = 0;
         deathScreen.SetActive(true);
     }
 
     public void TakeDamage(float damage)
     {
-        Utils.PlayClip(hitSound, 0.2f);
+        Utils.PlayClip(hitSound, 1f);
         currentHealth -= damage;
         Mathf.Clamp(currentHealth, 0, maxHeath);
     }

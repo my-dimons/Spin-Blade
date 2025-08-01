@@ -5,23 +5,32 @@ using UnityEngine;
 
 public static class Utils
 {
-    // One-shot (from earlier)
-    public static void PlayClip(AudioClip clip, float volume = 1f)
-    {
+    public static void PlayClip(AudioClip clip, float volume = 1f, float pitchVariance = 0.1f)
+    { 
         if (clip == null) return;
 
         GameObject tempGO = new GameObject("TempAudio");
         if (Camera.main != null)
             tempGO.transform.position = Camera.main.transform.position;
 
+        // Get volume multiplier from GameManager
+        GameManager gm = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
+
+        // Set up AudioSource
         AudioSource audioSource = tempGO.AddComponent<AudioSource>();
         audioSource.clip = clip;
-        audioSource.volume = volume;
+        audioSource.volume = volume * gm.sfxVolume;
+
+        // random pitch
+        audioSource.pitch = UnityEngine.Random.Range(1 - pitchVariance, 1 + pitchVariance);
+
         audioSource.spatialBlend = 0f; // 2D sound
         audioSource.Play();
 
-        UnityEngine.Object.Destroy(tempGO, clip.length);
+        // Destroy after the adjusted length
+        UnityEngine.Object.Destroy(tempGO, clip.length / audioSource.pitch);
     }
+
     public static void SpawnBurstParticle(GameObject particlePrefab, Vector3 position, Color color = default)
     {
         if (particlePrefab == null) return;
@@ -106,6 +115,11 @@ public static class Utils
         }
 
         UnityEngine.Object.Destroy(obj);
+    }
+    public static IEnumerator EnableObjectDelay(GameObject obj, bool enable)
+    {
+        yield return new WaitForSecondsRealtime(0.1f);
+        obj.SetActive(enable);
     }
     public static IEnumerator AnimateValue(float start, float end, float duration, AnimationCurve curve, Action<float> onValueChanged, bool useRealtime = false)
     {

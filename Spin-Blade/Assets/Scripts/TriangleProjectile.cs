@@ -5,6 +5,7 @@ public class TriangleProjectile : MonoBehaviour
     Projectile projectile;
     public bool homing;
     private Vector2 moveDirection;
+    public float lifeTime = -1f;
 
     private void Start()
     {
@@ -12,6 +13,10 @@ public class TriangleProjectile : MonoBehaviour
         if (projectile == null)
         {
             Debug.LogError("Projectile component is missing on TriangleProjectile.");
+        }
+        if (lifeTime > 0f)
+        {
+            Destroy(gameObject, lifeTime);
         }
     }
     public void Initialize(Vector2 direction)

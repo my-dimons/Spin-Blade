@@ -135,7 +135,7 @@ public class Enemy : MonoBehaviour
     public void Knockback(Transform attacker, float force, float stunDuration)
     {
         Utils.PlayClip(hitSound);
-        Utils.SpawnBurstParticle(deathParticles, transform.position, hitColor);
+        Utils.SpawnBurstParticle(hitParticles, transform.position, hitColor);
 
         if (isStunned) return;
 
@@ -169,12 +169,14 @@ public class Enemy : MonoBehaviour
 
         Utils.PlayClip(deathSound);
         Utils.SpawnBurstParticle(deathParticles, transform.position, hitColor);
+        Camera.main.GetComponent<CameraScript>().ScreenshakeFunction(.08f);
+
+        // text
         Color color;
         if (value > 0)
             color = goodMoneyColor;
         else
             color = badMoneyColor;
-
         Utils.SpawnFloatingText(deathMoneyText, transform.position, "$" + value.ToString("F1"), 6f, 0.3f, 40f, 0.45f, 0.15f, color);
 
         GameObject.FindGameObjectWithTag("MoneyManager").GetComponent<MoneyManager>().AddMoney(value);
@@ -182,6 +184,7 @@ public class Enemy : MonoBehaviour
             playerHealth.Heal(playerHealth.killRegenAmount);
 
         enemyManager.IncreaseDifficulty();
+        GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>().kills++;
         Destroy(gameObject);
     }
 
@@ -189,7 +192,7 @@ public class Enemy : MonoBehaviour
     {
         Utils.SpawnBurstParticle(deathParticles, transform.position, hitCircleColor);
         GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>().TakeDamage(damage);
-        Camera.main.GetComponent<CameraScript>().ScreenshakeFunction(.25f);
+        Camera.main.GetComponent<CameraScript>().ScreenshakeFunction(.5f);
 
         if (moneyGain > 0)
         {

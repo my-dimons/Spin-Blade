@@ -122,7 +122,10 @@ MonoBehaviour:
   badMoneyColor: {r: 0.54088044, g: 0.19219962, b: 0.19219962, a: 1}
   moneyGain: 20
   healthGain: -3
-  spawnRate: 0.3
+  spawnRate: 0.8
+  randomSize: 0
+  minSize: 0.5
+  maxSize: 1.5
 --- !u!61 &278086170378415847
 BoxCollider2D:
   m_ObjectHideFlags: 0

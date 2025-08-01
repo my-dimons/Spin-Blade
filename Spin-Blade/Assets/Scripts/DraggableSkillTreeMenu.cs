@@ -7,13 +7,19 @@ public class DraggableSkillTreeMenu : MonoBehaviour
     public float maxYLimit = 300f; // Max distance you can drag up/down
 
     private RectTransform rectTransform;
-    private Vector2 offset;
     private Vector3 defaultPosition;
+    private Vector3 offset;
+
+    private Canvas parentCanvas;
+    private Camera canvasCamera;
 
     void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
-        defaultPosition = rectTransform.position; // Store initial position
+        parentCanvas = GetComponentInParent<Canvas>();
+        canvasCamera = parentCanvas.worldCamera;
+
+        defaultPosition = rectTransform.position;
     }
 
     void Update()
@@ -21,13 +27,15 @@ public class DraggableSkillTreeMenu : MonoBehaviour
         // Start dragging with right-click
         if (Input.GetMouseButtonDown(1))
         {
-            offset = (Vector2)rectTransform.position - (Vector2)Input.mousePosition;
+            Vector3 mouseWorldPos = ScreenToWorldPoint(Input.mousePosition);
+            offset = rectTransform.position - mouseWorldPos;
         }
 
         // Dragging
         if (Input.GetMouseButton(1))
         {
-            Vector3 newPos = Input.mousePosition + (Vector3)offset;
+            Vector3 mouseWorldPos = ScreenToWorldPoint(Input.mousePosition);
+            Vector3 newPos = mouseWorldPos + offset;
             rectTransform.position = ClampToBounds(newPos);
         }
 
@@ -40,10 +48,18 @@ public class DraggableSkillTreeMenu : MonoBehaviour
 
     private Vector3 ClampToBounds(Vector3 position)
     {
-        // Use maxXLimit and maxYLimit, automatically applying the negative min
-        position.x = Mathf.Clamp(position.x, -maxXLimit, maxXLimit);
-        position.y = Mathf.Clamp(position.y, -maxYLimit, maxYLimit);
+        // Clamp X and Y relative to the default position
+        position.x = Mathf.Clamp(position.x, defaultPosition.x - maxXLimit, defaultPosition.x + maxXLimit);
+        position.y = Mathf.Clamp(position.y, defaultPosition.y - maxYLimit, defaultPosition.y + maxYLimit);
         return position;
+    }
+
+    private Vector3 ScreenToWorldPoint(Vector3 screenPos)
+    {
+        // Convert mouse screen position into world position for the canvas camera
+        return canvasCamera != null
+            ? canvasCamera.ScreenToWorldPoint(new Vector3(screenPos.x, screenPos.y, canvasCamera.nearClipPlane))
+            : screenPos;
     }
 
     public void ResetPosition()

@@ -46,7 +46,6 @@ public class EnemyManager : MonoBehaviour
         {
             Debug.LogWarning("No enemy prefab found to spawn.");
         }
-
     }
     
     public GameObject GetRandomEnemy()

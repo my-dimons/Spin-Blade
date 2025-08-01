@@ -304,13 +304,9 @@ public class Upgrade : MonoBehaviour
             // object (make smaller)
             StartCoroutine(Utils.AnimateValue(1.3f, 1f, duration, moneyManager.upgradeInfoAnimCurve,
                 value => tileObject.transform.localScale = Vector3.one * value, useRealtime: true));
-            StartCoroutine(EnableObjectDelay(popupObject, enable));
+            StartCoroutine(Utils.EnableObjectDelay(popupObject, enable));
         }
     }
 
-    IEnumerator EnableObjectDelay(GameObject obj, bool enable)
-    {
-        yield return new WaitForSecondsRealtime(0.1f);
-        obj.SetActive(enable);
-    }
+
 }

@@ -39,15 +39,28 @@ public class MoneyManager : MonoBehaviour
             ToggleShop();
         }
 
-        // update money text
-        moneyText.GetComponent<TextMeshProUGUI>().text = "$" + money.ToString("F1");
+        UpdateMoneyText();
+    }
+
+    private void UpdateMoneyText()
+    {
+        if (money >= 100)
+            moneyText.GetComponent<TextMeshProUGUI>().text = "$" + money.ToString("F0");
+        if (money >= 100)
+            moneyText.GetComponent<TextMeshProUGUI>().text = "$" + money.ToString("F1");
+        else
+            moneyText.GetComponent<TextMeshProUGUI>().text = "$" + money.ToString("F2");
     }
 
     private void ToggleShop()
     {
         Utils.PlayClip(uiSound, 0.3f);
+        if (shopMenu.activeSelf)
+        {
+
+            shopMenu.SetActive(!shopMenu.activeSelf);
+        } 
         Time.timeScale = Time.timeScale == 0 ? 1 : 0; // pause or unpause the game
-        shopMenu.SetActive(!shopMenu.activeSelf);
 
         foreach (GameObject upgrade in upgrades)
         {

@@ -56,6 +56,8 @@ public class PlayerMovement : MonoBehaviour
         if (nextIndex < 0) nextIndex = waypoints.Count - 1;
 
         currentWaypoint = waypoints[nextIndex];
+
+        GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>().lShiftPresses++;
     }
 
     private void UpdateWaypoints()
