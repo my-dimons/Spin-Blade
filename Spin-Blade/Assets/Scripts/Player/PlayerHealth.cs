@@ -11,12 +11,16 @@ public class PlayerHealth : MonoBehaviour
     public bool regenOnKill; // regen health when killing an enemy
     public float killRegenAmount = 0f; // amount of health to regen on kill
     [Header("Health Display")]
+    public AudioClip fullHealthSound;
     public Image healthBar;
     public GameObject deathScreen;
     public DamageFlash circleDamageFlash;
     public Color circleDamageFlashColor;
-    public Color circleMoneyGainHitFlash;
+    public Color circleMoneyGainHitFlashColor;
+    public Color circleFullHealFlashColor;
     bool dead;
+
+    private float oldHealth;
 
     [Header("Dealing Damage")]
     private Vector2 baseSize;
@@ -72,6 +76,15 @@ public class PlayerHealth : MonoBehaviour
         
         currentHealth = Mathf.Clamp(currentHealth += regen * Time.deltaTime, 0, maxHeath);
 
+        if (currentHealth >= maxHeath && oldHealth < maxHeath)
+        {
+            Utils.PlayClip(fullHealthSound, 0.7f);
+            circleDamageFlash.Flash(circleFullHealFlashColor);
+        }
+
+        oldHealth = currentHealth;
+
+
         healthBar.fillAmount = (float)currentHealth / maxHeath;
         if (currentHealth <= 0 && !dead)
         {
@@ -118,7 +131,7 @@ public class PlayerHealth : MonoBehaviour
         if (currentHealth > 0 && !flashMoney)
             circleDamageFlash.Flash(circleDamageFlashColor);
         else if (currentHealth > 0 && flashMoney)
-            circleDamageFlash.Flash(circleMoneyGainHitFlash);
+            circleDamageFlash.Flash(circleMoneyGainHitFlashColor);
 
         Mathf.Clamp(currentHealth, 0, maxHeath);
     }

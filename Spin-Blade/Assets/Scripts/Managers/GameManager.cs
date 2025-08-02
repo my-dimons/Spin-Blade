@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -7,6 +8,8 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    float time;
+
     public TextMeshProUGUI tutorialText;
     public string[] tutorialStrings;
     public int tutorialStage = 0;
@@ -23,13 +26,18 @@ public class GameManager : MonoBehaviour
     [Header("Music Settings")]
     public AudioSource musicSource;
     public AudioClip[] musicTracks;
+    public AudioClip currentMusic;
 
-    private int currentTrackIndex = 0;
-
+    [Header("Win Screen")]
+    public GameObject winScreen;
     public int lShiftPresses = 0;
     public int kills = 0;
-
+    public float winTime; // how long the win screen is up for
     PersistentVariables persistentVariables;
+    public GameObject timeText;
+    public GameObject killsText;
+
+
     private void Start()
     {
         persistentVariables = GameObject.FindGameObjectWithTag("PVars").GetComponent<PersistentVariables>();
@@ -56,6 +64,8 @@ public class GameManager : MonoBehaviour
     }
     private void Update()
     {
+        time += Time.deltaTime;
+
         if (!tutorialFinished && tutorialText != null)
             Tutorial();
 
@@ -64,24 +74,25 @@ public class GameManager : MonoBehaviour
             musicSource.volume = persistentVariables.musicVolume;
         }
         
+        if (!musicSource.isPlaying && musicTracks.Length > 0)
+        {
+            StartCoroutine(PlayMusicContinuously());
+        }
     }
 
     private IEnumerator PlayMusicContinuously()
     {
-        while (true)
-        {
-            // Pick the current track
-            AudioClip clip = musicTracks[currentTrackIndex];
-            musicSource.clip = clip;
-            musicSource.Play();
+        Debug.Log("PlayingNextTrack");
+        // Pick the current track
+        AudioClip clip = musicTracks[UnityEngine.Random.Range(0, musicTracks.Length)];
+        musicSource.clip = clip;
+        currentMusic = clip;
+        musicSource.Play();
 
-            // Wait until the current track is finished
-            yield return new WaitForSecondsRealtime(clip.length);
+        // Wait until the current track is finished
+        yield return new WaitForSecondsRealtime(clip.length);
 
-            // Go to the next track (wrap around)
-            currentTrackIndex = Random.Range(0, musicTracks.Length);
-            StartCoroutine(PlayMusicContinuously());
-        }
+        musicSource.Stop();
     }
 
     private void Tutorial()
@@ -175,5 +186,20 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("Quitting game...");
         Application.Quit();
+    }
+
+    public IEnumerator WinScreen()
+    {
+        winScreen.SetActive(true);
+
+        // time played
+        TimeSpan timePlayed = TimeSpan.FromSeconds(Mathf.RoundToInt(time));
+        timeText.GetComponent<TextMeshProUGUI>().text = "Time: " + string.Format("{0:00}:{1:00}", timePlayed.Minutes, timePlayed.Seconds);
+
+        // kills
+        killsText.GetComponent<TextMeshProUGUI>().text = "Kills = " + kills.ToString();
+
+        yield return new WaitForSecondsRealtime(winTime);
+        winScreen.SetActive(false);
     }
 }

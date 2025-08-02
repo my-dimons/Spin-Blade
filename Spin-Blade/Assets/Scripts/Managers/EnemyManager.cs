@@ -168,7 +168,7 @@ public class EnemyManager : MonoBehaviour
         SpawnEnemy(eventBossPrefab);
         eventSpawnRate *= bossEventSpawnRate;
 
-        yield return new WaitForSeconds(20);
+        yield return new WaitForSeconds(35);
         eventHappening = true;
 
         eventSpawnRate = 1f;

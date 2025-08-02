@@ -110,7 +110,7 @@ public class Enemy : MonoBehaviour
         {
             HitCircle();
         }
-        else if (other.CompareTag("Player"))
+        else if (other.CompareTag("Player") && health > 0)
         {
             health -= playerHealth.damage;
             if (health <= 0 && !isStunned)
@@ -220,6 +220,6 @@ public class Enemy : MonoBehaviour
             Utils.SpawnFloatingText(deathMoneyText, transform.position, "$" + GameObject.FindGameObjectWithTag("MoneyManager").GetComponent<MoneyManager>().CalculateMoney(moneyGain).ToString("F1"), 6f, 0.3f, 40f, 0.45f, 0.15f, goodMoneyColor);
         } else
             GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>().TakeDamage(damage);
-            Destroy(gameObject);
+        Destroy(gameObject);
     }
 }

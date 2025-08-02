@@ -63,6 +63,8 @@ public class Upgrade : MonoBehaviour
     public float enemyDifficultyIncrease;
     public float enemySpawnRateIncrease;
     public GameObject addEnemy;
+    // WIN!
+    public bool win;
 
     [Header("Assign Objects")]
     public GameObject player;
@@ -280,7 +282,13 @@ public class Upgrade : MonoBehaviour
         }
 
         enemyManager.spawnRate += enemySpawnRateIncrease;
+
+        if (win)
+        {
+            StartCoroutine(GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>().WinScreen());
+        }
     }
+
 
     public void TogglePopup(bool enable)
     {
