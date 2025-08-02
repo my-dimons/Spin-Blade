@@ -189,6 +189,7 @@ public class GameManager : MonoBehaviour
     public void LoadMenu()
     {
         LoadScene("Menu");
+        persistentVariables.infiniteMode = false;
     }
     public void LoadGame(float difficulty = 1)
     {

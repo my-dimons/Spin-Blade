@@ -121,7 +121,7 @@ public class MoneyManager : MonoBehaviour
             animatingShop = true;
             StartCoroutine(Utils.AnimateValue(1, .6f, animTime, upgradeInfoAnimCurve,
                 value => menu.transform.localScale = Vector3.one * value, useRealtime: true));
-            StartCoroutine(Utils.EnableObjectDelay(shopMenu, false, animTime));
+            StartCoroutine(Utils.EnableObjectDelay(menu, false, animTime));
             StartCoroutine(AnimatingBoolToggle(animTime, false));
         } else
         {
