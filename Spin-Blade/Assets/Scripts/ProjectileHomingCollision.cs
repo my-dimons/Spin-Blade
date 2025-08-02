@@ -6,7 +6,7 @@ public class ProjectileHomingCollision : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Enemy") && projectile.homingTarget == null)
+        if (collision.CompareTag("Enemy") && projectile.homingTarget == null && collision.GetComponent<Enemy>().damageFromProjectiles)
         {
             projectile.homingTarget = collision.gameObject;
         }

@@ -67,6 +67,7 @@ public class Upgrade : MonoBehaviour
     public float enemyDifficultyIncrease;
     public float enemySpawnRateIncrease;
     public GameObject addEnemy;
+    public float enemyBossHealthMultiplierIncrease;
     // WIN!
     public bool win;
 
@@ -216,7 +217,7 @@ public class Upgrade : MonoBehaviour
     public void BuyUpgrade()
     {
         moneyManager.money -= price;
-        audioSource.PlayOneShot(buySound, 0.25f);
+        Utils.PlayClip(buySound, 0.25f);
         Camera.main.GetComponent<CameraScript>().ScreenshakeFunction(0.1f);
         ApplyEffects();
 
@@ -293,6 +294,8 @@ public class Upgrade : MonoBehaviour
             EnemyManager enemyManager = GameObject.FindGameObjectWithTag("EnemyManager").GetComponent<EnemyManager>();
             enemyManager.enemies.Add(addEnemy);
         }
+        // increase boss health mult
+        enemyManager.bossHealthMultiplier += enemyBossHealthMultiplierIncrease;
 
         enemyManager.spawnRate += enemySpawnRateIncrease;
 

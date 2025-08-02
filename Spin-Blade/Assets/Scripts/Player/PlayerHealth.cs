@@ -61,6 +61,11 @@ public class PlayerHealth : MonoBehaviour
     {
         currentHealth = maxHeath;
         baseSize = transform.localScale;
+
+        if (GameObject.FindGameObjectWithTag("PVars").GetComponent<PersistentVariables>().infiniteMode)
+        {
+            regen = 5;
+        }
     }
 
     // Update is called once per frame

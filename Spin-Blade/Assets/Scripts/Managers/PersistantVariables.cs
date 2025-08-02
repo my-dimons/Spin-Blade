@@ -10,6 +10,8 @@ public class PersistentVariables : MonoBehaviour
 
     public float difficulty = 1;
     public float moneyMultiplier = 1;
+
+    public bool infiniteMode;
     void Awake()
     {
         // Singleton pattern

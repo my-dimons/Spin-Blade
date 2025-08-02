@@ -1,5 +1,6 @@
 using NUnit.Framework;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -27,6 +28,11 @@ public class PlayerMovement : MonoBehaviour
     {
         transform.position = waypoints[0].transform.position;
         currentWaypoint = waypoints[0];
+
+        if (GameObject.FindGameObjectWithTag("PVars").GetComponent<PersistentVariables>().infiniteMode)
+        {
+            speed *= 1.5f; // inf mode extra speed
+        }
     }
 
     // Update is called once per frame

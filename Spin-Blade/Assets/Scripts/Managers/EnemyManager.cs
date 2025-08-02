@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 
@@ -10,6 +11,7 @@ public class EnemyManager : MonoBehaviour
     public GameObject enemyParent;
     public float radius = 5f; // Adjustable spawning radius
     public float difficulty = 1f;
+    public float bossHealthMultiplier = 1f;
     public float difficultyIncrease = 0.05f;
     public float spawnRate = 1f;
 
@@ -25,17 +27,30 @@ public class EnemyManager : MonoBehaviour
     public bool eventHappening;
     public float eventDuration;
     public float eventCooldown;
+    public float infEventCooldown;
 
     public float eventEnemySwarmAmount;
     public float eventMoneyMultiplierAmount;
     public float eventDifficultyIncreasePercent; // percentage (0-1)
     public GameObject eventBossPrefab;
     public float bossEventSpawnRate;
+
+    [Header("Infinite Mode Enemies")]
+    public GameObject[] infEnemies;
+    public int infEnemiesNum;
     private void Start()
     {
         difficulty *= GameObject.FindGameObjectWithTag("PVars").GetComponent<PersistentVariables>().difficulty;
         StartCoroutine(SpawnEnemyLoop());
-        StartCoroutine(EventLoop());
+
+
+        if (GameObject.FindGameObjectWithTag("PVars").GetComponent<PersistentVariables>().infiniteMode)
+        {
+            StartCoroutine(DifficultyIncreaseEvent());
+        } else
+        {
+            StartCoroutine(EventLoop());
+        }
     }
 
     IEnumerator SpawnEnemyLoop()
@@ -126,11 +141,15 @@ public class EnemyManager : MonoBehaviour
 
     IEnumerator EventLoop()
     {
-        yield return new WaitForSeconds(eventCooldown);
-        if (!eventHappening && enemies.Count > 2)
+        if (!GameObject.FindGameObjectWithTag("PVars").GetComponent<PersistentVariables>().infiniteMode)
+            yield return new WaitForSeconds(eventCooldown);
+        else 
+            yield return new WaitForSeconds(infEventCooldown);
+        if (!eventHappening && enemies.Count > 2 || !eventHappening && GameObject.FindGameObjectWithTag("PVars").GetComponent<PersistentVariables>().infiniteMode)
         {
             StartRandomEvent();
-        } else
+        }
+        else
         {
             StartCoroutine(EventLoop());
         }
@@ -170,9 +189,14 @@ public class EnemyManager : MonoBehaviour
         SpawnEnemy(eventBossPrefab);
         eventSpawnRate *= bossEventSpawnRate;
 
-        yield return new WaitForSeconds(35);
-
-        eventSpawnRate = 1f;
+        if (GameObject.FindGameObjectWithTag("PVars").GetComponent<PersistentVariables>().infiniteMode)
+        {
+            yield return new WaitForSeconds(20);
+        } else
+        {
+            yield return new WaitForSeconds(35);
+        }
+            eventSpawnRate = 1f;
         eventHappening = false;
 
         StartCoroutine(EventLoop());
@@ -184,11 +208,27 @@ public class EnemyManager : MonoBehaviour
         eventText.gameObject.SetActive(true);
 
         eventHappening = true;
+        yield return new WaitForSeconds(5f);
         // Increase difficulty
-        difficulty += (difficulty * 0.1f);
-        yield return new WaitForSeconds(5);
+        if (GameObject.FindGameObjectWithTag("PVars").GetComponent<PersistentVariables>().infiniteMode)
+        {
+            if (infEnemiesNum > infEnemies.Length)
+            {
+                difficulty += (difficulty * 0.1f);
+            } else
+            {
+                enemies.Add(infEnemies[infEnemiesNum]);
+                infEnemiesNum++;
+            }
 
-        eventHappening = false;
+            GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>().damage += .34f;
+            GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>().IncreaseMaxHealth(.34f);
+        } else
+        {
+            difficulty += (difficulty * 0.1f);
+        }
+
+            eventHappening = false;
         eventText.text = "";
         eventText.gameObject.SetActive(false);
 

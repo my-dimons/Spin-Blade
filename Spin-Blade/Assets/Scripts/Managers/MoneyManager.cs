@@ -11,6 +11,7 @@ public class MoneyManager : MonoBehaviour
     public float moneyMultiplier = 1f;
     [HideInInspector()] public float eventMoneyMultiplier = 1;
     public float passiveIncome;
+    public GameObject infModePauseMenu;
     public GameObject shopMenu;
     public GameObject skillTreeObject;
     public Vector2 shopMenuPos;
@@ -47,10 +48,14 @@ public class MoneyManager : MonoBehaviour
 
         if (toggleShopKey && GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>().currentHealth > 0 && !animatingShop)
         {
-            ToggleShop();
+            if (!GameObject.FindGameObjectWithTag("PVars").GetComponent<PersistentVariables>().infiniteMode)
+                ToggleShop(shopMenu);
+            else 
+                ToggleShop(infModePauseMenu);
         }
 
         UpdateMoneyText();
+        money = Mathf.Round(money * 100f) / 100f;
     }
 
     public float CalculateMoney(float number)
@@ -59,13 +64,16 @@ public class MoneyManager : MonoBehaviour
     }
     private void UpdateMoneyText()
     {
+        string moneyString = "";
         if (money >= 1000)
-            moneyText.text = "$" + money.ToString("F0");
+            moneyString = "$" + money.ToString("F0");
         if (money >= 100)
-            moneyText.text = "$" + money.ToString("F1");
+            moneyString = "$" + money.ToString("F1");
         else
-            moneyText.text = "$" + money.ToString("F2");
-
+            moneyString = "$" + money.ToString("F2");
+        if (GameObject.FindGameObjectWithTag("PVars").GetComponent<PersistentVariables>().infiniteMode)
+            moneyString = "";
+        moneyText.text = moneyString;
 
         string moneyMultiplierString = "";
         // money multiplier text
@@ -102,42 +110,49 @@ public class MoneyManager : MonoBehaviour
         moneyPerSecondText.rectTransform.position = worldPos + (Vector3)moneyPerSecondTextPos;
     }
 
-    private void ToggleShop()
+    private void ToggleShop(GameObject menu)
     {
         Utils.PlayClip(uiSound, 0.3f);
         float animTime = 0.1f;
 
-        if (shopMenu.activeSelf == true)
+
+        if (menu.activeSelf == true)
         {
             animatingShop = true;
             StartCoroutine(Utils.AnimateValue(1, .6f, animTime, upgradeInfoAnimCurve,
-                value => shopMenu.transform.localScale = Vector3.one * value, useRealtime: true));
+                value => menu.transform.localScale = Vector3.one * value, useRealtime: true));
             StartCoroutine(Utils.EnableObjectDelay(shopMenu, false, animTime));
             StartCoroutine(AnimatingBoolToggle(animTime, false));
         } else
         {
-            skillTreeObject.GetComponent<RectTransform>().anchoredPosition = shopMenuPos;
             animatingShop = true;
-            shopMenu.SetActive(true);
+            menu.SetActive(true);
             StartCoroutine(Utils.AnimateValue(.6f, 1, animTime, upgradeInfoAnimCurve,
-                value => shopMenu.transform.localScale = Vector3.one * value, useRealtime: true));
+                value => menu.transform.localScale = Vector3.one * value, useRealtime: true));
             StartCoroutine(AnimatingBoolToggle(animTime, false));
+            if (!GameObject.FindGameObjectWithTag("PVars").GetComponent<PersistentVariables>().infiniteMode)
+                skillTreeObject.GetComponent<DraggableSkillTreeMenu>().ResetPosition();
         }
             Time.timeScale = Time.timeScale == 0 ? 1 : 0; // pause or unpause the game
 
-        foreach (GameObject upgrade in upgrades)
+        if (!GameObject.FindGameObjectWithTag("PVars").GetComponent<PersistentVariables>().infiniteMode)
         {
-            foreach (Transform child in upgrade.transform)
+            foreach (GameObject upgrade in upgrades)
             {
-                if (child.CompareTag("UpgradeDsc"))
-                    child.gameObject.SetActive(false);
+                foreach (Transform child in upgrade.transform)
+                {
+                    if (child.CompareTag("UpgradeDsc"))
+                        child.gameObject.SetActive(false);
+                }
             }
         }
     }
 
     public void AddMoney(float value)
     {
-        money += value * moneyMultiplier * eventMoneyMultiplier;
+        float moneyGain = value * moneyMultiplier * eventMoneyMultiplier;
+        money += moneyGain;
+        GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>().totalMoneyGained += moneyGain;
     }
 
     public void PassiveIncome()

@@ -15,7 +15,7 @@ public static class Utils
         if (Camera.main != null)
             tempGO.transform.position = Camera.main.transform.position;
 
-        // Get volume multiplier from GameManager
+        tempGO.transform.parent = null;
         PersistentVariables pv = GameObject.FindGameObjectWithTag("PVars").GetComponent<PersistentVariables>();
 
         // Set up AudioSource

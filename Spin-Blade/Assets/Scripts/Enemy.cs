@@ -66,7 +66,7 @@ public class Enemy : MonoBehaviour
         }
         else
         {
-            health *= enemyManager.difficulty * Mathf.Clamp(playerHealth.damage, 1, Mathf.Infinity);
+            health *= enemyManager.difficulty * Mathf.Clamp(playerHealth.damage, 1, Mathf.Infinity) * enemyManager.bossHealthMultiplier;
             damage = Mathf.Clamp(playerHealth.maxHeath / damage, 1, Mathf.Infinity);
         }
 
@@ -129,12 +129,10 @@ public class Enemy : MonoBehaviour
 
             health -= proj.damage;
 
-            bool knockback = true;
 
             if (other.GetComponent<TriangleProjectile>())
             {
                 other.GetComponent<TriangleProjectile>().homingTarget = null;
-                knockback = false;
             }
 
             if (health <= 0 && !isStunned)
@@ -148,7 +146,7 @@ public class Enemy : MonoBehaviour
                 if (proj.destroyOnHit)
                     Destroy(other.gameObject);
 
-                TakeDamage(other.transform, proj.knockbackForce, proj.stunDuration, knockback);
+                TakeDamage(other.transform, proj.knockbackForce, proj.stunDuration, false);
             }
         }
     }
@@ -205,7 +203,9 @@ public class Enemy : MonoBehaviour
         }
 
         MoneyManager moneyManager = GameObject.FindGameObjectWithTag("MoneyManager").GetComponent<MoneyManager>();
-        Utils.SpawnFloatingText(deathMoneyText, transform.position, "$" + GameObject.FindGameObjectWithTag("MoneyManager").GetComponent<MoneyManager>().CalculateMoney(value).ToString("F1"), 6f, 0.3f, 40f, 0.45f, 0.15f, color);
+
+        if (!GameObject.FindGameObjectWithTag("PVars").GetComponent<PersistentVariables>().infiniteMode)
+            Utils.SpawnFloatingText(deathMoneyText, transform.position, "$" + GameObject.FindGameObjectWithTag("MoneyManager").GetComponent<MoneyManager>().CalculateMoney(value).ToString("F1"), 6f, 0.3f, 40f, 0.45f, 0.15f, color);
 
         moneyManager.AddMoney(value);
         if (playerHealth.regenOnKill)

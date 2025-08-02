@@ -20,8 +20,8 @@ public class GameManager : MonoBehaviour
     float ogMoney;
 
     [Header("Volume Settings")]
-    public Slider sfxSlider;
-    public Slider musicSlider;
+    public Slider[] sfxSliders;
+    public Slider[] musicSliders;
 
     [Header("Music Settings")]
     public AudioSource musicSource;
@@ -32,29 +32,42 @@ public class GameManager : MonoBehaviour
     public GameObject winScreen;
     public int lShiftPresses = 0;
     public int kills = 0;
+    public float totalMoneyGained;
     public float winTime; // how long the win screen is up for
     PersistentVariables persistentVariables;
     public GameObject timeText;
     public GameObject killsText;
+    public GameObject totalMoneyText;
+
+    public GameObject totalTimeText;
 
 
     private void Start()
     {
         persistentVariables = GameObject.FindGameObjectWithTag("PVars").GetComponent<PersistentVariables>();
-        if (sfxSlider != null)
+        if (sfxSliders != null)
         {
-            sfxSlider.onValueChanged.AddListener(OnSfxSliderValueChanged);
-            sfxSlider.value = persistentVariables.sfxVolume;
+            foreach (Slider sfx in sfxSliders)
+            {
+                sfx.onValueChanged.AddListener(OnSfxSliderValueChanged);
+                sfx.value = persistentVariables.sfxVolume;
+            }
+
         }
-        if (musicSlider != null)
+        if (musicSliders != null)
         {
-            musicSlider.onValueChanged.AddListener(OnMusicSliderValueChanged);
-            musicSlider.value = persistentVariables.musicVolume;
+            foreach (Slider music in musicSliders)
+            {
+                music.onValueChanged.AddListener(OnMusicSliderValueChanged);
+                music.value = persistentVariables.musicVolume;
+            }
         }
 
-        if (tutorialText != null)
+        if (tutorialText != null && !persistentVariables.infiniteMode)
             tutorialText.text = tutorialStrings[tutorialStage];
-        Time.timeScale = 1; // Ensure the game is running at normal speed
+        else if (persistentVariables.infiniteMode)
+            tutorialText.text = "";
+            Time.timeScale = 1; // Ensure the game is running at normal speed
 
         if (musicTracks.Length > 0)
             StartCoroutine(PlayMusicContinuously());
@@ -63,7 +76,18 @@ public class GameManager : MonoBehaviour
     {
         time += Time.deltaTime;
 
-        if (!tutorialFinished && tutorialText != null)
+        if (persistentVariables.infiniteMode)
+        {
+            if (!totalTimeText.activeSelf)
+            {
+                totalTimeText.SetActive(true);
+            }
+
+            TimeSpan timePlayed = TimeSpan.FromSeconds(Mathf.RoundToInt(time));
+            totalTimeText.GetComponent<TextMeshProUGUI>().text = string.Format("{0:00}:{1:00}", timePlayed.Minutes, timePlayed.Seconds);
+        }
+
+        if (!tutorialFinished && tutorialText != null && !persistentVariables.infiniteMode)
             Tutorial();
 
         if (musicSource != null)
@@ -166,22 +190,34 @@ public class GameManager : MonoBehaviour
     {
         LoadScene("Menu");
     }
-    public void LoadGame(float difficulty)
+    public void LoadGame(float difficulty = 1)
     {
         float moneyMultiplierMultiplier = 1.8f;
         LoadScene("Gameplay");
-        PersistentVariables pVars = GameObject.FindGameObjectWithTag("PVars").GetComponent<PersistentVariables>();
-        pVars.difficulty = difficulty;
+        persistentVariables.difficulty = difficulty;
         if (difficulty < 1)
         {
-            pVars.moneyMultiplier = difficulty * moneyMultiplierMultiplier;
+            persistentVariables.moneyMultiplier = difficulty * moneyMultiplierMultiplier;
         } else if (difficulty > 1)
         {
-            pVars.moneyMultiplier = difficulty / moneyMultiplierMultiplier;
+            persistentVariables.moneyMultiplier = difficulty / moneyMultiplierMultiplier;
         } else
         {
-            pVars.moneyMultiplier = 1;
+            persistentVariables.moneyMultiplier = 1;
         }
+    }
+
+    public void RetryGame()
+    {
+        LoadScene("Gameplay");
+    }
+
+    public void LoadGameInf()
+    {
+        LoadScene("Gameplay");
+        persistentVariables.infiniteMode = true;
+        persistentVariables.difficulty = 1f;
+        persistentVariables.moneyMultiplier = 1;
     }
     public void LoadDifficulty()
     {
@@ -209,6 +245,9 @@ public class GameManager : MonoBehaviour
 
         // kills
         killsText.GetComponent<TextMeshProUGUI>().text = "Kills = " + kills.ToString();
+
+        // money
+        totalMoneyText.GetComponent<TextMeshProUGUI>().text = "Gained $" + totalMoneyGained.ToString("F2");
 
         Debug.Log("WIN SCREEN ENABLED: " + winTime.ToString());
         yield return new WaitForSeconds(winTime);
