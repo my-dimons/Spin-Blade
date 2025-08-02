@@ -15,6 +15,7 @@ public class EnemyManager : MonoBehaviour
 
     // used by events
     float eventSpawnRate = 1f;
+    int eventCount = 0;
 
     public float enemySpeedMultiplier = 1f;
 
@@ -97,10 +98,18 @@ public class EnemyManager : MonoBehaviour
         if (randomNum != 3)
             Utils.PlayClip(eventPing, 1.25f);
 
+        if (eventCount == 2)
+        {
+            StartCoroutine(DifficultyIncreaseEvent());
+            eventCount = 0;
+            return;
+        } else
+            eventCount++;
+
         switch (randomNum)
         {
             case 0:
-                StartCoroutine(EnemySwarm(eventEnemySwarmAmount)); 
+                StartCoroutine(EnemySwarm(eventEnemySwarmAmount * difficulty * 2));
                 break;
             case 1:
                 StartCoroutine(MiniBossEvent());
@@ -108,7 +117,7 @@ public class EnemyManager : MonoBehaviour
             case 2:
                 StartCoroutine(DifficultyIncreaseEvent());
                 break;
-            case 3: 
+            case 3:
                 StartCoroutine(EventLoop());
                 break;
         }
@@ -128,6 +137,7 @@ public class EnemyManager : MonoBehaviour
 
     IEnumerator EnemySwarm(float enemyAmount)
     {
+        enemyAmount = Mathf.Round(enemyAmount);
         eventHappening = true;
         eventText.gameObject.SetActive(true);
         eventText.text = "Enemy Swarm Incoming";
@@ -139,11 +149,12 @@ public class EnemyManager : MonoBehaviour
             yield return new WaitForSeconds(1f); // Short delay between spawns
         }
 
-        StartCoroutine(EventLoop());
         eventHappening = false;
 
         eventText.text = "";
         eventText.gameObject.SetActive(false);
+
+        StartCoroutine(EventLoop());
     }
 
     IEnumerator MiniBossEvent()
@@ -157,11 +168,13 @@ public class EnemyManager : MonoBehaviour
         SpawnEnemy(eventBossPrefab);
         eventSpawnRate *= bossEventSpawnRate;
 
-        yield return new WaitForSeconds(eventDuration * 3f);
+        yield return new WaitForSeconds(20);
         eventHappening = true;
 
         eventSpawnRate = 1f;
         eventHappening = false;
+
+        StartCoroutine(EventLoop());
     }
 
     IEnumerator DifficultyIncreaseEvent()
@@ -177,6 +190,8 @@ public class EnemyManager : MonoBehaviour
         eventHappening = false;
         eventText.text = "";
         eventText.gameObject.SetActive(false);
+
+        StartCoroutine(EventLoop());
     }
     IEnumerator MoneyMultiplierEvent(float multiplier)
     {

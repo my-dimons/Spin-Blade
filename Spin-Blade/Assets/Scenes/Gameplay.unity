@@ -1169,7 +1169,7 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: 4234c0ea77110c44c9c6139ae2ad99c6, type: 3}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: price
-      value: 8
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: title
@@ -1193,11 +1193,11 @@ PrefabInstance:
       objectReference: {fileID: 1620302933}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: priceIncrease
-      value: 1.25
+      value: 1.3
       objectReference: {fileID: 0}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: speedIncrease
-      value: 0.5
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: damageIncrease
@@ -7380,7 +7380,7 @@ PrefabInstance:
       objectReference: {fileID: 1620302933}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: sizeIncrease
-      value: 0.05
+      value: 0.08
       objectReference: {fileID: 0}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: healthIncrease
@@ -7908,7 +7908,7 @@ PrefabInstance:
       objectReference: {fileID: 1620302933}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: sizeIncrease
-      value: 0.15
+      value: 0.125
       objectReference: {fileID: 0}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: priceIncrease
@@ -14704,7 +14704,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: description
-      value: +10 health
+      value: +3.5 health
       objectReference: {fileID: 0}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: moneyManager
@@ -14716,7 +14716,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: healthIncrease
-      value: 10
+      value: 3.5
       objectReference: {fileID: 0}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: backgroundTintColor.b
@@ -20430,7 +20430,7 @@ PrefabInstance:
       objectReference: {fileID: 1620302933}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: priceIncrease
-      value: 1.4
+      value: 1.25
       objectReference: {fileID: 0}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: healthIncrease
@@ -29827,7 +29827,7 @@ PrefabInstance:
       objectReference: {fileID: 1620302933}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: sizeIncrease
-      value: 0.08
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: priceIncrease
@@ -32927,7 +32927,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: description
-      value: +0.6 regen
+      value: +0.1 regen
       objectReference: {fileID: 0}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: moneyManager
@@ -32939,7 +32939,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: regenIncrease
-      value: 0.6
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: backgroundTintColor.b
@@ -33296,7 +33296,7 @@ PrefabInstance:
       objectReference: {fileID: 1620302933}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: priceIncrease
-      value: 2.3
+      value: 1.75
       objectReference: {fileID: 0}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: backgroundTintColor.b
@@ -39484,7 +39484,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: description
-      value: +6 Health
+      value: +2 Health
       objectReference: {fileID: 0}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: moneyManager
@@ -39492,7 +39492,7 @@ PrefabInstance:
       objectReference: {fileID: 1620302933}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: healthIncrease
-      value: 6
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: rangedAutofire
@@ -40222,12 +40222,12 @@ MonoBehaviour:
   eventPing: {fileID: 8300000, guid: fef53fd28c5c1bc499c714b56343f806, type: 3}
   eventHappening: 0
   eventDuration: 10
-  eventCooldown: 60
-  eventEnemySwarmAmount: 10
+  eventCooldown: 70
+  eventEnemySwarmAmount: 3
   eventMoneyMultiplierAmount: 2
-  eventDifficultyIncreasePercent: 0
+  eventDifficultyIncreasePercent: 0.3
   eventBossPrefab: {fileID: 4528608015732399353, guid: 91e29ee0c4c2f6d4da6eaef75fe67710, type: 3}
-  bossEventSpawnRate: 0.4
+  bossEventSpawnRate: 0.3
 --- !u!1 &1864943806
 GameObject:
   m_ObjectHideFlags: 0
@@ -41521,7 +41521,7 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: d7df5573ec032fe44ac8c31c5f2ae238, type: 3}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: price
-      value: 12
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: title
@@ -47705,7 +47705,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: description
-      value: Increases health by +1.5
+      value: Increases health by +1
       objectReference: {fileID: 0}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: moneyManager
@@ -47721,7 +47721,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: healthIncrease
-      value: 1.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: backgroundTintColor.b
@@ -47994,7 +47994,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: speedIncrease
-      value: 0.25
+      value: 0.23
       objectReference: {fileID: 0}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: backgroundTintColor.g
