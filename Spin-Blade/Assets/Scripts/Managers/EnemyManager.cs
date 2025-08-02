@@ -162,6 +162,7 @@ public class EnemyManager : MonoBehaviour
         eventText.text = "Boss Incoming";
         eventText.gameObject.SetActive(true);
         yield return new WaitForSeconds(5); // Short delay before the event starts
+        eventHappening = true;
         eventText.text = "";
         eventText.gameObject.SetActive(false);
 
@@ -169,7 +170,6 @@ public class EnemyManager : MonoBehaviour
         eventSpawnRate *= bossEventSpawnRate;
 
         yield return new WaitForSeconds(35);
-        eventHappening = true;
 
         eventSpawnRate = 1f;
         eventHappening = false;

@@ -12,7 +12,8 @@ public class RotateTowardsObject : MonoBehaviour
     void Update()
     {
         if (target == null) targetPosition = Vector3.zero;
-        targetPosition = target.position;
+        else
+            targetPosition = target.position;
 
         Vector3 direction = targetPosition - transform.position;
 

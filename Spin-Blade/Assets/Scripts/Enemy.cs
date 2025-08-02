@@ -67,7 +67,7 @@ public class Enemy : MonoBehaviour
         else
         {
             health *= enemyManager.difficulty * Mathf.Clamp(playerHealth.damage, 1, Mathf.Infinity);
-            damage = Mathf.Clamp(playerHealth.currentHealth / 1.4f, 1, Mathf.Infinity);
+            damage = Mathf.Clamp(playerHealth.maxHeath / damage, 1, Mathf.Infinity);
         }
 
         if (randomSize)

@@ -121,7 +121,7 @@ MonoBehaviour:
   goodMoneyColor: {r: 0.38823533, g: 1, b: 0.41018024, a: 1}
   badMoneyColor: {r: 0.54088044, g: 0.19219962, b: 0.19219962, a: 1}
   moneyGain: 10
-  healthGain: 0
+  healthGain: 0.05
   spawnRate: 0.4
   isBoss: 0
   damageFromProjectiles: 0

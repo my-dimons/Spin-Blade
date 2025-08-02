@@ -293,7 +293,7 @@ public class Upgrade : MonoBehaviour
 
         if (win)
         {
-            StartCoroutine(GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>().WinScreen());
+            GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>().Win();
         }
     }
 

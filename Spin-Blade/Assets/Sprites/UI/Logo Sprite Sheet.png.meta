@@ -1,0 +1,2730 @@
+fileFormatVersion: 2
+guid: 72864d30dcc471c4f898abec4bff7f75
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -6688082779559837463
+    second: Sequence01-ezgif.com-gif-to-sprite-converter_0
+  - first:
+      213: 3367682590321951114
+    second: Sequence01-ezgif.com-gif-to-sprite-converter_1
+  - first:
+      213: 6277133215580344127
+    second: Sequence01-ezgif.com-gif-to-sprite-converter_2
+  - first:
+      213: -2513450252320293937
+    second: Sequence01-ezgif.com-gif-to-sprite-converter_3
+  - first:
+      213: -6229928895616417846
+    second: Sequence01-ezgif.com-gif-to-sprite-converter_4
+  - first:
+      213: 4066176299413455166
+    second: Sequence01-ezgif.com-gif-to-sprite-converter_5
+  - first:
+      213: -4737938040153712273
+    second: Sequence01-ezgif.com-gif-to-sprite-converter_6
+  - first:
+      213: -6384775674710258335
+    second: Sequence01-ezgif.com-gif-to-sprite-converter_7
+  - first:
+      213: -2220612102164849965
+    second: Sequence01-ezgif.com-gif-to-sprite-converter_8
+  - first:
+      213: 7677929465953087682
+    second: Sequence01-ezgif.com-gif-to-sprite-converter_9
+  - first:
+      213: 6453498174955192775
+    second: Sequence01-ezgif.com-gif-to-sprite-converter_10
+  - first:
+      213: 394391860658292607
+    second: Sequence01-ezgif.com-gif-to-sprite-converter_11
+  - first:
+      213: -2054662431609950529
+    second: Sequence01-ezgif.com-gif-to-sprite-converter_12
+  - first:
+      213: 3745570108949439870
+    second: Sequence01-ezgif.com-gif-to-sprite-converter_13
+  - first:
+      213: 8936335644957187133
+    second: Sequence01-ezgif.com-gif-to-sprite-converter_14
+  - first:
+      213: -2574348247822113388
+    second: Sequence01-ezgif.com-gif-to-sprite-converter_15
+  - first:
+      213: -9053739803253640143
+    second: Sequence01-ezgif.com-gif-to-sprite-converter_16
+  - first:
+      213: -383890784119531795
+    second: Sequence01-ezgif.com-gif-to-sprite-converter_17
+  - first:
+      213: 2239705710628432755
+    second: Sequence01-ezgif.com-gif-to-sprite-converter_18
+  - first:
+      213: -2185309763326515425
+    second: Sequence01-ezgif.com-gif-to-sprite-converter_19
+  - first:
+      213: -9178403253231541
+    second: Sequence01-ezgif.com-gif-to-sprite-converter_20
+  - first:
+      213: -9097616621400005302
+    second: Sequence01-ezgif.com-gif-to-sprite-converter_21
+  - first:
+      213: -4453439866718075186
+    second: Sequence01-ezgif.com-gif-to-sprite-converter_22
+  - first:
+      213: 6138524007113386037
+    second: Sequence01-ezgif.com-gif-to-sprite-converter_23
+  - first:
+      213: 6186086354599747049
+    second: Sequence01-ezgif.com-gif-to-sprite-converter_24
+  - first:
+      213: -2023623598642539353
+    second: Sequence01-ezgif.com-gif-to-sprite-converter_25
+  - first:
+      213: -971272555795867427
+    second: Sequence01-ezgif.com-gif-to-sprite-converter_26
+  - first:
+      213: 8863602265397960639
+    second: Sequence01-ezgif.com-gif-to-sprite-converter_27
+  - first:
+      213: 8364495422821043811
+    second: Sequence01-ezgif.com-gif-to-sprite-converter_28
+  - first:
+      213: 8314737378775437476
+    second: Sequence01-ezgif.com-gif-to-sprite-converter_29
+  - first:
+      213: 3021793751857968534
+    second: Sequence01-ezgif.com-gif-to-sprite-converter_30
+  - first:
+      213: -2493804900620925490
+    second: Sequence01-ezgif.com-gif-to-sprite-converter_31
+  - first:
+      213: 818971522452388090
+    second: Sequence01-ezgif.com-gif-to-sprite-converter_32
+  - first:
+      213: 3478976946988721689
+    second: Sequence01-ezgif.com-gif-to-sprite-converter_33
+  - first:
+      213: 5692513640697202537
+    second: Sequence01-ezgif.com-gif-to-sprite-converter_34
+  - first:
+      213: -6412534532506691657
+    second: Sequence01-ezgif.com-gif-to-sprite-converter_35
+  - first:
+      213: -8795170772730660440
+    second: Sequence01-ezgif.com-gif-to-sprite-converter_36
+  - first:
+      213: 6261991056125314363
+    second: Sequence01-ezgif.com-gif-to-sprite-converter_37
+  - first:
+      213: -7644970787002123717
+    second: Sequence01-ezgif.com-gif-to-sprite-converter_38
+  - first:
+      213: 4278944005231295276
+    second: Sequence01-ezgif.com-gif-to-sprite-converter_39
+  - first:
+      213: -951232214926706313
+    second: Sequence01-ezgif.com-gif-to-sprite-converter_40
+  - first:
+      213: 4704623004016154357
+    second: Sequence01-ezgif.com-gif-to-sprite-converter_41
+  - first:
+      213: 4103580086244135793
+    second: Sequence01-ezgif.com-gif-to-sprite-converter_42
+  - first:
+      213: -8221453100113378294
+    second: Sequence01-ezgif.com-gif-to-sprite-converter_43
+  - first:
+      213: -485556828398992053
+    second: Sequence01-ezgif.com-gif-to-sprite-converter_44
+  - first:
+      213: 4698541681119359505
+    second: Sequence01-ezgif.com-gif-to-sprite-converter_45
+  - first:
+      213: -4368527158821300439
+    second: Sequence01-ezgif.com-gif-to-sprite-converter_46
+  - first:
+      213: -3536879180500573610
+    second: Sequence01-ezgif.com-gif-to-sprite-converter_47
+  - first:
+      213: -7577590326205811968
+    second: Sequence01-ezgif.com-gif-to-sprite-converter_48
+  - first:
+      213: -7450515914224222677
+    second: Sequence01-ezgif.com-gif-to-sprite-converter_49
+  - first:
+      213: -1907959593220154202
+    second: Sequence01-ezgif.com-gif-to-sprite-converter_50
+  - first:
+      213: -6305326716159815204
+    second: Sequence01-ezgif.com-gif-to-sprite-converter_51
+  - first:
+      213: 3812722034944678781
+    second: Sequence01-ezgif.com-gif-to-sprite-converter_52
+  - first:
+      213: 8728964537927241354
+    second: Sequence01-ezgif.com-gif-to-sprite-converter_53
+  - first:
+      213: 6395676911448501959
+    second: Sequence01-ezgif.com-gif-to-sprite-converter_54
+  - first:
+      213: -4266861489582912380
+    second: Sequence01-ezgif.com-gif-to-sprite-converter_55
+  - first:
+      213: 1803512633554234336
+    second: Sequence01-ezgif.com-gif-to-sprite-converter_56
+  - first:
+      213: -500745454403379904
+    second: Sequence01-ezgif.com-gif-to-sprite-converter_57
+  - first:
+      213: 1534557620222145099
+    second: Sequence01-ezgif.com-gif-to-sprite-converter_58
+  - first:
+      213: -1826495632357258603
+    second: Sequence01-ezgif.com-gif-to-sprite-converter_59
+  - first:
+      213: -8589851621678589467
+    second: Sequence01-ezgif.com-gif-to-sprite-converter_60
+  - first:
+      213: -3851655787260436248
+    second: Sequence01-ezgif.com-gif-to-sprite-converter_61
+  - first:
+      213: 3212493156721688982
+    second: Sequence01-ezgif.com-gif-to-sprite-converter_62
+  - first:
+      213: -5017815553847275430
+    second: Sequence01-ezgif.com-gif-to-sprite-converter_63
+  - first:
+      213: -8692582318746836263
+    second: Sequence01-ezgif.com-gif-to-sprite-converter_64
+  - first:
+      213: -6727873012529786718
+    second: Sequence01-ezgif.com-gif-to-sprite-converter_65
+  - first:
+      213: 6906404080077720588
+    second: Sequence01-ezgif.com-gif-to-sprite-converter_66
+  - first:
+      213: -4942395152831210887
+    second: Sequence01-ezgif.com-gif-to-sprite-converter_67
+  - first:
+      213: -6767055765326386050
+    second: Sequence01-ezgif.com-gif-to-sprite-converter_68
+  - first:
+      213: -134789605667434984
+    second: Sequence01-ezgif.com-gif-to-sprite-converter_69
+  - first:
+      213: 7712800811831944937
+    second: Sequence01-ezgif.com-gif-to-sprite-converter_70
+  - first:
+      213: 4457038165390822096
+    second: Sequence01-ezgif.com-gif-to-sprite-converter_71
+  - first:
+      213: -4582597425548682019
+    second: Sequence01-ezgif.com-gif-to-sprite-converter_72
+  - first:
+      213: -403292991782331266
+    second: Sequence01-ezgif.com-gif-to-sprite-converter_73
+  - first:
+      213: 6321647282305560631
+    second: Sequence01-ezgif.com-gif-to-sprite-converter_74
+  - first:
+      213: 9126764325395751698
+    second: Sequence01-ezgif.com-gif-to-sprite-converter_75
+  - first:
+      213: -7536435619819456958
+    second: Sequence01-ezgif.com-gif-to-sprite-converter_76
+  - first:
+      213: -1887819127623143104
+    second: Sequence01-ezgif.com-gif-to-sprite-converter_77
+  - first:
+      213: -3404233642464123361
+    second: Sequence01-ezgif.com-gif-to-sprite-converter_78
+  - first:
+      213: 3283439860921972200
+    second: Sequence01-ezgif.com-gif-to-sprite-converter_79
+  - first:
+      213: 4378260682261450175
+    second: Sequence01-ezgif.com-gif-to-sprite-converter_80
+  - first:
+      213: 9201474975228997212
+    second: Sequence01-ezgif.com-gif-to-sprite-converter_81
+  - first:
+      213: 7167401792288586240
+    second: Sequence01-ezgif.com-gif-to-sprite-converter_82
+  - first:
+      213: -3982467868454582039
+    second: Sequence01-ezgif.com-gif-to-sprite-converter_83
+  - first:
+      213: -5376274802388313321
+    second: Sequence01-ezgif.com-gif-to-sprite-converter_84
+  - first:
+      213: -4064695134396123491
+    second: Sequence01-ezgif.com-gif-to-sprite-converter_85
+  - first:
+      213: 3357309872675875326
+    second: Sequence01-ezgif.com-gif-to-sprite-converter_86
+  - first:
+      213: 6755416808234529864
+    second: Sequence01-ezgif.com-gif-to-sprite-converter_87
+  - first:
+      213: 5456528539272164601
+    second: Sequence01-ezgif.com-gif-to-sprite-converter_88
+  - first:
+      213: 2589943624599818985
+    second: Sequence01-ezgif.com-gif-to-sprite-converter_89
+  - first:
+      213: 5311969938651296445
+    second: Sequence01-ezgif.com-gif-to-sprite-converter_90
+  - first:
+      213: 7674518534990683031
+    second: Sequence01-ezgif.com-gif-to-sprite-converter_91
+  - first:
+      213: -778546269714109512
+    second: Sequence01-ezgif.com-gif-to-sprite-converter_92
+  - first:
+      213: 2688742063504558641
+    second: Sequence01-ezgif.com-gif-to-sprite-converter_93
+  - first:
+      213: 86962219190827583
+    second: Sequence01-ezgif.com-gif-to-sprite-converter_94
+  - first:
+      213: -8723407457899258615
+    second: Sequence01-ezgif.com-gif-to-sprite-converter_95
+  - first:
+      213: 3200193778161026633
+    second: Sequence01-ezgif.com-gif-to-sprite-converter_96
+  - first:
+      213: -1820511509401012367
+    second: Sequence01-ezgif.com-gif-to-sprite-converter_97
+  - first:
+      213: 6065459779575484119
+    second: Sequence01-ezgif.com-gif-to-sprite-converter_98
+  - first:
+      213: 3544777892732657260
+    second: Sequence01-ezgif.com-gif-to-sprite-converter_99
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Logo Sprite Sheet_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 9728
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 52619a77e8951b54488bd02a6d76f4c4
+      internalID: 703130541
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo Sprite Sheet_1
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 9728
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c19a076dc2af7de4cb7b0dfc9e0f3bd9
+      internalID: -1419677659
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo Sprite Sheet_2
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 9728
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e32ad5611772b8944b1dd521d491f50d
+      internalID: 1499828254
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo Sprite Sheet_3
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 9728
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d9f5dbfbc6ef92049b7a1eb28989c0fb
+      internalID: 516327824
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo Sprite Sheet_4
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 9728
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f0549da034eb77b4d94e1854ba909f7d
+      internalID: 1450638546
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo Sprite Sheet_5
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 9216
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 49d439b2e61698a44adeb07e3a0b0bc5
+      internalID: 1937718317
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo Sprite Sheet_6
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 9216
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aff06e426524ae84cad29e38d10416fd
+      internalID: -2126549307
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo Sprite Sheet_7
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 9216
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6910c813fc8ef5641a9fc32645f8078f
+      internalID: 160640856
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo Sprite Sheet_8
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 9216
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a4de9b4327267d04f94a602e0b2b87cf
+      internalID: -459940973
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo Sprite Sheet_9
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 9216
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ead35b66dde7fcc40934acc731ef87bd
+      internalID: 1564690048
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo Sprite Sheet_10
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 8704
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ff40615ebd0cac24eab216b78ffbd425
+      internalID: -1677207274
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo Sprite Sheet_11
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 8704
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b21072bd3e7fd49469a6b19df677f23d
+      internalID: 1318099629
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo Sprite Sheet_12
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 8704
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1a7ab40cf75b68f479514cc6088d7b04
+      internalID: 1553391897
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo Sprite Sheet_13
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 8704
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 53493e6bccb9e774a99ea71329294f1a
+      internalID: -399837963
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo Sprite Sheet_14
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 8704
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bda909e54e44daa4086d409215b53db6
+      internalID: 1368383970
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo Sprite Sheet_15
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 8192
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a8f5b5b15947da445b772e5a8d6b6c52
+      internalID: -1011707938
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo Sprite Sheet_16
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 8192
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 04e02a950fcfb8149a7b920cebaa3720
+      internalID: -1182666053
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo Sprite Sheet_17
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 8192
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ad5e967959d83e140b871d0c72ef1cf8
+      internalID: 577409352
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo Sprite Sheet_18
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 8192
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b56c91c60506a1a4d963c78ecebc79d1
+      internalID: 1704147562
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo Sprite Sheet_19
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 8192
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4a67a84e6b204464e9a48dad32028441
+      internalID: 1684748215
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo Sprite Sheet_20
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 7680
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 11e7e94d2cfb79447a68f4a4a3e0b14e
+      internalID: -1457570402
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo Sprite Sheet_21
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 7680
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ce8760e6e06bb7d488e2316b0ec03ee9
+      internalID: -1274200006
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo Sprite Sheet_22
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 7680
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 914bf26d90e81da4091b5eda98f9c62e
+      internalID: 401004245
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo Sprite Sheet_23
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 7680
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 14aaac74c7fc0084ebf91afc9c1ef384
+      internalID: 479676334
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo Sprite Sheet_24
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 7680
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5b5a1a52d0827a9449425585455a48ab
+      internalID: -1484678036
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo Sprite Sheet_25
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 7168
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b5ab045690831b145a80082e3741c54a
+      internalID: -1066744180
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo Sprite Sheet_26
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 7168
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 87f9996056b5e3844a6a6b9995e76129
+      internalID: -1364715392
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo Sprite Sheet_27
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 7168
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0bee4e9ea2a042b4f8d76397aa646f1c
+      internalID: -1025995565
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo Sprite Sheet_28
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 7168
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1a15e892350c44b47903ff7fe5ca0699
+      internalID: -689719709
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo Sprite Sheet_29
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 7168
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 981b77d977b1ff444ab41bef5e2c3824
+      internalID: 1341169219
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo Sprite Sheet_30
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 6656
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fda1f159990eda246b37ca87f6c5fb6a
+      internalID: 533913995
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo Sprite Sheet_31
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 6656
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8ed31cecc12986b4384f1112fbbd9455
+      internalID: -1282136156
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo Sprite Sheet_32
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 6656
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7a42ffb78acb9744f9a52ceda7250d30
+      internalID: -1746287502
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo Sprite Sheet_33
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 6656
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9b616ca2b279593498149f0c91c832fc
+      internalID: 1936122474
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo Sprite Sheet_34
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 6656
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 44d040cbfad27e5499595e3be0924451
+      internalID: -541677248
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo Sprite Sheet_35
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 6144
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5e613bc1349015d41bee657653a257d6
+      internalID: -1735361670
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo Sprite Sheet_36
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 6144
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 476eb3e35ced86045b4d3a88ac411f92
+      internalID: 1522458994
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo Sprite Sheet_37
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 6144
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1a69594c65c7e1b49ba6b82978c08854
+      internalID: 1182783817
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo Sprite Sheet_38
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 6144
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ea2f757f441e8cc46ab0ed5d749b3699
+      internalID: -727428581
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo Sprite Sheet_39
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 6144
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 98e30f2fb8976c84f97ac7ae6c486fc3
+      internalID: -1485512093
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo Sprite Sheet_40
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 5632
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 826dd06705cf6034dbac40fdeedbf54b
+      internalID: 841766511
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo Sprite Sheet_41
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 5632
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2f2a9f4645ee03f48bfa61b8ad5433dd
+      internalID: 1959195644
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo Sprite Sheet_42
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 5632
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f3a034fa083aaf949bdb9fc7161776aa
+      internalID: -1594104137
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo Sprite Sheet_43
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 5632
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2494eb0590eb9d34db9e9da189b98649
+      internalID: -2006782950
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo Sprite Sheet_44
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 5632
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d747c39e2c153da4f854f225c5136cd3
+      internalID: -793078452
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo Sprite Sheet_45
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 5120
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b79aae88d58bd16499773e2e80af3ae6
+      internalID: 213493775
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo Sprite Sheet_46
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 5120
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f3fbbb8437ca2814db3fe2f1f654141f
+      internalID: -278769994
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo Sprite Sheet_47
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 5120
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fb84ae45f9dacc540bec29d806cab3f7
+      internalID: 1659664380
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo Sprite Sheet_48
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 5120
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ef167fc3f45ca2e45afb81ea73bb826a
+      internalID: 1119154631
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo Sprite Sheet_49
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 5120
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9d74ad23eba3faf4db9af23d24a206de
+      internalID: -47520872
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo Sprite Sheet_50
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 4608
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 600bf084df2381940a0adbb89883e97e
+      internalID: 623571394
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo Sprite Sheet_51
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 4608
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2cf31bfecb7adf14e9aa087f1b164f51
+      internalID: 90447169
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo Sprite Sheet_52
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 4608
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a0ed2a9c15e0972409a6d0afa4832512
+      internalID: 2014422705
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo Sprite Sheet_53
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 4608
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 38452a46d73f9984fbda49a8a6c6fd33
+      internalID: -1151755357
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo Sprite Sheet_54
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 4608
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e07a93e93644eb14fa0da5dc4e4ab7d7
+      internalID: 308931330
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo Sprite Sheet_55
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 4096
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 06b7993845a6d73489581fc1c287e747
+      internalID: -1380437856
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo Sprite Sheet_56
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 4096
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 21a10eed650ba6649a051cc57beaf588
+      internalID: -1342768170
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo Sprite Sheet_57
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 4096
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6d0e0e5e0ab449f40ae4097bf8320229
+      internalID: 1932402561
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo Sprite Sheet_58
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 4096
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8622bb011953fa74ab46f4aa6e80962f
+      internalID: 564392789
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo Sprite Sheet_59
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 4096
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d770a83ab25e10b41be7687bff2aade4
+      internalID: -1497965120
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo Sprite Sheet_60
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 3584
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a1ca668603a9a214d9ad0e27ef3e68db
+      internalID: -1306461883
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo Sprite Sheet_61
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 3584
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 759999c86f7741f4fa924b5c75f62687
+      internalID: -526381815
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo Sprite Sheet_62
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 3584
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d051b409e36a7a84a8a703d45eb1fcfa
+      internalID: -1867368248
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo Sprite Sheet_63
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 3584
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f5e0a3893306d654081436c3516571f4
+      internalID: -2043901195
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo Sprite Sheet_64
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 3584
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: be52b0e9ac529834a9572987aa245094
+      internalID: -2054977003
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo Sprite Sheet_65
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 3072
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bc9346bf5a2514847ad61edb1248f34f
+      internalID: 797185440
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo Sprite Sheet_66
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 3072
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 97b9578b9f248ac48975b05a464964e5
+      internalID: -1233421888
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo Sprite Sheet_67
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 3072
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 034a24765cbc4b74ab7c02031ff8f4aa
+      internalID: 19458302
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo Sprite Sheet_68
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 3072
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9fe4a3c407a18244b816df8458878ba8
+      internalID: 1263570711
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo Sprite Sheet_69
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 3072
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1a1e77e432bf69745ab6d87d5a1f543a
+      internalID: 2028501074
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo Sprite Sheet_70
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2560
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a41ebaeb884c2184cbbbe2552ae0f0e8
+      internalID: -913167420
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo Sprite Sheet_71
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 2560
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7034fc6364e0eeb45a547b24e8b66009
+      internalID: -12257374
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo Sprite Sheet_72
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 2560
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 533581e43f2906d46bbe79d661b6e312
+      internalID: 381480042
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo Sprite Sheet_73
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 2560
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fb14be33a6705564e81830fe9ae3ccc6
+      internalID: -569141722
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo Sprite Sheet_74
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 2560
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0c66f60b608220744bc327ac25f3af82
+      internalID: 158813472
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo Sprite Sheet_75
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2048
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6e3278c05abcc6941b82725b14310397
+      internalID: 2042280167
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo Sprite Sheet_76
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 2048
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 13240a84197eb244b95a41e8aa0c19f0
+      internalID: 1522694801
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo Sprite Sheet_77
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 2048
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f0b09d91b9389024aaf21068bd7b8907
+      internalID: -1953904399
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo Sprite Sheet_78
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 2048
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5588ee70a3f2cdd4eb8ce92f456aa98e
+      internalID: 966453833
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo Sprite Sheet_79
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 2048
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 24cdad2726379784e856b57ed2f2c703
+      internalID: 1760517235
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo Sprite Sheet_80
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1536
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6d7c01ee1b4e2c943948601f3989cade
+      internalID: 431223395
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo Sprite Sheet_81
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 1536
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0fac9a8dffb70034ab6baeacd7855f1e
+      internalID: -972139880
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo Sprite Sheet_82
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 1536
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0ce66217a8f818b428f1868f24754d82
+      internalID: 1220471554
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo Sprite Sheet_83
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 1536
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f0304f62792a18e4482babe07cede5e0
+      internalID: 1859547015
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo Sprite Sheet_84
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 1536
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3713e0d06c463db45a9e635d3eb162be
+      internalID: -1675275269
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo Sprite Sheet_85
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1024
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f0c3bbb3666468646bb3cfcc143e273e
+      internalID: -1359292118
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo Sprite Sheet_86
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 1024
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6656bc361533e444c9f21117858c5c53
+      internalID: -1721571461
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo Sprite Sheet_87
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 1024
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dda68441390c9b14295500cbb781ef6e
+      internalID: 409449611
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo Sprite Sheet_88
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 1024
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 58890663557be0f4e89e601afe68659f
+      internalID: -230014483
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo Sprite Sheet_89
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 1024
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 36f99179320743442b1b1290c1e77a8b
+      internalID: -1523696206
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo Sprite Sheet_90
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 512
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fd570333a521df34783eb3bbf02117ae
+      internalID: -689289147
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo Sprite Sheet_91
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 512
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1b88de0bdcfbbd346a5be0b5b13fb078
+      internalID: -1732761019
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo Sprite Sheet_92
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 512
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d0254f0579d371343b1b877f64ac0aee
+      internalID: -37902633
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo Sprite Sheet_93
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 512
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 359be6eba9f36054bbc30f4afb0187f4
+      internalID: -1569779851
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo Sprite Sheet_94
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 512
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: af7b7e3fc13c16f488ebb1303eae0dd5
+      internalID: -1006955739
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo Sprite Sheet_95
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 49a8fdad9e0784943831e06830c3162d
+      internalID: -69513983
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo Sprite Sheet_96
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 0
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b8165fdf8a2899e4fb8d54ac304a817f
+      internalID: -869515785
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo Sprite Sheet_97
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 0
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 98385b6e9d961fd43839d723bcb591a0
+      internalID: 272287608
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo Sprite Sheet_98
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 0
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 67e944fac3aa71047ad5456574bb122d
+      internalID: -1694705762
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo Sprite Sheet_99
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 0
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6dad2a492ef7d5b40832b96d462e421b
+      internalID: -1674338440
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 01b480f016cfe1e488726ceeccc95cde
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Logo Sprite Sheet_0: 703130541
+      Logo Sprite Sheet_1: -1419677659
+      Logo Sprite Sheet_10: -1677207274
+      Logo Sprite Sheet_11: 1318099629
+      Logo Sprite Sheet_12: 1553391897
+      Logo Sprite Sheet_13: -399837963
+      Logo Sprite Sheet_14: 1368383970
+      Logo Sprite Sheet_15: -1011707938
+      Logo Sprite Sheet_16: -1182666053
+      Logo Sprite Sheet_17: 577409352
+      Logo Sprite Sheet_18: 1704147562
+      Logo Sprite Sheet_19: 1684748215
+      Logo Sprite Sheet_2: 1499828254
+      Logo Sprite Sheet_20: -1457570402
+      Logo Sprite Sheet_21: -1274200006
+      Logo Sprite Sheet_22: 401004245
+      Logo Sprite Sheet_23: 479676334
+      Logo Sprite Sheet_24: -1484678036
+      Logo Sprite Sheet_25: -1066744180
+      Logo Sprite Sheet_26: -1364715392
+      Logo Sprite Sheet_27: -1025995565
+      Logo Sprite Sheet_28: -689719709
+      Logo Sprite Sheet_29: 1341169219
+      Logo Sprite Sheet_3: 516327824
+      Logo Sprite Sheet_30: 533913995
+      Logo Sprite Sheet_31: -1282136156
+      Logo Sprite Sheet_32: -1746287502
+      Logo Sprite Sheet_33: 1936122474
+      Logo Sprite Sheet_34: -541677248
+      Logo Sprite Sheet_35: -1735361670
+      Logo Sprite Sheet_36: 1522458994
+      Logo Sprite Sheet_37: 1182783817
+      Logo Sprite Sheet_38: -727428581
+      Logo Sprite Sheet_39: -1485512093
+      Logo Sprite Sheet_4: 1450638546
+      Logo Sprite Sheet_40: 841766511
+      Logo Sprite Sheet_41: 1959195644
+      Logo Sprite Sheet_42: -1594104137
+      Logo Sprite Sheet_43: -2006782950
+      Logo Sprite Sheet_44: -793078452
+      Logo Sprite Sheet_45: 213493775
+      Logo Sprite Sheet_46: -278769994
+      Logo Sprite Sheet_47: 1659664380
+      Logo Sprite Sheet_48: 1119154631
+      Logo Sprite Sheet_49: -47520872
+      Logo Sprite Sheet_5: 1937718317
+      Logo Sprite Sheet_50: 623571394
+      Logo Sprite Sheet_51: 90447169
+      Logo Sprite Sheet_52: 2014422705
+      Logo Sprite Sheet_53: -1151755357
+      Logo Sprite Sheet_54: 308931330
+      Logo Sprite Sheet_55: -1380437856
+      Logo Sprite Sheet_56: -1342768170
+      Logo Sprite Sheet_57: 1932402561
+      Logo Sprite Sheet_58: 564392789
+      Logo Sprite Sheet_59: -1497965120
+      Logo Sprite Sheet_6: -2126549307
+      Logo Sprite Sheet_60: -1306461883
+      Logo Sprite Sheet_61: -526381815
+      Logo Sprite Sheet_62: -1867368248
+      Logo Sprite Sheet_63: -2043901195
+      Logo Sprite Sheet_64: -2054977003
+      Logo Sprite Sheet_65: 797185440
+      Logo Sprite Sheet_66: -1233421888
+      Logo Sprite Sheet_67: 19458302
+      Logo Sprite Sheet_68: 1263570711
+      Logo Sprite Sheet_69: 2028501074
+      Logo Sprite Sheet_7: 160640856
+      Logo Sprite Sheet_70: -913167420
+      Logo Sprite Sheet_71: -12257374
+      Logo Sprite Sheet_72: 381480042
+      Logo Sprite Sheet_73: -569141722
+      Logo Sprite Sheet_74: 158813472
+      Logo Sprite Sheet_75: 2042280167
+      Logo Sprite Sheet_76: 1522694801
+      Logo Sprite Sheet_77: -1953904399
+      Logo Sprite Sheet_78: 966453833
+      Logo Sprite Sheet_79: 1760517235
+      Logo Sprite Sheet_8: -459940973
+      Logo Sprite Sheet_80: 431223395
+      Logo Sprite Sheet_81: -972139880
+      Logo Sprite Sheet_82: 1220471554
+      Logo Sprite Sheet_83: 1859547015
+      Logo Sprite Sheet_84: -1675275269
+      Logo Sprite Sheet_85: -1359292118
+      Logo Sprite Sheet_86: -1721571461
+      Logo Sprite Sheet_87: 409449611
+      Logo Sprite Sheet_88: -230014483
+      Logo Sprite Sheet_89: -1523696206
+      Logo Sprite Sheet_9: 1564690048
+      Logo Sprite Sheet_90: -689289147
+      Logo Sprite Sheet_91: -1732761019
+      Logo Sprite Sheet_92: -37902633
+      Logo Sprite Sheet_93: -1569779851
+      Logo Sprite Sheet_94: -1006955739
+      Logo Sprite Sheet_95: -69513983
+      Logo Sprite Sheet_96: -869515785
+      Logo Sprite Sheet_97: 272287608
+      Logo Sprite Sheet_98: -1694705762
+      Logo Sprite Sheet_99: -1674338440
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

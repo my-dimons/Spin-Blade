@@ -193,7 +193,14 @@ public class GameManager : MonoBehaviour
         // kills
         killsText.GetComponent<TextMeshProUGUI>().text = "Kills = " + kills.ToString();
 
-        yield return new WaitForSecondsRealtime(winTime);
+        Debug.Log("WIN SCREEN ENABLED: " + winTime.ToString());
+        yield return new WaitForSeconds(winTime);
+        Debug.Log("WIN SCREEN DISABLED");
         winScreen.SetActive(false);
+    }
+
+    public void Win()
+    {
+        StartCoroutine(WinScreen());
     }
 }
