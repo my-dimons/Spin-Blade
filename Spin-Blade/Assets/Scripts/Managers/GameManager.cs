@@ -178,6 +178,9 @@ public class GameManager : MonoBehaviour
         } else if (difficulty > 1)
         {
             pVars.moneyMultiplier = difficulty / moneyMultiplierMultiplier;
+        } else
+        {
+            pVars.moneyMultiplier = 1;
         }
     }
     public void LoadDifficulty()

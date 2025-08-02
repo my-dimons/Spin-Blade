@@ -7,9 +7,7 @@ public class TriangleProjectile : MonoBehaviour
     public bool homing;
     public float homingRotationOffset;
     private Vector2 moveDirection;
-    private Vector2 ogMoveDirection;
     public float lifeTime = -1f;
-    private bool ogMove;
 
     private void Start()
     {
@@ -39,7 +37,6 @@ public class TriangleProjectile : MonoBehaviour
     {
         if (homing && homingTarget != null)
         {
-            ogMove = false;
             moveDirection = homingTarget.transform.position - transform.position;
             float angle = Mathf.Atan2(moveDirection.y, moveDirection.x) * Mathf.Rad2Deg;
             angle += homingRotationOffset;

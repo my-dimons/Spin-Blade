@@ -265,9 +265,9 @@ public class Upgrade : MonoBehaviour
         if (spawnMiniSaw)
             playerHealth.SpawnSaw();
         // mini saw stats
-        playerHealth.miniSawSpeed += miniSawSpeedIncrease;
         foreach (GameObject miniSaw in playerHealth.miniSaws)
         {
+            miniSaw.GetComponent<PlayerMiniSaw>().IncreaseSpeed(miniSawSpeedIncrease);
             miniSaw.GetComponent<Projectile>().damage += miniSawDamageIncrease;
         }
 

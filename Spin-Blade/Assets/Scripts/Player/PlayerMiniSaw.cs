@@ -12,12 +12,19 @@ public class PlayerMiniSaw : MonoBehaviour
     int direction = 1; // 1 = forward, -1 = backward
     public GameObject sprite;
     public float rotationSpeed;
-    float movementVariance;
-    
+
+    public float sawSpeed;
+    [SerializeField] float ActualSawSpeed;
     private void Start()
     {
-        movementVariance = Random.Range(-1, 1);
+        float num = Random.Range(0f, 1f);
+        Debug.Log(num);
+        if (num > 0.5f)
+        {
+            ReverseHexagonDirection();
+        }
         playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>();
+        IncreaseSpeed(playerHealth.miniSawBaseSpeed);
     }
     private void Update()
     {
@@ -47,8 +54,16 @@ public class PlayerMiniSaw : MonoBehaviour
             }
         }
     }
+
+    public void IncreaseSpeed(float amount)
+    {
+        sawSpeed += amount;
+        float sawVariance = sawSpeed/5;
+        ActualSawSpeed = sawSpeed + Random.Range(-sawVariance, sawVariance);
+    }
     public void ReverseHexagonDirection()
     {
+        Debug.Log("Reversing Saw Direction");
         direction *= -1; // Flip direction immediately
 
         // Move to the previous waypoint if we just reversed
@@ -61,17 +76,10 @@ public class PlayerMiniSaw : MonoBehaviour
 
         currentWaypoint = waypoints[nextIndex];
     }
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Circle"))
-        {
-            ReverseHexagonDirection();
-        }
-    }
 
     private void FixedUpdate()
     {
         // move hexagon
-        transform.position = Vector2.MoveTowards(transform.position, currentWaypoint.transform.position, playerHealth.miniSawSpeed * Time.deltaTime * movementVariance);
+        transform.position = Vector2.MoveTowards(transform.position, currentWaypoint.transform.position, ActualSawSpeed * Time.deltaTime);
     }
 }

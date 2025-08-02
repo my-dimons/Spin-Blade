@@ -36,7 +36,7 @@ public class PlayerHealth : MonoBehaviour
     public List<GameObject> miniSaws;
     public GameObject miniSawPrefab;
     public GameObject[] miniSawWaypoints;
-    public float miniSawSpeed = 1f;
+    public float miniSawBaseSpeed = 1f;
     public float hexagonDamage = 1f;
 
     [Header("Ranged Triangles")]
@@ -123,6 +123,7 @@ public class PlayerHealth : MonoBehaviour
         if (revive)
         {
             currentHealth = maxHeath;
+            revive = false;
             return;
         }
 
