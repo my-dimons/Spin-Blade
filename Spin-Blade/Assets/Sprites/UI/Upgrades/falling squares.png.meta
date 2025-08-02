@@ -1,10 +1,22 @@
 fileFormatVersion: 2
-guid: 205889f7229ef2547886abcdd7f2d6ae
+guid: e5ab6fab72b9cb54fa5f2432e5a99eaa
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 5217734029258361119
-    second: Cover Image_0
+      213: 763817202730525400
+    second: falling triangles_0
+  - first:
+      213: -6025703324003468479
+    second: falling triangles_1
+  - first:
+      213: 5278066586943991801
+    second: falling triangles_2
+  - first:
+      213: -7153328646007437410
+    second: falling triangles_3
+  - first:
+      213: 1937179519235335787
+    second: falling triangles_4
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,7 +58,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -113,13 +125,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Cover Image_0
+      name: falling triangles_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
-        width: 630
-        height: 500
+        y: 367
+        width: 186
+        height: 145
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +140,96 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: f198962747d196840800000000000000
-      internalID: 5217734029258361119
+      spriteID: 8d2e512f2bf999a00800000000000000
+      internalID: 763817202730525400
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: falling triangles_1
+      rect:
+        serializedVersion: 2
+        x: 281
+        y: 298
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 14bf1ea90c6606ca0800000000000000
+      internalID: -6025703324003468479
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: falling triangles_2
+      rect:
+        serializedVersion: 2
+        x: 101
+        y: 185
+        width: 123
+        height: 123
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9ffa7afa8957f3940800000000000000
+      internalID: 5278066586943991801
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: falling triangles_3
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 57
+        width: 70
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e97c9151f754abc90800000000000000
+      internalID: -7153328646007437410
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: falling triangles_4
+      rect:
+        serializedVersion: 2
+        x: 329
+        y: 85
+        width: 87
+        height: 87
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b662f26528e32ea10800000000000000
+      internalID: 1937179519235335787
       vertices: []
       indices: 
       edges: []
@@ -138,7 +238,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -148,7 +248,11 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Cover Image_0: 5217734029258361119
+      falling triangles_0: 763817202730525400
+      falling triangles_1: -6025703324003468479
+      falling triangles_2: 5278066586943991801
+      falling triangles_3: -7153328646007437410
+      falling triangles_4: 1937179519235335787
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

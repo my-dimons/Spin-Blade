@@ -81,7 +81,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 2.047372
+  m_Radius: 2.891778
 --- !u!1 &6882114765160408786
 GameObject:
   m_ObjectHideFlags: 0
@@ -205,7 +205,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   homingTarget: {fileID: 0}
   homing: 0
-  homingRotationOffset: 0
+  homingRotationOffset: 45
+  pierce: 0
   lifeTime: 12
 --- !u!50 &2259247437908831793
 Rigidbody2D:
