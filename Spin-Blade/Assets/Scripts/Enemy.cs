@@ -129,6 +129,11 @@ public class Enemy : MonoBehaviour
 
             health -= proj.damage;
 
+            if (other.GetComponent<TriangleProjectile>() && !other.GetComponent<TriangleProjectile>().pierce)
+            {
+                Destroy(other.gameObject);
+            }
+
             if (health <= 0 && !isStunned)
             {
                 Debug.Log("Destroyed by player");

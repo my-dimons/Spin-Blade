@@ -46,6 +46,8 @@ public class PlayerHealth : MonoBehaviour
     public float triangleSpeed = 1f;
     public float triangleFireRate = 0.8f; // seconds between shots
     public bool autofireTriangles;
+    public bool homingTriangles;
+    public bool piercingTriangles;
     float triangleFireTimer = 0f;
 
     [Header("Audio")]
@@ -110,7 +112,7 @@ public class PlayerHealth : MonoBehaviour
         // Calculate direction AWAY from center
         Vector2 direction = (transform.position - rotationPivot.transform.position).normalized;
 
-        triangle.GetComponent<TriangleProjectile>().Initialize(direction);
+        triangle.GetComponent<TriangleProjectile>().Initialize(direction, homingTriangles, piercingTriangles);
 
     }
 

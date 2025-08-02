@@ -57,10 +57,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1; // Ensure the game is running at normal speed
 
         if (musicTracks.Length > 0)
-        {
-            // Start the continuous music loop
             StartCoroutine(PlayMusicContinuously());
-        }
     }
     private void Update()
     {
@@ -73,26 +70,23 @@ public class GameManager : MonoBehaviour
         {
             musicSource.volume = persistentVariables.musicVolume;
         }
-        
-        if (!musicSource.isPlaying && musicTracks.Length > 0)
-        {
-            StartCoroutine(PlayMusicContinuously());
-        }
     }
 
     private IEnumerator PlayMusicContinuously()
     {
-        Debug.Log("PlayingNextTrack");
-        // Pick the current track
-        AudioClip clip = musicTracks[UnityEngine.Random.Range(0, musicTracks.Length)];
-        musicSource.clip = clip;
-        currentMusic = clip;
-        musicSource.Play();
+        while (true)
+        {
+            // Pick a random track
+            AudioClip clip = musicTracks[UnityEngine.Random.Range(0, musicTracks.Length)];
+            musicSource.clip = clip;
+            currentMusic = clip;
+            musicSource.Play();
 
-        // Wait until the current track is finished
-        yield return new WaitForSecondsRealtime(clip.length);
+            Debug.Log($"Playing: {clip.name}");
 
-        musicSource.Stop();
+            // Wait until the music finishes naturally
+            yield return new WaitWhile(() => musicSource.isPlaying);
+        }
     }
 
     private void Tutorial()

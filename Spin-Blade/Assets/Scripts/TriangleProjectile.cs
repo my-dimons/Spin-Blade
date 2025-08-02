@@ -3,7 +3,10 @@ using UnityEngine;
 public class TriangleProjectile : MonoBehaviour
 {
     Projectile projectile;
+    public GameObject homingTarget;
     public bool homing;
+    public float homingRotationOffset;
+    public bool pierce;
     private Vector2 moveDirection;
     public float lifeTime = -1f;
 
@@ -19,8 +22,11 @@ public class TriangleProjectile : MonoBehaviour
             Destroy(gameObject, lifeTime);
         }
     }
-    public void Initialize(Vector2 direction)
+    public void Initialize(Vector2 direction, bool home, bool piercing)
     {
+        homing = home;
+        pierce = piercing;
+
         moveDirection = direction.normalized;
 
         // Rotate projectile to face that direction
@@ -30,9 +36,12 @@ public class TriangleProjectile : MonoBehaviour
 
     private void Update()
     {
-        if (homing)
+        if (homing && homingTarget != null)
         {
-            // do homing things
+            moveDirection = homingTarget.transform.position - transform.position;
+            float angle = Mathf.Atan2(moveDirection.y, moveDirection.x) * Mathf.Rad2Deg;
+            angle += homingRotationOffset;
+            transform.rotation = Quaternion.Euler(0f, 0f, angle);
         }
         transform.position += projectile.speed * Time.deltaTime * (Vector3)moveDirection;
     }

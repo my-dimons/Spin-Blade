@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Security.Cryptography;
 using TMPro;
 using Unity.Collections;
+using Unity.Jobs;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -55,6 +56,8 @@ public class Upgrade : MonoBehaviour
     // shooting triangles
     public bool unlockShootingTriangles;
     public bool rangedAutofire;
+    public bool homingTriangles;
+    public bool piercingTriangles;
     public float triangleDamageIncrease;
     public float triangleSpeedIncrease;
     public float triangleFireRateIncrease;
@@ -273,6 +276,11 @@ public class Upgrade : MonoBehaviour
         playerHealth.triangleFireRate += triangleFireRateIncrease;
         if (!playerHealth.autofireTriangles)
             playerHealth.autofireTriangles = rangedAutofire;
+        if (!playerHealth.homingTriangles)
+            playerHealth.homingTriangles = homingTriangles;
+        if (!playerHealth.piercingTriangles)
+            playerHealth.piercingTriangles = piercingTriangles;
+        
 
         // add enemy
         if (addEnemy != null)
