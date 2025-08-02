@@ -45,12 +45,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void ReverseDirection()
     {
-        Utils.PlayClip(reverseDirectionSound, 0.1f);
+        Utils.PlayClip(reverseDirectionSound, 0.06f);
         direction *= -1;
 
-
-
-        // Move to the previous waypoint if we just reversed
         int currentIndex = waypoints.IndexOf(currentWaypoint);
         int nextIndex = currentIndex + direction;
 

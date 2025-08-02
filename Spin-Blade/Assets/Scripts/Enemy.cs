@@ -24,7 +24,6 @@ public class Enemy : MonoBehaviour
     public GameObject deathParticles;
     public GameObject hitParticles;
     public Color hitColor;
-    public Color hitCircleColor;
 
     public GameObject deathMoneyText;
     public AudioClip deathSound;
@@ -58,16 +57,16 @@ public class Enemy : MonoBehaviour
         playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>();
         rb = GetComponent<Rigidbody2D>();
 
-        speed *= enemyManager.difficulty * enemyManager.eventDifficulty;
+        speed *= enemyManager.difficulty;
 
         if (!isBoss)
         {
-            damage *= enemyManager.difficulty * enemyManager.eventDifficulty;
-            health *= enemyManager.difficulty * enemyManager.eventDifficulty;
+            damage *= enemyManager.difficulty;
+            health *= enemyManager.difficulty;
         }
         else
         {
-            health *= enemyManager.difficulty * enemyManager.eventDifficulty * Mathf.Clamp(playerHealth.damage, 1, Mathf.Infinity);
+            health *= enemyManager.difficulty * Mathf.Clamp(playerHealth.damage, 1, Mathf.Infinity);
             damage = Mathf.Clamp(playerHealth.currentHealth / 1.4f, 1, Mathf.Infinity);
         }
 
@@ -185,18 +184,15 @@ public class Enemy : MonoBehaviour
 
         // text
         Color color;
-        string extraText = "";
         if (value > 0)
             color = goodMoneyColor;
         else
         {
             color = badMoneyColor;
-            extraText = "-";
         }
 
         MoneyManager moneyManager = GameObject.FindGameObjectWithTag("MoneyManager").GetComponent<MoneyManager>();
-        float value1 = value * moneyManager.moneyMultiplier * moneyManager.eventMoneyMultiplier;
-        Utils.SpawnFloatingText(deathMoneyText, transform.position, extraText + "$" + value1.ToString("F1"), 6f, 0.3f, 40f, 0.45f, 0.15f, color);
+        Utils.SpawnFloatingText(deathMoneyText, transform.position, "$" + GameObject.FindGameObjectWithTag("MoneyManager").GetComponent<MoneyManager>().CalculateMoney(value).ToString("F1"), 6f, 0.3f, 40f, 0.45f, 0.15f, color);
 
         moneyManager.AddMoney(value);
         if (playerHealth.regenOnKill)
@@ -212,15 +208,18 @@ public class Enemy : MonoBehaviour
 
     public void HitCircle()
     {
-        Utils.SpawnBurstParticle(deathParticles, transform.position, hitCircleColor);
-        GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>().TakeDamage(damage);
+        Utils.SpawnBurstParticle(deathParticles, transform.position, hitColor);
         Camera.main.GetComponent<CameraScript>().ScreenshakeFunction(.5f);
 
         if (moneyGain > 0)
         {
             GameObject.FindGameObjectWithTag("MoneyManager").GetComponent<MoneyManager>().AddMoney(moneyGain);
-            Utils.SpawnFloatingText(deathMoneyText, transform.position, "$" + moneyGain.ToString("F1"), 6f, 0.3f, 40f, 0.45f, 0.15f, goodMoneyColor);
-        }
-        Destroy(gameObject);
+            GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>().TakeDamage(damage, true);
+
+            // money text popup
+            Utils.SpawnFloatingText(deathMoneyText, transform.position, "$" + GameObject.FindGameObjectWithTag("MoneyManager").GetComponent<MoneyManager>().CalculateMoney(moneyGain).ToString("F1"), 6f, 0.3f, 40f, 0.45f, 0.15f, goodMoneyColor);
+        } else
+            GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>().TakeDamage(damage);
+            Destroy(gameObject);
     }
 }

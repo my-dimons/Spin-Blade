@@ -15,6 +15,8 @@ public class PlayerHealth : MonoBehaviour
     public GameObject deathScreen;
     public DamageFlash circleDamageFlash;
     public Color circleDamageFlashColor;
+    public Color circleMoneyGainHitFlash;
+    bool dead;
 
     [Header("Dealing Damage")]
     private Vector2 baseSize;
@@ -71,7 +73,7 @@ public class PlayerHealth : MonoBehaviour
         currentHealth = Mathf.Clamp(currentHealth += regen * Time.deltaTime, 0, maxHeath);
 
         healthBar.fillAmount = (float)currentHealth / maxHeath;
-        if (currentHealth <= 0)
+        if (currentHealth <= 0 && !dead)
         {
             Death();
         }
@@ -101,19 +103,22 @@ public class PlayerHealth : MonoBehaviour
 
     void Death()
     {
+        dead = true;
         GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>().tutorialText.gameObject.SetActive(false); 
-        Utils.PlayClip(deathSound);
+        Utils.PlayClip(deathSound, 1.3f);
         Time.timeScale = 0;
         deathScreen.SetActive(true);
     }
 
-    public void TakeDamage(float damage)
+    public void TakeDamage(float damage, bool flashMoney = false)
     {
         Utils.PlayClip(hitSound, 1f);
         currentHealth -= damage;
 
-        if (currentHealth > 0)
+        if (currentHealth > 0 && !flashMoney)
             circleDamageFlash.Flash(circleDamageFlashColor);
+        else if (currentHealth > 0 && flashMoney)
+            circleDamageFlash.Flash(circleMoneyGainHitFlash);
 
         Mathf.Clamp(currentHealth, 0, maxHeath);
     }

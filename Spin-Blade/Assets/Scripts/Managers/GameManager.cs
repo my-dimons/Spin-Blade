@@ -11,7 +11,11 @@ public class GameManager : MonoBehaviour
     public string[] tutorialStrings;
     public int tutorialStage = 0;
     bool advancedTutorialStage = false;
-    bool tutorialFinished = false;
+    bool tutorialFinished = false;    
+    
+    // used for tutorial
+    float ogMoney;
+
 
     [Header("Volume Settings")]
     [Range(0f, 1f)]
@@ -30,6 +34,7 @@ public class GameManager : MonoBehaviour
 
     public int lShiftPresses = 0;
     public int kills = 0;
+
 
     private void Start()
     {
@@ -57,6 +62,7 @@ public class GameManager : MonoBehaviour
         {
             musicSource.volume = musicVolume;
         }
+        
     }
 
     private IEnumerator PlayMusicContinuously()
@@ -79,6 +85,7 @@ public class GameManager : MonoBehaviour
 
     private void Tutorial()
     {
+        float money = GameObject.FindGameObjectWithTag("MoneyManager").GetComponent<MoneyManager>().money;
         if (Input.GetKeyDown(KeyCode.LeftShift) && tutorialStage == 0)
         {
             AdvanceTutorial();
@@ -103,10 +110,8 @@ public class GameManager : MonoBehaviour
         {
             AdvanceTutorial();
         }
-        else if (GameObject.FindGameObjectWithTag("MoneyManager").GetComponent<MoneyManager>().money < 5 && tutorialStage == 6)
-        {
+        else if (money < ogMoney && tutorialStage == 6)
             AdvanceTutorial();
-        }
         else if (tutorialStage == 7 && !advancedTutorialStage)
         {
             StartCoroutine(AdvanceTutorialLate(2f));
@@ -116,6 +121,7 @@ public class GameManager : MonoBehaviour
             tutorialText.gameObject.SetActive(false);
             tutorialFinished = true;
         }
+        ogMoney = GameObject.FindGameObjectWithTag("MoneyManager").GetComponent<MoneyManager>().money;
     }
 
     void AdvanceTutorial()

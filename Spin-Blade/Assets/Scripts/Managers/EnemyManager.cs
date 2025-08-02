@@ -15,7 +15,6 @@ public class EnemyManager : MonoBehaviour
 
     // used by events
     float eventSpawnRate = 1f;
-    [HideInInspector] public float eventDifficulty = 1f;
 
     public float enemySpeedMultiplier = 1f;
 
@@ -28,7 +27,7 @@ public class EnemyManager : MonoBehaviour
 
     public float eventEnemySwarmAmount;
     public float eventMoneyMultiplierAmount;
-    public float eventDifficultyAmount;
+    public float eventDifficultyIncreasePercent; // percentage (0-1)
     public GameObject eventBossPrefab;
     public float bossEventSpawnRate;
     private void Start()
@@ -94,9 +93,9 @@ public class EnemyManager : MonoBehaviour
 
     public void StartRandomEvent()
     {
-        int randomNum = Random.Range(0, 4);
-        if (randomNum != 4)
-            Utils.PlayClip(eventPing, 0.8f);
+        int randomNum = Random.Range(0, 3);
+        if (randomNum != 3)
+            Utils.PlayClip(eventPing, 1.25f);
 
         switch (randomNum)
         {
@@ -107,15 +106,11 @@ public class EnemyManager : MonoBehaviour
                 StartCoroutine(MiniBossEvent());
                 break;
             case 2:
-                StartCoroutine(MoneyMultiplierEvent(eventMoneyMultiplierAmount));
-                break;
-            case 3:
                 StartCoroutine(DifficultyIncreaseEvent());
                 break;
-            case 4: 
+            case 3: 
                 StartCoroutine(EventLoop());
                 break;
-
         }
     }
 
@@ -151,23 +146,6 @@ public class EnemyManager : MonoBehaviour
         eventText.gameObject.SetActive(false);
     }
 
-    IEnumerator MoneyMultiplierEvent(float multiplier)
-    {
-        eventText.text = "x" + multiplier + " Money Multiplier";
-        eventText.gameObject.SetActive(true);
-        eventHappening = true;
-
-        MoneyManager moneyManager = GameObject.FindGameObjectWithTag("MoneyManager").GetComponent<MoneyManager>();
-        moneyManager.eventMoneyMultiplier *= multiplier;
-
-        yield return new WaitForSeconds(eventDuration);
-
-        moneyManager.eventMoneyMultiplier = 1f;
-        eventHappening = false;
-        eventText.text = "";
-        eventText.gameObject.SetActive(false);
-    }
-
     IEnumerator MiniBossEvent()
     {
         eventText.text = "Boss Incoming";
@@ -193,11 +171,26 @@ public class EnemyManager : MonoBehaviour
 
         eventHappening = true;
         // Increase difficulty
-        eventDifficulty *= eventDifficultyAmount;
-        yield return new WaitForSeconds(eventDuration);
-        eventDifficulty = 1f;
-        eventHappening = false;
+        difficulty += (difficulty * 0.1f);
+        yield return new WaitForSeconds(5);
 
+        eventHappening = false;
+        eventText.text = "";
+        eventText.gameObject.SetActive(false);
+    }
+    IEnumerator MoneyMultiplierEvent(float multiplier)
+    {
+        eventText.text = "x" + multiplier + " Money Multiplier";
+        eventText.gameObject.SetActive(true);
+        eventHappening = true;
+
+        MoneyManager moneyManager = GameObject.FindGameObjectWithTag("MoneyManager").GetComponent<MoneyManager>();
+        moneyManager.eventMoneyMultiplier *= multiplier;
+
+        yield return new WaitForSeconds(eventDuration);
+
+        moneyManager.eventMoneyMultiplier = 1f;
+        eventHappening = false;
         eventText.text = "";
         eventText.gameObject.SetActive(false);
     }
