@@ -126,7 +126,7 @@ public class EnemyManager : MonoBehaviour
     IEnumerator EventLoop()
     {
         yield return new WaitForSeconds(eventCooldown);
-        if (!eventHappening && enemies.Count > 0)
+        if (!eventHappening && enemies.Count > 2)
         {
             StartRandomEvent();
         } else

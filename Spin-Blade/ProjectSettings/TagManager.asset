@@ -11,6 +11,7 @@ TagManager:
   - PlayerProjectile
   - EnemyManager
   - UpgradeDsc
+  - PVars
   layers:
   - Default
   - TransparentFX

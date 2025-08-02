@@ -210,7 +210,7 @@ public class Upgrade : MonoBehaviour
     public void BuyUpgrade()
     {
         moneyManager.money -= price;
-        audioSource.PlayOneShot(buySound);
+        audioSource.PlayOneShot(buySound, 0.4f);
         Camera.main.GetComponent<CameraScript>().ScreenshakeFunction(0.1f);
         ApplyEffects();
 

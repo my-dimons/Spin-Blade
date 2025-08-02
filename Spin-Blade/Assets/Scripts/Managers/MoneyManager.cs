@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using TMPro;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 public class MoneyManager : MonoBehaviour
 {
@@ -27,6 +26,7 @@ public class MoneyManager : MonoBehaviour
     public AnimationCurve upgradeInfoAnimCurve;
     private bool animatingShop;
 
+    [HideInInspector] public bool toggleShopKey;
     private void Start()
     {
         shopMenuPos = skillTreeObject.GetComponent<RectTransform>().anchoredPosition;
@@ -41,11 +41,10 @@ public class MoneyManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        toggleShopKey = Input.GetKeyDown(KeyCode.Tab) || Input.GetKeyDown(KeyCode.Escape);
         PassiveIncome();
 
-        // toggle shop
-        KeyCode key = KeyCode.Tab;
-        if (Input.GetKeyDown(key) && GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>().currentHealth > 0 && !animatingShop)
+        if (toggleShopKey && GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>().currentHealth > 0 && !animatingShop)
         {
             ToggleShop();
         }

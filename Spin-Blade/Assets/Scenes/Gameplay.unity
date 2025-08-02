@@ -20918,7 +20918,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: description
-      value: Similiar to the Golden Spinner, but does damage if you hit it
+      value: Similiar to the Golden Spinner, but better
       objectReference: {fileID: 0}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: moneyManager
@@ -32483,6 +32483,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  toggleShopKey: 0
 --- !u!1 &1624390744
 GameObject:
   m_ObjectHideFlags: 0

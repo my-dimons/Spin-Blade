@@ -178,7 +178,7 @@ public class Enemy : MonoBehaviour
     {
         playerHealth.Heal(healthGain);
 
-        Utils.PlayClip(deathSound);
+        Utils.PlayClip(deathSound, 0.8f);
         Utils.SpawnBurstParticle(deathParticles, transform.position, hitColor);
         Camera.main.GetComponent<CameraScript>().ScreenshakeFunction(.08f);
 

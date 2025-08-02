@@ -16,12 +16,12 @@ public static class Utils
             tempGO.transform.position = Camera.main.transform.position;
 
         // Get volume multiplier from GameManager
-        GameManager gm = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
+        PersistentVariables pv = GameObject.FindGameObjectWithTag("PVars").GetComponent<PersistentVariables>();
 
         // Set up AudioSource
         AudioSource audioSource = tempGO.AddComponent<AudioSource>();
         audioSource.clip = clip;
-        audioSource.volume = volume * gm.sfxVolume;
+        audioSource.volume = volume * pv.sfxVolume;
 
         // random pitch
         audioSource.pitch = UnityEngine.Random.Range(1 - pitchVariance, 1 + pitchVariance);

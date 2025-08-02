@@ -115,13 +115,12 @@ MonoBehaviour:
   deathParticles: {fileID: 8027665320973545451, guid: 4df9d8a8723d05c4686abda48d96cdd3, type: 3}
   hitParticles: {fileID: 8027665320973545451, guid: 355b482682bd0cf40a30ddcfb787b1c7, type: 3}
   hitColor: {r: 1, g: 0.9607843, b: 0.3882353, a: 1}
-  hitCircleColor: {r: 1, g: 0.9607843, b: 0.3882353, a: 1}
   deathMoneyText: {fileID: 866898650273556627, guid: fdd8250b469e6e94b8751cb4afca164e, type: 3}
   deathSound: {fileID: 8300000, guid: 4c8a0c216c352fa41b1e3af35bc782bd, type: 3}
   hitSound: {fileID: 8300000, guid: 08538fc898dc37940830c7b0f882c7d9, type: 3}
   goodMoneyColor: {r: 0.38823533, g: 1, b: 0.41018024, a: 1}
   badMoneyColor: {r: 0.54088044, g: 0.19219962, b: 0.19219962, a: 1}
-  moneyGain: 5
+  moneyGain: 4
   healthGain: 0.1
   spawnRate: 0.35
   isBoss: 0

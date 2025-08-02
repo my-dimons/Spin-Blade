@@ -16,13 +16,7 @@ public class GameManager : MonoBehaviour
     // used for tutorial
     float ogMoney;
 
-
     [Header("Volume Settings")]
-    [Range(0f, 1f)]
-    public float sfxVolume = 1f;
-    [Range(0f, 1f)]
-    public float musicVolume = 1f;
-
     public Slider sfxSlider;
     public Slider musicSlider;
 
@@ -35,13 +29,20 @@ public class GameManager : MonoBehaviour
     public int lShiftPresses = 0;
     public int kills = 0;
 
-
+    PersistentVariables persistentVariables;
     private void Start()
     {
+        persistentVariables = GameObject.FindGameObjectWithTag("PVars").GetComponent<PersistentVariables>();
         if (sfxSlider != null)
+        {
             sfxSlider.onValueChanged.AddListener(OnSfxSliderValueChanged);
+            sfxSlider.value = persistentVariables.sfxVolume;
+        }
         if (musicSlider != null)
+        {
             musicSlider.onValueChanged.AddListener(OnMusicSliderValueChanged);
+            musicSlider.value = persistentVariables.musicVolume;
+        }
 
         if (tutorialText != null)
             tutorialText.text = tutorialStrings[tutorialStage];
@@ -60,7 +61,7 @@ public class GameManager : MonoBehaviour
 
         if (musicSource != null)
         {
-            musicSource.volume = musicVolume;
+            musicSource.volume = persistentVariables.musicVolume;
         }
         
     }
@@ -86,19 +87,28 @@ public class GameManager : MonoBehaviour
     private void Tutorial()
     {
         float money = GameObject.FindGameObjectWithTag("MoneyManager").GetComponent<MoneyManager>().money;
-        if (Input.GetKeyDown(KeyCode.LeftShift) && tutorialStage == 0)
+        MoneyManager moneyManager = GameObject.FindGameObjectWithTag("MoneyManager").GetComponent<MoneyManager>();
+
+        if ((Input.GetKeyDown(KeyCode.LeftShift) || moneyManager.toggleShopKey) && tutorialStage == 0)
+        {
+            if (moneyManager.toggleShopKey)
+            {
+                AdvanceTutorial(2);
+            }
+            else
+            {
+                AdvanceTutorial();
+            }
+        }
+        else if (moneyManager.toggleShopKey && tutorialStage == 1)
         {
             AdvanceTutorial();
         }
-        else if (Input.GetKeyDown(KeyCode.Tab) && tutorialStage == 1)
+        else if ((Input.GetMouseButtonUp(1) || Input.GetMouseButtonDown(0))&& tutorialStage == 2)
         {
             AdvanceTutorial();
         }
-        else if (Input.GetMouseButtonUp(1) && tutorialStage == 2)
-        {
-            AdvanceTutorial();
-        }
-        else if (Input.GetKeyDown(KeyCode.Tab) && tutorialStage == 3)
+        else if (moneyManager.toggleShopKey && tutorialStage == 3)
         {
             AdvanceTutorial();
         }
@@ -124,22 +134,22 @@ public class GameManager : MonoBehaviour
         ogMoney = GameObject.FindGameObjectWithTag("MoneyManager").GetComponent<MoneyManager>().money;
     }
 
-    void AdvanceTutorial()
+    void AdvanceTutorial(int amount = 1)
     {
-        tutorialStage++;
+        tutorialStage += amount;
         tutorialText.text = tutorialStrings[tutorialStage];
         advancedTutorialStage = false;
     }
 
     public void OnSfxSliderValueChanged(float value)
     {
-        sfxVolume = value;
-        Debug.Log("Variable updated: " + sfxVolume);
+        persistentVariables.sfxVolume = value;
+        Debug.Log("Variable updated: " + persistentVariables.sfxVolume);
     }
     public void OnMusicSliderValueChanged(float value)
     {
-        musicVolume = value;
-        Debug.Log("Variable updated: " + musicVolume);
+        persistentVariables.musicVolume = value;
+        Debug.Log("Variable updated: " + persistentVariables.musicVolume);
     }
     IEnumerator AdvanceTutorialLate(float duration)
     {
