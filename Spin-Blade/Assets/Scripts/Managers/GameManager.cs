@@ -166,9 +166,23 @@ public class GameManager : MonoBehaviour
     {
         LoadScene("Menu");
     }
-    public void LoadGame()
+    public void LoadGame(float difficulty)
     {
+        float moneyMultiplierMultiplier = 1.8f;
         LoadScene("Gameplay");
+        PersistentVariables pVars = GameObject.FindGameObjectWithTag("PVars").GetComponent<PersistentVariables>();
+        pVars.difficulty = difficulty;
+        if (difficulty < 1)
+        {
+            pVars.moneyMultiplier = difficulty * moneyMultiplierMultiplier;
+        } else if (difficulty > 1)
+        {
+            pVars.moneyMultiplier = difficulty / moneyMultiplierMultiplier;
+        }
+    }
+    public void LoadDifficulty()
+    {
+        LoadScene("Difficulty Selector");
     }
 
     public void LoadScene(string sceneName)

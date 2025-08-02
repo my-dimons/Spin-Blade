@@ -33,6 +33,7 @@ public class EnemyManager : MonoBehaviour
     public float bossEventSpawnRate;
     private void Start()
     {
+        difficulty *= GameObject.FindGameObjectWithTag("PVars").GetComponent<PersistentVariables>().difficulty;
         StartCoroutine(SpawnEnemyLoop());
         StartCoroutine(EventLoop());
     }

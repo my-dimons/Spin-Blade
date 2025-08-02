@@ -49,6 +49,7 @@ public class Upgrade : MonoBehaviour
     public float stunDurationIncrease;
     public bool unlockHealOnKill;
     public float healOnKillAmount;
+    public bool revive;
     // mini saw
     public bool spawnMiniSaw;
     public float miniSawSpeedIncrease;
@@ -215,7 +216,7 @@ public class Upgrade : MonoBehaviour
     public void BuyUpgrade()
     {
         moneyManager.money -= price;
-        audioSource.PlayOneShot(buySound, 0.4f);
+        audioSource.PlayOneShot(buySound, 0.25f);
         Camera.main.GetComponent<CameraScript>().ScreenshakeFunction(0.1f);
         ApplyEffects();
 
@@ -242,7 +243,10 @@ public class Upgrade : MonoBehaviour
         // increase passive income
         moneyManager.passiveIncome += passiveIncomeIncrease;
         // increase max health
-        playerHealth.IncreaseMaxHealth(healthIncrease);
+        playerHealth.IncreaseMaxHealth(healthIncrease); 
+        // revive
+        if (!playerHealth.revive)
+            playerHealth.revive = revive;
         // increase damage
         playerHealth.damage += damageIncrease;
         // increase regen
@@ -280,6 +284,7 @@ public class Upgrade : MonoBehaviour
             playerHealth.homingTriangles = homingTriangles;
         if (!playerHealth.piercingTriangles)
             playerHealth.piercingTriangles = piercingTriangles;
+
         
 
         // add enemy
@@ -323,6 +328,4 @@ public class Upgrade : MonoBehaviour
             StartCoroutine(Utils.EnableObjectDelay(popupObject, enable, duration));
         }
     }
-
-
 }

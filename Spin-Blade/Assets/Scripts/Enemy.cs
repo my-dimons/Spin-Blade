@@ -129,9 +129,12 @@ public class Enemy : MonoBehaviour
 
             health -= proj.damage;
 
-            if (other.GetComponent<TriangleProjectile>() && !other.GetComponent<TriangleProjectile>().pierce)
+            bool knockback = true;
+
+            if (other.GetComponent<TriangleProjectile>())
             {
-                Destroy(other.gameObject);
+                other.GetComponent<TriangleProjectile>().homingTarget = null;
+                knockback = false;
             }
 
             if (health <= 0 && !isStunned)
@@ -145,12 +148,12 @@ public class Enemy : MonoBehaviour
                 if (proj.destroyOnHit)
                     Destroy(other.gameObject);
 
-                TakeDamage(other.transform, proj.knockbackForce, proj.stunDuration);
+                TakeDamage(other.transform, proj.knockbackForce, proj.stunDuration, knockback);
             }
         }
     }
 
-    public void TakeDamage(Transform attacker, float force, float stunDuration)
+    public void TakeDamage(Transform attacker, float force, float stunDuration, bool knockback = true, bool stun = true)
     {
         Utils.PlayClip(hitSound);
         Vector3 particlePos = (attacker.position + transform.position) / 2f;
@@ -159,12 +162,17 @@ public class Enemy : MonoBehaviour
 
         if (isStunned) return;
 
-        StartCoroutine(StunCoroutine(stunDuration));
+        if (stun)
+            StartCoroutine(StunCoroutine(stunDuration));
 
         // knockback
-        Vector2 direction = (transform.position - target.transform.position).normalized;
-        rb.linearVelocity = Vector2.zero;
-        rb.AddForce(direction * force, ForceMode2D.Impulse);
+        if (knockback)
+        {
+            Vector2 direction = (transform.position - target.transform.position).normalized;
+            rb.linearVelocity = Vector2.zero;
+            rb.AddForce(direction * force, ForceMode2D.Impulse);
+        }
+
     }
     private IEnumerator StunCoroutine(float stunDuration)
     {

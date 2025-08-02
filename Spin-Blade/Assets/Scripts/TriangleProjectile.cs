@@ -6,9 +6,10 @@ public class TriangleProjectile : MonoBehaviour
     public GameObject homingTarget;
     public bool homing;
     public float homingRotationOffset;
-    public bool pierce;
     private Vector2 moveDirection;
+    private Vector2 ogMoveDirection;
     public float lifeTime = -1f;
+    private bool ogMove;
 
     private void Start()
     {
@@ -25,7 +26,7 @@ public class TriangleProjectile : MonoBehaviour
     public void Initialize(Vector2 direction, bool home, bool piercing)
     {
         homing = home;
-        pierce = piercing;
+        GetComponent<Projectile>().destroyOnHit = !piercing;
 
         moveDirection = direction.normalized;
 
@@ -38,6 +39,7 @@ public class TriangleProjectile : MonoBehaviour
     {
         if (homing && homingTarget != null)
         {
+            ogMove = false;
             moveDirection = homingTarget.transform.position - transform.position;
             float angle = Mathf.Atan2(moveDirection.y, moveDirection.x) * Mathf.Rad2Deg;
             angle += homingRotationOffset;

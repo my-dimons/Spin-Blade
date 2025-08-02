@@ -12,9 +12,11 @@ public class PlayerMiniSaw : MonoBehaviour
     int direction = 1; // 1 = forward, -1 = backward
     public GameObject sprite;
     public float rotationSpeed;
+    float movementVariance;
     
     private void Start()
     {
+        movementVariance = Random.Range(-1, 1);
         playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>();
     }
     private void Update()
@@ -70,6 +72,6 @@ public class PlayerMiniSaw : MonoBehaviour
     private void FixedUpdate()
     {
         // move hexagon
-        transform.position = Vector2.MoveTowards(transform.position, currentWaypoint.transform.position, playerHealth.miniSawSpeed * Time.deltaTime);
+        transform.position = Vector2.MoveTowards(transform.position, currentWaypoint.transform.position, playerHealth.miniSawSpeed * Time.deltaTime * movementVariance);
     }
 }

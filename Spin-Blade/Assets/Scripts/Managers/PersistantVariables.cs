@@ -8,6 +8,8 @@ public class PersistentVariables : MonoBehaviour
     public float sfxVolume = 1f;
     public float musicVolume = 1f;
 
+    public float difficulty = 1;
+    public float moneyMultiplier = 1;
     void Awake()
     {
         // Singleton pattern

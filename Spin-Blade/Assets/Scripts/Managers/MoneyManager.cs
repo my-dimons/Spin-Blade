@@ -29,6 +29,7 @@ public class MoneyManager : MonoBehaviour
     [HideInInspector] public bool toggleShopKey;
     private void Start()
     {
+        moneyMultiplier *= GameObject.FindGameObjectWithTag("PVars").GetComponent<PersistentVariables>().moneyMultiplier;
         shopMenuPos = skillTreeObject.GetComponent<RectTransform>().anchoredPosition;
         foreach (Transform child in upgradeParent.transform)
         {
@@ -68,7 +69,7 @@ public class MoneyManager : MonoBehaviour
 
         string moneyMultiplierString = "";
         // money multiplier text
-        if (moneyMultiplier > 1)
+        if (moneyMultiplier != 1)
         {
             moneyMultiplierString = "x" + moneyMultiplier.ToString("F2");
         }

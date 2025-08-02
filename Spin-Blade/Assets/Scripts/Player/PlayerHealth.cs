@@ -19,6 +19,7 @@ public class PlayerHealth : MonoBehaviour
     public Color circleMoneyGainHitFlashColor;
     public Color circleFullHealFlashColor;
     bool dead;
+    public bool revive;
 
     private float oldHealth;
 
@@ -75,8 +76,9 @@ public class PlayerHealth : MonoBehaviour
             SpawnTriangle();
         }
 
-        
-        currentHealth = Mathf.Clamp(currentHealth += regen * Time.deltaTime, 0, maxHeath);
+
+        float regenAmount = currentHealth * regen / 100;
+        currentHealth = Mathf.Clamp(currentHealth += regenAmount * Time.deltaTime, 0, maxHeath);
 
         if (currentHealth >= maxHeath && oldHealth < maxHeath)
         {
@@ -118,6 +120,12 @@ public class PlayerHealth : MonoBehaviour
 
     void Death()
     {
+        if (revive)
+        {
+            currentHealth = maxHeath;
+            return;
+        }
+
         dead = true;
         GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>().tutorialText.gameObject.SetActive(false); 
         Utils.PlayClip(deathSound, 1.3f);
