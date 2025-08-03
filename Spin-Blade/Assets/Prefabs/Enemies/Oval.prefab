@@ -105,10 +105,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   minTargetDistance: 0.1
-  speed: 1.8
+  speed: 2
   rotateMultiplier: 90
   value: 3.5
-  damage: 2
+  damage: 1.2
   health: 8
   rotateSpeed: 180
   damageFlashColor: {r: 1, g: 1, b: 1, a: 1}
@@ -122,7 +122,7 @@ MonoBehaviour:
   badMoneyColor: {r: 1, g: 0.3050313, b: 0.3050313, a: 1}
   moneyGain: 0
   healthGain: 0
-  spawnRate: 0.5
+  spawnRate: 0.1
   isBoss: 0
   damageFromProjectiles: 1
   triggerEventOnDeath: 0

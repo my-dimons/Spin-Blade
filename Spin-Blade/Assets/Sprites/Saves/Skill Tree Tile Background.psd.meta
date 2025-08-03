@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Skill Tree Tile Background_0: -6038814781616300097
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

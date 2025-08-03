@@ -120,7 +120,7 @@ MonoBehaviour:
   hitSound: {fileID: 8300000, guid: 08538fc898dc37940830c7b0f882c7d9, type: 3}
   goodMoneyColor: {r: 1, g: 0.9607843, b: 0.3882353, a: 1}
   badMoneyColor: {r: 1, g: 0.3050313, b: 0.3050313, a: 1}
-  moneyGain: 0
+  moneyGain: 1
   healthGain: 0
   spawnRate: 0.2
   isBoss: 0

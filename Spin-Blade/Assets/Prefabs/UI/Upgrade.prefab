@@ -1135,7 +1135,7 @@ GameObject:
   - component: {fileID: 6776718387224579930}
   m_Layer: 5
   m_Name: Upgrade
-  m_TagString: Untagged
+  m_TagString: Upgrade
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1202,11 +1202,14 @@ MonoBehaviour:
   stunDurationIncrease: 0
   unlockHealOnKill: 0
   healOnKillAmount: 0
+  revive: 0
   spawnMiniSaw: 0
   miniSawSpeedIncrease: 0
   miniSawDamageIncrease: 0
   unlockShootingTriangles: 0
   rangedAutofire: 0
+  homingTriangles: 0
+  piercingTriangles: 0
   triangleDamageIncrease: 0
   triangleSpeedIncrease: 0
   triangleFireRateIncrease: 0
@@ -1214,6 +1217,8 @@ MonoBehaviour:
   enemyDifficultyIncrease: 0
   enemySpawnRateIncrease: 0
   addEnemy: {fileID: 0}
+  enemyBossHealthMultiplierIncrease: 0
+  win: 0
   player: {fileID: 0}
   moneyManager: {fileID: 0}
   enemyManager: {fileID: 0}

@@ -12,6 +12,7 @@ TagManager:
   - EnemyManager
   - UpgradeDsc
   - PVars
+  - Upgrade
   layers:
   - Default
   - TransparentFX

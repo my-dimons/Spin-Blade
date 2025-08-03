@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      pattern_waves-4_1_7_0-0_0_1__hsla(0, 0_, 6_, 1.00)_hsla(0, 0_, 15_, 1.00)_0: 7832147215352518454
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

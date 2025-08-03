@@ -122,7 +122,7 @@ MonoBehaviour:
   badMoneyColor: {r: 0.54088044, g: 0.19219962, b: 0.19219962, a: 1}
   moneyGain: 4
   healthGain: 0.05
-  spawnRate: 0.25
+  spawnRate: 0.2
   isBoss: 0
   damageFromProjectiles: 0
   triggerEventOnDeath: 0

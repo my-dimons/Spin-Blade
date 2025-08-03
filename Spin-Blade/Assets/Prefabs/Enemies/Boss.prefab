@@ -105,10 +105,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   minTargetDistance: 0.1
-  speed: 2
+  speed: 2.1
   rotateMultiplier: 90
   value: 20
-  damage: 1.4
+  damage: 1.333
   health: 7
   rotateSpeed: 40
   damageFlashColor: {r: 1, g: 1, b: 1, a: 1}

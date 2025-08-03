@@ -110,11 +110,11 @@ public class EnemyManager : MonoBehaviour
 
     public void StartRandomEvent()
     {
-        int randomNum = Random.Range(0, 3);
-        if (randomNum != 3)
+        int randomNum = Random.Range(0, 2);
+        if (randomNum != 2)
             Utils.PlayClip(eventPing, 1.25f);
 
-        if (eventCount == 2)
+        if (eventCount == 1)
         {
             StartCoroutine(DifficultyIncreaseEvent());
             eventCount = 0;
@@ -125,15 +125,12 @@ public class EnemyManager : MonoBehaviour
         switch (randomNum)
         {
             case 0:
-                StartCoroutine(EnemySwarm(eventEnemySwarmAmount * difficulty * 2));
+                StartCoroutine(EnemySwarm(eventEnemySwarmAmount * difficulty * 1.7f));
                 break;
             case 1:
                 StartCoroutine(MiniBossEvent());
                 break;
             case 2:
-                StartCoroutine(DifficultyIncreaseEvent());
-                break;
-            case 3:
                 StartCoroutine(EventLoop());
                 break;
         }
@@ -166,7 +163,7 @@ public class EnemyManager : MonoBehaviour
         for (int i = 0; i < enemyAmount; i++)
         {
             SpawnEnemy();
-            yield return new WaitForSeconds(1f); // Short delay between spawns
+            yield return new WaitForSeconds(1.5f); // Short delay between spawns
         }
 
         eventHappening = false;

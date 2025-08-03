@@ -108,7 +108,7 @@ MonoBehaviour:
   speed: 3.5
   rotateMultiplier: 90
   value: 6.2
-  damage: 2
+  damage: 1.6
   health: 2.5
   rotateSpeed: 200
   damageFlashColor: {r: 1, g: 1, b: 1, a: 1}

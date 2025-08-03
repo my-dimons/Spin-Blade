@@ -22,6 +22,7 @@ public class PlayerHealth : MonoBehaviour
     public bool revive;
 
     private float oldHealth;
+    private float oldMaxHealth;
 
     [Header("Dealing Damage")]
     private Vector2 baseSize;
@@ -85,13 +86,15 @@ public class PlayerHealth : MonoBehaviour
         float regenAmount = currentHealth * regen / 100;
         currentHealth = Mathf.Clamp(currentHealth += regenAmount * Time.deltaTime, 0, maxHeath);
 
-        if (currentHealth >= maxHeath && oldHealth < maxHeath)
+        // full health ping
+        if (currentHealth >= maxHeath && oldHealth < maxHeath && oldHealth != oldMaxHealth)
         {
             Utils.PlayClip(fullHealthSound, 0.7f);
             circleDamageFlash.Flash(circleFullHealFlashColor);
         }
 
         oldHealth = currentHealth;
+        oldMaxHealth = maxHeath;
 
 
         healthBar.fillAmount = (float)currentHealth / maxHeath;
@@ -125,10 +128,18 @@ public class PlayerHealth : MonoBehaviour
 
     void Death()
     {
+        // revive and kill all enemies
         if (revive)
         {
             currentHealth = maxHeath;
             revive = false;
+
+            GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+            foreach (GameObject enemy in enemies)
+            {
+                enemy.GetComponent<Enemy>().Death(false);
+            }
+
             return;
         }
 

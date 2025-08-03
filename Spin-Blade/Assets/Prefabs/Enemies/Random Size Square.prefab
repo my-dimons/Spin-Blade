@@ -108,7 +108,7 @@ MonoBehaviour:
   speed: 3.5
   rotateMultiplier: 90
   value: 6
-  damage: 1.8
+  damage: 1.2
   health: 2
   rotateSpeed: 0
   damageFlashColor: {r: 1, g: 1, b: 1, a: 1}
@@ -122,7 +122,7 @@ MonoBehaviour:
   badMoneyColor: {r: 1, g: 0.3050313, b: 0.3050313, a: 1}
   moneyGain: 0
   healthGain: 0
-  spawnRate: 1
+  spawnRate: 0.7
   isBoss: 0
   damageFromProjectiles: 1
   triggerEventOnDeath: 0

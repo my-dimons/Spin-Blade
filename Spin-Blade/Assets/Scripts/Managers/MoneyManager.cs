@@ -39,12 +39,13 @@ public class MoneyManager : MonoBehaviour
                 upgrades.Add(child.gameObject);
             }
         }
+
+        InvokeRepeating("PassiveIncome", 0, 1);
     }
     // Update is called once per frame
     void Update()
     {
-        toggleShopKey = Input.GetKeyDown(KeyCode.Tab) || Input.GetKeyDown(KeyCode.Escape);
-        PassiveIncome();
+        toggleShopKey = Input.GetKeyDown(KeyCode.Tab) || Input.GetKeyDown(KeyCode.Escape) || Input.GetMouseButtonDown(2);
 
         if (toggleShopKey && GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>().currentHealth > 0 && !animatingShop)
         {
@@ -143,6 +144,9 @@ public class MoneyManager : MonoBehaviour
                 {
                     if (child.CompareTag("UpgradeDsc"))
                         child.gameObject.SetActive(false);
+                    // reset to default size
+                    if (child.CompareTag("Upgrade"))
+                        child.gameObject.transform.localScale = Vector3.one;
                 }
             }
         }
@@ -157,7 +161,8 @@ public class MoneyManager : MonoBehaviour
 
     public void PassiveIncome()
     {
-        money += passiveIncome * Time.deltaTime * moneyMultiplier;
+        if (Time.timeScale > 0)
+            money += passiveIncome;
     }
 
     IEnumerator AnimatingBoolToggle(float time, bool enable)

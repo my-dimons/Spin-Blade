@@ -12,6 +12,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Movement")]
     public float speed;
+    [HideInInspector] public bool switchKey;
     int direction = 1; // 1 = forward, -1 = backward
     public float rotateMultiplier;
     public bool canMove;
@@ -38,12 +39,13 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        switchKey = Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.Space);
         sprite.transform.Rotate(0, 0, spinSpeed * Time.deltaTime);
         // transition to the next waypoint if the player is close enough
         UpdateWaypoints();
 
         // Reversing input
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        if (switchKey && Time.timeScale > 0)
         {
             ReverseDirection();
         }

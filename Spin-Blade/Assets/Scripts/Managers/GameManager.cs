@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 using UnityEngine.SceneManagement;
@@ -23,10 +24,7 @@ public class GameManager : MonoBehaviour
     public Slider[] sfxSliders;
     public Slider[] musicSliders;
 
-    [Header("Music Settings")]
-    public AudioSource musicSource;
-    public AudioClip[] musicTracks;
-    public AudioClip currentMusic;
+
 
     [Header("Win Screen")]
     public GameObject winScreen;
@@ -45,22 +43,15 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         persistentVariables = GameObject.FindGameObjectWithTag("PVars").GetComponent<PersistentVariables>();
-        if (sfxSliders != null)
+        foreach (Slider sfx in sfxSliders)
         {
-            foreach (Slider sfx in sfxSliders)
-            {
-                sfx.onValueChanged.AddListener(OnSfxSliderValueChanged);
-                sfx.value = persistentVariables.sfxVolume;
-            }
-
+            sfx.onValueChanged.AddListener(OnSfxSliderValueChanged);
+            sfx.value = persistentVariables.sfxVolume;
         }
-        if (musicSliders != null)
+        foreach (Slider music in musicSliders)
         {
-            foreach (Slider music in musicSliders)
-            {
-                music.onValueChanged.AddListener(OnMusicSliderValueChanged);
-                music.value = persistentVariables.musicVolume;
-            }
+            music.onValueChanged.AddListener(OnMusicSliderValueChanged);
+            music.value = persistentVariables.musicVolume;
         }
 
         if (tutorialText != null && !persistentVariables.infiniteMode)
@@ -69,8 +60,7 @@ public class GameManager : MonoBehaviour
             tutorialText.text = "";
             Time.timeScale = 1; // Ensure the game is running at normal speed
 
-        if (musicTracks.Length > 0)
-            StartCoroutine(PlayMusicContinuously());
+
     }
     private void Update()
     {
@@ -90,27 +80,7 @@ public class GameManager : MonoBehaviour
         if (!tutorialFinished && tutorialText != null && !persistentVariables.infiniteMode)
             Tutorial();
 
-        if (musicSource != null)
-        {
-            musicSource.volume = persistentVariables.musicVolume;
-        }
-    }
 
-    private IEnumerator PlayMusicContinuously()
-    {
-        while (true)
-        {
-            // Pick a random track
-            AudioClip clip = musicTracks[UnityEngine.Random.Range(0, musicTracks.Length)];
-            musicSource.clip = clip;
-            currentMusic = clip;
-            musicSource.Play();
-
-            Debug.Log($"Playing: {clip.name}");
-
-            // Wait until the music finishes naturally
-            yield return new WaitWhile(() => musicSource.isPlaying);
-        }
     }
 
     private void Tutorial()
@@ -118,7 +88,14 @@ public class GameManager : MonoBehaviour
         float money = GameObject.FindGameObjectWithTag("MoneyManager").GetComponent<MoneyManager>().money;
         MoneyManager moneyManager = GameObject.FindGameObjectWithTag("MoneyManager").GetComponent<MoneyManager>();
 
-        if ((Input.GetKeyDown(KeyCode.LeftShift) || moneyManager.toggleShopKey) && tutorialStage == 0)
+        // skip tutorial
+        if (Input.GetKeyDown(KeyCode.RightShift)) {
+            tutorialFinished = true;
+            tutorialText.text = "";
+        }
+            
+        // tutorial
+        if ((GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>().switchKey || moneyManager.toggleShopKey) && tutorialStage == 0)
         {
             if (moneyManager.toggleShopKey)
             {
@@ -133,7 +110,7 @@ public class GameManager : MonoBehaviour
         {
             AdvanceTutorial();
         }
-        else if ((Input.GetMouseButtonUp(1) || Input.GetMouseButtonDown(0))&& tutorialStage == 2)
+        else if ((Input.GetMouseButtonUp(1) || Input.GetMouseButtonDown(0)) && tutorialStage == 2)
         {
             AdvanceTutorial();
         }
@@ -193,15 +170,16 @@ public class GameManager : MonoBehaviour
     }
     public void LoadGame(float difficulty = 1)
     {
-        float moneyMultiplierMultiplier = 1.8f;
+        float easyMoneyMultiplier = 1.5f;
+        float hardMoneyMultiplier = 0.7f;
         LoadScene("Gameplay");
         persistentVariables.difficulty = difficulty;
         if (difficulty < 1)
         {
-            persistentVariables.moneyMultiplier = difficulty * moneyMultiplierMultiplier;
+            persistentVariables.moneyMultiplier = easyMoneyMultiplier;
         } else if (difficulty > 1)
         {
-            persistentVariables.moneyMultiplier = difficulty / moneyMultiplierMultiplier;
+            persistentVariables.moneyMultiplier = hardMoneyMultiplier;
         } else
         {
             persistentVariables.moneyMultiplier = 1;
