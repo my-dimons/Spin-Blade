@@ -51,6 +51,7 @@ public class Upgrade : MonoBehaviour
     public bool precursorsMustBeMaxxed;
 
     public GameObject[] skillTreePrecursors; // other skills that need to be bought before this one
+    public List<GameObject> skillTreePostcursors;
 
     [Header("|- Colors -|")]
     [Header("Outline Colors")]

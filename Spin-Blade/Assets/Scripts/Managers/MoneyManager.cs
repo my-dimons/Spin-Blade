@@ -28,6 +28,7 @@ public class MoneyManager : MonoBehaviour
     private bool animatingShop;
 
     [HideInInspector] public bool toggleShopKey;
+    private bool firstShopToggle;
     private void Start()
     {
         moneyMultiplier *= GameObject.FindGameObjectWithTag("PVars").GetComponent<PersistentVariables>().moneyMultiplier;
@@ -116,7 +117,6 @@ public class MoneyManager : MonoBehaviour
         Utils.PlayClip(uiSound, 0.3f);
         float animTime = 0.1f;
 
-
         if (menu.activeSelf == true)
         {
             animatingShop = true;
@@ -126,8 +126,15 @@ public class MoneyManager : MonoBehaviour
             StartCoroutine(AnimatingBoolToggle(animTime, false));
         } else
         {
-            animatingShop = true;
             menu.SetActive(true);
+
+            if (firstShopToggle == false)
+            {
+                GetUpgradePostcursors();
+                firstShopToggle = true;
+            }
+
+            animatingShop = true;
             StartCoroutine(Utils.AnimateValue(.6f, 1, animTime, upgradeInfoAnimCurve,
                 value => menu.transform.localScale = Vector3.one * value, useRealtime: true));
             StartCoroutine(AnimatingBoolToggle(animTime, false));
@@ -169,5 +176,16 @@ public class MoneyManager : MonoBehaviour
     {
         yield return new WaitForSecondsRealtime(time);
         animatingShop = enable;
+    }
+
+    void GetUpgradePostcursors()
+    {
+        foreach (GameObject var in GameObject.FindGameObjectsWithTag("Upgrade"))
+        {
+            foreach (GameObject precursor in var.GetComponent<Upgrade>().skillTreePrecursors)
+            {
+                precursor.GetComponent<Upgrade>().skillTreePostcursors.Add(var);
+            }
+        }
     }
 }
