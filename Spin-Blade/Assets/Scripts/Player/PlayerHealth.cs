@@ -4,12 +4,13 @@ using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
-    public float maxHeath = 2;
+    [Header("Health")]
+    public float maxHeath;
     public float currentHealth;
-    public float regen;
-
-    public bool regenOnKill; // regen health when killing an enemy
+    public int revives;
+    public float regenPerSecond;
     public float killRegenAmount = 0f; // amount of health to regen on kill
+
     [Header("Health Display")]
     public AudioClip fullHealthSound;
     public Image healthBar;
@@ -18,9 +19,8 @@ public class PlayerHealth : MonoBehaviour
     public Color circleDamageFlashColor;
     public Color circleMoneyGainHitFlashColor;
     public Color circleFullHealFlashColor;
-    bool dead;
-    public bool revive;
 
+    bool dead;
     private float oldHealth;
     private float oldMaxHealth;
 
@@ -65,7 +65,7 @@ public class PlayerHealth : MonoBehaviour
 
         if (GameObject.FindGameObjectWithTag("PVars").GetComponent<PersistentVariables>().infiniteMode)
         {
-            regen = 5;
+            regenPerSecond = 5;
         }
     }
 
@@ -83,7 +83,7 @@ public class PlayerHealth : MonoBehaviour
         }
 
 
-        float regenAmount = currentHealth * regen / 100;
+        float regenAmount = currentHealth * regenPerSecond / 100;
         currentHealth = Mathf.Clamp(currentHealth += regenAmount * Time.deltaTime, 0, maxHeath);
 
         // full health ping
@@ -129,10 +129,10 @@ public class PlayerHealth : MonoBehaviour
     void Death()
     {
         // revive and kill all enemies
-        if (revive)
+        if (revives > 0)
         {
             currentHealth = maxHeath;
-            revive = false;
+            revives--;
 
             GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
             foreach (GameObject enemy in enemies)

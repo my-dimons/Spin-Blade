@@ -45,18 +45,20 @@ public class PersistentVariables : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSecondsRealtime(3);
-            // Pick a random track
-            AudioClip clip = musicTracks[UnityEngine.Random.Range(0, musicTracks.Length)];
+            AudioClip clip = musicTracks[Random.Range(0, musicTracks.Length)];
             musicSource.clip = clip;
             currentMusic = clip;
             musicSource.Play();
 
             Debug.Log($"Playing: {clip.name}");
 
-            yield return new WaitForSecondsRealtime(clip.length);
+            // Wait until playback finishes
+            Debug.Log("Clip Started");
+            yield return new WaitWhile(() => musicSource.isPlaying);
+            Debug.Log("Clip Ended");
+
             Debug.Log("Finished Music Clip");
-            yield return new WaitForSecondsRealtime(Random.Range(10, 20));
+            yield return new WaitForSecondsRealtime(Random.Range(3, 6));
         }
     }
 }

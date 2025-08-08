@@ -215,8 +215,9 @@ public class Enemy : MonoBehaviour
                 Utils.SpawnFloatingText(deathMoneyText, transform.position, "$" + GameObject.FindGameObjectWithTag("MoneyManager").GetComponent<MoneyManager>().CalculateMoney(value).ToString("F1"), 6f, 0.3f, 40f, 0.45f, 0.15f, color);
 
             moneyManager.AddMoney(value);
-            if (playerHealth.regenOnKill)
-                playerHealth.Heal(playerHealth.killRegenAmount);
+
+            playerHealth.Heal(playerHealth.killRegenAmount);
+
             if (triggerEventOnDeath && !enemyManager.eventHappening)
                 enemyManager.StartRandomEvent();
 

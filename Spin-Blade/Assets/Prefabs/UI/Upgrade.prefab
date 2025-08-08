@@ -1131,8 +1131,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6568911419865416035}
+  - component: {fileID: 7234929734254115256}
   - component: {fileID: 879352506774466442}
-  - component: {fileID: 6776718387224579930}
+  - component: {fileID: 8514976483135198414}
   m_Layer: 5
   m_Name: Upgrade
   m_TagString: Upgrade
@@ -1161,6 +1162,46 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &7234929734254115256
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4362258820155142764}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd35955cde2b8144e86a3a5dbd7c662f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthIncrease: 0
+  regenIncrease: 0
+  healthOnKillIncrease: 0
+  reviveIncreases: 0
+  speedIncrease: 0
+  sizeIncrease: 0
+  damageIncrease: 0
+  knockbackIncrease: 0
+  stunDurationIncrease: 0
+  spawnMiniSaw: 0
+  miniSawSpeedIncrease: 0
+  miniSawDamageIncrease: 0
+  unlockShootingTriangles: 0
+  rangedAutofire: 0
+  homingTriangles: 0
+  piercingTriangles: 0
+  triangleDamageIncrease: 0
+  triangleSpeedIncrease: 0
+  triangleFireRateIncrease: 0
+  addEnemy: {fileID: 0}
+  enemySpeedMultiplierIncrease: 0
+  enemyDifficultyIncrease: 0
+  enemySpawnRateIncrease: 0
+  enemyBossHealthMultiplierIncrease: 0
+  moneyMultiplierIncrease: 0
+  passiveIncomeIncrease: 0
+  win: 0
+  sectionSeparator: 
 --- !u!114 &879352506774466442
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1174,56 +1215,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buySound: {fileID: 8300000, guid: c1b74c0eaa630624a8d112f0f28312f0, type: 3}
-  audioSource: {fileID: 6776718387224579930}
   image: {fileID: 0}
   title: speed
   description: Increase the players movement speed
   price: 5
-  maxLevel: 5
   priceIncrease: 1.2
+  maxLevel: 5
   imageObject: {fileID: 2096379976816973022}
   titleObject: {fileID: 9390093128732937}
   descriptionObject: {fileID: 326570579571107194}
   priceObject: {fileID: 3988553581542499851}
   maxLevelObject: {fileID: 1578741138270701777}
-  buyButton: {fileID: 2096379976816973022}
   popupObject: {fileID: 1671716976307835811}
   outlineObject: {fileID: 3903720382919740542}
   backgroundObject: {fileID: 1107720655848042539}
   tileObject: {fileID: 77398100168431502}
-  speedIncrease: 0
-  sizeIncrease: 0
-  healthIncrease: 0
-  moneyMultiplierIncrease: 0
-  passiveIncomeIncrease: 0
-  damageIncrease: 0
-  regenIncrease: 0
-  knockbackIncrease: 0
-  stunDurationIncrease: 0
-  unlockHealOnKill: 0
-  healOnKillAmount: 0
-  revive: 0
-  spawnMiniSaw: 0
-  miniSawSpeedIncrease: 0
-  miniSawDamageIncrease: 0
-  unlockShootingTriangles: 0
-  rangedAutofire: 0
-  homingTriangles: 0
-  piercingTriangles: 0
-  triangleDamageIncrease: 0
-  triangleSpeedIncrease: 0
-  triangleFireRateIncrease: 0
-  enemySpeedMultiplierIncrease: 0
-  enemyDifficultyIncrease: 0
-  enemySpawnRateIncrease: 0
-  addEnemy: {fileID: 0}
-  enemyBossHealthMultiplierIncrease: 0
-  win: 0
-  player: {fileID: 0}
-  moneyManager: {fileID: 0}
-  enemyManager: {fileID: 0}
-  canBeBought: 0
-  bought: 0
+  buyButton: {fileID: 2096379976816973022}
   onlyNeedsOnePrecursor: 0
   precursorsMustBeMaxxed: 0
   skillTreePrecursors: []
@@ -1236,103 +1243,27 @@ MonoBehaviour:
   boughtOutlineColor: {r: 0.37647066, g: 0.4960528, b: 0.95686275, a: 1}
   fullyBoughtOutlineColor: {r: 0.9748427, g: 0.83408314, b: 0.21765348, a: 1}
   backgroundTintColor: {r: 1, g: 1, b: 1, a: 1}
---- !u!82 &6776718387224579930
-AudioSource:
+  canBeBought: 0
+  bought: 0
+  sortingLayer: 102
+--- !u!114 &8514976483135198414
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4362258820155142764}
   m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 0}
-  m_PlayOnAwake: 1
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47fd1150e1bc57a4cb0ffc2b0961e741, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  connectorDisabledColor: {r: 0.6156863, g: 0.6156863, b: 0.6156863, a: 0.6}
+  connectorDisabledColorMaxed: {r: 1, g: 0.36078432, b: 0.36078432, a: 0.6}
+  connectorEnabledColor: {r: 1, g: 1, b: 1, a: 1}
+  skillTreePrecursors: []
+  linePrefab: {fileID: 2737436706597883305, guid: 4d0b4471847f3a84b95406ab75c0ee53, type: 3}
+  lineThickness: 14
 --- !u!1 &7286459419224394521
 GameObject:
   m_ObjectHideFlags: 0

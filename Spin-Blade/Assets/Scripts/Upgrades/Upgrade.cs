@@ -9,85 +9,50 @@ using UnityEngine.UI;
 
 public class Upgrade : MonoBehaviour
 {
-    [Header("Sounds")]
+    [Header("SFX")]
     public AudioClip buySound;
-    public AudioSource audioSource;
 
-    [Header("Upgrade Values")]
-    public Sprite image; // square image, preferibly somethings like 128x128
+    [Space(20)]
+    [Header("|--- Upgrade Values ---|")]
+    [Header("Details")]
+    public Sprite image; // square image, preferibly somethings like 512x512
     public string title;
     public string description;
-    public float price;
 
+    [Header("Price")]
+    public float price;
+    public float priceIncrease;
+
+    [Header("Level")]
     public float maxLevel;
     private float currentLevel;
 
-    [Tooltip("This is a multiplier")]
-    public float priceIncrease;
-
-    [Header("Upgrade Objects")]
+    [Header("|--- Upgrade Values ---|")]
+    [Space(20)]
+    [Header("|--- Upgrade Objects ---|")]
+    [Header("Details Objects")]
     public GameObject imageObject;
     public GameObject titleObject;
     public GameObject descriptionObject;
     public GameObject priceObject;
     public GameObject maxLevelObject;
-    public GameObject buyButton;
+    [Header("Visual Objects")]
     public GameObject popupObject;
     public GameObject outlineObject;
     public GameObject backgroundObject;
     public GameObject tileObject;
+    [Header("Buttons")]
+    public GameObject buyButton;
+    [Header("|--- Upgrade Objects ---|")]
+    [Space(20)]
+    [Header("|--- Skill Tree ---|")]
 
-    [Header("Effects")]
-    public float speedIncrease;
-    public float sizeIncrease;
-    public float healthIncrease;
-    public float moneyMultiplierIncrease;
-    public float passiveIncomeIncrease;
-    public float damageIncrease;
-    public float regenIncrease;
-    public float knockbackIncrease;
-    public float stunDurationIncrease;
-    public bool unlockHealOnKill;
-    public float healOnKillAmount;
-    public bool revive;
-    // mini saw
-    public bool spawnMiniSaw;
-    public float miniSawSpeedIncrease;
-    public float miniSawDamageIncrease;
-    // shooting triangles
-    public bool unlockShootingTriangles;
-    public bool rangedAutofire;
-    public bool homingTriangles;
-    public bool piercingTriangles;
-    public float triangleDamageIncrease;
-    public float triangleSpeedIncrease;
-    public float triangleFireRateIncrease;
-    // enemies
-    public float enemySpeedMultiplierIncrease;
-    public float enemyDifficultyIncrease;
-    public float enemySpawnRateIncrease;
-    public GameObject addEnemy;
-    public float enemyBossHealthMultiplierIncrease;
-    // WIN!
-    public bool win;
-
-    [Header("Assign Objects")]
-    public GameObject player;
-    public MoneyManager moneyManager;
-    public EnemyManager enemyManager;
-
-    [Header("Skill Tree")]
-    public bool canBeBought;
-    public bool bought; 
     public bool onlyNeedsOnePrecursor; // otherwise needs all precursors to be bought
     public bool precursorsMustBeMaxxed;
 
     public GameObject[] skillTreePrecursors; // other skills that need to be bought before this one
-    public GameObject[] skillTreeConnectors; // visual connections to other skills
-    public Color connectorDisabledColor;
-    public Color connectorDisabledColorMaxxed;
-    public Color connectorEnabledColor;
 
+    [Header("|- Colors -|")]
     [Header("Outline Colors")]
     public Color baseOutlineColor;
     public Color canBeBoughtOutlineColor;
@@ -96,14 +61,20 @@ public class Upgrade : MonoBehaviour
 
     [Header("Background Color")]
     public Color backgroundTintColor;
+    [Header("|- Colors -|")]
+    [Space(20)]
+    [Header("|--- Skill Tree ---|")]
+    [Space(20)]
+    public bool canBeBought;
+    public bool bought;
 
     bool updateSkillTree = false;
+
+    MoneyManager moneyManager;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
         moneyManager = GameObject.FindGameObjectWithTag("MoneyManager").GetComponent<MoneyManager>();
-        enemyManager = GameObject.FindGameObjectWithTag("EnemyManager").GetComponent<EnemyManager>();
 
         backgroundObject.GetComponent<Image>().color = backgroundTintColor;
 
@@ -169,18 +140,6 @@ public class Upgrade : MonoBehaviour
             }
         }
 
-        // set connector color
-        foreach (GameObject connector in skillTreeConnectors)
-        {
-            Image connectorImage = connector.GetComponent<Image>();
-            if (canBeBought)
-                connectorImage.color = connectorEnabledColor;
-            else if (!canBeBought && precursorsMustBeMaxxed)
-                connectorImage.color = connectorDisabledColorMaxxed;
-            else
-                connectorImage.color = connectorDisabledColor;  
-        }
-
         Image outlineImage = outlineObject.GetComponent<Image>();
         // update outline color
         if (canBeBought || bought)
@@ -219,7 +178,7 @@ public class Upgrade : MonoBehaviour
         moneyManager.money -= price;
         Utils.PlayClip(buySound, 0.35f);
         Camera.main.GetComponent<CameraScript>().ScreenshakeFunction(0.1f);
-        ApplyEffects();
+        GetComponent<UpgradeStats>().ApplyEffects();
 
         if (!bought)
             bought = true;
@@ -229,82 +188,6 @@ public class Upgrade : MonoBehaviour
         price *= priceIncrease;
         UpdateStatText();
     }
-
-    void ApplyEffects()
-    {
-        PlayerMovement playerMovement = player.GetComponent<PlayerMovement>();
-        PlayerHealth playerHealth = player.GetComponent<PlayerHealth>();
-
-        // increase speed
-        playerMovement.speed += speedIncrease;
-        // increase size
-        playerHealth.sizeMultiplier += sizeIncrease;
-        // increase money multiplier
-        moneyManager.moneyMultiplier += moneyMultiplierIncrease;
-        // increase passive income
-        moneyManager.passiveIncome += passiveIncomeIncrease;
-        // increase max health
-        playerHealth.IncreaseMaxHealth(healthIncrease); 
-        // revive
-        if (!playerHealth.revive)
-            playerHealth.revive = revive;
-        // increase damage
-        playerHealth.damage += damageIncrease;
-        // increase regen
-        playerHealth.regen += regenIncrease;
-        // increase knockback & stun time
-        playerHealth.knockbackForce += knockbackIncrease;
-        playerHealth.stunDuration += stunDurationIncrease;
-        // increase enemy speed multiplier
-        enemyManager.enemySpeedMultiplier += enemySpeedMultiplierIncrease;
-        // regen on kill
-        if (!playerHealth.regenOnKill && unlockHealOnKill)
-            playerHealth.regenOnKill = true;
-        playerHealth.killRegenAmount += healOnKillAmount;
-
-        // buy mini saws
-        if (spawnMiniSaw)
-            playerHealth.SpawnSaw();
-        // mini saw stats
-        foreach (GameObject miniSaw in playerHealth.miniSaws)
-        {
-            miniSaw.GetComponent<PlayerMiniSaw>().IncreaseSpeed(miniSawSpeedIncrease);
-            miniSaw.GetComponent<Projectile>().damage += miniSawDamageIncrease;
-        }
-
-        // unlock shooting triangles
-        if (unlockShootingTriangles)
-            playerHealth.unlockedRangedTriangles = true;
-        // shooting triangles stats
-        playerHealth.triangleDamage += triangleDamageIncrease;
-        playerHealth.triangleSpeed += triangleSpeedIncrease;
-        playerHealth.triangleFireRate += triangleFireRateIncrease;
-        if (!playerHealth.autofireTriangles)
-            playerHealth.autofireTriangles = rangedAutofire;
-        if (!playerHealth.homingTriangles)
-            playerHealth.homingTriangles = homingTriangles;
-        if (!playerHealth.piercingTriangles)
-            playerHealth.piercingTriangles = piercingTriangles;
-
-        
-
-        // add enemy
-        if (addEnemy != null)
-        {
-            EnemyManager enemyManager = GameObject.FindGameObjectWithTag("EnemyManager").GetComponent<EnemyManager>();
-            enemyManager.enemies.Add(addEnemy);
-        }
-        // increase boss health mult
-        enemyManager.bossHealthMultiplier += enemyBossHealthMultiplierIncrease;
-
-        enemyManager.spawnRate += enemySpawnRateIncrease;
-
-        if (win)
-        {
-            GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>().Win();
-        }
-    }
-
 
     public void TogglePopup(bool enable)
     {

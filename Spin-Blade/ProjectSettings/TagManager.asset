@@ -13,6 +13,7 @@ TagManager:
   - UpgradeDsc
   - PVars
   - Upgrade
+  - MainCanvas
   layers:
   - Default
   - TransparentFX
@@ -49,6 +50,12 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Upgrade Lines
+    uniqueID: 661563097
+    locked: 0
+  - name: Upgrades
+    uniqueID: 582174301
     locked: 0
   m_RenderingLayers:
   - Default
