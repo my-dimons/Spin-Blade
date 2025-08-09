@@ -118,6 +118,13 @@ public static class Utils
 
         UnityEngine.Object.Destroy(obj);
     }
+
+    public static Color ColorFromHex(string hex)
+    {
+        ColorUtility.TryParseHtmlString(hex, out var color);
+        return color;
+    }
+
     public static IEnumerator FadeObject(GameObject obj, float start = 0, float end = 1, float duration = 0.25f)
     {
         if (obj == null) yield break;

@@ -17,6 +17,7 @@ public class Upgrade : MonoBehaviour
     [Header("Details")]
     public Sprite image; // square image, preferibly somethings like 512x512
     public string title;
+    [TextArea]
     public string description;
 
     [Header("Price")]
@@ -41,19 +42,31 @@ public class Upgrade : MonoBehaviour
     public GameObject outlineObject;
     public GameObject backgroundObject;
     public GameObject tileObject;
+    [Header("Lock")]
+    public GameObject miniLockObject;
+    public GameObject lockObject;
     [Header("Buttons")]
     public GameObject buyButton;
     [Header("|--- Upgrade Objects ---|")]
     [Space(20)]
     [Header("|--- Skill Tree ---|")]
 
+    [Header("Bools")]
     public bool onlyNeedsOnePrecursor; // otherwise needs all precursors to be bought
     public bool precursorsMustBeMaxxed;
+    [Space(10)]
+    public bool canBeBought;
+    public bool bought;
+    [Space(10)]
+    public bool lockable;
+    public bool locked;
+    [Space(20)]
 
+    [Header("Precursors/Postcursors")]
     public GameObject[] skillTreePrecursors; // other skills that need to be bought before this one
     public List<GameObject> skillTreePostcursors;
 
-    [Header("|- Colors -|")]
+    [Header("-- Colors --")]
     [Header("Outline Colors")]
     public Color baseOutlineColor;
     public Color canBeBoughtOutlineColor;
@@ -61,23 +74,42 @@ public class Upgrade : MonoBehaviour
     public Color fullyBoughtOutlineColor;
 
     [Header("Background Color")]
+    public BackgroundPresetColors backgroundColorTintDropdown;
     public Color backgroundTintColor;
-    [Header("|- Colors -|")]
+    public enum BackgroundPresetColors
+    {
+        None,
+        Enemy,
+        Health,
+        Money,
+        Damage
+    }
+
     [Space(20)]
     [Header("|--- Skill Tree ---|")]
     [Space(20)]
-    public bool canBeBought;
-    public bool bought;
+
 
     bool updateSkillTree = false;
 
     MoneyManager moneyManager;
+    private void OnValidate()
+    {
+        switch (backgroundColorTintDropdown)
+        {
+            case BackgroundPresetColors.None: backgroundTintColor = Color.white; break;
+            case BackgroundPresetColors.Enemy: backgroundTintColor = Utils.ColorFromHex("#FFAEAE"); break;
+            case BackgroundPresetColors.Health: backgroundTintColor = Utils.ColorFromHex("#A4FFAC"); break;
+            case BackgroundPresetColors.Money: backgroundTintColor = Utils.ColorFromHex("#FFF4AE"); break;
+            case BackgroundPresetColors.Damage: backgroundTintColor = Utils.ColorFromHex("#AED4FF"); break;
+        }
+    }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         moneyManager = GameObject.FindGameObjectWithTag("MoneyManager").GetComponent<MoneyManager>();
 
-        backgroundObject.GetComponent<Image>().color = backgroundTintColor;
 
         canBeBought = false;
         if (skillTreePrecursors == null)
@@ -98,17 +130,20 @@ public class Upgrade : MonoBehaviour
     void Update()
     {
         if (updateSkillTree)
-            UpdateSkillTree();
+            UpdateObjects();
 
         Button button = buyButton.GetComponent<Button>();
-        if (moneyManager.money >= price && canBeBought && currentLevel < maxLevel)
+        if (moneyManager.money >= price && canBeBought && currentLevel < maxLevel && !locked)
             button.interactable = true;
         else
             button.GetComponent<Button>().interactable = false;
     }
 
-    private void UpdateSkillTree()
+    private void UpdateObjects()
     {
+        // update background tint
+        backgroundObject.GetComponent<Image>().color = backgroundTintColor;
+
         if (!canBeBought)
         {
             // check if all precursors are bought
@@ -141,9 +176,10 @@ public class Upgrade : MonoBehaviour
             }
         }
 
+
         Image outlineImage = outlineObject.GetComponent<Image>();
         // update outline color
-        if (canBeBought || bought)
+        if ((canBeBought || bought) && !locked)
         {
             if (currentLevel >= maxLevel)
                 outlineImage.color = fullyBoughtOutlineColor;
@@ -156,6 +192,37 @@ public class Upgrade : MonoBehaviour
         {
             outlineImage.color = baseOutlineColor;
         }
+
+        // locking
+
+        // get every precursor, then get their postcursors, if *any* postcurosrs have been bought, lock this obj
+        if (lockable)
+        {
+            foreach(GameObject precursor in skillTreePrecursors)
+            {
+                foreach (GameObject postcursor in precursor.GetComponent<Upgrade>().skillTreePostcursors)
+                {
+                    if (postcursor.GetComponent<Upgrade>().bought && postcursor != this.gameObject)
+                    {
+                        locked = true;
+                    }
+                }
+            }
+        }
+
+        // locking visual objects
+        if (lockable && !locked)
+        {
+            miniLockObject.SetActive(true);
+            lockObject.SetActive(false);
+        }
+
+        else if (locked)
+        {
+            miniLockObject.SetActive(false);
+            lockObject.SetActive(true);
+        }
+
     }
 
     private void UpdateStatText()

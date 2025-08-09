@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     float time;
 
     public TextMeshProUGUI tutorialText;
+    [TextArea]
     public string[] tutorialStrings;
     public int tutorialStage = 0;
     bool advancedTutorialStage = false;
