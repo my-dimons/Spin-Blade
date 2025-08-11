@@ -42,7 +42,7 @@ public class Enemy : MonoBehaviour
     public bool isBoss;
 
     EnemyManager enemyManager;
-    PlayerHealth playerHealth;
+    PlayerHealthAndDamage playerHealth;
 
     [Header("Special")]
     public bool damageFromProjectiles = true;
@@ -54,7 +54,7 @@ public class Enemy : MonoBehaviour
     void Start()
     {
         enemyManager = GameObject.FindGameObjectWithTag("EnemyManager").GetComponent<EnemyManager>();
-        playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>();
+        playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealthAndDamage>();
         rb = GetComponent<Rigidbody2D>();
 
         speed *= enemyManager.difficulty;
@@ -111,20 +111,6 @@ public class Enemy : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-
-        if (other.CompareTag("Player"))
-        {
-            health -= playerHealth.damage;
-            if (health <= 0)
-            {
-                Debug.Log("Destroyed by player");
-                Death();
-            }
-            else
-            {
-                TakeDamage(other.transform, playerHealth.knockbackForce, playerHealth.stunDuration);
-            }
-        }
         if (other.CompareTag("PlayerProjectile") && damageFromProjectiles)
         {
             Projectile proj = other.GetComponent<Projectile>();
@@ -171,12 +157,18 @@ public class Enemy : MonoBehaviour
         // knockback
         if (knockback)
         {
-            Vector2 direction = (transform.position - target.transform.position).normalized;
-            rb.linearVelocity = Vector2.zero;
-            rb.AddForce(direction * force, ForceMode2D.Impulse);
+            Knockback(force);
         }
 
     }
+
+    private void Knockback(float force)
+    {
+        Vector2 direction = (transform.position - target.transform.position).normalized;
+        rb.linearVelocity = Vector2.zero;
+        rb.AddForce(direction * force, ForceMode2D.Impulse);
+    }
+
     private IEnumerator StunCoroutine(float stunDuration)
     {
         isStunned = true;
@@ -237,12 +229,12 @@ public class Enemy : MonoBehaviour
         if (moneyGain > 0)
         {
             GameObject.FindGameObjectWithTag("MoneyManager").GetComponent<MoneyManager>().AddMoney(moneyGain);
-            GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>().TakeDamage(damage, true);
+            GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealthAndDamage>().TakeDamage(damage, true);
 
             // money text popup
             Utils.SpawnFloatingText(deathMoneyText, transform.position, "$" + GameObject.FindGameObjectWithTag("MoneyManager").GetComponent<MoneyManager>().CalculateMoney(moneyGain).ToString("F1"), 6f, 0.3f, 40f, 0.45f, 0.15f, goodMoneyColor);
         } else
-            GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>().TakeDamage(damage);
+            GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealthAndDamage>().TakeDamage(damage);
         Destroy(gameObject);
     }
 }

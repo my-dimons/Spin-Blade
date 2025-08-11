@@ -218,8 +218,8 @@ public class EnemyManager : MonoBehaviour
                 infEnemiesNum++;
             }
 
-            GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>().damage += .34f;
-            GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>().IncreaseMaxHealth(.34f);
+            GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealthAndDamage>().damage += .34f;
+            GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealthAndDamage>().IncreaseMaxHealth(.34f);
         } else
         {
             difficulty += (difficulty * 0.1f);

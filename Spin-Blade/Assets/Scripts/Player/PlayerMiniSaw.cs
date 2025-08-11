@@ -8,7 +8,7 @@ public class PlayerMiniSaw : MonoBehaviour
     public GameObject currentWaypoint;
     public float minWaypointDistance = 0.05f;
 
-    PlayerHealth playerHealth;
+    PlayerHealthAndDamage playerHealth;
     int direction = 1; // 1 = forward, -1 = backward
     public GameObject sprite;
     public float rotationSpeed;
@@ -23,7 +23,7 @@ public class PlayerMiniSaw : MonoBehaviour
         {
             ReverseHexagonDirection();
         }
-        playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>();
+        playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealthAndDamage>();
         IncreaseSpeed(playerHealth.miniSawBaseSpeed);
     }
     private void Update()

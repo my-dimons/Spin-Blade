@@ -91,7 +91,7 @@ public class UpgradeStats : MonoBehaviour
     public void ApplyEffects()
     {
         PlayerMovement playerMovement = player.GetComponent<PlayerMovement>();
-        PlayerHealth playerHealth = player.GetComponent<PlayerHealth>();
+        PlayerHealthAndDamage playerHealth = player.GetComponent<PlayerHealthAndDamage>();
 
         // increase speed
         playerMovement.speed += speedIncrease;

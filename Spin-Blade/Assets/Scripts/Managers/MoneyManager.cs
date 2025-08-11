@@ -48,7 +48,7 @@ public class MoneyManager : MonoBehaviour
     {
         toggleShopKey = Input.GetKeyDown(KeyCode.Tab) || Input.GetKeyDown(KeyCode.Escape) || Input.GetMouseButtonDown(2);
 
-        if (toggleShopKey && GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>().currentHealth > 0 && !animatingShop)
+        if (toggleShopKey && GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealthAndDamage>().currentHealth > 0 && !animatingShop)
         {
             if (!GameObject.FindGameObjectWithTag("PVars").GetComponent<PersistentVariables>().infiniteMode)
                 ToggleShop(shopMenu);

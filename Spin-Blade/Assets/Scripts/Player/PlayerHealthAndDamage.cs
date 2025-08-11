@@ -2,60 +2,88 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerHealth : MonoBehaviour
+public class PlayerHealthAndDamage : MonoBehaviour
 {
-    [Header("Health")]
-    public float maxHeath;
+    [Header("-- Health --")]
+    public float maxHeath = 1;
     public float currentHealth;
+    [Space(10)]
     public int revives;
     public float regenPerSecond;
     public float killRegenAmount = 0f; // amount of health to regen on kill
 
+    [Space(10)]
     [Header("Health Display")]
-    public AudioClip fullHealthSound;
     public Image healthBar;
     public GameObject deathScreen;
+    [Space(10)]
+    [Header("Damage Flashes")]
     public DamageFlash circleDamageFlash;
-    public Color circleDamageFlashColor;
-    public Color circleMoneyGainHitFlashColor;
-    public Color circleFullHealFlashColor;
+    public Color circleDamageFlashColor = Utils.ColorFromHex("#FF4E4E");
+    public Color circleMoneyGainHitFlashColor = Utils.ColorFromHex("#7CFF85");
+    public Color circleFullHealFlashColor = Utils.ColorFromHex("#FFE45B");
 
     bool dead;
     private float oldHealth;
     private float oldMaxHealth;
 
-    [Header("Dealing Damage")]
-    private Vector2 baseSize;
+    [Header("-- Health --")]
+
+    [Space(20)]
+
+    [Header("-- Damage --")]
+    public float damage = 1;
     public float sizeMultiplier = 1f;
+    [Header("Knockback")]
+    private Vector2 baseSize;
     public float knockbackForce = 10f;
     public float stunDuration = 1f;
-    public float damage = 1;
 
-    public bool explodingCircle; // the circle explodes occationally
 
-    [Header("Mini Saws")]
+    [Header("-- Damage --")]
+
+    [Space(20)]
+
+    [Header("-- Mini Saws --")]
     public List<GameObject> miniSaws;
     public GameObject miniSawPrefab;
     public GameObject[] miniSawWaypoints;
+    [Header("Stats")]
     public float miniSawBaseSpeed = 1f;
     public float hexagonDamage = 1f;
 
-    [Header("Ranged Triangles")]
+    [Space(10)]
+
+    [Header("-- Ranged Triangles --")]
     public bool unlockedRangedTriangles; // triangles that shoot at enemies
     public GameObject rotationPivot; // used to properly rotate the triangles
     public GameObject trianglePrefab;
+    [Header("Stats")]
     public float triangleDamage = 1f;
     public float triangleSpeed = 1f;
     public float triangleFireRate = 0.8f; // seconds between shots
+    [Header("Unlocks")]
     public bool autofireTriangles;
     public bool homingTriangles;
     public bool piercingTriangles;
     float triangleFireTimer = 0f;
 
+    [Space(10)]
+
+    [Header("-- (WIP) Exploding Circles (WIP) --")]
+    public bool explodingCircle; // the circle explodes occationally
+
+    [Space(10)]
     [Header("Audio")]
     public AudioClip deathSound;
     public AudioClip shootSound;
     public AudioClip hitSound;
+    public AudioClip fullHealthSound;
+
+    private void OnValidate()
+    {
+        currentHealth = maxHeath;
+    }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -172,5 +200,23 @@ public class PlayerHealth : MonoBehaviour
         maxHeath += amount;
         currentHealth += amount;
         Mathf.Clamp(currentHealth, 0, maxHeath);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Enemy"))
+        {
+            Enemy enemyScript = collision.GetComponent<Enemy>();
+            enemyScript.health -= damage;
+            if (enemyScript.health <= 0)
+            {
+                Debug.Log("Destroyed by player");
+                enemyScript.Death();
+            }
+            else
+            {
+                enemyScript.TakeDamage(transform, knockbackForce, stunDuration);
+            }
+        }
     }
 }
