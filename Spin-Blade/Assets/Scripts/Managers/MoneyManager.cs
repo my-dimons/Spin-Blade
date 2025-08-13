@@ -20,7 +20,7 @@ public class MoneyManager : MonoBehaviour
     public TextMeshProUGUI moneyPerSecondText;
     public Vector2 moneyPerSecondTextPos;
     public GameObject upgradeParent;
-    private List<GameObject> upgrades = new List<GameObject>();
+    private List<GameObject> upgrades = new();
     public AudioClip uiSound;
 
     [Header("Ui Animations")]
@@ -41,7 +41,7 @@ public class MoneyManager : MonoBehaviour
             }
         }
 
-        InvokeRepeating("PassiveIncome", 0, 1);
+        InvokeRepeating(nameof(PassiveIncome), 0, 1);
     }
     // Update is called once per frame
     void Update()
@@ -66,7 +66,7 @@ public class MoneyManager : MonoBehaviour
     }
     private void UpdateMoneyText()
     {
-        string moneyString = "";
+        string moneyString;
         if (money >= 1000)
             moneyString = "$" + money.ToString("F0");
         if (money >= 100)

@@ -32,19 +32,33 @@ public class Upgrade : MonoBehaviour
     [Space(20)]
     [Header("|--- Upgrade Objects ---|")]
     [Header("Details Objects")]
-    public GameObject imageObject;
-    public GameObject titleObject;
-    public GameObject descriptionObject;
-    public GameObject priceObject;
-    public GameObject maxLevelObject;
+    public Image imageObject;
+    public TextMeshProUGUI descriptionObject;
+    public TextMeshProUGUI titleObject;
+    public GameObject priceParentObject;
+    public TextMeshProUGUI priceObject;
+    public TextMeshProUGUI maxLevelObject;
+
+    [Space(10)]
     [Header("Visual Objects")]
     public GameObject popupObject;
+    // enemy popup
+    [Space(8)]
+    public GameObject enemyPopupObject;
+    public TextMeshProUGUI enemyPopupValueText;
+    public TextMeshProUGUI enemyPopupDamageText;
+    public TextMeshProUGUI enemyPopupHealthText;
+    [Space(4)]
+    public bool enemyPopup;
+    [Space(8)]
     public GameObject outlineObject;
     public GameObject backgroundObject;
     public GameObject tileObject;
+    [Space(10)]
     [Header("Lock")]
     public GameObject miniLockObject;
     public GameObject lockObject;
+    [Space(10)]
     [Header("Buttons")]
     public GameObject buyButton;
     [Header("|--- Upgrade Objects ---|")]
@@ -95,6 +109,7 @@ public class Upgrade : MonoBehaviour
     MoneyManager moneyManager;
     private void OnValidate()
     {
+        // bg color
         switch (backgroundColorTintDropdown)
         {
             case BackgroundPresetColors.None: backgroundTintColor = Color.white; break;
@@ -102,6 +117,16 @@ public class Upgrade : MonoBehaviour
             case BackgroundPresetColors.Health: backgroundTintColor = Utils.ColorFromHex("#A4FFAC"); break;
             case BackgroundPresetColors.Money: backgroundTintColor = Utils.ColorFromHex("#FFF4AE"); break;
             case BackgroundPresetColors.Damage: backgroundTintColor = Utils.ColorFromHex("#AED4FF"); break;
+        }
+
+        // enemy popup
+        if (GetComponent<UpgradeStats>().addEnemy != null)
+        {
+            enemyPopup = true;
+        }
+        else
+        {
+            enemyPopup = false;
         }
     }
 
@@ -147,7 +172,7 @@ public class Upgrade : MonoBehaviour
         if (!canBeBought)
         {
             // check if all precursors are bought
-            List<GameObject> boughtPrecursors = new List<GameObject>();
+            List<GameObject> boughtPrecursors = new();
             foreach (GameObject precursor in skillTreePrecursors)
             {
                 Upgrade precursorUpgrade = precursor.GetComponent<Upgrade>();
@@ -223,22 +248,44 @@ public class Upgrade : MonoBehaviour
             lockObject.SetActive(true);
         }
 
+        // disable price when at max lvl (or locked)
+        if (currentLevel >= maxLevel || locked)
+        {
+            priceParentObject.SetActive(false);
+        }
+        else
+        {
+            priceParentObject.SetActive(true);
+        }
+
+        // update enemy text
+        if (enemyPopup)
+        {
+            enemyPopupObject.SetActive(true);
+            UpgradeStats stats = GetComponent<UpgradeStats>();
+            enemyPopupValueText.text = stats.addEnemy.GetComponent<Enemy>().value.ToString();
+            enemyPopupHealthText.text = stats.addEnemy.GetComponent<Enemy>().maxHealth.ToString();
+            enemyPopupDamageText.text = stats.addEnemy.GetComponent<Enemy>().damage.ToString();
+        } else
+        {
+            enemyPopupObject.SetActive(false);
+        }
     }
 
     private void UpdateStatText()
     {
-        imageObject.GetComponent<Image>().sprite = image;
-        titleObject.GetComponent<TextMeshProUGUI>().text = title;
-        descriptionObject.GetComponent<TextMeshProUGUI>().text = description;
+        imageObject.sprite = image;
+        titleObject.text = title;
+        descriptionObject.text = description;
 
         if (price >= 1000)
-            priceObject.GetComponent<TextMeshProUGUI>().text = "$" + price.ToString("F0");
+            priceObject.text = "$" + price.ToString("F0");
         else if (price >= 100)
-            priceObject.GetComponent<TextMeshProUGUI>().text = "$" + price.ToString("F1");
+            priceObject.text = "$" + price.ToString("F1");
         else 
-            priceObject.GetComponent<TextMeshProUGUI>().text = "$" + price.ToString("F2");
+            priceObject.text = "$" + price.ToString("F2");
 
-        maxLevelObject.GetComponent<TextMeshProUGUI>().text = currentLevel.ToString() + "/" + maxLevel.ToString();
+        maxLevelObject.text = currentLevel.ToString() + "/" + maxLevel.ToString();
     }
 
     public void BuyUpgrade()
@@ -259,27 +306,31 @@ public class Upgrade : MonoBehaviour
 
     public void TogglePopup(bool enable)
     {
-        float duration = 0.1f;
+        float animationSpeed = 0.1f;
+
         if (enable)
         {
-            popupObject.SetActive(enable);
             gameObject.transform.SetAsLastSibling(); // bring to front
-            // popup
-            StartCoroutine(Utils.AnimateValue(0f, .7f, duration, moneyManager.upgradeInfoAnimCurve,
+            
+            popupObject.SetActive(enable);
+            // enable popup
+            StartCoroutine(Utils.AnimateValue(0f, .7f, animationSpeed, moneyManager.upgradeInfoAnimCurve,
                 value => popupObject.transform.localScale = Vector3.one * value, useRealtime: true));
-            // object (make bigger)
-            StartCoroutine(Utils.AnimateValue(1f, 1.3f, duration, moneyManager.upgradeInfoAnimCurve,
+
+            // upgrade tile object (make bigger)
+            StartCoroutine(Utils.AnimateValue(1f, 1.3f, animationSpeed, moneyManager.upgradeInfoAnimCurve,
                 value => tileObject.transform.localScale = Vector3.one * value, useRealtime: true));
         }
         else
         {
-            // popup
-            StartCoroutine(Utils.AnimateValue(.7f, 0f, duration, moneyManager.upgradeInfoAnimCurve,
+            // disable popup
+            StartCoroutine(Utils.AnimateValue(.7f, 0f, animationSpeed, moneyManager.upgradeInfoAnimCurve,
                  value => popupObject.transform.localScale = Vector3.one * value, useRealtime: true));
+            StartCoroutine(Utils.EnableObjectDelay(popupObject, enable, animationSpeed));
+
             // object (make smaller)
-            StartCoroutine(Utils.AnimateValue(1.3f, 1f, duration, moneyManager.upgradeInfoAnimCurve,
+            StartCoroutine(Utils.AnimateValue(1.3f, 1f, animationSpeed, moneyManager.upgradeInfoAnimCurve,
                 value => tileObject.transform.localScale = Vector3.one * value, useRealtime: true));
-            StartCoroutine(Utils.EnableObjectDelay(popupObject, enable, duration));
         }
     }
 }

@@ -12,7 +12,8 @@ public class Enemy : MonoBehaviour
     [Header("Other Stats")]
     public float value; // how much this enemy is worth when killed
     public float damage = 1f;
-    public float health = 1f;
+    public float maxHealth = 1f;
+    public float currentHealth;
     public float rotateSpeed = 0;
 
     [Header("Knockback")]
@@ -50,6 +51,12 @@ public class Enemy : MonoBehaviour
     public bool randomSize;
     public float minSize = 0.5f;
     public float maxSize = 1.5f;
+
+    private void OnValidate()
+    {
+        currentHealth = maxHealth;
+    }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -62,11 +69,11 @@ public class Enemy : MonoBehaviour
         if (!isBoss)
         {
             damage *= enemyManager.difficulty;
-            health *= enemyManager.difficulty;
+            maxHealth *= enemyManager.difficulty;
         }
         else
         {
-            health *= enemyManager.difficulty * Mathf.Clamp(playerHealth.damage, 1, Mathf.Infinity) * enemyManager.bossHealthMultiplier;
+            maxHealth *= enemyManager.difficulty * Mathf.Clamp(playerHealth.damage, 1, Mathf.Infinity) * enemyManager.bossHealthMultiplier;
             damage = Mathf.Clamp(playerHealth.maxHeath / damage, 1, Mathf.Infinity);
         }
 
@@ -76,6 +83,8 @@ public class Enemy : MonoBehaviour
             float randomScaleY = Random.Range(minSize, maxSize);
             transform.localScale = new Vector3(randomScaleX, randomScaleY, 1f);
         }
+
+        currentHealth = maxHealth;
     }
 
     private void FixedUpdate()
@@ -91,6 +100,9 @@ public class Enemy : MonoBehaviour
         {
             Death(false);
         }
+
+        // clamp health
+        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
     }
 
     void RotateTowardsTarget(GameObject target)
@@ -115,14 +127,14 @@ public class Enemy : MonoBehaviour
         {
             Projectile proj = other.GetComponent<Projectile>();
 
-            health -= proj.damage;
+            currentHealth -= proj.damage;
 
             if (other.GetComponent<TriangleProjectile>())
             {
                 other.GetComponent<TriangleProjectile>().homingTarget = null;
             }
 
-            if (health <= 0)
+            if (currentHealth <= 0)
             {
                 Debug.Log("Destroyed by player");
                 GameObject.FindGameObjectWithTag("MoneyManager").GetComponent<MoneyManager>().AddMoney(value);
@@ -137,7 +149,7 @@ public class Enemy : MonoBehaviour
             }
         }
 
-        if (other.CompareTag("Circle") && health > 0)
+        if (other.CompareTag("Circle") && currentHealth > 0)
         {
             HitCircle();
         }

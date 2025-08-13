@@ -207,8 +207,8 @@ public class PlayerHealthAndDamage : MonoBehaviour
         if (collision.CompareTag("Enemy"))
         {
             Enemy enemyScript = collision.GetComponent<Enemy>();
-            enemyScript.health -= damage;
-            if (enemyScript.health <= 0)
+            enemyScript.maxHealth -= damage;
+            if (enemyScript.maxHealth <= 0)
             {
                 Debug.Log("Destroyed by player");
                 enemyScript.Death();

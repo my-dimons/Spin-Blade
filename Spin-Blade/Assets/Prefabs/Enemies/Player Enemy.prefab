@@ -109,7 +109,8 @@ MonoBehaviour:
   rotateMultiplier: 90
   value: 10
   damage: 5
-  health: 7
+  maxHealth: 5
+  currentHealth: 0
   rotateSpeed: 360
   damageFlashColor: {r: 1, g: 1, b: 1, a: 1}
   deathParticles: {fileID: 8027665320973545451, guid: 4df9d8a8723d05c4686abda48d96cdd3, type: 3}
