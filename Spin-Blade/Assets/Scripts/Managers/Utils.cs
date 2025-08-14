@@ -119,10 +119,75 @@ public static class Utils
         UnityEngine.Object.Destroy(obj);
     }
 
+    /// <summary>
+    /// Parses a string to a Color
+    /// </summary>
+    /// <param name="hex">The colors hex, make sure to add a #</param>
+    /// <returns>The color deriverd from the string hex</returns>
     public static Color ColorFromHex(string hex)
     {
         ColorUtility.TryParseHtmlString(hex, out var color);
         return color;
+    }
+
+    /// <summary>
+    /// Adjusts a color by darkening or lightening it.
+    /// </summary>
+    /// <param name="color">The original color to adjust.</param>
+    /// <param name="amount">
+    /// Amount to adjust, from -1 to 1.  
+    /// Positive = darken, negative = lighten.  
+    /// 1 = full black, -1 = full white.
+    /// </param>
+    /// <returns>The adjusted color, with original alpha preserved.</returns>
+    public static Color AdjustColorBrightness(Color color, float amount)
+    {
+        // Clamp amount to -1 -> 1 range
+        amount = Mathf.Clamp(amount, -1f, 1f);
+
+        float r = Mathf.Clamp01(color.r - amount);
+        float g = Mathf.Clamp01(color.g - amount);
+        float b = Mathf.Clamp01(color.b - amount);
+
+        return new Color(r, g, b, color.a);
+    }
+
+    /// <summary>
+    /// Adjusts the saturation of a color.
+    /// </summary>
+    /// <param name="color">The original color to adjust.</param>
+    /// <param name="amount">
+    /// Saturation adjustment amount (-1 to 1).  
+    /// -1 = fully desaturated (gray), 0 = no change, 1 = maximum saturation boost.
+    /// </param>
+    /// <returns>The color with adjusted saturation, alpha preserved.</returns>
+    public static Color AdjustColorSaturation(Color color, float amount)
+    {
+        // Clamp amount to -1..1
+        amount = Mathf.Clamp(amount, -1f, 1f);
+
+        // Compute luminance (grayscale)
+        float gray = color.r * 0.299f + color.g * 0.587f + color.b * 0.114f;
+        Color grayscale = new Color(gray, gray, gray, color.a);
+
+        if (amount < 0f)
+        {
+            // Desaturate towards grayscale
+            return Color.Lerp(color, grayscale, -amount);
+        }
+        else if (amount > 0f)
+        {
+            // Saturate: push colors away from grayscale
+            // Simple formula: newColor = color + (color - gray) * amount
+            float r = Mathf.Clamp01(color.r + (color.r - gray) * amount);
+            float g = Mathf.Clamp01(color.g + (color.g - gray) * amount);
+            float b = Mathf.Clamp01(color.b + (color.b - gray) * amount);
+            return new Color(r, g, b, color.a);
+        }
+        else
+        {
+            return color; // No change
+        }
     }
 
     public static IEnumerator FadeObject(GameObject obj, float start = 0, float end = 1, float duration = 0.25f)
