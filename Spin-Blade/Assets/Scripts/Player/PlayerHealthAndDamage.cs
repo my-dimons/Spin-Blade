@@ -34,11 +34,12 @@ public class PlayerHealthAndDamage : MonoBehaviour
     [Header("-- Damage --")]
     public float damage = 1;
     public float sizeMultiplier = 1f;
-    [Header("Knockback")]
     private Vector2 baseSize;
-    public float knockbackForce = 10f;
-    public float stunDuration = 1f;
-
+    [Space(3)]
+    [Header("Knockback")]
+    public AnimationCurve knockbackCurve;
+    public float knockbackDistance = 3f;
+    public float knockbackDuration = 0.2f;
 
     [Header("-- Damage --")]
 
@@ -215,7 +216,7 @@ public class PlayerHealthAndDamage : MonoBehaviour
             }
             else
             {
-                enemyScript.TakeDamage(transform, knockbackForce, stunDuration);
+                enemyScript.TakeDamage(transform, knockbackDistance, knockbackDuration, knockbackCurve, true);
             }
         }
     }

@@ -189,8 +189,8 @@ MonoBehaviour:
   destroyOnHit: 1
   speed: 10
   damage: 2
-  knockbackForce: 15
-  stunDuration: 0.15
+  knockbackForce: 0.5
+  stunDuration: 0.2
 --- !u!114 &-6718318890499041707
 MonoBehaviour:
   m_ObjectHideFlags: 0

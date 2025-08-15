@@ -19,7 +19,7 @@ public class UpgradeStats : MonoBehaviour
     [Header("Damage")]
     public float damageIncrease;
     public float knockbackIncrease;
-    public float stunDurationIncrease;
+    public float knockbackDurationIncrease;
     [Header("|----- Player -----|")]
     [Space(20)]
     [Header("|----- Special Player Stats -----|")]
@@ -110,8 +110,8 @@ public class UpgradeStats : MonoBehaviour
         // increase regen
         playerHealth.regenPerSecond += regenIncrease;
         // increase knockback & stun time
-        playerHealth.knockbackForce += knockbackIncrease;
-        playerHealth.stunDuration += stunDurationIncrease;
+        playerHealth.knockbackDistance += knockbackIncrease;
+        playerHealth.knockbackDuration += knockbackDurationIncrease;
         // increase enemy speed multiplier
         enemyManager.enemySpeedMultiplier += enemySpeedMultiplierIncrease;
 

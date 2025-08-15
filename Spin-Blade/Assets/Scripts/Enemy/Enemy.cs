@@ -17,8 +17,9 @@ public class Enemy : MonoBehaviour
     public float rotateSpeed = 0;
 
     [Header("Knockback")]
-    private Rigidbody2D rb;
-    private bool isStunned = false;
+
+    private Coroutine knockbackRoutine;
+
 
     [Header("Extra")]
     public Color damageFlashColor = Color.white;
@@ -62,7 +63,6 @@ public class Enemy : MonoBehaviour
     {
         enemyManager = GameObject.FindGameObjectWithTag("EnemyManager").GetComponent<EnemyManager>();
         playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealthAndDamage>();
-        rb = GetComponent<Rigidbody2D>();
 
         speed *= enemyManager.difficulty;
 
@@ -89,7 +89,7 @@ public class Enemy : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!isStunned && target != null)
+        if (target != null)
             EnemyMovement();
     }
     private void Update()
@@ -145,7 +145,7 @@ public class Enemy : MonoBehaviour
                 if (proj.destroyOnHit)
                     Destroy(other.gameObject);
 
-                TakeDamage(other.transform, proj.knockbackForce, proj.stunDuration, false);
+                TakeDamage(other.transform, proj.knockbackForce, proj.stunDuration, playerHealth.knockbackCurve);
             }
         }
 
@@ -155,7 +155,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    public void TakeDamage(Transform attacker, float force, float stunDuration, bool knockback = true, bool stun = true)
+    public void TakeDamage(Transform attacker, float distance = 0, float duration = 0, AnimationCurve curve = null, bool knockback = false)
     {
         Utils.PlayClip(hitSound);
         Vector3 particlePos = (attacker.position + transform.position) / 2f;
@@ -163,37 +163,54 @@ public class Enemy : MonoBehaviour
         GetComponent<DamageFlash>().Flash(damageFlashColor);
 
 
-        if (stun)
-            StartCoroutine(StunCoroutine(stunDuration));
-
         // knockback
         if (knockback)
         {
-            Knockback(force);
+            //Knockback(force);
+            KnockbackFrom(Vector2.zero, distance, duration, curve);
         }
 
     }
-
-    private void Knockback(float force)
+    /// <summary>
+    /// Moves the enemy away from a point by a given distance, following an animation curve.
+    /// </summary>
+    public void KnockbackFrom(Vector3 centerPoint, float distance, float duration, AnimationCurve curve)
     {
-        Vector2 direction = (transform.position - target.transform.position).normalized;
-        rb.linearVelocity = Vector2.zero;
-        rb.AddForce(direction * force, ForceMode2D.Impulse);
+        // Cancel any ongoing knockback
+        if (knockbackRoutine != null)
+            StopCoroutine(knockbackRoutine);
+
+        knockbackRoutine = StartCoroutine(KnockbackRoutine(centerPoint, distance, duration, curve));
     }
 
-    private IEnumerator StunCoroutine(float stunDuration)
+    private IEnumerator KnockbackRoutine(Vector3 centerPoint, float distance, float knockbackDuration, AnimationCurve knockbackCurve)
     {
-        isStunned = true;
-        rb.bodyType = RigidbodyType2D.Dynamic;
-        rb.gravityScale = 0;
+        Vector3 startPos = transform.position;
 
-        yield return new WaitForSeconds(stunDuration);
+        // Direction away from the point
+        Vector3 dir = (startPos - centerPoint).normalized;
 
-        isStunned = false;
-        rb.bodyType = RigidbodyType2D.Kinematic;
-        rb.linearVelocity = Vector2.zero;
+        // Calculate knockback target once
+        Vector3 endPos = startPos + dir * distance;
+
+        float time = 0f;
+        while (time < knockbackDuration)
+        {
+            float t = time / knockbackDuration;
+            float curveValue = knockbackCurve.Evaluate(t); // Curve mapping 0 → 1
+
+            // Smoothly move along the curve
+            transform.position = Vector3.Lerp(startPos, endPos, curveValue);
+            // If using physics:
+            // rb.MovePosition(Vector3.Lerp(startPos, endPos, curveValue));
+
+            time += Time.deltaTime;
+            yield return null;
+        }
+
+        transform.position = endPos; // Snap to end
+        knockbackRoutine = null;
     }
-
     public void Death(bool playerStatGain = true)
     {
         playerHealth.Heal(healthGain);
