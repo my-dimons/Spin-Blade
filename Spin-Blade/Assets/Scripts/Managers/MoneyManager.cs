@@ -69,7 +69,7 @@ public class MoneyManager : MonoBehaviour
         string moneyString;
         if (money >= 1000)
             moneyString = "$" + money.ToString("F0");
-        if (money >= 100)
+        else if (money >= 100)
             moneyString = "$" + money.ToString("F1");
         else
             moneyString = "$" + money.ToString("F2");
@@ -114,7 +114,7 @@ public class MoneyManager : MonoBehaviour
 
     private void ToggleShop(GameObject menu)
     {
-        Utils.PlayClip(uiSound, 0.3f);
+        Utils.PlayAudioClip(uiSound, 0.3f);
         float animTime = 0.1f;
 
         if (menu.activeSelf == true)

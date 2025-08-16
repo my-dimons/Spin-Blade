@@ -42,6 +42,8 @@ public class TriangleProjectile : MonoBehaviour
             angle += homingRotationOffset;
             transform.rotation = Quaternion.Euler(0f, 0f, angle);
         }
+        Debug.Log(projectile.speed);
+        Debug.Log(moveDirection);
         transform.position += projectile.speed * Time.deltaTime * (Vector3)moveDirection;
     }
 }

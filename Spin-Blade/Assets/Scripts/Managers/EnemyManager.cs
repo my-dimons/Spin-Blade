@@ -112,7 +112,7 @@ public class EnemyManager : MonoBehaviour
     {
         int randomNum = Random.Range(0, 2);
         if (randomNum != 2)
-            Utils.PlayClip(eventPing, 1.25f);
+            Utils.PlayAudioClip(eventPing, 1.25f);
 
         if (eventCount == 1)
         {

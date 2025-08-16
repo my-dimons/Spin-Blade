@@ -127,25 +127,16 @@ public class Enemy : MonoBehaviour
         {
             Projectile proj = other.GetComponent<Projectile>();
 
-            currentHealth -= proj.damage;
-
             if (other.GetComponent<TriangleProjectile>())
             {
                 other.GetComponent<TriangleProjectile>().homingTarget = null;
-            }
-
-            if (currentHealth <= 0)
-            {
-                Debug.Log("Destroyed by player");
-                GameObject.FindGameObjectWithTag("MoneyManager").GetComponent<MoneyManager>().AddMoney(value);
-                Death();
             }
             else
             {
                 if (proj.destroyOnHit)
                     Destroy(other.gameObject);
 
-                TakeDamage(other.transform, proj.knockbackForce, proj.stunDuration, playerHealth.knockbackCurve);
+                TakeDamage(other.transform, proj.damage, proj.knockbackForce, proj.stunDuration, playerHealth.knockbackCurve);
             }
         }
 
@@ -155,9 +146,17 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    public void TakeDamage(Transform attacker, float distance = 0, float duration = 0, AnimationCurve curve = null, bool knockback = false)
+    public void TakeDamage(Transform attacker, float damage, float distance = 0, float duration = 0, AnimationCurve curve = null, bool knockback = false)
     {
-        Utils.PlayClip(hitSound);
+        currentHealth -= damage;
+
+        if (currentHealth <= 0)
+        {
+            Death();
+            return;
+        }
+
+        Utils.PlayAudioClip(hitSound);
         Vector3 particlePos = (attacker.position + transform.position) / 2f;
         Utils.SpawnBurstParticle(hitParticles, particlePos, hitColor);
         GetComponent<DamageFlash>().Flash(damageFlashColor);
@@ -215,8 +214,9 @@ public class Enemy : MonoBehaviour
     {
         playerHealth.Heal(healthGain);
 
-        Utils.PlayClip(deathSound, 0.8f);
+        Utils.PlayAudioClip(deathSound, 0.8f);
         Utils.SpawnBurstParticle(deathParticles, transform.position, hitColor);
+        GameObject.FindGameObjectWithTag("MoneyManager").GetComponent<MoneyManager>().AddMoney(value);
         Camera.main.GetComponent<CameraScript>().ScreenshakeFunction(.08f);
 
         // text
@@ -264,6 +264,7 @@ public class Enemy : MonoBehaviour
             Utils.SpawnFloatingText(deathMoneyText, transform.position, "$" + GameObject.FindGameObjectWithTag("MoneyManager").GetComponent<MoneyManager>().CalculateMoney(moneyGain).ToString("F1"), 6f, 0.3f, 40f, 0.45f, 0.15f, goodMoneyColor);
         } else
             GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealthAndDamage>().TakeDamage(damage);
+
         Destroy(gameObject);
     }
 }

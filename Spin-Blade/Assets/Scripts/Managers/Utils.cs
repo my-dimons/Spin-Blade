@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public static class Utils
 {
-    public static void PlayClip(AudioClip clip, float volume = 1f, float pitchVariance = 0.1f)
+    public static void PlayAudioClip(AudioClip clip, float volume = 1f, float pitchVariance = 0.1f)
     { 
         if (clip == null) return;
 

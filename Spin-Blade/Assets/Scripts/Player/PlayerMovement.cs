@@ -53,7 +53,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void ReverseDirection()
     {
-        Utils.PlayClip(reverseDirectionSound, 0.06f);
+        Utils.PlayAudioClip(reverseDirectionSound, 0.06f);
         direction *= -1;
 
         int currentIndex = waypoints.IndexOf(currentWaypoint);

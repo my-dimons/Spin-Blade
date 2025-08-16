@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -48,7 +50,8 @@ public class PlayerHealthAndDamage : MonoBehaviour
     [Header("-- Mini Saws --")]
     public List<GameObject> miniSaws;
     public GameObject miniSawPrefab;
-    public GameObject[] miniSawWaypoints;
+    public GameObject miniSawWaypointsParent;
+    GameObject[] miniSawWaypoints;
     [Header("Stats")]
     public float miniSawBaseSpeed = 1f;
     public float hexagonDamage = 1f;
@@ -71,15 +74,33 @@ public class PlayerHealthAndDamage : MonoBehaviour
 
     [Space(10)]
 
-    [Header("-- (WIP) Exploding Circles (WIP) --")]
-    public bool explodingCircle; // the circle explodes occationally
+    [Header("-- Exploding Circles --")]
+    public bool explodingCircle;
+
+    [Header("Visuals")]
+    public GameObject explodingCirclePrefab;
+    public Image explodingCircleVisualCooldown;
+    public float explodingCircleVisualFinalSize;
+    public AnimationCurve explodingCircleSizeAnimationCurve;
+    public AnimationCurve explodingCircleOpacityAnimationCurve;
+
+    public float explodingCircleAnimationDuration;
+
+    [Header("Stats")]
+    public float explodingCircleCooldown = 10f;
+    [Tooltip("playerDamage/thisvar")]
+    public float circleDamageDivisor = 1f;
+    [Header("Unlocks")]
+    public bool explodingCircleKnockback;
+
+    float explodingCircleCooldownTimer = 0f;
 
     [Space(10)]
     [Header("Audio")]
     public AudioClip deathSound;
-    public AudioClip shootSound;
     public AudioClip hitSound;
     public AudioClip fullHealthSound;
+    public AudioClip explodingCircleSound;
 
     private void OnValidate()
     {
@@ -89,6 +110,11 @@ public class PlayerHealthAndDamage : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        miniSawWaypoints = miniSawWaypointsParent.GetComponentsInChildren<Transform>()
+                                                .Where(t => t != miniSawWaypointsParent.transform) // exclude parent
+                                                .Select(t => t.gameObject)
+                                                .ToArray();
+
         currentHealth = maxHeath;
         baseSize = transform.localScale;
 
@@ -103,35 +129,58 @@ public class PlayerHealthAndDamage : MonoBehaviour
     {
         transform.localScale = baseSize * sizeMultiplier;
 
+        // triangle timer
         triangleFireTimer += Time.deltaTime;
-
         if ((Input.GetKeyDown(KeyCode.Space) || autofireTriangles) && triangleFireTimer >= triangleFireRate && unlockedRangedTriangles)
         {
             triangleFireTimer = 0f;
             SpawnTriangle();
         }
 
+        // exploding circle timer
+        if (explodingCircle)
+            explodingCircleCooldownTimer += Time.deltaTime;
+        if ((explodingCircle && explodingCircleCooldownTimer >= explodingCircleCooldown) || Input.GetKeyDown(KeyCode.R))
+        {
+            explodingCircleCooldownTimer = 0f;
+            ExplodeCircle();
+        }
+        // exploding circle visual cooldown
+        if (explodingCircle)
+        {
+            explodingCircleVisualCooldown.fillAmount = (float)explodingCircleCooldownTimer / explodingCircleCooldown;
+        } else
+        {
+            // full fill
+            explodingCircleVisualCooldown.fillAmount = 1;
+        }
 
-        float regenAmount = currentHealth * regenPerSecond / 100;
+            // clamp health & add regen
+            float regenAmount = currentHealth * regenPerSecond / 100;
         currentHealth = Mathf.Clamp(currentHealth += regenAmount * Time.deltaTime, 0, maxHeath);
 
         // full health ping
         if (currentHealth >= maxHeath && oldHealth < maxHeath && oldHealth != oldMaxHealth)
         {
-            Utils.PlayClip(fullHealthSound, 0.7f);
+            Utils.PlayAudioClip(fullHealthSound, 0.7f);
             circleDamageFlash.Flash(circleFullHealFlashColor);
         }
 
+        // update vars for health ping
         oldHealth = currentHealth;
         oldMaxHealth = maxHeath;
 
-
+        // health bar visual fill
         healthBar.fillAmount = (float)currentHealth / maxHeath;
+
+        // death if health is 0
         if (currentHealth <= 0 && !dead)
         {
             Death();
         }
     }
+
+    [ContextMenu("Spawn Mini Sawblade")]
     public void SpawnSaw()
     {
         GameObject randomSaw = miniSawWaypoints[Random.Range(0, miniSawWaypoints.Length)];
@@ -143,7 +192,6 @@ public class PlayerHealthAndDamage : MonoBehaviour
 
     public void SpawnTriangle()
     {
-        Utils.PlayClip(shootSound, 0.15f);
         GameObject triangle = Instantiate(trianglePrefab, transform.position, Quaternion.identity);
         triangle.GetComponent<Projectile>().damage = triangleDamage;
         triangle.GetComponent<Projectile>().speed = triangleSpeed;
@@ -155,6 +203,76 @@ public class PlayerHealthAndDamage : MonoBehaviour
 
     }
 
+    public void ExplodeCircle()
+    {
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+
+        float circleDamage = damage / circleDamageDivisor;
+
+        // damage all enemies, and do knockback if unlocked
+        foreach (GameObject enemy in enemies)
+        {
+            if (explodingCircleKnockback)
+                enemy.GetComponent<Enemy>().TakeDamage(enemy.transform, circleDamage, knockbackDistance, knockbackDuration, knockbackCurve, true);
+            else
+                enemy.GetComponent<Enemy>().TakeDamage(enemy.transform, circleDamage, 1, 0.8f, knockbackCurve, true); // do a little knockback to 'stun' the enemy
+        }
+
+        StartCoroutine(ExplodingCircleVisual());
+
+        float screenshakeDuration = .6f;
+        Camera.main.GetComponent<CameraScript>().ScreenshakeFunction(screenshakeDuration);
+        Utils.PlayAudioClip(explodingCircleSound, 0.8f);
+
+
+        IEnumerator ExplodingCircleVisual()
+        {
+            GameObject circle = Instantiate(explodingCirclePrefab, Vector2.zero, Quaternion.identity);
+            Transform circleTransform = circle.transform;
+            SpriteRenderer sr = circle.GetComponent<SpriteRenderer>();
+
+            Vector3 startScale = circleTransform.localScale;
+            Vector3 endScale = Vector3.one * explodingCircleVisualFinalSize;
+
+            float startAlpha = sr != null ? sr.color.a : 1f;
+            float endAlpha = 0f;
+
+            float time = 0f;
+
+            while (time < explodingCircleAnimationDuration)
+            {
+                float t = time / explodingCircleAnimationDuration;
+
+                // Scale
+                float scaleValue = explodingCircleSizeAnimationCurve.Evaluate(t);
+                circleTransform.localScale = Vector3.LerpUnclamped(startScale, endScale, scaleValue);
+
+                // Opacity
+                if (sr != null)
+                {
+                    float alphaValue = explodingCircleOpacityAnimationCurve.Evaluate(t);
+                    Color c = sr.color;
+                    c.a = Mathf.LerpUnclamped(startAlpha, endAlpha, alphaValue);
+                    sr.color = c;
+                }
+
+                time += Time.deltaTime;
+                yield return null;
+            }
+
+            // Snap final state
+            circleTransform.localScale = endScale;
+            if (sr != null)
+            {
+                Color c = sr.color;
+                c.a = endAlpha;
+                sr.color = c;
+            }
+
+            Destroy(circle);
+        }
+    }
+
     void Death()
     {
         // revive and kill all enemies
@@ -163,25 +281,21 @@ public class PlayerHealthAndDamage : MonoBehaviour
             currentHealth = maxHeath;
             revives--;
 
-            GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-            foreach (GameObject enemy in enemies)
-            {
-                enemy.GetComponent<Enemy>().Death(false);
-            }
+            KillAllEnemies();
 
             return;
         }
 
         dead = true;
         GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>().tutorialText.gameObject.SetActive(false); 
-        Utils.PlayClip(deathSound, 1.3f);
+        Utils.PlayAudioClip(deathSound, 1.3f);
         Time.timeScale = 0;
         deathScreen.SetActive(true);
     }
 
     public void TakeDamage(float damage, bool flashMoney = false)
     {
-        Utils.PlayClip(hitSound, 1f);
+        Utils.PlayAudioClip(hitSound, 1f);
         currentHealth -= damage;
 
         if (currentHealth > 0 && !flashMoney)
@@ -209,15 +323,17 @@ public class PlayerHealthAndDamage : MonoBehaviour
         {
             Enemy enemyScript = collision.GetComponent<Enemy>();
             enemyScript.maxHealth -= damage;
-            if (enemyScript.maxHealth <= 0)
-            {
-                Debug.Log("Destroyed by player");
-                enemyScript.Death();
-            }
-            else
-            {
-                enemyScript.TakeDamage(transform, knockbackDistance, knockbackDuration, knockbackCurve, true);
-            }
+
+            enemyScript.TakeDamage(transform, damage, knockbackDistance, knockbackDuration, knockbackCurve, true);
+        }
+    }
+
+    public void KillAllEnemies()
+    {
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        foreach (GameObject enemy in enemies)
+        {
+            enemy.GetComponent<Enemy>().Death();
         }
     }
 }
