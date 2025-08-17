@@ -24,12 +24,11 @@ public class LineController : MonoBehaviour
 
         for (int i = 0; i < points.Length; i++)
         {
-            Vector2 localPos;
             RectTransformUtility.ScreenPointToLocalPointInRectangle(
                 parentRect,
                 RectTransformUtility.WorldToScreenPoint(null, points[i].position),
                 null,
-                out localPos);
+                out Vector2 localPos);
 
             localPoints[i] = localPos;
         }

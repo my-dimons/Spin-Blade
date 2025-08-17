@@ -14,8 +14,8 @@ public class UpgradeConnections : MonoBehaviour
 
     public float lineThickness = 5f;
 
-    private List<GameObject> lineObjects = new List<GameObject>();
-    private List<UILineRenderer> lineRenderers = new List<UILineRenderer>();
+    private List<GameObject> lineObjects = new();
+    private List<UILineRenderer> lineRenderers = new();
 
     private Upgrade upgrade;
 
@@ -41,9 +41,8 @@ public class UpgradeConnections : MonoBehaviour
 
             GameObject lineObj = Instantiate(linePrefab, transform.parent);
             lineObj.transform.SetAsFirstSibling();
-            UILineRenderer lr = lineObj.GetComponent<UILineRenderer>();
-
-            if (lr == null)
+            
+            if (!lineObj.TryGetComponent<UILineRenderer>(out var lr))
             {
                 Debug.LogError("Line prefab missing UILineRenderer component!");
                 Destroy(lineObj);
@@ -90,20 +89,18 @@ public class UpgradeConnections : MonoBehaviour
                 continue;
 
             // Convert world positions to local positions relative to the parent canvas or line's RectTransform
-            Vector2 localStartPos;
-            Vector2 localEndPos;
 
             RectTransformUtility.ScreenPointToLocalPointInRectangle(
                 lineRenderer.rectTransform.parent as RectTransform,
                 RectTransformUtility.WorldToScreenPoint(null, startRect.position),
                 null,
-                out localStartPos);
+                out Vector2 localStartPos);
 
             RectTransformUtility.ScreenPointToLocalPointInRectangle(
                 lineRenderer.rectTransform.parent as RectTransform,
                 RectTransformUtility.WorldToScreenPoint(null, endRect.position),
                 null,
-                out localEndPos);
+                out Vector2 localEndPos);
 
             // Update points of UILineRenderer
             lineRenderer.Points = new Vector2[] { localStartPos, localEndPos };

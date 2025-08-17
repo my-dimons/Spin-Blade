@@ -66,7 +66,7 @@ public class EnemyManager : MonoBehaviour
         float angle = Random.Range(0f, Mathf.PI * 2f);
 
         // Calculate the x and y position on the circle's edge
-        Vector2 spawnPos = new Vector2(
+        Vector2 spawnPos = new(
             transform.position.x + Mathf.Cos(angle) * radius,
             transform.position.y + Mathf.Sin(angle) * radius
         );
@@ -90,7 +90,7 @@ public class EnemyManager : MonoBehaviour
     
     public GameObject GetRandomEnemy()
     {
-        List<GameObject> spawnableEnemies = new List<GameObject>();
+        List<GameObject> spawnableEnemies = new();
         foreach (GameObject enemy in enemies)
         {
             Enemy enemyScript = enemy.GetComponent<Enemy>();

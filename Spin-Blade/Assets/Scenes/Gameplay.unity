@@ -40383,10 +40383,10 @@ MonoBehaviour:
   autofireTriangles: 0
   homingTriangles: 0
   piercingTriangles: 0
-  explodingCircle: 1
+  explodingCircle: 0
   explodingCirclePrefab: {fileID: 3930423445408462108, guid: d4763f897ce5f9a438620ead6ca5d695, type: 3}
   explodingCircleVisualCooldown: {fileID: 1323966124}
-  explodingCircleVisualFinalSize: 60
+  explodingCircleVisualFinalSize: 30
   explodingCircleSizeAnimationCurve:
     serializedVersion: 2
     m_Curve:
@@ -40446,8 +40446,15 @@ MonoBehaviour:
     m_RotationOrder: 4
   explodingCircleAnimationDuration: 0.4
   explodingCircleCooldown: 10
-  circleDamageDivisor: 1
+  explodingCircleDamageMultiplier: 1
   explodingCircleKnockback: 0
+  mines: 1
+  minePrefab: {fileID: 327706301288235810, guid: 8cfdb3ab442319643a26743b565957b8, type: 3}
+  minesCooldown: 6
+  minesLifetime: 8
+  mineDamageMultiplier: 0.8
+  mineExplosionRadius: 6
+  explodingMines: 1
   deathSound: {fileID: 8300000, guid: ff05400533038374b9024b913bd053a7, type: 3}
   hitSound: {fileID: 8300000, guid: d05cdc08b41928945b190b806b904ba9, type: 3}
   fullHealthSound: {fileID: 8300000, guid: bffb0874491125b4589328c1362a1789, type: 3}

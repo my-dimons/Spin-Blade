@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,7 +10,7 @@ public static class Utils
     { 
         if (clip == null) return;
 
-        GameObject tempGO = new GameObject("TempAudio");
+        GameObject tempGO = new("TempAudio");
         if (Camera.main != null)
             tempGO.transform.position = Camera.main.transform.position;
 
@@ -42,8 +41,7 @@ public static class Utils
         GameObject particleInstance = UnityEngine.Object.Instantiate(particlePrefab, position, Quaternion.identity);
 
         // Get the ParticleSystem component
-        ParticleSystem ps = particleInstance.GetComponent<ParticleSystem>();
-        if (ps == null)
+        if (!particleInstance.TryGetComponent<ParticleSystem>(out var ps))
         {
             Debug.LogWarning("Prefab has no ParticleSystem component!");
             UnityEngine.Object.Destroy(particleInstance);
@@ -81,8 +79,7 @@ public static class Utils
         }
 
         // Add subtle sideways + upward force
-        Rigidbody2D rb = textInstance.GetComponent<Rigidbody2D>();
-        if (rb != null)
+        if (textInstance.TryGetComponent<Rigidbody2D>(out var rb))
         {
             float randomX = UnityEngine.Random.Range(-sidewaysMax, sidewaysMax); // much smaller sideways drift
             Vector2 direction = new Vector2(randomX, 1f).normalized;
@@ -168,7 +165,7 @@ public static class Utils
 
         // Compute luminance (grayscale)
         float gray = color.r * 0.299f + color.g * 0.587f + color.b * 0.114f;
-        Color grayscale = new Color(gray, gray, gray, color.a);
+        Color grayscale = new(gray, gray, gray, color.a);
 
         if (amount < 0f)
         {
@@ -285,7 +282,7 @@ public static class Utils
     {
         if (_runner == null)
         {
-            GameObject runnerGO = new GameObject("TextUtilityRunner");
+            GameObject runnerGO = new("TextUtilityRunner");
             UnityEngine.Object.DontDestroyOnLoad(runnerGO);
             _runner = runnerGO.AddComponent<CoroutineRunner>();
         }

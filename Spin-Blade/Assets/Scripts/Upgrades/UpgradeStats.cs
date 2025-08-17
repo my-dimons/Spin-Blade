@@ -46,6 +46,31 @@ public class UpgradeStats : MonoBehaviour
     public float triangleSpeedIncrease;
     public float triangleFireRateIncrease;
 
+    [Space(20)]
+    [Header("-- Exploding Circle")]
+
+    [Header("Stats")]
+    public float explodingCircleCooldownIncrease;
+    public float explodingCircleDamageMultiplierIncrease;
+
+    [Header("Unlocks")]
+    public bool unlockExplodingCircle;
+    public bool unlockExplodingCircleKnockback;
+
+    [Space(20)]
+    [Header("-- Mines")]
+
+    [Header("Stats")]
+    public float mineExplosionRadiusIncrease;
+    public float mineDamageMultiplierIncrease;
+    public float mineKnockbackIncrease;
+    public float mineLifetimeIncrease;
+    public float mineCooldownIncrease;
+
+    [Header("Unlocks")]
+    public bool unlockMines;
+    public bool explodingMines;
+    
     [Header("|----- Special Player Stats -----|")]
     [Space(20)]
     [Header("|----- Enemies -----|")]
@@ -93,67 +118,108 @@ public class UpgradeStats : MonoBehaviour
         PlayerMovement playerMovement = player.GetComponent<PlayerMovement>();
         PlayerHealthAndDamage playerHealth = player.GetComponent<PlayerHealthAndDamage>();
 
-        // increase speed
+        // --- PLAYER ---
+        // -- damage
+        // speed
         playerMovement.speed += speedIncrease;
-        // increase size
+        // size
         playerHealth.sizeMultiplier += sizeIncrease;
-        // increase money multiplier
-        moneyManager.moneyMultiplier += moneyMultiplierIncrease;
-        // increase passive income
-        moneyManager.passiveIncome += passiveIncomeIncrease;
+        // damage
+        playerHealth.damage += damageIncrease;
+        // kb & stun
+        playerHealth.knockbackDistance += knockbackIncrease;
+        playerHealth.knockbackDuration += knockbackDurationIncrease;
+
+        // -- health
         // increase max health
         playerHealth.IncreaseMaxHealth(healthIncrease);
         // revive
         playerHealth.revives += reviveIncreases;
-        // increase damage
-        playerHealth.damage += damageIncrease;
         // increase regen
         playerHealth.regenPerSecond += regenIncrease;
-        // increase knockback & stun time
-        playerHealth.knockbackDistance += knockbackIncrease;
-        playerHealth.knockbackDuration += knockbackDurationIncrease;
-        // increase enemy speed multiplier
-        enemyManager.enemySpeedMultiplier += enemySpeedMultiplierIncrease;
+        // knockback & stun time
 
+        // health on kill
         playerHealth.killRegenAmount += healthOnKillIncrease;
+        // --- PLAYER ---
 
-        // buy mini saws
+        // --- MONEY ---
+        // multiplier
+        moneyManager.moneyMultiplier += moneyMultiplierIncrease;
+        // passive income
+        moneyManager.passiveIncome += passiveIncomeIncrease;
+        // --- MONEY ---
+
+        // --- MINI SAWS ---
+        // spawn
         if (spawnMiniSaw)
             playerHealth.SpawnSaw();
-        // mini saw stats
+        // stats
         foreach (GameObject miniSaw in playerHealth.miniSaws)
         {
             miniSaw.GetComponent<PlayerMiniSaw>().IncreaseSpeed(miniSawSpeedIncrease);
             miniSaw.GetComponent<Projectile>().damage += miniSawDamageIncrease;
         }
+        // --- MINI SAWS ---
 
-        // unlock shooting triangles
+        // --- SHOOTING TRIANGLES ---
+        // unlocks
         if (unlockShootingTriangles)
             playerHealth.unlockedRangedTriangles = true;
-        // shooting triangles stats
-        playerHealth.triangleDamage += triangleDamageIncrease;
-        playerHealth.triangleSpeed += triangleSpeedIncrease;
-        playerHealth.triangleFireRate += triangleFireRateIncrease;
+
         if (!playerHealth.autofireTriangles)
             playerHealth.autofireTriangles = rangedAutofire;
         if (!playerHealth.homingTriangles)
             playerHealth.homingTriangles = homingTriangles;
         if (!playerHealth.piercingTriangles)
             playerHealth.piercingTriangles = piercingTriangles;
+        // stats
+        playerHealth.triangleDamage += triangleDamageIncrease;
+        playerHealth.triangleSpeed += triangleSpeedIncrease;
+        playerHealth.triangleFireRate += triangleFireRateIncrease;
+        // --- SHOOTING TRIANGLES ---
 
+        // --- EXPLODING CIRCLE ---
+        // unlocks
+        if (!playerHealth.explodingCircle)
+            playerHealth.explodingCircle = unlockExplodingCircle;
+        if (!playerHealth.explodingCircleKnockback)
+            playerHealth.explodingCircleKnockback = unlockExplodingCircleKnockback;
+        // stats
+        playerHealth.explodingCircleCooldown += explodingCircleCooldownIncrease;
+        playerHealth.explodingCircleDamageMultiplier += explodingCircleDamageMultiplierIncrease;
+        // --- EXPLODING CIRCLE ---
 
+        // --- MINES ---
+        // unlocks
+        if (!playerHealth.mines)
+            playerHealth.mines = unlockMines;
+        if (!playerHealth.explodingMines)
+            playerHealth.explodingMines = explodingMines;
+        // stats
+        playerHealth.mineExplosionRadius += mineExplosionRadiusIncrease;
+        playerHealth.mineDamageMultiplier += mineDamageMultiplierIncrease;
+        playerHealth.mineDamageMultiplier += mineKnockbackIncrease;
+        playerHealth.minesLifetime += mineLifetimeIncrease;
+        playerHealth.minesCooldown += mineCooldownIncrease;
+        // --- MINES ---
 
+        // --- ENEMIES ---
         // add enemy
         if (addEnemy != null)
         {
             EnemyManager enemyManager = GameObject.FindGameObjectWithTag("EnemyManager").GetComponent<EnemyManager>();
             enemyManager.enemies.Add(addEnemy);
         }
-        // increase boss health mult
+        // boss health mult
         enemyManager.bossHealthMultiplier += enemyBossHealthMultiplierIncrease;
-
+        // spawnrate
         enemyManager.spawnRate += enemySpawnRateIncrease;
+        // speed multiplier
+        enemyManager.enemySpeedMultiplier += enemySpeedMultiplierIncrease;
+        // --- ENEMIES ---
 
+        // --- WIN ---
         if (win)
         {
             GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>().Win();
