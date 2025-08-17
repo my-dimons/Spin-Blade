@@ -103,6 +103,7 @@ public class PlayerHealthAndDamage : MonoBehaviour
     public float minesLifetime = 8f;
     public float mineDamageMultiplier = 1f;
     public float mineExplosionRadius = 6f;
+    public int mineHitsBeforeDeath = 1;
 
     float minesCooldownTimer = 0f;
     float minesRadiusDivisor = 1.3f; // make radius smaller so most mines are in the camera view
@@ -158,7 +159,7 @@ public class PlayerHealthAndDamage : MonoBehaviour
         if ((explodingCircle && explodingCircleCooldownTimer >= explodingCircleCooldown))
         {
             explodingCircleCooldownTimer = 0f;
-            ExplodeCircle(Vector2.zero, damage * explodingCircleDamageMultiplier, explodingCircleVisualFinalSize);
+            ExplodeCircle(Vector2.zero, damage * explodingCircleDamageMultiplier, explodingCircleVisualFinalSize, explodingCircleKnockback);
         }
         // exploding circle visual cooldown
         if (explodingCircle)
@@ -229,7 +230,7 @@ public class PlayerHealthAndDamage : MonoBehaviour
 
     }
 
-    public void ExplodeCircle(Vector2 spawnPos, float circleDamage, float finalSize)
+    public void ExplodeCircle(Vector2 spawnPos, float circleDamage, float finalSize, bool knockback)
     {
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
 
@@ -240,7 +241,7 @@ public class PlayerHealthAndDamage : MonoBehaviour
             // must be inside the final circle size to do damage
             if (Vector2.Distance(spawnPos, enemy.transform.position) <= finalSize)
             {
-                if (explodingCircleKnockback)
+                if (knockback)
                     enemy.GetComponent<Enemy>().TakeDamage(enemy.transform, circleDamage, knockbackDistance, knockbackDuration, knockbackCurve, true);
                 else
                     enemy.GetComponent<Enemy>().TakeDamage(enemy.transform, circleDamage, 1, 0.8f, knockbackCurve, true); // do a little knockback to 'stun' the enemy
@@ -317,6 +318,7 @@ public class PlayerHealthAndDamage : MonoBehaviour
         mineScript.damage = damage * mineDamageMultiplier;
         mineScript.curve = knockbackCurve;
         mineScript.lifetime = minesLifetime;
+        mineScript.hitsBeforeDeath = mineHitsBeforeDeath;
 
         // kb
         mineScript.knockback = knockbackDistance / knockbackDivisor;

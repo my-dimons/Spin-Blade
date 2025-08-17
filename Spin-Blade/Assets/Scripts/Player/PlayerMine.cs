@@ -18,6 +18,9 @@ public class PlayerMine : MonoBehaviour
     [Header("Dying")]
     public bool pausePulsing;
     public float lifetime;
+    // amount of hits before dying
+    public int hitsBeforeDeath = 1;
+    private int hitsTaken;
 
     [Header("Growing")]
     public AnimationCurve growingCurve;
@@ -40,11 +43,15 @@ public class PlayerMine : MonoBehaviour
         {
             collision.GetComponent<Enemy>().TakeDamage(this.transform, damage, knockback, stunDuration, curve, true);
             // death
-            StartCoroutine(StartDying());
+            hitsTaken++;
+            if (hitsTaken >= hitsBeforeDeath)
+            {
+                StartCoroutine(StartDying());
+            }
             // exploding circle
             if (explode)
             {
-                GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealthAndDamage>().ExplodeCircle(transform.position, damage, explosionRadius);
+                GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealthAndDamage>().ExplodeCircle(transform.position, damage, explosionRadius, false);
             }
         }
     }
@@ -54,7 +61,6 @@ public class PlayerMine : MonoBehaviour
         if (!pausePulsing)
             PulsingGrowth();
     }
-
 
     void PulsingGrowth()
     {

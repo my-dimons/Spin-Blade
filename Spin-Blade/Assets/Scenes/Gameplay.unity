@@ -10665,9 +10665,9 @@ GameObject:
   m_Component:
   - component: {fileID: 519420032}
   - component: {fileID: 519420031}
-  - component: {fileID: 519420029}
   - component: {fileID: 519420030}
   - component: {fileID: 519420033}
+  - component: {fileID: 519420034}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -10675,14 +10675,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &519420029
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 519420028}
-  m_Enabled: 1
 --- !u!114 &519420030
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10839,6 +10831,14 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   screenshaking: 0
+--- !u!81 &519420034
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
 --- !u!1 &546784921
 GameObject:
   m_ObjectHideFlags: 0
@@ -40448,13 +40448,14 @@ MonoBehaviour:
   explodingCircleCooldown: 10
   explodingCircleDamageMultiplier: 1
   explodingCircleKnockback: 0
-  mines: 1
+  mines: 0
   minePrefab: {fileID: 327706301288235810, guid: 8cfdb3ab442319643a26743b565957b8, type: 3}
   minesCooldown: 6
   minesLifetime: 8
   mineDamageMultiplier: 0.8
   mineExplosionRadius: 6
-  explodingMines: 1
+  mineHitsBeforeDeath: 1
+  explodingMines: 0
   deathSound: {fileID: 8300000, guid: ff05400533038374b9024b913bd053a7, type: 3}
   hitSound: {fileID: 8300000, guid: d05cdc08b41928945b190b806b904ba9, type: 3}
   fullHealthSound: {fileID: 8300000, guid: bffb0874491125b4589328c1362a1789, type: 3}
