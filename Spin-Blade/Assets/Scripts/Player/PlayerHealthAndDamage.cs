@@ -262,7 +262,7 @@ public class PlayerHealthAndDamage : MonoBehaviour
             SpriteRenderer sr = circle.GetComponent<SpriteRenderer>();
 
             Vector3 startScale = circleTransform.localScale;
-            Vector3 endScale = finalSize * Vector3.one * 2; // multiply by 2 because for some reason the scale is half the size of the sprite or smth ¯\(°_o)/¯ idk it just works
+            Vector3 endScale = 2 * finalSize * Vector3.one; // multiply by 2 because for some reason the scale is half the size of the sprite or smth ¯\(°_o)/¯ idk it just works
 
             float startAlpha = sr != null ? sr.color.a : 1f;
             float endAlpha = 0f;
@@ -403,7 +403,6 @@ public class PlayerHealthAndDamage : MonoBehaviour
         if (collision.CompareTag("Enemy"))
         {
             Enemy enemyScript = collision.GetComponent<Enemy>();
-            enemyScript.maxHealth -= damage;
 
             enemyScript.TakeDamage(transform, damage, knockbackDistance, knockbackDuration, knockbackCurve, true);
         }

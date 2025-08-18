@@ -1,11 +1,11 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
     [Header("Movement")]
     public GameObject target;
-    public float minTargetDistance = 0.05f;
     public float speed = 5f;
     public float rotateMultiplier = 1f;
 
@@ -46,12 +46,16 @@ public class Enemy : MonoBehaviour
     EnemyManager enemyManager;
     PlayerHealthAndDamage playerHealth;
 
-    [Header("Special")]
+    [Header("Special")] // todo: move this to a new script
     public bool damageFromProjectiles = true;
     public bool triggerEventOnDeath;
     public bool randomSize;
     public float minSize = 0.5f;
     public float maxSize = 1.5f;
+
+    // death
+    public event Action OnDeath;
+    private bool isDead = false;
 
     private void OnValidate()
     {
@@ -79,8 +83,8 @@ public class Enemy : MonoBehaviour
 
         if (randomSize)
         {
-            float randomScaleX = Random.Range(minSize, maxSize);
-            float randomScaleY = Random.Range(minSize, maxSize);
+            float randomScaleX = UnityEngine.Random.Range(minSize, maxSize);
+            float randomScaleY = UnityEngine.Random.Range(minSize, maxSize);
             transform.localScale = new Vector3(randomScaleX, randomScaleY, 1f);
         }
 
@@ -148,6 +152,9 @@ public class Enemy : MonoBehaviour
 
     public void TakeDamage(Transform attacker, float damage, float distance = 0, float duration = 0, AnimationCurve curve = null, bool knockback = false)
     {
+        Debug.Log("ENEMY COLLISIONS");
+        if (isDead) return;
+
         currentHealth -= damage;
 
         if (currentHealth <= 0)
@@ -212,11 +219,15 @@ public class Enemy : MonoBehaviour
     }
     public void Death(bool playerStatGain = true)
     {
+        if (isDead) return;
+        isDead = true;
+
+        Debug.Log("enemy death");
+
         playerHealth.Heal(healthGain);
 
         Utils.PlayAudioClip(deathSound, 0.8f);
         Utils.SpawnBurstParticle(deathParticles, transform.position, hitColor);
-        GameObject.FindGameObjectWithTag("MoneyManager").GetComponent<MoneyManager>().AddMoney(value);
         Camera.main.GetComponent<CameraScript>().ScreenshakeFunction(.08f);
 
         // text
@@ -245,6 +256,8 @@ public class Enemy : MonoBehaviour
             GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>().kills++;
         }
 
+        // trigger death event
+        OnDeath?.Invoke();
 
         enemyManager.IncreaseDifficulty();
         Destroy(gameObject);
