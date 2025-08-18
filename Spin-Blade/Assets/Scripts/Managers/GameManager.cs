@@ -9,7 +9,6 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    float time;
 
     public TextMeshProUGUI tutorialText;
     [TextArea]
@@ -29,9 +28,6 @@ public class GameManager : MonoBehaviour
 
     [Header("Win Screen")]
     public GameObject winScreen;
-    public int lShiftPresses = 0;
-    public int kills = 0;
-    public float totalMoneyGained;
     public float winTime; // how long the win screen is up for
     PersistentVariables persistentVariables;
     public GameObject timeText;
@@ -40,6 +36,13 @@ public class GameManager : MonoBehaviour
 
     public GameObject totalTimeText;
 
+    [Header("Stats")]
+
+    public int lShiftPresses = 0;
+    public int kills = 0;
+    public float totalMoneyGained;
+    public float totalBitsGained;
+    float totalTimePlayed;
 
     private void Start()
     {
@@ -65,7 +68,7 @@ public class GameManager : MonoBehaviour
     }
     private void Update()
     {
-        time += Time.deltaTime;
+        totalTimePlayed += Time.deltaTime;
 
         if (persistentVariables.infiniteMode)
         {
@@ -74,7 +77,7 @@ public class GameManager : MonoBehaviour
                 totalTimeText.SetActive(true);
             }
 
-            TimeSpan timePlayed = TimeSpan.FromSeconds(Mathf.RoundToInt(time));
+            TimeSpan timePlayed = TimeSpan.FromSeconds(Mathf.RoundToInt(totalTimePlayed));
             totalTimeText.GetComponent<TextMeshProUGUI>().text = string.Format("{0:00}:{1:00}", timePlayed.Minutes, timePlayed.Seconds);
         }
 
@@ -220,7 +223,7 @@ public class GameManager : MonoBehaviour
         winScreen.SetActive(true);
 
         // time played
-        TimeSpan timePlayed = TimeSpan.FromSeconds(Mathf.RoundToInt(time));
+        TimeSpan timePlayed = TimeSpan.FromSeconds(Mathf.RoundToInt(totalTimePlayed));
         timeText.GetComponent<TextMeshProUGUI>().text = "Time: " + string.Format("{0:00}:{1:00}", timePlayed.Minutes, timePlayed.Seconds);
 
         // kills

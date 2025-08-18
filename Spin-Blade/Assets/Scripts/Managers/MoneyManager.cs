@@ -7,32 +7,64 @@ using UnityEngine;
 
 public class MoneyManager : MonoBehaviour
 {
+    [Header("=-- CURRENCY --=")]
+    public Currency currency;
+    public enum Currency
+    {
+        money,
+        bits
+    }
+    public Color moneyColor;
+    public Color bitsColor;
+
+    [Header("-- Money --")]
     public float money;
     public float moneyMultiplier = 1f;
     [HideInInspector()] public float eventMoneyMultiplier = 1;
     public float passiveIncome;
+
+    [Header("-- Bits --")]
+    public float bits;
+    public float bitsMultiplier = 1f;
+    public bool bitsUnlocked; // just disables text rendering if off
+
+    [Header("-- Visual Objects --")]
     public GameObject infModePauseMenu;
     public GameObject shopMenu;
     public GameObject skillTreeObject;
     public Vector2 shopMenuPos;
+    [Header("Money Text")]
     public TextMeshProUGUI moneyText;
     public TextMeshProUGUI moneyMultiplierText;
     public TextMeshProUGUI moneyPerSecondText;
     public Vector2 moneyPerSecondTextPos;
+    [Header("Bits Text")]
+    public TextMeshProUGUI bitsText;
+    public TextMeshProUGUI bitsMultiplierText;
+    [Header("Upgrades")]
     public GameObject upgradeParent;
     private List<GameObject> upgrades = new();
-    public AudioClip uiSound;
-
     [Header("Ui Animations")]
     public AnimationCurve upgradeInfoAnimCurve;
     private bool animatingShop;
 
+    [Header("Audio")]
+    public AudioClip uiToggleSound;
+
     [HideInInspector] public bool toggleShopKey;
     private bool firstShopToggle;
+
+    private void OnValidate()
+    {
+        moneyColor = Utils.ColorFromHex("#FFF564");
+        bitsColor = Utils.ColorFromHex("#64C8FF");
+    }
+
     private void Start()
     {
         moneyMultiplier *= GameObject.FindGameObjectWithTag("PVars").GetComponent<PersistentVariables>().moneyMultiplier;
         shopMenuPos = skillTreeObject.GetComponent<RectTransform>().anchoredPosition;
+        // add all upgrades to an array
         foreach (Transform child in upgradeParent.transform)
         {
             if (child.GetComponent<Upgrade>())
@@ -56,41 +88,45 @@ public class MoneyManager : MonoBehaviour
                 ToggleShop(infModePauseMenu);
         }
 
-        UpdateMoneyText();
+        UpdateCurrencyText();
         money = Mathf.Round(money * 100f) / 100f;
     }
 
-    public float CalculateMoney(float number)
+    private void UpdateCurrencyText()
     {
-        return number * moneyMultiplier * eventMoneyMultiplier;
-    }
-    private void UpdateMoneyText()
-    {
-        string moneyString;
-        if (money >= 1000)
-            moneyString = "$" + money.ToString("F0");
-        else if (money >= 100)
-            moneyString = "$" + money.ToString("F1");
-        else
-            moneyString = "$" + money.ToString("F2");
+        // money & bits text
+        string bitsString = "";
+        string moneyString = "";
+
+        moneyString = CalculateMoneyString(money);
+        if (bitsUnlocked)
+            bitsString = CalculateMoneyString(bits, 2, Currency.bits);
+
         if (GameObject.FindGameObjectWithTag("PVars").GetComponent<PersistentVariables>().infiniteMode)
+        {
             moneyString = "";
+            bitsString = "";
+        }
+
         moneyText.text = moneyString;
+        bitsText.text = bitsString;
+
+        // money & bits multiplier text
 
         string moneyMultiplierString = "";
-        // money multiplier text
-        if (moneyMultiplier != 1)
-        {
-            moneyMultiplierString = "x" + moneyMultiplier.ToString("F2");
-        }
-        
+        string bitsMultiplierString = "";
+
+        moneyMultiplierString = "x" + moneyMultiplier.ToString("F2");
+        if (bitsUnlocked)
+            bitsMultiplierString = "x" + bitsMultiplier.ToString("F2");
+
         if (eventMoneyMultiplier > 1)
-        {
             moneyMultiplierText.text = moneyMultiplierString + " (x" + eventMoneyMultiplier.ToString("F0") + ")";
-        }
 
         moneyMultiplierText.text = moneyMultiplierString;
+        bitsMultiplierText.text = bitsMultiplierString;
 
+        #region money per second text
         // money per second text
         string moneyPerSecondString = "";
         if (passiveIncome > 0)
@@ -99,6 +135,7 @@ public class MoneyManager : MonoBehaviour
         }
         moneyPerSecondText.text = moneyPerSecondString;
 
+        #region money per second text anchoring
         string text = moneyText.text;
         int anchorIndex = text.Length - 1;
 
@@ -110,11 +147,22 @@ public class MoneyManager : MonoBehaviour
         worldPos = moneyText.transform.TransformPoint(worldPos);
 
         moneyPerSecondText.rectTransform.position = worldPos + (Vector3)moneyPerSecondTextPos;
+        #endregion
+        #endregion
+
+        #region currency text color
+        moneyText.color = GetCurrencyColor(Currency.money);
+        moneyMultiplierText.color = GetCurrencyColor(Currency.money);
+        moneyPerSecondText.color = GetCurrencyColor(Currency.money);
+
+        bitsText.color = GetCurrencyColor(Currency.bits);
+        bitsMultiplierText.color = GetCurrencyColor(Currency.bits);
+        #endregion
     }
 
     private void ToggleShop(GameObject menu)
     {
-        Utils.PlayAudioClip(uiSound, 0.3f);
+        Utils.PlayAudioClip(uiToggleSound, 0.3f);
         float animTime = 0.1f;
 
         if (menu.activeSelf == true)
@@ -138,6 +186,7 @@ public class MoneyManager : MonoBehaviour
             StartCoroutine(Utils.AnimateValue(.6f, 1, animTime, upgradeInfoAnimCurve,
                 value => menu.transform.localScale = Vector3.one * value, useRealtime: true));
             StartCoroutine(AnimatingBoolToggle(animTime, false));
+
             if (!GameObject.FindGameObjectWithTag("PVars").GetComponent<PersistentVariables>().infiniteMode)
                 skillTreeObject.GetComponent<DraggableSkillTreeMenu>().ResetPosition();
         }
@@ -157,13 +206,6 @@ public class MoneyManager : MonoBehaviour
                 }
             }
         }
-    }
-
-    public void AddMoney(float value)
-    {
-        float moneyGain = value * moneyMultiplier * eventMoneyMultiplier;
-        money += moneyGain;
-        GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>().totalMoneyGained += moneyGain;
     }
 
     public void PassiveIncome()
@@ -187,5 +229,94 @@ public class MoneyManager : MonoBehaviour
                 precursor.GetComponent<Upgrade>().skillTreePostcursors.Add(var);
             }
         }
+    }
+
+    public float CalculateCurrency(float amount, Currency currencyType = Currency.money)
+    {
+        float money = amount;
+
+        switch (currencyType)
+        {
+            case Currency.money:
+                money *= moneyMultiplier * eventMoneyMultiplier;
+                break;
+            case Currency.bits:
+                money *= bitsMultiplier;
+                break;
+        }
+
+        return money;
+    }
+
+    public void AddCurrency(float value, Currency currencyType = Currency.money)
+    {
+        GameManager gameManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
+        float currencyGain = value;
+        switch (currencyType)
+        {
+            case Currency.money:
+                currencyGain *= moneyMultiplier * eventMoneyMultiplier;
+                gameManager.totalMoneyGained += currencyGain;
+                money += currencyGain;
+                break;
+            case Currency.bits:
+                currencyGain *= bitsMultiplier;
+                gameManager.totalBitsGained += currencyGain;
+                bits += currencyGain;
+                break;
+        }
+
+        money += currencyGain;
+    }
+
+    public string CalculateMoneyString(float money, int decimalPoints = 0, Currency currencyType = Currency.money)
+    {
+        string moneyString = money.ToString("F2"); //todo: make decimal points do smth here
+
+        switch (currencyType)
+        {
+            case Currency.money:
+                moneyString = "$" + moneyString;
+                break;
+            case Currency.bits:
+                moneyString = "(" + moneyString + ")";
+                break;
+        }
+
+        return moneyString;
+    }
+
+    public Color GetCurrencyColor(Currency currenyType = Currency.money)
+    {
+        Color color = Color.white;
+
+        switch(currenyType)
+        {
+            case Currency.money:
+                color = moneyColor;
+                break;
+            case Currency.bits:
+                color = bitsColor;
+                break;
+        }
+
+        return color;
+    }
+
+    public bool HasEnoughMoney(float amount, Currency currencyType = Currency.money)
+    {
+        bool hasEnoughMoney = false;
+        switch (currencyType)
+        {
+            case Currency.money:
+                if (amount >= money)
+                    hasEnoughMoney = true;
+                break;
+            case Currency.bits:
+                if (amount >= bits)
+                    hasEnoughMoney = true;
+                break;
+        }
+        return hasEnoughMoney;
     }
 }

@@ -91,6 +91,9 @@ public class UpgradeStats : MonoBehaviour
     [Header("Money")]
     public float moneyMultiplierIncrease;
     public float passiveIncomeIncrease;
+    [Header("Bits")]
+    public bool unlockBits;
+    public float bitsMultiplierIncrease;
 
     [Header("Win")]
     public bool win;
@@ -120,41 +123,45 @@ public class UpgradeStats : MonoBehaviour
 
         // --- PLAYER ---
         // -- damage
-        // speed
+
         playerMovement.speed += speedIncrease;
-        // size
+
         playerHealth.sizeMultiplier += sizeIncrease;
-        // damage
+
         playerHealth.damage += damageIncrease;
-        // kb & stun
+
         playerHealth.knockbackDistance += knockbackIncrease;
         playerHealth.knockbackDuration += knockbackDurationIncrease;
 
         // -- health
-        // increase max health
         playerHealth.IncreaseMaxHealth(healthIncrease);
-        // revive
+
         playerHealth.revives += reviveIncreases;
-        // increase regen
+
         playerHealth.regenPerSecond += regenIncrease;
-        // knockback & stun time
 
         // health on kill
         playerHealth.killRegenAmount += healthOnKillIncrease;
         // --- PLAYER ---
 
         // --- MONEY ---
-        // multiplier
+
         moneyManager.moneyMultiplier += moneyMultiplierIncrease;
-        // passive income
+
         moneyManager.passiveIncome += passiveIncomeIncrease;
+
+
+        if (!moneyManager.bitsUnlocked)
+            moneyManager.bitsUnlocked = unlockBits;
+
+        moneyManager.bitsMultiplier += bitsMultiplierIncrease;
         // --- MONEY ---
 
-        // --- MINI SAWS ---
-        // spawn
+        // --- MINI SAWS ---=
+
         if (spawnMiniSaw)
             playerHealth.SpawnSaw();
-        // stats
+
         foreach (GameObject miniSaw in playerHealth.miniSaws)
         {
             miniSaw.GetComponent<PlayerMiniSaw>().IncreaseSpeed(miniSawSpeedIncrease);
@@ -173,6 +180,7 @@ public class UpgradeStats : MonoBehaviour
             playerHealth.homingTriangles = homingTriangles;
         if (!playerHealth.piercingTriangles)
             playerHealth.piercingTriangles = piercingTriangles;
+
         // stats
         playerHealth.triangleDamage += triangleDamageIncrease;
         playerHealth.triangleSpeed += triangleSpeedIncrease;
@@ -185,6 +193,7 @@ public class UpgradeStats : MonoBehaviour
             playerHealth.explodingCircle = unlockExplodingCircle;
         if (!playerHealth.explodingCircleKnockback)
             playerHealth.explodingCircleKnockback = unlockExplodingCircleKnockback;
+
         // stats
         playerHealth.explodingCircleCooldown += explodingCircleCooldownIncrease;
         playerHealth.explodingCircleDamageMultiplier += explodingCircleDamageMultiplierIncrease;
@@ -196,6 +205,7 @@ public class UpgradeStats : MonoBehaviour
             playerHealth.mines = unlockMines;
         if (!playerHealth.explodingMines)
             playerHealth.explodingMines = explodingMines;
+
         // stats
         playerHealth.mineExplosionRadius += mineExplosionRadiusIncrease;
         playerHealth.mineDamageMultiplier += mineDamageMultiplierIncrease;
@@ -211,11 +221,11 @@ public class UpgradeStats : MonoBehaviour
             EnemyManager enemyManager = GameObject.FindGameObjectWithTag("EnemyManager").GetComponent<EnemyManager>();
             enemyManager.enemies.Add(addEnemy);
         }
-        // boss health mult
+
         enemyManager.bossHealthMultiplier += enemyBossHealthMultiplierIncrease;
-        // spawnrate
+
         enemyManager.spawnRate += enemySpawnRateIncrease;
-        // speed multiplier
+
         enemyManager.enemySpeedMultiplier += enemySpeedMultiplierIncrease;
         // --- ENEMIES ---
 

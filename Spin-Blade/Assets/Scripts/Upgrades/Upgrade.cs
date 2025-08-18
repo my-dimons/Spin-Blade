@@ -22,6 +22,7 @@ public class Upgrade : MonoBehaviour
 
     [Header("Price")]
     public float price;
+    public MoneyManager.Currency priceCurrencyType = MoneyManager.Currency.money;
     public float priceIncrease;
 
     [Header("Level")]
@@ -135,7 +136,6 @@ public class Upgrade : MonoBehaviour
     {
         moneyManager = GameObject.FindGameObjectWithTag("MoneyManager").GetComponent<MoneyManager>();
 
-
         canBeBought = false;
         if (skillTreePrecursors == null)
         {
@@ -147,8 +147,6 @@ public class Upgrade : MonoBehaviour
             yield return new WaitForSecondsRealtime(0.1f);
             updateSkillTree = true;
         }
-
-        UpdateStatText();
     }
 
     // Update is called once per frame
@@ -157,11 +155,7 @@ public class Upgrade : MonoBehaviour
         if (updateSkillTree)
             UpdateObjects();
 
-        Button button = buyButton.GetComponent<Button>();
-        if (moneyManager.money >= price && canBeBought && currentLevel < maxLevel && !locked)
-            button.interactable = true;
-        else
-            button.GetComponent<Button>().interactable = false;
+
     }
 
     private void UpdateObjects()
@@ -169,6 +163,36 @@ public class Upgrade : MonoBehaviour
         // update background tint
         backgroundObject.GetComponent<Image>().color = backgroundTintColor;
 
+        // check if player has enough money, if not disable the button
+        Button button = buyButton.GetComponent<Button>();
+        if (moneyManager.HasEnoughMoney(price, priceCurrencyType) && canBeBought && currentLevel < maxLevel && !locked)
+            button.interactable = true;
+        else
+            button.GetComponent<Button>().interactable = false;
+
+        // disable price when at max lvl (or locked)
+        if (currentLevel >= maxLevel || locked)
+        {
+            priceParentObject.SetActive(false);
+        }
+        else
+        {
+            priceParentObject.SetActive(true);
+        }
+
+        UpdateBuyableStatus();
+
+        UpdateOutlineColor();
+
+        UpdateStatText();
+
+        Locking();
+
+        EnemyPopup(); // (if enemy upg)
+    }
+
+    private void UpdateBuyableStatus()
+    {
         if (!canBeBought)
         {
             // check if all precursors are bought
@@ -200,30 +224,30 @@ public class Upgrade : MonoBehaviour
                     canBeBought = true;
             }
         }
+    }
 
-
-        Image outlineImage = outlineObject.GetComponent<Image>();
-        // update outline color
-        if ((canBeBought || bought) && !locked)
+    private void EnemyPopup()
+    {
+        if (enemyPopup)
         {
-            if (currentLevel >= maxLevel)
-                outlineImage.color = fullyBoughtOutlineColor;
-            else if (currentLevel > 0)
-                outlineImage.color = boughtOutlineColor;
-            else 
-                outlineImage.color = canBeBoughtOutlineColor;
+            enemyPopupObject.SetActive(true);
+            UpgradeStats stats = GetComponent<UpgradeStats>();
+            enemyPopupValueText.text = stats.addEnemy.GetComponent<Enemy>().value.ToString();
+            enemyPopupHealthText.text = stats.addEnemy.GetComponent<Enemy>().maxHealth.ToString();
+            enemyPopupDamageText.text = stats.addEnemy.GetComponent<Enemy>().damage.ToString();
         }
         else
         {
-            outlineImage.color = baseOutlineColor;
+            enemyPopupObject.SetActive(false);
         }
+    }
 
-        // locking
-
-        // get every precursor, then get their postcursors, if *any* postcurosrs have been bought, lock this obj
+    private void Locking()
+    {
+        // get every precursor, then get their postcursors, if *any* postcurosors have been bought, lock this obj
         if (lockable)
         {
-            foreach(GameObject precursor in skillTreePrecursors)
+            foreach (GameObject precursor in skillTreePrecursors)
             {
                 foreach (GameObject postcursor in precursor.GetComponent<Upgrade>().skillTreePostcursors)
                 {
@@ -247,50 +271,49 @@ public class Upgrade : MonoBehaviour
             miniLockObject.SetActive(false);
             lockObject.SetActive(true);
         }
+    }
 
-        // disable price when at max lvl (or locked)
-        if (currentLevel >= maxLevel || locked)
+    private void UpdateOutlineColor()
+    {
+        Image outlineImage = outlineObject.GetComponent<Image>();
+        if ((canBeBought || bought) && !locked)
         {
-            priceParentObject.SetActive(false);
+            if (currentLevel >= maxLevel)
+                outlineImage.color = fullyBoughtOutlineColor;
+            else if (currentLevel > 0)
+                outlineImage.color = boughtOutlineColor;
+            else
+                outlineImage.color = canBeBoughtOutlineColor;
         }
         else
         {
-            priceParentObject.SetActive(true);
-        }
-
-        // update enemy text
-        if (enemyPopup)
-        {
-            enemyPopupObject.SetActive(true);
-            UpgradeStats stats = GetComponent<UpgradeStats>();
-            enemyPopupValueText.text = stats.addEnemy.GetComponent<Enemy>().value.ToString();
-            enemyPopupHealthText.text = stats.addEnemy.GetComponent<Enemy>().maxHealth.ToString();
-            enemyPopupDamageText.text = stats.addEnemy.GetComponent<Enemy>().damage.ToString();
-        } else
-        {
-            enemyPopupObject.SetActive(false);
+            outlineImage.color = baseOutlineColor;
         }
     }
 
     private void UpdateStatText()
     {
+        // update img, and strings
         imageObject.sprite = image;
         titleObject.text = title;
         descriptionObject.text = description;
 
-        if (price >= 1000)
-            priceObject.text = "$" + price.ToString("F0");
-        else if (price >= 100)
-            priceObject.text = "$" + price.ToString("F1");
-        else 
-            priceObject.text = "$" + price.ToString("F2");
+        // price
+        priceObject.text = moneyManager.CalculateMoneyString(price, 1, priceCurrencyType);
+        priceObject.color = moneyManager.GetCurrencyColor(priceCurrencyType);
 
+        // max lvl
         maxLevelObject.text = currentLevel.ToString() + "/" + maxLevel.ToString();
     }
 
     public void BuyUpgrade()
     {
-        moneyManager.money -= price;
+        // double check just in case
+        if (!moneyManager.HasEnoughMoney(price, priceCurrencyType))
+            return;
+
+        moneyManager.AddCurrency(-price, priceCurrencyType);
+
         Utils.PlayAudioClip(buySound, 0.35f);
         Camera.main.GetComponent<CameraScript>().ScreenshakeFunction(0.1f);
         GetComponent<UpgradeStats>().ApplyEffects();
@@ -301,7 +324,6 @@ public class Upgrade : MonoBehaviour
         // increase price & level
         currentLevel++;
         price *= priceIncrease;
-        UpdateStatText();
     }
 
     public void TogglePopup(bool enable)
