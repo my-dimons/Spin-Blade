@@ -19,6 +19,14 @@ public class UpgradeConnections : MonoBehaviour
 
     private Upgrade upgrade;
 
+    private void OnValidate()
+    {
+        if (lineObjects.Count <= 0)
+        {
+            //CreateLines();
+        }
+    }
+
     void Start()
     {
         upgrade = GetComponent<Upgrade>();
@@ -27,11 +35,70 @@ public class UpgradeConnections : MonoBehaviour
         CreateLines();
     }
 
+
+
+    void Update()
+    {
+        if (skillTreePrecursors == null || skillTreePrecursors.Length == 0)
+            return;
+
+        UpdatePrecursorConnecters();
+    }
+
+    private void UpdatePrecursorConnecters()
+    {
+        for (int i = 0; i < skillTreePrecursors.Length; i++)
+        {
+            // set connector color
+            UILineRenderer connectorRenderer = lineRenderers[i];
+            GameObject precursor = skillTreePrecursors[i];
+
+            UpdateConnecterColors(connectorRenderer);
+
+            UpdateConnectorPoints(precursor, connectorRenderer);
+        }
+    }
+
+    private void UpdateConnectorPoints(GameObject precursor, UILineRenderer lineRenderer)
+    {
+        // Get RectTransforms for buyButtons of current and precursor
+        RectTransform startRect = upgrade.buyButton.GetComponent<RectTransform>();
+        RectTransform endRect = precursor.GetComponent<Upgrade>().buyButton.GetComponent<RectTransform>();
+
+        // Convert world positions to local positions relative to the parent canvas or line's RectTransform
+
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            lineRenderer.rectTransform.parent as RectTransform,
+            RectTransformUtility.WorldToScreenPoint(null, startRect.position),
+            null,
+            out Vector2 localStartPos);
+
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            lineRenderer.rectTransform.parent as RectTransform,
+            RectTransformUtility.WorldToScreenPoint(null, endRect.position),
+            null,
+            out Vector2 localEndPos);
+
+        // Update points of UILineRenderer
+        lineRenderer.Points = new Vector2[] { localStartPos, localEndPos };
+    }
+
+    private void UpdateConnecterColors(UILineRenderer connectorRenderer)
+    {
+        if (upgrade.canBeBought)
+            connectorRenderer.color = connectorEnabledColor;
+        else if (!upgrade.canBeBought && upgrade.precursorsMustBeMaxxed)
+            connectorRenderer.color = connectorDisabledColorMaxed;
+        else
+            connectorRenderer.color = connectorDisabledColor;
+    }
+
     void CreateLines()
     {
         // Clear old lines
         foreach (var lineObj in lineObjects)
             Destroy(lineObj);
+
         lineObjects.Clear();
         lineRenderers.Clear();
 
@@ -54,56 +121,6 @@ public class UpgradeConnections : MonoBehaviour
 
             lineObjects.Add(lineObj);
             lineRenderers.Add(lr);
-        }
-    }
-
-    void Update()
-    {
-        if (skillTreePrecursors == null || skillTreePrecursors.Length == 0)
-            return;
-
-        for (int i = 0; i < skillTreePrecursors.Length; i++)
-        {
-            // set connector color
-            UILineRenderer connectorRenderer = lineRenderers[i].GetComponent<UILineRenderer>();
-            if (upgrade.canBeBought)
-                connectorRenderer.color = connectorEnabledColor;
-            else if (!upgrade.canBeBought && upgrade.precursorsMustBeMaxxed)
-                connectorRenderer.color = connectorDisabledColorMaxed;
-            else
-                connectorRenderer.color = connectorDisabledColor;
-
-
-            if (skillTreePrecursors[i] == null)
-                continue;
-
-            var lineRenderer = lineRenderers[i];
-            if (lineRenderer == null)
-                continue;
-
-            // Get RectTransforms for buyButtons of current and precursor
-            RectTransform startRect = upgrade.buyButton.GetComponent<RectTransform>();
-            RectTransform endRect = skillTreePrecursors[i].GetComponent<Upgrade>().buyButton.GetComponent<RectTransform>();
-
-            if (startRect == null || endRect == null)
-                continue;
-
-            // Convert world positions to local positions relative to the parent canvas or line's RectTransform
-
-            RectTransformUtility.ScreenPointToLocalPointInRectangle(
-                lineRenderer.rectTransform.parent as RectTransform,
-                RectTransformUtility.WorldToScreenPoint(null, startRect.position),
-                null,
-                out Vector2 localStartPos);
-
-            RectTransformUtility.ScreenPointToLocalPointInRectangle(
-                lineRenderer.rectTransform.parent as RectTransform,
-                RectTransformUtility.WorldToScreenPoint(null, endRect.position),
-                null,
-                out Vector2 localEndPos);
-
-            // Update points of UILineRenderer
-            lineRenderer.Points = new Vector2[] { localStartPos, localEndPos };
         }
     }
 }
