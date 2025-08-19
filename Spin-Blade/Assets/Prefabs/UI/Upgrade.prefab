@@ -65,9 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Title
-
-'
+  m_text: speed
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a9438f3a38047ee42819b03430b8d999, type: 2}
   m_sharedMaterial: {fileID: 2446516073444543409, guid: a9438f3a38047ee42819b03430b8d999, type: 2}
@@ -242,7 +240,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: description
+  m_text: Increase the players movement speed
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a9438f3a38047ee42819b03430b8d999, type: 2}
   m_sharedMaterial: {fileID: 2446516073444543409, guid: a9438f3a38047ee42819b03430b8d999, type: 2}
@@ -1551,9 +1549,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '$99
-
-'
+  m_text: $5
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 70f7a2884303f35498aebc55579f7af8, type: 2}
   m_sharedMaterial: {fileID: 2446516073444543409, guid: 70f7a2884303f35498aebc55579f7af8, type: 2}
@@ -1563,7 +1559,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColor: {r: 1, g: 0.9607843, b: 0.39215687, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1712,7 +1708,7 @@ GameObject:
   - component: {fileID: 879352506774466442}
   - component: {fileID: 8514976483135198414}
   m_Layer: 5
-  m_Name: Upgrade
+  m_Name: Upgrade | speed
   m_TagString: Upgrade
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1770,6 +1766,17 @@ MonoBehaviour:
   triangleDamageIncrease: 0
   triangleSpeedIncrease: 0
   triangleFireRateIncrease: 0
+  explodingCircleCooldownIncrease: 0
+  explodingCircleDamageMultiplierIncrease: 0
+  unlockExplodingCircle: 0
+  unlockExplodingCircleKnockback: 0
+  mineExplosionRadiusIncrease: 0
+  mineDamageMultiplierIncrease: 0
+  mineKnockbackIncrease: 0
+  mineLifetimeIncrease: 0
+  mineCooldownIncrease: 0
+  unlockMines: 0
+  explodingMines: 0
   addEnemy: {fileID: 0}
   enemySpeedMultiplierIncrease: 0
   enemyDifficultyIncrease: 0
@@ -1777,6 +1784,8 @@ MonoBehaviour:
   enemyBossHealthMultiplierIncrease: 0
   moneyMultiplierIncrease: 0
   passiveIncomeIncrease: 0
+  unlockBits: 0
+  bitsMultiplierIncrease: 0
   win: 0
   sectionSeparator: 
 --- !u!114 &879352506774466442
@@ -1796,6 +1805,7 @@ MonoBehaviour:
   title: speed
   description: Increase the players movement speed
   price: 5
+  priceCurrencyType: 0
   priceIncrease: 1.2
   maxLevel: 5
   imageObject: {fileID: 1133064599810129534}
@@ -1822,6 +1832,9 @@ MonoBehaviour:
   bought: 0
   lockable: 0
   locked: 0
+  unlockable: 1
+  unlockableCurrency: 1
+  unlockablePrice: 1
   skillTreePrecursors: []
   skillTreePostcursors: []
   baseOutlineColor: {r: 0.106918216, g: 0.106918216, b: 0.106918216, a: 1}
@@ -1845,9 +1858,10 @@ MonoBehaviour:
   connectorDisabledColor: {r: 0.6156863, g: 0.6156863, b: 0.6156863, a: 0.6}
   connectorDisabledColorMaxed: {r: 1, g: 0.36078432, b: 0.36078432, a: 0.6}
   connectorEnabledColor: {r: 1, g: 1, b: 1, a: 1}
-  skillTreePrecursors: []
-  linePrefab: {fileID: 2737436706597883305, guid: 4d0b4471847f3a84b95406ab75c0ee53, type: 3}
   lineThickness: 14
+  linePrefab: {fileID: 2737436706597883305, guid: 4d0b4471847f3a84b95406ab75c0ee53, type: 3}
+  lineObjects: []
+  lineRenderers: []
 --- !u!1 &4814224415538632463
 GameObject:
   m_ObjectHideFlags: 0

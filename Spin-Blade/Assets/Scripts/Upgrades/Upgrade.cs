@@ -4,6 +4,7 @@ using System.Security.Cryptography;
 using TMPro;
 using Unity.Collections;
 using Unity.Jobs;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -315,6 +316,9 @@ public class Upgrade : MonoBehaviour
 
     private void UpdateStatText()
     {
+        // update upgrade name
+        name = "Upgrade | " + title.ToLower();
+
         // update img, and strings
         imageObject.sprite = image;
         titleObject.text = title;

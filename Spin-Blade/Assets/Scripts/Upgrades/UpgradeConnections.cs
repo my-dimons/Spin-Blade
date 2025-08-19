@@ -21,17 +21,8 @@ public class UpgradeConnections : MonoBehaviour
 
     private Upgrade upgrade;
 
-    /*
-    private void OnValidate()
-    {
-        Initialize();
-
-        if (lineObjects.Count <= 0)
-            CreateLines();
-        else
-            UpdateConnecters();
-    }
-    */
+    // change if changing parent name
+    private string parentName = "lines";
 
     void Start()
     {
@@ -117,8 +108,12 @@ public class UpgradeConnections : MonoBehaviour
             if (precursor == null) continue;
 
             GameObject lineObj = Instantiate(linePrefab, transform.parent);
-            lineObj.transform.SetAsFirstSibling();
-            
+            // set parent
+            if (upgrade.transform.parent.Find(parentName) == null)
+                Debug.LogError("Upgrade Connection cannot find parent named '" + parentName + "'. Please ensure it exists in the hierarchy under 'upgrades'");
+            lineObj.transform.parent = upgrade.transform.parent.Find(parentName);
+
+            // check if lineObj has UILineRenderer component
             if (!lineObj.TryGetComponent<UILineRenderer>(out var lr))
             {
                 Debug.LogError("Line prefab missing UILineRenderer component!");
@@ -126,9 +121,11 @@ public class UpgradeConnections : MonoBehaviour
                 continue;
             }
 
+            // set properties
             lr.LineThickness = lineThickness;
             lr.color = connectorEnabledColor;
 
+            // add to lists
             lineObjects.Add(lineObj);
             lineRenderers.Add(lr);
         }

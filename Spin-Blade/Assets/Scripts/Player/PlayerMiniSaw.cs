@@ -1,85 +1,68 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMiniSaw : MonoBehaviour
 {
-    // waypoints
-    public List<GameObject> waypoints;
-    public GameObject currentWaypoint;
-    public float minWaypointDistance = 0.05f;
+    [Header("Orbit Settings")]
+    public Vector3 orbitPoint = Vector3.zero;  
+    public float orbitRadius = 5f;          
+    private float orbitAngle;
+    public float speed = 90f;   
+    private float actualRotationSpeed;
+    private int direction = 1; // 1 = clockwise, -1 = counter-clockwise
+
+    [Header("Visuals")]
+    public GameObject sprite;
+    public float spriteSpinSpeed = 180f;
 
     PlayerHealthAndDamage playerHealth;
-    int direction = 1; // 1 = forward, -1 = backward
-    public GameObject sprite;
-    public float rotationSpeed;
 
-    public float sawSpeed;
-    [SerializeField] float ActualSawSpeed;
     private void Start()
     {
-        float num = Random.Range(0f, 1f);
-        Debug.Log(num);
-        if (num > 0.5f)
+        // pick a random starting angle
+        float startAngle = Random.Range(0f, 360f) * Mathf.Deg2Rad;
+        Vector3 offset = new Vector3(Mathf.Cos(startAngle), Mathf.Sin(startAngle), 0) * orbitRadius;
+        transform.position = orbitPoint + offset;
+
+        // maybe reverse direction randomly
+        if (Random.value > 0.5f)
         {
             ReverseHexagonDirection();
         }
+
+        // set up speed
         playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealthAndDamage>();
         IncreaseSpeed(playerHealth.miniSawBaseSpeed);
     }
+
     private void Update()
     {
-        sprite.transform.Rotate(0, 0, rotationSpeed * Time.deltaTime);
-        UpdateHexagonWaypoints();
-    }
-    private void UpdateHexagonWaypoints()
-    {
-        if (Vector2.Distance(transform.position, currentWaypoint.transform.position) < minWaypointDistance)
-        {
-            if (Vector2.Distance(transform.position, currentWaypoint.transform.position) < minWaypointDistance)
-            {
-                int currentIndex = waypoints.IndexOf(currentWaypoint);
-                int nextIndex = currentIndex + direction;
-
-                // Check bounds
-                if (nextIndex >= waypoints.Count)
-                {
-                    nextIndex = 0; // Loop forward
-                }
-                else if (nextIndex < 0)
-                {
-                    nextIndex = waypoints.Count - 1; // Loop backward
-                }
-
-                currentWaypoint = waypoints[nextIndex];
-            }
-        }
-    }
-
-    public void IncreaseSpeed(float amount)
-    {
-        sawSpeed += amount;
-        float sawVariance = sawSpeed/5;
-        ActualSawSpeed = sawSpeed + Random.Range(-sawVariance, sawVariance);
-    }
-    public void ReverseHexagonDirection()
-    {
-        Debug.Log("Reversing Saw Direction");
-        direction *= -1; // Flip direction immediately
-
-        // Move to the previous waypoint if we just reversed
-        int currentIndex = waypoints.IndexOf(currentWaypoint);
-        int nextIndex = currentIndex + direction;
-
-        // Bounds check again (optional but smooth)
-        if (nextIndex >= waypoints.Count) nextIndex = 0;
-        if (nextIndex < 0) nextIndex = waypoints.Count - 1;
-
-        currentWaypoint = waypoints[nextIndex];
+        // spin sprite
+        sprite.transform.Rotate(0, 0, spriteSpinSpeed * Time.deltaTime);
     }
 
     private void FixedUpdate()
     {
-        // move hexagon
-        transform.position = Vector2.MoveTowards(transform.position, currentWaypoint.transform.position, ActualSawSpeed * Time.deltaTime);
+        // Update angle
+        orbitAngle += speed * direction * Time.deltaTime;
+
+        // Calculate new position
+        float x = orbitPoint.x + Mathf.Cos(orbitAngle) * orbitRadius;
+        float y = orbitPoint.y + Mathf.Sin(orbitAngle) * orbitRadius;
+
+        // Apply position (no rotation)
+        transform.position = new Vector3(x, y, transform.position.z);
+    }
+
+    public void IncreaseSpeed(float amount)
+    {
+        speed += amount;
+        float variance = speed / 5f;
+        actualRotationSpeed = speed + Random.Range(-variance, variance);
+    }
+
+    public void ReverseHexagonDirection()
+    {
+        Debug.Log("Reversing Saw Direction");
+        direction *= -1;
     }
 }

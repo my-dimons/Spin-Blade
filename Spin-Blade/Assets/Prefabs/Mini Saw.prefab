@@ -4917,13 +4917,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e17335fc5739dc048804790a30e8ed7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waypoints: []
-  currentWaypoint: {fileID: 0}
-  minWaypointDistance: 0.05
+  orbitPoint: {x: 0, y: 0, z: 0}
+  orbitRadius: 6.3
+  speed: 2.5
   sprite: {fileID: 8267151407519439982}
-  rotationSpeed: -360
-  sawSpeed: 0
-  ActualSawSpeed: 0
+  spriteSpinSpeed: -400
 --- !u!114 &5056303937646628804
 MonoBehaviour:
   m_ObjectHideFlags: 0

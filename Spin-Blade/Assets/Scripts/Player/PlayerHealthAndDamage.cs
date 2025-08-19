@@ -50,11 +50,10 @@ public class PlayerHealthAndDamage : MonoBehaviour
     [Header("-- Mini Saws --")]
     public List<GameObject> miniSaws;
     public GameObject miniSawPrefab;
-    public GameObject miniSawWaypointsParent;
-    GameObject[] miniSawWaypoints;
+    public GameObject miniSawParent;
     [Header("Stats")]
     public float miniSawBaseSpeed = 1f;
-    public float hexagonDamage = 1f;
+    public float miniSawDamage = 1f;
 
     [Space(10)]
 
@@ -125,12 +124,6 @@ public class PlayerHealthAndDamage : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        // get all children of minisawwaypoint parent
-        miniSawWaypoints = miniSawWaypointsParent.GetComponentsInChildren<Transform>()
-                                                .Where(t => t != miniSawWaypointsParent.transform) // exclude parent
-                                                .Select(t => t.gameObject)
-                                                .ToArray();
-
         currentHealth = maxHeath;
         baseSize = transform.localScale;
 
@@ -210,11 +203,13 @@ public class PlayerHealthAndDamage : MonoBehaviour
     [ContextMenu("Spawn Mini Sawblade")]
     public void SpawnSaw()
     {
-        GameObject randomSaw = miniSawWaypoints[Random.Range(0, miniSawWaypoints.Length)];
-        GameObject saw = Instantiate(miniSawPrefab, randomSaw.transform.position, Quaternion.identity);
+        GameObject saw = Instantiate(miniSawPrefab, Vector3.zero, Quaternion.identity);
+        saw.GetComponent<PlayerMiniSaw>().speed = miniSawBaseSpeed;
+        saw.GetComponent<Projectile>().damage = miniSawDamage;
+        saw.transform.parent = miniSawParent.transform;
         miniSaws.Add(saw);
-        saw.GetComponent<PlayerMiniSaw>().waypoints = new List<GameObject>(miniSawWaypoints);
-        saw.GetComponent<PlayerMiniSaw>().currentWaypoint = randomSaw;
+        
+        // when a saw spawns it picks a random point along a circle to spawn
     }
 
     public void SpawnTriangle()

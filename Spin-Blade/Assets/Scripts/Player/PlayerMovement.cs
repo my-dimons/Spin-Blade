@@ -1,22 +1,15 @@
-using NUnit.Framework;
-using System.Collections.Generic;
-using System.Text.RegularExpressions;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [Header("Waypoints")]
-    public List<GameObject> waypoints;
-    public GameObject currentWaypoint;
-    public float minWaypointDistance = 0.05f;
+    [Header("Orbit Settings")]
+    public Vector3 orbitPoint = Vector3.zero; 
+    public float orbitRadius = 5f;          
+    private float orbitAngle;
+    public float speed = 90f;          
+    public bool canMove = true;
 
-    [Header("Movement")]
-    public float speed;
-    [HideInInspector] public bool switchKey;
-    int direction = 1; // 1 = forward, -1 = backward
-    public float rotateMultiplier;
-    public bool canMove;
-
+    [Header("Sprite + FX")]
     public float spinSpeed;
     public GameObject sprite;
     public ParticleSystem movementParticles;
@@ -24,31 +17,43 @@ public class PlayerMovement : MonoBehaviour
     [Header("Audio")]
     public AudioClip reverseDirectionSound;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    private int direction = 1; // 1 = clockwise, -1 = counter-clockwise
+    public bool switchKey;
+
     void Start()
     {
-        transform.position = waypoints[0].transform.position;
-        currentWaypoint = waypoints[0];
-
-        if (GameObject.FindGameObjectWithTag("PVars").GetComponent<PersistentVariables>().infiniteMode)
-        {
-            speed *= 1.5f; // inf mode extra speed
-        }
+        // Ensure player starts at correct distance from orbitPoint
+        Vector3 offset = (transform.position - orbitPoint).normalized * orbitRadius;
+        transform.position = orbitPoint + offset;
     }
 
-    // Update is called once per frame
     void Update()
     {
+        // Input
         switchKey = Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.Space);
+        // spin sprite
         sprite.transform.Rotate(0, 0, spinSpeed * Time.deltaTime);
-        // transition to the next waypoint if the player is close enough
-        UpdateWaypoints();
 
-        // Reversing input
         if (switchKey && Time.timeScale > 0)
         {
             ReverseDirection();
         }
+    }
+
+
+    private void FixedUpdate()
+    {
+        if (!canMove) return;
+
+        // Update angle
+        orbitAngle += speed * direction * Time.deltaTime;
+
+        // Calculate new position
+        float x = orbitPoint.x + Mathf.Cos(orbitAngle) * orbitRadius;
+        float y = orbitPoint.y + Mathf.Sin(orbitAngle) * orbitRadius;
+
+        // Apply position (no rotation)
+        transform.position = new Vector3(x, y, transform.position.z);
     }
 
     private void ReverseDirection()
@@ -56,16 +61,7 @@ public class PlayerMovement : MonoBehaviour
         Utils.PlayAudioClip(reverseDirectionSound, 0.06f);
         direction *= -1;
 
-        int currentIndex = waypoints.IndexOf(currentWaypoint);
-        int nextIndex = currentIndex + direction;
-
-        // Bounds check again
-        if (nextIndex >= waypoints.Count) nextIndex = 0;
-        if (nextIndex < 0) nextIndex = waypoints.Count - 1;
-
-        currentWaypoint = waypoints[nextIndex];
-
-        // flip movement particles z scale (and rotation)
+        // Flip particle system direction
         var shape = movementParticles.shape;
         Vector3 currentScale = shape.scale;
         currentScale.z = -currentScale.z;
@@ -74,38 +70,6 @@ public class PlayerMovement : MonoBehaviour
         RotateTowardsObject partObj = movementParticles.gameObject.GetComponent<RotateTowardsObject>();
         partObj.useAltRotationOffset = !partObj.useAltRotationOffset;
 
-
         GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>().lShiftPresses++;
-    }
-
-    private void UpdateWaypoints()
-    {
-        if (Vector2.Distance(transform.position, currentWaypoint.transform.position) < minWaypointDistance)
-        {
-            if (Vector2.Distance(transform.position, currentWaypoint.transform.position) < minWaypointDistance)
-            {
-                int currentIndex = waypoints.IndexOf(currentWaypoint);
-                int nextIndex = currentIndex + direction;
-
-                // Check bounds
-                if (nextIndex >= waypoints.Count)
-                {
-                    nextIndex = 0; // Loop forward
-                }
-                else if (nextIndex < 0)
-                {
-                    nextIndex = waypoints.Count - 1; // Loop backward
-                }
-
-                currentWaypoint = waypoints[nextIndex];
-            }
-        }
-    }
-
-    private void FixedUpdate()
-    {
-        // move player
-        if (canMove)
-            transform.position = Vector2.MoveTowards(transform.position, currentWaypoint.transform.position, speed * Time.deltaTime);
     }
 }
