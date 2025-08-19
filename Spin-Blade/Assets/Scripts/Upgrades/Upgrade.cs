@@ -66,15 +66,18 @@ public class Upgrade : MonoBehaviour
     [Space(20)]
     [Header("|--- Skill Tree ---|")]
 
-    [Header("Bools")]
+    [Header("-- Extra --")]
     public bool onlyNeedsOnePrecursor; // otherwise needs all precursors to be bought
     public bool precursorsMustBeMaxxed;
-    [Space(10)]
+    [Header("Buyable Status")]
     public bool canBeBought;
     public bool bought;
-    [Space(10)]
+    [Header("Locked Status")]
     public bool lockable;
     public bool locked;
+    public bool unlockable = true; // can be bought with a special currency when locked
+    public MoneyManager.Currency unlockableCurrency = MoneyManager.Currency.bits;
+    public float unlockablePrice = 1;
     [Space(20)]
 
     [Header("Precursors/Postcursors")]
@@ -154,8 +157,6 @@ public class Upgrade : MonoBehaviour
     {
         if (updateSkillTree)
             UpdateObjects();
-
-
     }
 
     private void UpdateObjects()
@@ -167,11 +168,20 @@ public class Upgrade : MonoBehaviour
         Button button = buyButton.GetComponent<Button>();
         if (moneyManager.HasEnoughMoney(price, priceCurrencyType) && canBeBought && currentLevel < maxLevel && !locked)
             button.interactable = true;
+        else if (moneyManager.HasEnoughMoney(unlockablePrice, unlockableCurrency) && locked && unlockable)
+        {
+            button.interactable = true;
+            float lockObjOpactiy = 0.5f; // 0-1
+            lockObject.GetComponent<Image>().color = new(Color.white.r, Color.white.g, Color.white.b, lockObjOpactiy);
+        }
         else
+        {
             button.GetComponent<Button>().interactable = false;
+            lockObject.GetComponent<Image>().color = Color.white;
+        }
 
-        // disable price when at max lvl (or locked)
-        if (currentLevel >= maxLevel || locked)
+        // disable price when at max lvl (or locked, but not when unlockable)
+        if (currentLevel >= maxLevel || locked && !unlockable)
         {
             priceParentObject.SetActive(false);
         }
@@ -254,6 +264,10 @@ public class Upgrade : MonoBehaviour
                     if (postcursor.GetComponent<Upgrade>().bought && postcursor != this.gameObject)
                     {
                         locked = true;
+                        lockable = false;
+                    } else if (postcursor.GetComponent<Upgrade>().locked)
+                    {
+                        lockable = false;
                     }
                 }
             }
@@ -265,11 +279,14 @@ public class Upgrade : MonoBehaviour
             miniLockObject.SetActive(true);
             lockObject.SetActive(false);
         }
-
         else if (locked)
         {
             miniLockObject.SetActive(false);
             lockObject.SetActive(true);
+        } else
+        {
+            miniLockObject.SetActive(false);
+            lockObject.SetActive(false);
         }
     }
 
@@ -299,8 +316,16 @@ public class Upgrade : MonoBehaviour
         descriptionObject.text = description;
 
         // price
-        priceObject.text = moneyManager.CalculateMoneyString(price, 1, priceCurrencyType);
-        priceObject.color = moneyManager.GetCurrencyColor(priceCurrencyType);
+        if (locked && unlockable)
+        {
+            priceObject.text = moneyManager.GetMoneyString(unlockablePrice, unlockableCurrency);
+            priceObject.color = moneyManager.GetCurrencyColor(unlockableCurrency);
+        }
+        else
+        {
+            priceObject.text = moneyManager.GetMoneyString(price, priceCurrencyType);
+            priceObject.color = moneyManager.GetCurrencyColor(priceCurrencyType);
+        }
 
         // max lvl
         maxLevelObject.text = currentLevel.ToString() + "/" + maxLevel.ToString();
@@ -309,10 +334,19 @@ public class Upgrade : MonoBehaviour
     public void BuyUpgrade()
     {
         // double check just in case
-        if (!moneyManager.HasEnoughMoney(price, priceCurrencyType))
+        if (!moneyManager.HasEnoughMoney(price, priceCurrencyType) && !locked)
+            return;
+        else if (!moneyManager.HasEnoughMoney(unlockablePrice, unlockableCurrency) && unlockable && locked)
+            return;
+        else if (locked && !unlockable)
             return;
 
-        moneyManager.AddCurrency(-price, priceCurrencyType);
+        if (unlockable && locked)
+        {
+            locked = false;
+            moneyManager.AddCurrency(-unlockablePrice, unlockableCurrency);
+        } else
+            moneyManager.AddCurrency(-price, priceCurrencyType);
 
         Utils.PlayAudioClip(buySound, 0.35f);
         Camera.main.GetComponent<CameraScript>().ScreenshakeFunction(0.1f);

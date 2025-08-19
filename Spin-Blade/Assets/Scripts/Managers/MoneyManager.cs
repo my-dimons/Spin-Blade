@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -90,6 +91,7 @@ public class MoneyManager : MonoBehaviour
 
         UpdateCurrencyText();
         money = Mathf.Round(money * 100f) / 100f;
+        
     }
 
     private void UpdateCurrencyText()
@@ -98,9 +100,9 @@ public class MoneyManager : MonoBehaviour
         string bitsString = "";
         string moneyString = "";
 
-        moneyString = CalculateMoneyString(money);
+        moneyString = GetMoneyString(money);
         if (bitsUnlocked)
-            bitsString = CalculateMoneyString(bits, 2, Currency.bits);
+            bitsString = GetMoneyString(bits, Currency.bits);
 
         if (GameObject.FindGameObjectWithTag("PVars").GetComponent<PersistentVariables>().infiniteMode)
         {
@@ -265,13 +267,28 @@ public class MoneyManager : MonoBehaviour
                 bits += currencyGain;
                 break;
         }
-
-        money += currencyGain;
     }
 
-    public string CalculateMoneyString(float money, int decimalPoints = 0, Currency currencyType = Currency.money)
+    /// <param name="money"></param>
+    /// <param name="decimalPoints">-1 = auto decimal points</param>
+    /// <param name="currencyType"></param>
+    /// <returns>A string from a currency type and an amount</returns>
+    public string GetMoneyString(float money, Currency currencyType = Currency.money, int decimalPoints = -1)
     {
-        string moneyString = money.ToString("F2"); //todo: make decimal points do smth here
+        string moneyString = "";
+        // decimal points
+        if (decimalPoints < 0)
+        {
+            // auto decimal points
+            if (money >= 1000)
+                moneyString = Math.Round(money, 0).ToString();
+            else if (money >= 100)
+                moneyString = Math.Round(money, 1).ToString();
+            else
+                moneyString = Math.Round(money, 2).ToString();
+
+        } else 
+             moneyString = Math.Round(money, decimalPoints).ToString();
 
         switch (currencyType)
         {
@@ -309,11 +326,11 @@ public class MoneyManager : MonoBehaviour
         switch (currencyType)
         {
             case Currency.money:
-                if (amount >= money)
+                if (money >= amount)
                     hasEnoughMoney = true;
                 break;
             case Currency.bits:
-                if (amount >= bits)
+                if (bits >= amount)
                     hasEnoughMoney = true;
                 break;
         }

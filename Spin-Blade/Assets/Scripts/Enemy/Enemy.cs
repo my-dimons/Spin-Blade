@@ -24,15 +24,13 @@ public class Enemy : MonoBehaviour
 
     [Header("-- Extra --")]
     [Header("On Hit")]
-    public Color hitCircleColor = Utils.ColorFromHex("#FF4E4E");
+    public Color hitColor = Utils.ColorFromHex("#FF4E4E"); // when this enemy gets hit, particle & stuffs color
     Color damageFlashColor = Color.white;
 
     public GameObject deathParticles;
     public GameObject hitParticles;
 
-    [Header("Hitting circle")]
-    public Color goodMoneyColor;
-    public Color badMoneyColor;
+    private Color badMoneyColor = Utils.ColorFromHex("#8A3131");
 
     [Header("Audio")]
     public GameObject deathMoneyText;
@@ -65,7 +63,6 @@ public class Enemy : MonoBehaviour
     {
         currentHealth = maxHealth;
     }
-
 
     private MoneyManager moneyManager;
     EnemyManager enemyManager;
@@ -174,7 +171,7 @@ public class Enemy : MonoBehaviour
 
         Utils.PlayAudioClip(hitSound);
         Vector3 particlePos = (attacker.position + transform.position) / 2f;
-        Utils.SpawnBurstParticle(hitParticles, particlePos, hitCircleColor);
+        Utils.SpawnBurstParticle(hitParticles, particlePos, hitColor);
         GetComponent<DamageFlash>().Flash(damageFlashColor);
 
 
@@ -236,13 +233,13 @@ public class Enemy : MonoBehaviour
         playerHealth.Heal(healthGain);
 
         Utils.PlayAudioClip(deathSound, 0.8f);
-        Utils.SpawnBurstParticle(deathParticles, transform.position, hitCircleColor);
+        Utils.SpawnBurstParticle(deathParticles, transform.position, hitColor);
         Camera.main.GetComponent<CameraScript>().ScreenshakeFunction(.08f);
 
         // text
         Color color;
         if (value > 0)
-            color = goodMoneyColor;
+            color = moneyManager.GetCurrencyColor(valueCurrencyType);
         else
         {
             color = badMoneyColor;
@@ -251,7 +248,7 @@ public class Enemy : MonoBehaviour
         if (playerStatGain)
         {
             if (!GameObject.FindGameObjectWithTag("PVars").GetComponent<PersistentVariables>().infiniteMode)
-                Utils.SpawnFloatingText(deathMoneyText, transform.position, moneyManager.CalculateMoneyString(moneyManager.CalculateCurrency(value, valueCurrencyType), 1, valueCurrencyType), 6f, 0.3f, 40f, 0.45f, 0.15f, color);
+                Utils.SpawnFloatingText(deathMoneyText, transform.position, moneyManager.GetMoneyString(moneyManager.CalculateCurrency(value, valueCurrencyType), valueCurrencyType), 6f, 0.3f, 40f, 0.45f, 0.15f, color);
             
             moneyManager.AddCurrency(value, valueCurrencyType);
 
@@ -272,7 +269,7 @@ public class Enemy : MonoBehaviour
 
     public void HitCircle()
     {
-        Utils.SpawnBurstParticle(deathParticles, transform.position, hitCircleColor);
+        Utils.SpawnBurstParticle(deathParticles, transform.position, hitColor);
         Camera.main.GetComponent<CameraScript>().ScreenshakeFunction(.5f);
 
         if (circleHitMoneyGain > 0)
@@ -281,7 +278,7 @@ public class Enemy : MonoBehaviour
             GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealthAndDamage>().TakeDamage(damage, true);
 
             // money text popup
-            Utils.SpawnFloatingText(deathMoneyText, transform.position, moneyManager.CalculateMoneyString(moneyManager.CalculateCurrency(circleHitMoneyGain), 1, valueCurrencyType), 6f, 0.3f, 40f, 0.45f, 0.15f, goodMoneyColor);
+            Utils.SpawnFloatingText(deathMoneyText, transform.position, moneyManager.GetMoneyString(moneyManager.CalculateCurrency(circleHitMoneyGain), valueCurrencyType), 6f, 0.3f, 40f, 0.45f, 0.15f, moneyManager.GetCurrencyColor(valueCurrencyType));
         } else
             GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealthAndDamage>().TakeDamage(damage);
 
