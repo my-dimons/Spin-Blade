@@ -65,4 +65,10 @@ public class PlayerMiniSaw : MonoBehaviour
         Debug.Log("Reversing Saw Direction");
         direction *= -1;
     }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.yellow; // Circle color
+        Gizmos.DrawWireSphere(orbitPoint, orbitRadius); // Draw orbit circle
+    }
 }
