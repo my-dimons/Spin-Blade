@@ -15,6 +15,7 @@ public class MoneyManager : MonoBehaviour
         money,
         bits
     }
+
     public Color moneyColor;
     public Color bitsColor;
 
@@ -249,7 +250,6 @@ public class MoneyManager : MonoBehaviour
 
         return money;
     }
-
     public void AddCurrency(float value, Currency currencyType = Currency.money)
     {
         GameManager gameManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
@@ -296,7 +296,7 @@ public class MoneyManager : MonoBehaviour
                 moneyString = "$" + moneyString;
                 break;
             case Currency.bits:
-                moneyString = "(" + moneyString + ")";
+                moneyString = "($" + moneyString + ")";
                 break;
         }
 
