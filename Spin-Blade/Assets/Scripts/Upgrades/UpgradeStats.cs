@@ -1,4 +1,6 @@
 using UnityEngine;
+
+[RequireComponent(typeof(Upgrade))]
 public class UpgradeStats : MonoBehaviour
 {
     [Header("|---------- Effects ----------|")]

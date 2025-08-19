@@ -113,6 +113,8 @@ public class Upgrade : MonoBehaviour
     MoneyManager moneyManager;
     private void OnValidate()
     {
+        if (moneyManager == null)
+            moneyManager = GameObject.FindGameObjectWithTag("MoneyManager").GetComponent<MoneyManager>();
         // bg color
         switch (backgroundColorTintDropdown)
         {
@@ -132,12 +134,15 @@ public class Upgrade : MonoBehaviour
         {
             enemyPopup = false;
         }
+
+        UpdateStatText();
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        moneyManager = GameObject.FindGameObjectWithTag("MoneyManager").GetComponent<MoneyManager>();
+        if (moneyManager == null)
+            moneyManager = GameObject.FindGameObjectWithTag("MoneyManager").GetComponent<MoneyManager>();
 
         canBeBought = false;
         if (skillTreePrecursors == null)

@@ -16,10 +16,13 @@ public class RangerEnemy : MonoBehaviour
     void SpawnEnemy()
     {
         GameObject projectile = Instantiate(enemyProjectile, transform.position, Quaternion.identity);
+
         projectile.transform.parent = GetComponent<Enemy>().target.transform;
+
         projectile.GetComponent<Enemy>().target = GameObject.FindGameObjectWithTag("EnemyManager").GetComponent<EnemyManager>().enemyParent;
         projectile.GetComponent<Enemy>().speed = enemyProjectileSpeed;
         projectile.GetComponent<Enemy>().damage = projectileDamage;
+
         Destroy(projectile, 60f);
     }
 }

@@ -25,4 +25,10 @@ public class BomberEnemy : MonoBehaviour
         if (playerHealth != null) 
             playerHealth.ExplodeCircle(transform.position, playerHealth.damage, explosionRadius, true);
     }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawWireSphere(transform.position, explosionRadius);
+    }
 }
