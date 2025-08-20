@@ -24,8 +24,6 @@ public class GameManager : MonoBehaviour
     public Slider[] sfxSliders;
     public Slider[] musicSliders;
 
-
-
     [Header("Win Screen")]
     public GameObject winScreen;
     public float winTime; // how long the win screen is up for

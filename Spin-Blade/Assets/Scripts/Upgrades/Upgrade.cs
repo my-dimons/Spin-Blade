@@ -137,6 +137,7 @@ public class Upgrade : MonoBehaviour
         }
 
         UpdateStatText();
+        Locking();
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created

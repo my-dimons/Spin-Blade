@@ -293,10 +293,10 @@ public class MoneyManager : MonoBehaviour
         switch (currencyType)
         {
             case Currency.money:
-                moneyString = "$" + moneyString;
+                moneyString = $"${moneyString}";
                 break;
             case Currency.bits:
-                moneyString = "($" + moneyString + ")";
+                moneyString = $"(${moneyString})";
                 break;
         }
 
