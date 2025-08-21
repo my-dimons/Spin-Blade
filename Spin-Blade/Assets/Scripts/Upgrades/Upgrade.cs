@@ -171,21 +171,7 @@ public class Upgrade : MonoBehaviour
         // update background tint
         backgroundObject.GetComponent<Image>().color = backgroundTintColor;
 
-        // check if player has enough money, if not disable the button
-        Button button = buyButton.GetComponent<Button>();
-        if (moneyManager.HasEnoughMoney(price, priceCurrencyType) && canBeBought && currentLevel < maxLevel && !locked)
-            button.interactable = true;
-        else if (moneyManager.HasEnoughMoney(unlockablePrice, unlockableCurrency) && locked && unlockable)
-        {
-            button.interactable = true;
-            float lockObjOpactiy = 0.5f; // 0-1
-            lockObject.GetComponent<Image>().color = new(Color.white.r, Color.white.g, Color.white.b, lockObjOpactiy);
-        }
-        else
-        {
-            button.GetComponent<Button>().interactable = false;
-            lockObject.GetComponent<Image>().color = Color.white;
-        }
+
 
         // disable price when at max lvl (or locked, but not when unlockable)
         if (currentLevel >= maxLevel || locked && !unlockable)
@@ -240,6 +226,22 @@ public class Upgrade : MonoBehaviour
                 else
                     canBeBought = true;
             }
+        }
+
+        // check if player has enough money, if not disable the button
+        Button button = buyButton.GetComponent<Button>();
+        if (moneyManager.HasEnoughMoney(price, priceCurrencyType) && canBeBought && currentLevel < maxLevel && !locked)
+            button.interactable = true;
+        else if (moneyManager.HasEnoughMoney(unlockablePrice, unlockableCurrency) && locked && unlockable)
+        {
+            button.interactable = true;
+            float lockObjOpactiy = 0.5f; // 0-1
+            lockObject.GetComponent<Image>().color = new(Color.white.r, Color.white.g, Color.white.b, lockObjOpactiy);
+        }
+        else
+        {
+            button.GetComponent<Button>().interactable = false;
+            lockObject.GetComponent<Image>().color = Color.white;
         }
     }
 
@@ -355,7 +357,7 @@ public class Upgrade : MonoBehaviour
         {
             locked = false;
             moneyManager.AddCurrency(-unlockablePrice, unlockableCurrency);
-        } else
+        } else if (!locked)
             moneyManager.AddCurrency(-price, priceCurrencyType);
 
         Utils.PlayAudioClip(buySound, 0.35f);
