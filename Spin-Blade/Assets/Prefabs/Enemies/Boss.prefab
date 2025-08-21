@@ -80,12 +80,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: -2424553518018739129, guid: 7f178d911353c864d815dd72118eb5e0, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7f178d911353c864d815dd72118eb5e0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 5.12, y: 5.12}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -104,24 +104,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  minTargetDistance: 0.1
   speed: 2.1
   rotateMultiplier: 90
   value: 20
+  valueCurrencyType: 0
   damage: 1.333
   maxHealth: 8
   currentHealth: 8
   rotateSpeed: 40
-  damageFlashColor: {r: 1, g: 1, b: 1, a: 1}
+  hitColor: {r: 1, g: 0.27450982, b: 0.27450982, a: 1}
   deathParticles: {fileID: 8027665320973545451, guid: 4df9d8a8723d05c4686abda48d96cdd3, type: 3}
   hitParticles: {fileID: 8027665320973545451, guid: 355b482682bd0cf40a30ddcfb787b1c7, type: 3}
-  hitColor: {r: 1, g: 0.27450982, b: 0.27450982, a: 1}
   deathMoneyText: {fileID: 866898650273556627, guid: fdd8250b469e6e94b8751cb4afca164e, type: 3}
   deathSound: {fileID: 8300000, guid: 4c8a0c216c352fa41b1e3af35bc782bd, type: 3}
   hitSound: {fileID: 8300000, guid: 08538fc898dc37940830c7b0f882c7d9, type: 3}
-  goodMoneyColor: {r: 1, g: 0.9607843, b: 0.3882353, a: 1}
-  badMoneyColor: {r: 1, g: 0.3050313, b: 0.3050313, a: 1}
-  moneyGain: 0
+  circleHitMoneyGain: 0
   healthGain: 0
   spawnRate: 0.03
   isBoss: 1

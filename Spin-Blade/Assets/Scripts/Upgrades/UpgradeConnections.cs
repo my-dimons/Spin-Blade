@@ -156,7 +156,10 @@ public class UpgradeConnections : MonoBehaviour
                 // Build a rotation that points the cube's "up" (Y axis) along dir
                 Quaternion rot = Quaternion.FromToRotation(Vector3.up, dir.normalized);
 
-                Gizmos.color = Color.green;
+                if (!upgrade.precursorsMustBeMaxxed)
+                    Gizmos.color = Color.green;
+                else 
+                    Gizmos.color = Color.red;
                 Gizmos.matrix = Matrix4x4.TRS(mid, rot, new Vector3(gizmoLineWidth, length, gizmoLineWidth));
                 Gizmos.DrawCube(Vector3.zero, Vector3.one); // draw unit cube with transform matrix
                 Gizmos.matrix = Matrix4x4.identity; // reset so we don't affect other gizmos

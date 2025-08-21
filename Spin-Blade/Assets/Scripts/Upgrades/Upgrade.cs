@@ -27,8 +27,8 @@ public class Upgrade : MonoBehaviour
     public float priceIncrease;
 
     [Header("Level")]
-    public float maxLevel;
-    private float currentLevel;
+    public int maxLevel;
+    private int currentLevel;
 
     [Header("|--- Upgrade Values ---|")]
     [Space(20)]
@@ -114,7 +114,7 @@ public class Upgrade : MonoBehaviour
     MoneyManager moneyManager;
     private void OnValidate()
     {
-        if (moneyManager == null)
+        if (moneyManager == null && GameObject.FindGameObjectWithTag("MoneyManager").GetComponent<MoneyManager>() != null)
             moneyManager = GameObject.FindGameObjectWithTag("MoneyManager").GetComponent<MoneyManager>();
         // bg color
         switch (backgroundColorTintDropdown)
