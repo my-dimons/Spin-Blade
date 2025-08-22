@@ -98,7 +98,9 @@ public class UpgradeStats : MonoBehaviour
     public float bitsMultiplierIncrease;
 
     [Header("Win")]
-    public bool win;
+    public bool winFragment;
+    private static int winFragmentsNeeded;
+    private static int winFragments;
 
     [Header("|----- Other -----|")]
     [Space(20)]
@@ -114,6 +116,9 @@ public class UpgradeStats : MonoBehaviour
 
     private void Start()
     {
+        if (winFragment)
+            winFragmentsNeeded++;
+
         player = GameObject.FindGameObjectWithTag("Player");
         moneyManager = GameObject.FindGameObjectWithTag("MoneyManager").GetComponent<MoneyManager>();
         enemyManager = GameObject.FindGameObjectWithTag("EnemyManager").GetComponent<EnemyManager>();
@@ -232,9 +237,11 @@ public class UpgradeStats : MonoBehaviour
         // --- ENEMIES ---
 
         // --- WIN ---
-        if (win)
+        if (winFragment)
         {
-            GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>().Win();
+            winFragments++;
+            if (winFragments >= winFragmentsNeeded)
+                GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>().Win();
         }
     }
 }

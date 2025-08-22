@@ -270,7 +270,8 @@ public class Upgrade : MonoBehaviour
             {
                 foreach (GameObject postcursor in precursor.GetComponent<Upgrade>().skillTreePostcursors)
                 {
-                    if (postcursor.GetComponent<Upgrade>().bought && postcursor != this.gameObject)
+                    Upgrade postcursorUpgrade = postcursor.GetComponent<Upgrade>();
+                    if (postcursorUpgrade.bought && postcursor != this.gameObject && postcursorUpgrade.lockable)
                     {
                         locked = true;
                         lockable = false;
