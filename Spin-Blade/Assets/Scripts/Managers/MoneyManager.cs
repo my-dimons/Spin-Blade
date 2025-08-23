@@ -254,16 +254,19 @@ public class MoneyManager : MonoBehaviour
     {
         GameManager gameManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
         float currencyGain = value;
+        bool isNegative = value < 0;
         switch (currencyType)
         {
             case Currency.money:
-                currencyGain *= moneyMultiplier * eventMoneyMultiplier;
-                gameManager.totalMoneyGained += currencyGain;
+                if (!isNegative)
+                    currencyGain *= moneyMultiplier * eventMoneyMultiplier;
+                    gameManager.totalMoneyGained += currencyGain;
                 money += currencyGain;
                 break;
             case Currency.bits:
-                currencyGain *= bitsMultiplier;
-                gameManager.totalBitsGained += currencyGain;
+                if (!isNegative)
+                    currencyGain *= bitsMultiplier;
+                    gameManager.totalBitsGained += currencyGain;
                 bits += currencyGain;
                 break;
         }
