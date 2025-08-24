@@ -141,11 +141,9 @@ public class Enemy : MonoBehaviour
             {
                 other.GetComponent<TriangleProjectile>().homingTarget = null;
             }
-            else
-            {
-                if (proj.destroyOnHit)
-                    Destroy(other.gameObject);
-            }
+
+            if (proj.destroyOnHit)
+                Destroy(other.gameObject);
 
             TakeDamage(other.transform, proj.damage, proj.knockbackForce, proj.stunDuration, playerHealth.knockbackCurve);
         }
