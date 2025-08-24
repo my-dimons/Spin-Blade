@@ -176,7 +176,7 @@ public class PlayerHealthAndDamage : MonoBehaviour
         }
 
         // clamp health & add regen
-        float regenAmount = currentHealth * regenPerSecond / 100;
+        float regenAmount = maxHeath * regenPerSecond / 100;
         currentHealth = Mathf.Clamp(currentHealth += regenAmount * Time.deltaTime, 0, maxHeath);
 
         // full health ping

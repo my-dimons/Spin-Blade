@@ -240,6 +240,7 @@ public class UpgradeStats : MonoBehaviour
         if (winFragment)
         {
             winFragments++;
+            player.GetComponent<PlayerWinVisuals>().ShowNewFragment();
             if (winFragments >= winFragmentsNeeded)
                 GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>().Win();
         }

@@ -13,6 +13,14 @@ public class PlayerMovement : MonoBehaviour
     public float spinSpeed;
     public GameObject sprite;
     public ParticleSystem movementParticles;
+    public enum MovementParticleColorEnum
+    {
+        Normal,
+        Win
+    }
+    public MovementParticleColorEnum particleSystemEnum = MovementParticleColorEnum.Normal;
+    private Color movementParticleColor;
+    private float movementParticleAlpha = 0.2f;
 
     [Header("Audio")]
     public AudioClip reverseDirectionSound;
@@ -20,6 +28,10 @@ public class PlayerMovement : MonoBehaviour
     private int direction = 1; // 1 = clockwise, -1 = counter-clockwise
     public bool switchKey;
 
+    private void OnValidate()
+    {
+        SetMovementParticleColor();
+    }
     void Start()
     {
         // Ensure player starts at correct distance from orbitPoint
@@ -38,8 +50,25 @@ public class PlayerMovement : MonoBehaviour
         {
             ReverseDirection();
         }
+
+        SetMovementParticleColor();
     }
 
+    private void SetMovementParticleColor()
+    {
+        switch (particleSystemEnum)
+        {
+            case MovementParticleColorEnum.Normal:
+                movementParticleColor = new Color(0.3607843f, 0.764706f, 1f, movementParticleAlpha);
+                break;
+            case MovementParticleColorEnum.Win:
+                movementParticleColor = new Color(1f, 0.7843137f, 0.3058824f, movementParticleAlpha);
+                break;
+        }
+
+        ParticleSystem.MainModule par = movementParticles.main;
+        par.startColor = movementParticleColor;
+    }
 
     private void FixedUpdate()
     {

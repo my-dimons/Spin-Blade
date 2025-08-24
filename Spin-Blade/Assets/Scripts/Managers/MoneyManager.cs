@@ -258,15 +258,17 @@ public class MoneyManager : MonoBehaviour
         switch (currencyType)
         {
             case Currency.money:
-                if (!isNegative)
+                if (!isNegative){
                     currencyGain *= moneyMultiplier * eventMoneyMultiplier;
                     gameManager.totalMoneyGained += currencyGain;
+                }
                 money += currencyGain;
                 break;
             case Currency.bits:
-                if (!isNegative)
+                if (!isNegative){
                     currencyGain *= bitsMultiplier;
                     gameManager.totalBitsGained += currencyGain;
+                }
                 bits += currencyGain;
                 break;
         }

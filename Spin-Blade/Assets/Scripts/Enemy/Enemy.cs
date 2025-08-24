@@ -145,9 +145,9 @@ public class Enemy : MonoBehaviour
             {
                 if (proj.destroyOnHit)
                     Destroy(other.gameObject);
-
-                TakeDamage(other.transform, proj.damage, proj.knockbackForce, proj.stunDuration, playerHealth.knockbackCurve);
             }
+
+            TakeDamage(other.transform, proj.damage, proj.knockbackForce, proj.stunDuration, playerHealth.knockbackCurve);
         }
 
         if (other.CompareTag("Circle") && currentHealth > 0)
