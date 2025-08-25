@@ -141,11 +141,11 @@ public class Enemy : MonoBehaviour
             {
                 other.GetComponent<TriangleProjectile>().homingTarget = null;
             }
-
+            
             if (proj.destroyOnHit)
                 Destroy(other.gameObject);
 
-            TakeDamage(other.transform, proj.damage, proj.knockbackForce, proj.stunDuration, playerHealth.knockbackCurve);
+            TakeDamage(other.transform, proj.damage, proj.knockbackForce, proj.stunDuration, playerHealth.knockbackCurve, true);
         }
 
         if (other.CompareTag("Circle") && currentHealth > 0)

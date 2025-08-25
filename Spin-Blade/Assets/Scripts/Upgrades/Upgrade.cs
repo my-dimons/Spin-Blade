@@ -171,8 +171,6 @@ public class Upgrade : MonoBehaviour
         // update background tint
         backgroundObject.GetComponent<Image>().color = backgroundTintColor;
 
-
-
         // disable price when at max lvl (or locked, but not when unlockable)
         if (currentLevel >= maxLevel || locked && !unlockable)
         {
