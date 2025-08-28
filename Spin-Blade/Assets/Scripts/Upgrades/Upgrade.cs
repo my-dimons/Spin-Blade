@@ -51,6 +51,9 @@ public class Upgrade : MonoBehaviour
     public TextMeshProUGUI enemyPopupDamageText;
     public TextMeshProUGUI enemyPopupHealthText;
     [Space(4)]
+    public Image enemyPopupValueIconMoney;
+    public Image enemyPopupValueIconBits;
+    [Space(4)]
     public bool enemyPopup;
     [Space(8)]
     public GameObject outlineObject;
@@ -249,9 +252,31 @@ public class Upgrade : MonoBehaviour
         {
             enemyPopupObject.SetActive(true);
             UpgradeStats stats = GetComponent<UpgradeStats>();
-            enemyPopupValueText.text = stats.addEnemy.GetComponent<Enemy>().value.ToString();
-            enemyPopupHealthText.text = stats.addEnemy.GetComponent<Enemy>().maxHealth.ToString();
-            enemyPopupDamageText.text = stats.addEnemy.GetComponent<Enemy>().damage.ToString();
+            Enemy enemy = stats.addEnemy.GetComponent<Enemy>();
+
+            // -- seting stats --
+
+            // set value
+            switch (enemy.valueCurrencyType)
+            {
+                case MoneyManager.Currency.money:
+                    enemyPopupValueIconBits.gameObject.SetActive(false);
+                    enemyPopupValueIconMoney.gameObject.SetActive(true);
+                    break;
+                case MoneyManager.Currency.bits:
+                    enemyPopupValueIconBits.gameObject.SetActive(true);
+                    enemyPopupValueIconMoney.gameObject.SetActive(false);
+                    break;
+                default:
+                    Debug.LogError("Enemy has no currency type set!");
+                    break;
+            }
+
+            enemyPopupValueText.text = moneyManager.GetMoneyString(enemy.value, enemy.valueCurrencyType).ToString();
+            enemyPopupValueText.color = moneyManager.GetCurrencyColor(enemy.valueCurrencyType);
+
+            enemyPopupHealthText.text = enemy.maxHealth.ToString();
+            enemyPopupDamageText.text = enemy.damage.ToString();
         }
         else
         {
