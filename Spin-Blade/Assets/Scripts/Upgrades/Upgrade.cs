@@ -117,8 +117,13 @@ public class Upgrade : MonoBehaviour
     MoneyManager moneyManager;
     private void OnValidate()
     {
-        if (moneyManager == null && GameObject.FindGameObjectWithTag("MoneyManager").GetComponent<MoneyManager>() != null)
-            moneyManager = GameObject.FindGameObjectWithTag("MoneyManager").GetComponent<MoneyManager>();
+        if (!GameObject.FindGameObjectWithTag("MoneyManager"))
+        {
+            Debug.Log("No money manager found in scene! Please add one.");
+            return;
+        }
+
+        moneyManager = GameObject.FindGameObjectWithTag("MoneyManager").GetComponent<MoneyManager>();
         // bg color
         switch (backgroundColorTintDropdown)
         {

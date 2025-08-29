@@ -109,8 +109,8 @@ MonoBehaviour:
   value: 4
   valueCurrencyType: 0
   damage: 1.6
-  maxHealth: 10
-  currentHealth: 10
+  maxHealth: 6
+  currentHealth: 6
   rotateSpeed: 360
   hitColor: {r: 1, g: 0.30588236, b: 0.30588236, a: 1}
   deathParticles: {fileID: 8027665320973545451, guid: 4df9d8a8723d05c4686abda48d96cdd3, type: 3}
@@ -120,7 +120,7 @@ MonoBehaviour:
   hitSound: {fileID: 8300000, guid: 08538fc898dc37940830c7b0f882c7d9, type: 3}
   circleHitMoneyGain: 0
   healthGain: 0
-  spawnRate: 0.3
+  spawnRate: 0.1
   isBoss: 0
   damageFromProjectiles: 1
   triggerEventOnDeath: 0
