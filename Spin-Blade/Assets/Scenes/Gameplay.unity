@@ -7369,7 +7369,7 @@ PrefabInstance:
       objectReference: {fileID: 5846892998561787661, guid: 1e5d85640abdb7e4099750cb31beab75, type: 3}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: maxLevel
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: enemyPopup
@@ -21163,7 +21163,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: description
-      value: mines spawn 2s faster
+      value: mines spawn 1s faster
       objectReference: {fileID: 0}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: moneyManager
@@ -21367,7 +21367,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7234929734254115256, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: mineCooldownIncrease
-      value: -2
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 7234929734254115256, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: mineLifetimeIncrease
@@ -27178,7 +27178,7 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: aa71dd79fce66164a8e213fe2032af52, type: 3}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: price
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: title
@@ -27190,11 +27190,11 @@ PrefabInstance:
       objectReference: {fileID: 1883204292}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: maxLevel
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: description
-      value: +0.5 max health
+      value: +1 max health
       objectReference: {fileID: 0}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: moneyManager
@@ -27370,7 +27370,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7234929734254115256, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: healthIncrease
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7291647979367791339, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_text
@@ -51275,7 +51275,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: unlockablePrice
-      value: 7
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: backgroundColorTint
@@ -53182,7 +53182,7 @@ PrefabInstance:
       objectReference: {fileID: 1620302933}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: priceIncrease
-      value: 3
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: speedIncrease
@@ -74623,7 +74623,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: unlockablePrice
-      value: 7
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: backgroundColorTint
@@ -75435,8 +75435,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: description
-      value: this enemy doesn't move and shoots ranged projectiles at the you. (Piercing
-        is a good counter)
+      value: this enemy doesn't move and shoots ranged projectiles at the you
       objectReference: {fileID: 0}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: moneyManager
@@ -76673,7 +76672,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7234929734254115256, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: miniSawSpeedIncrease
-      value: 1
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 7234929734254115256, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: miniSawDamageIncrease
@@ -77181,7 +77180,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   explodingCircleAnimationDuration: 0.4
   explodingCircleCooldown: 30
-  explodingCircleDamageMultiplier: 1
+  explodingCircleDamageMultiplier: 0.4
   explodingCircleKnockback: 0
   mines: 0
   minePrefab: {fileID: 327706301288235810, guid: 8cfdb3ab442319643a26743b565957b8, type: 3}

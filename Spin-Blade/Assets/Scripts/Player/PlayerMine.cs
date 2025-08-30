@@ -39,7 +39,7 @@ public class PlayerMine : MonoBehaviour
     }
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if ((collision.CompareTag("Enemy") || collision.CompareTag("ExplodingCircle")) && !pausePulsing)
+        if (collision.CompareTag("Enemy") && !pausePulsing)
         {
             // death
             hitsTaken++;
@@ -50,9 +50,16 @@ public class PlayerMine : MonoBehaviour
             // exploding circle
             if (explode)
             {
-                GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealthAndDamage>().ExplodeCircle(transform.position, damage, explosionRadius, false);
+                Explode();
             }
         }
+    }
+
+    public void Explode()
+    {
+        GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealthAndDamage>().ExplodeCircle(transform.position, damage, explosionRadius, false);
+        if (!pausePulsing)
+            StartCoroutine(StartDying());
     }
 
     private void Update()

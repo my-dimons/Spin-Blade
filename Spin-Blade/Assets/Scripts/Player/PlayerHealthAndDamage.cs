@@ -228,8 +228,8 @@ public class PlayerHealthAndDamage : MonoBehaviour
     public void ExplodeCircle(Vector2 spawnPos, float circleDamage, float finalSize, bool knockback)
     {
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-
-        // damage all enemies, and do knockback if unlocked
+        GameObject[] mines = GameObject.FindGameObjectsWithTag("Mine");
+        // explode nearby mines, damage all enemies, and do knockback if unlocked
 
         foreach (GameObject enemy in enemies)
         {
@@ -243,6 +243,11 @@ public class PlayerHealthAndDamage : MonoBehaviour
                 else
                     enemy.GetComponent<Enemy>().TakeDamage(enemy.transform, circleDamage, 1, 0.8f, knockbackCurve, true); // do a little knockback to 'stun' the enemy
             }
+        }
+        foreach (GameObject mine in mines)
+        {
+            if (Vector2.Distance(spawnPos, mine.transform.position) <= finalSize)
+                mine.GetComponent<PlayerMine>().Explode();
         }
 
         StartCoroutine(ExplodingCircleVisual());

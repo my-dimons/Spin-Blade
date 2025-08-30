@@ -225,7 +225,7 @@ public class GameManager : MonoBehaviour
         timeText.GetComponent<TextMeshProUGUI>().text = "Time: " + string.Format("{0:00}:{1:00}", timePlayed.Minutes, timePlayed.Seconds);
 
         // kills
-        killsText.GetComponent<TextMeshProUGUI>().text = "Kills: " + kills.ToString();
+        killsText.GetComponent<TextMeshProUGUI>().text = $"Kills {kills.ToString()}";
 
         // money
         totalMoneyText.GetComponent<TextMeshProUGUI>().text = "Gained: $" + totalMoneyGained.ToString("F2");

@@ -15,6 +15,7 @@ TagManager:
   - Upgrade
   - MainCanvas
   - ExplodingCircle
+  - Mine
   layers:
   - Default
   - TransparentFX
