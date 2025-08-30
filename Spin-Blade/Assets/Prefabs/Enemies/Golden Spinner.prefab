@@ -112,7 +112,7 @@ MonoBehaviour:
   maxHealth: 1
   currentHealth: 1
   rotateSpeed: 180
-  hitColor: {r: 0.8867924, g: 0.85193425, b: 0.34300452, a: 1}
+  hitColor: {r: 0.703, g: 0.6750044, b: 0.27062386, a: 1}
   deathParticles: {fileID: 8027665320973545451, guid: 4df9d8a8723d05c4686abda48d96cdd3, type: 3}
   hitParticles: {fileID: 8027665320973545451, guid: 355b482682bd0cf40a30ddcfb787b1c7, type: 3}
   deathMoneyText: {fileID: 866898650273556627, guid: fdd8250b469e6e94b8751cb4afca164e, type: 3}

@@ -32,12 +32,6 @@ public class PlayerMovement : MonoBehaviour
     {
         SetMovementParticleColor();
     }
-    void Start()
-    {
-        // Ensure player starts at correct distance from orbitPoint
-        Vector3 offset = (transform.position - orbitPoint).normalized * orbitRadius;
-        transform.position = orbitPoint + offset;
-    }
 
     void Update()
     {

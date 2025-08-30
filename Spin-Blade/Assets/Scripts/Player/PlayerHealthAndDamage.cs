@@ -236,6 +236,8 @@ public class PlayerHealthAndDamage : MonoBehaviour
             // must be inside the final circle size to do damage
             if (Vector2.Distance(spawnPos, enemy.transform.position) <= finalSize)
             {
+                if (!enemy.GetComponent<Enemy>().damageFromProjectiles) return;
+
                 if (knockback)
                     enemy.GetComponent<Enemy>().TakeDamage(enemy.transform, circleDamage, knockbackDistance, knockbackDuration, knockbackCurve, true);
                 else

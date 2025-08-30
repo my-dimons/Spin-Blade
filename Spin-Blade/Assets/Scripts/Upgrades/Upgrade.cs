@@ -111,7 +111,6 @@ public class Upgrade : MonoBehaviour
     [Header("|--- Skill Tree ---|")]
     [Space(20)]
 
-
     bool updateSkillTree = false;
 
     MoneyManager moneyManager;
@@ -165,6 +164,8 @@ public class Upgrade : MonoBehaviour
             yield return new WaitForSecondsRealtime(0.1f);
             updateSkillTree = true;
         }
+
+
     }
 
     // Update is called once per frame

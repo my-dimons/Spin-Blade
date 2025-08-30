@@ -141,7 +141,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyProjectile: {fileID: 9008897640363931406, guid: 5e42887f688475c4181e6edc2bd16bec, type: 3}
-  enemyProjectileSpeed: 8
+  enemyProjectileSpeed: 5
   spawnDelay: 5
   projectileDamage: 0.6
 --- !u!50 &8837260225315921539

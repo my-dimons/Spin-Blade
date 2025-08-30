@@ -39,9 +39,8 @@ public class PlayerMine : MonoBehaviour
     }
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.CompareTag("Enemy") && !pausePulsing)
+        if ((collision.CompareTag("Enemy") || collision.CompareTag("ExplodingCircle")) && !pausePulsing)
         {
-            collision.GetComponent<Enemy>().TakeDamage(this.transform, damage, knockback, stunDuration, curve, true);
             // death
             hitsTaken++;
             if (hitsTaken >= hitsBeforeDeath)
