@@ -129,7 +129,7 @@ public class Upgrade : MonoBehaviour
             case BackgroundPresetColors.None: backgroundTintColor = Color.white; break;
             case BackgroundPresetColors.Enemy: backgroundTintColor = Utils.ColorFromHex("#FFAEAE"); break;
             case BackgroundPresetColors.Health: backgroundTintColor = Utils.ColorFromHex("#A4FFAC"); break;
-            case BackgroundPresetColors.Money: backgroundTintColor = Utils.ColorFromHex("#FFF4AE"); break;
+            case BackgroundPresetColors.Money: backgroundTintColor = Utils.ColorFromHex("#FFEF99"); break;
             case BackgroundPresetColors.Damage: backgroundTintColor = Utils.ColorFromHex("#AED4FF"); break;
         }
 

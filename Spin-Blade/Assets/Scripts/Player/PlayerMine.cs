@@ -30,6 +30,8 @@ public class PlayerMine : MonoBehaviour
     [Header("Explosion")]
     public bool explode;
     public float explosionRadius = 8f;
+
+    private bool exploded;
     private void Start()
     {
         baseSize = transform.localScale.x;
@@ -57,9 +59,13 @@ public class PlayerMine : MonoBehaviour
 
     public void Explode()
     {
+        if (exploded) return; // prevent multiple explosions
+        exploded = true;
+
         GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealthAndDamage>().ExplodeCircle(transform.position, damage, explosionRadius, false);
-        if (!pausePulsing)
-            StartCoroutine(StartDying());
+
+        if (pausePulsing) return;
+        StartCoroutine(StartDying());
     }
 
     private void Update()

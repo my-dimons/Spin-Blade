@@ -51,9 +51,6 @@ public class Enemy : MonoBehaviour
     [Header("Special")] // todo: move this to a new script
     public bool damageFromProjectiles = true;
     public bool triggerEventOnDeath;
-    public bool randomSize;
-    public float minSize = 0.5f;
-    public float maxSize = 1.5f;
 
     // death
     public event Action OnDeath;
@@ -85,13 +82,6 @@ public class Enemy : MonoBehaviour
         {
             maxHealth *= enemyManager.difficulty * Mathf.Clamp(playerHealth.damage, 1, Mathf.Infinity) * enemyManager.bossHealthMultiplier;
             damage = Mathf.Clamp(playerHealth.maxHeath / damage, 1, Mathf.Infinity);
-        }
-
-        if (randomSize)
-        {
-            float randomScaleX = UnityEngine.Random.Range(minSize, maxSize);
-            float randomScaleY = UnityEngine.Random.Range(minSize, maxSize);
-            transform.localScale = new Vector3(randomScaleX, randomScaleY, 1f);
         }
 
         currentHealth = maxHealth;
