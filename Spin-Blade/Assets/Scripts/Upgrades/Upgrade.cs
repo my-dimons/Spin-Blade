@@ -409,7 +409,7 @@ public class Upgrade : MonoBehaviour
         if (enable)
         {
             gameObject.transform.SetAsLastSibling(); // bring to front
-            
+
             popupObject.SetActive(enable);
             // enable popup
             StartCoroutine(Utils.AnimateValue(0f, .7f, animationSpeed, moneyManager.upgradeInfoAnimCurve,
@@ -418,6 +418,9 @@ public class Upgrade : MonoBehaviour
             // upgrade tile object (make bigger)
             StartCoroutine(Utils.AnimateValue(1f, 1.3f, animationSpeed, moneyManager.upgradeInfoAnimCurve,
                 value => tileObject.transform.localScale = Vector3.one * value, useRealtime: true));
+
+            // sfx
+            Utils.PlayAudioClip(moneyManager.upgradeHoverSound, 0.15f, 0.07f);
         }
         else
         {

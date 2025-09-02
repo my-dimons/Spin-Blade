@@ -52,6 +52,7 @@ public class MoneyManager : MonoBehaviour
 
     [Header("Audio")]
     public AudioClip uiToggleSound;
+    public AudioClip upgradeHoverSound;
 
     [HideInInspector] public bool toggleShopKey;
     private bool firstShopToggle;

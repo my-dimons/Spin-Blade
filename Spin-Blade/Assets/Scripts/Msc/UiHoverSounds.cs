@@ -6,6 +6,6 @@ public class UiHoverSounds : MonoBehaviour
     
     public void HoverSfx()
     {
-        Utils.PlayAudioClip(hoverAudio, 0.2f);
+        Utils.PlayAudioClip(hoverAudio, 0.2f, 0.07f);
     }
 }

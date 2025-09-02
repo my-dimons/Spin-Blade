@@ -11336,14 +11336,15 @@ MonoBehaviour:
   sfxSliders: []
   musicSliders: []
   winScreen: {fileID: 0}
-  lShiftPresses: 0
-  kills: 0
-  totalMoneyGained: 0
   winTime: 0
   timeText: {fileID: 0}
   killsText: {fileID: 0}
   totalMoneyText: {fileID: 0}
   totalTimeText: {fileID: 0}
+  lShiftPresses: 0
+  kills: 0
+  totalMoneyGained: 0
+  totalBitsGained: 0
 --- !u!4 &1414283130
 Transform:
   m_ObjectHideFlags: 0
@@ -16474,7 +16475,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f62f6813f3003d4381b2f6966df9790, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hoverAudio: {fileID: 8300000, guid: 804adfcee6069e24d99da8255b584cf1, type: 3}
+  hoverAudio: {fileID: 8300000, guid: 95b4ba9c86e9c1d4a8a9dd36744cba52, type: 3}
 --- !u!114 &1701772550
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21502,7 +21503,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f62f6813f3003d4381b2f6966df9790, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hoverAudio: {fileID: 8300000, guid: 804adfcee6069e24d99da8255b584cf1, type: 3}
+  hoverAudio: {fileID: 8300000, guid: 95b4ba9c86e9c1d4a8a9dd36744cba52, type: 3}
 --- !u!114 &1837520287
 MonoBehaviour:
   m_ObjectHideFlags: 0

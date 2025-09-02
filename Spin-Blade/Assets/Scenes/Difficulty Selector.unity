@@ -302,7 +302,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f62f6813f3003d4381b2f6966df9790, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hoverAudio: {fileID: 8300000, guid: 804adfcee6069e24d99da8255b584cf1, type: 3}
+  hoverAudio: {fileID: 8300000, guid: 95b4ba9c86e9c1d4a8a9dd36744cba52, type: 3}
 --- !u!114 &43699775
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -578,7 +578,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f62f6813f3003d4381b2f6966df9790, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hoverAudio: {fileID: 8300000, guid: 804adfcee6069e24d99da8255b584cf1, type: 3}
+  hoverAudio: {fileID: 8300000, guid: 95b4ba9c86e9c1d4a8a9dd36744cba52, type: 3}
 --- !u!114 &98823274
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -733,8 +733,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278453314
-  m_fontColor: {r: 0.2578616, g: 0.013785036, b: 0.013785036, a: 1}
+    rgba: 4279900698
+  m_fontColor: {r: 0.10062885, g: 0.10062885, b: 0.10062885, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -950,7 +950,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f62f6813f3003d4381b2f6966df9790, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hoverAudio: {fileID: 8300000, guid: 804adfcee6069e24d99da8255b584cf1, type: 3}
+  hoverAudio: {fileID: 8300000, guid: 95b4ba9c86e9c1d4a8a9dd36744cba52, type: 3}
 --- !u!114 &238638943
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5936,8 +5936,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4279058945
-  m_fontColor: {r: 0.0024326164, g: 0.2578616, b: 0.052272435, a: 1}
+    rgba: 4279900698
+  m_fontColor: {r: 0.10062885, g: 0.10062885, b: 0.10062885, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -6072,8 +6072,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4282323722
-  m_fontColor: {r: 0.03779513, g: 0.076069616, b: 0.24528301, a: 1}
+    rgba: 4279900698
+  m_fontColor: {r: 0.10062885, g: 0.10062885, b: 0.10062885, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -17360,7 +17360,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f62f6813f3003d4381b2f6966df9790, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hoverAudio: {fileID: 8300000, guid: 804adfcee6069e24d99da8255b584cf1, type: 3}
+  hoverAudio: {fileID: 8300000, guid: 95b4ba9c86e9c1d4a8a9dd36744cba52, type: 3}
 --- !u!114 &1622109261
 MonoBehaviour:
   m_ObjectHideFlags: 0

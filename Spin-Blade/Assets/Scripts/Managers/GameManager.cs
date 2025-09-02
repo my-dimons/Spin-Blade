@@ -34,6 +34,10 @@ public class GameManager : MonoBehaviour
 
     public GameObject totalTimeText;
 
+    [Space(5)]
+
+    public AudioClip winSfx;
+
     [Header("Stats")]
 
     public int lShiftPresses = 0;
@@ -230,14 +234,16 @@ public class GameManager : MonoBehaviour
         // money
         totalMoneyText.GetComponent<TextMeshProUGUI>().text = "Gained: $" + totalMoneyGained.ToString("F2");
 
-        Debug.Log("WIN SCREEN ENABLED: " + winTime.ToString());
+        Debug.Log("WIN SCREEN ENABLED");
         yield return new WaitForSeconds(winTime);
         Debug.Log("WIN SCREEN DISABLED");
         winScreen.SetActive(false);
     }
 
+    [ContextMenu("Win")]
     public void Win()
     {
         StartCoroutine(WinScreen());
+        Utils.PlayAudioClip(winSfx, 1f);
     }
 }

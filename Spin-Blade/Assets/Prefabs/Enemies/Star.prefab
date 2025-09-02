@@ -106,7 +106,7 @@ MonoBehaviour:
   target: {fileID: 0}
   speed: 3.5
   rotateMultiplier: 90
-  value: 5
+  value: 3.5
   valueCurrencyType: 0
   damage: 1.8
   maxHealth: 2
@@ -124,9 +124,6 @@ MonoBehaviour:
   isBoss: 0
   damageFromProjectiles: 1
   triggerEventOnDeath: 0
-  randomSize: 0
-  minSize: 0.5
-  maxSize: 1.5
 --- !u!61 &4144793320274425136
 BoxCollider2D:
   m_ObjectHideFlags: 0
