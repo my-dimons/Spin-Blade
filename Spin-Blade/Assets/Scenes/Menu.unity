@@ -6300,6 +6300,8 @@ MonoBehaviour:
   musicTracks:
   - {fileID: 8300000, guid: bc4b8996051bf6e46aa37139880fb3f8, type: 3}
   - {fileID: 8300000, guid: ff2cdcede079b8041a1599d77af5abcd, type: 3}
+  - {fileID: 8300000, guid: ea6455d1e8cddae4cb4dc4e298aac4d5, type: 3}
+  - {fileID: 8300000, guid: b763555de3a05ef41b6dd15130268086, type: 3}
   currentMusic: {fileID: 0}
 --- !u!4 &1003355071
 Transform:
@@ -11341,6 +11343,7 @@ MonoBehaviour:
   killsText: {fileID: 0}
   totalMoneyText: {fileID: 0}
   totalTimeText: {fileID: 0}
+  winSfx: {fileID: 0}
   lShiftPresses: 0
   kills: 0
   totalMoneyGained: 0
