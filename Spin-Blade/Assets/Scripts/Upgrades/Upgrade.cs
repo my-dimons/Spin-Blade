@@ -27,6 +27,7 @@ public class Upgrade : MonoBehaviour
     public float priceIncrease;
 
     [Header("Level")]
+    [Tooltip("Set this to 0 to have no limit on level")]
     public int maxLevel;
     private int currentLevel;
 
@@ -181,7 +182,7 @@ public class Upgrade : MonoBehaviour
         backgroundObject.GetComponent<Image>().color = backgroundTintColor;
 
         // disable price when at max lvl (or locked, but not when unlockable)
-        if (currentLevel >= maxLevel || locked && !unlockable)
+        if ((currentLevel >= maxLevel || maxLevel == 0) || locked && !unlockable)
         {
             priceParentObject.SetActive(false);
         }
@@ -237,7 +238,7 @@ public class Upgrade : MonoBehaviour
 
         // check if player has enough money, if not disable the button
         Button button = buyButton.GetComponent<Button>();
-        if (moneyManager.HasEnoughMoney(price, priceCurrencyType) && canBeBought && currentLevel < maxLevel && !locked)
+        if (moneyManager.HasEnoughMoney(price, priceCurrencyType) && canBeBought && (currentLevel < maxLevel || maxLevel == 0) && !locked)
             button.interactable = true;
         else if (moneyManager.HasEnoughMoney(unlockablePrice, unlockableCurrency) && locked && unlockable)
         {
@@ -334,7 +335,7 @@ public class Upgrade : MonoBehaviour
         Image outlineImage = outlineObject.GetComponent<Image>();
         if ((canBeBought || bought) && !locked)
         {
-            if (currentLevel >= maxLevel)
+            if (currentLevel >= maxLevel && maxLevel != 0)
                 outlineImage.color = fullyBoughtOutlineColor;
             else if (currentLevel > 0)
                 outlineImage.color = boughtOutlineColor;
@@ -370,7 +371,10 @@ public class Upgrade : MonoBehaviour
         }
 
         // max lvl
-        maxLevelObject.text = currentLevel.ToString() + "/" + maxLevel.ToString();
+        if (maxLevel == 0)
+            maxLevelObject.text = currentLevel.ToString();
+        else 
+            maxLevelObject.text = currentLevel.ToString() + "/" + maxLevel.ToString();
     }
 
     public void BuyUpgrade()

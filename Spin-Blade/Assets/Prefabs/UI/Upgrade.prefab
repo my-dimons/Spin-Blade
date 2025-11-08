@@ -1785,6 +1785,7 @@ MonoBehaviour:
   passiveIncomeIncrease: 0
   unlockBits: 0
   bitsMultiplierIncrease: 0
+  giveBits: 0
   winFragment: 0
   sectionSeparator: 
 --- !u!114 &879352506774466442

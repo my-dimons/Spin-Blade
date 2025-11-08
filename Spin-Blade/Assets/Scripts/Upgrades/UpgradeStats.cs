@@ -96,6 +96,7 @@ public class UpgradeStats : MonoBehaviour
     [Header("Bits")]
     public bool unlockBits;
     public float bitsMultiplierIncrease;
+    public float giveBits;
 
     [Header("Win")]
     public bool winFragment;
@@ -123,6 +124,7 @@ public class UpgradeStats : MonoBehaviour
         moneyManager = GameObject.FindGameObjectWithTag("MoneyManager").GetComponent<MoneyManager>();
         enemyManager = GameObject.FindGameObjectWithTag("EnemyManager").GetComponent<EnemyManager>();
     }
+
     public void ApplyEffects()
     {
         PlayerMovement playerMovement = player.GetComponent<PlayerMovement>();
@@ -162,6 +164,8 @@ public class UpgradeStats : MonoBehaviour
             moneyManager.bitsUnlocked = unlockBits;
 
         moneyManager.bitsMultiplier += bitsMultiplierIncrease;
+
+        moneyManager.bits += giveBits;
         // --- MONEY ---
 
         // --- MINI SAWS ---=
