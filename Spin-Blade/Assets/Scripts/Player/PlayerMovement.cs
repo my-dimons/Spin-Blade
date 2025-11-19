@@ -22,12 +22,21 @@ public class PlayerMovement : MonoBehaviour
     private Color movementParticleColor;
     private float movementParticleAlpha = 0.2f;
 
+    private bool hoveringOverUI;
+
     [Header("Audio")]
     public AudioClip reverseDirectionSound;
 
     private int direction = 1; // 1 = clockwise, -1 = counter-clockwise
     public bool switchKey;
 
+    private MoneyManager moneyManager;
+
+    private void Start()
+    {
+        moneyManager = GameObject.FindGameObjectWithTag("MoneyManager").GetComponent<MoneyManager>();
+    }
+    
     private void OnValidate()
     {
         SetMovementParticleColor();
@@ -40,7 +49,7 @@ public class PlayerMovement : MonoBehaviour
         // spin sprite
         sprite.transform.Rotate(0, 0, spinSpeed * Time.deltaTime);
 
-        if (switchKey && Time.timeScale > 0)
+        if (switchKey && Time.timeScale > 0 && !hoveringOverUI)
         {
             ReverseDirection();
         }
@@ -100,5 +109,10 @@ public class PlayerMovement : MonoBehaviour
     {
         Gizmos.color = Color.yellow; // Circle color
         Gizmos.DrawWireSphere(orbitPoint, orbitRadius); // Draw orbit circle
+    }
+
+    public void HoverOverUI(bool hovering)
+    {
+        hoveringOverUI = hovering;
     }
 }

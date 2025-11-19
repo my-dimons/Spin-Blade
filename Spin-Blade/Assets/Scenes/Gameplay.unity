@@ -1641,6 +1641,34 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+        - m_Target: {fileID: 1883204294}
+          m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
+          m_MethodName: HoverOverUI
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1883204294}
+          m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
+          m_MethodName: HoverOverUI
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!114 &123015462
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -51519,13 +51547,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tutorialText: {fileID: 1254085236}
   tutorialStrings:
-  - Press 'Space' or 'LMB' to reverse direction
-  - press 'tab' or 'MMB' to toggle the shop
-  - Hold Right click to pan
-  - buy the first upgrade
+  - click to reverse direction!
+  - press the shop button to open the shop!
+  - click and hold to pan!
+  - buy the first upgrade!
   - Defeat enemies for money to progress!
   - 
-  - Buy the next upgrade in the shop!
+  - buy the next upgrade in the shop!
   - Have fun!
   tutorialStage: 0
   sfxSliders:
@@ -62103,6 +62131,7 @@ MonoBehaviour:
   uiToggleSound: {fileID: 8300000, guid: b5ea9b8694901dc4a8888deb5cfbcc54, type: 3}
   upgradeHoverSound: {fileID: 8300000, guid: 9b0f4953441266a4bb4a68697f6ee325, type: 3}
   toggleShopKey: 0
+  shopOpen: 0
 --- !u!1 &1624390744
 GameObject:
   m_ObjectHideFlags: 0

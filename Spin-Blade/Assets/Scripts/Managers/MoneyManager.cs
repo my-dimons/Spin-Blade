@@ -55,6 +55,7 @@ public class MoneyManager : MonoBehaviour
     public AudioClip upgradeHoverSound;
 
     [HideInInspector] public bool toggleShopKey;
+    [HideInInspector] public bool shopOpen;
     private bool firstShopToggle;
 
     private void OnValidate()
@@ -166,6 +167,7 @@ public class MoneyManager : MonoBehaviour
 
     public void ToggleShop(GameObject menu)
     {
+        shopOpen = !shopOpen;
         Utils.PlayAudioClip(uiToggleSound, 0.3f);
         float animTime = 0.1f;
 

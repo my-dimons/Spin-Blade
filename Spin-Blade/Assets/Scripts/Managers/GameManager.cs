@@ -85,8 +85,6 @@ public class GameManager : MonoBehaviour
 
         if (!tutorialFinished && tutorialText != null && !persistentVariables.infiniteMode)
             Tutorial();
-
-
     }
 
     private void Tutorial()
@@ -95,13 +93,19 @@ public class GameManager : MonoBehaviour
         MoneyManager moneyManager = GameObject.FindGameObjectWithTag("MoneyManager").GetComponent<MoneyManager>();
 
         // skip tutorial
-        if (Input.GetKeyDown(KeyCode.RightShift)) {
+        if (Input.GetKeyDown(KeyCode.RightShift))
+        {
             tutorialFinished = true;
             tutorialText.text = "";
         }
             
         // tutorial
-        if ((GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>().switchKey || moneyManager.toggleShopKey) && tutorialStage == 0)
+        if (tutorialStage >= tutorialStrings.Length)
+        {
+            tutorialText.gameObject.SetActive(false);
+            tutorialFinished = true;
+        }
+        else if ((GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>().switchKey || moneyManager.toggleShopKey) && tutorialStage == 0)
         {
             if (moneyManager.toggleShopKey)
             {
@@ -112,7 +116,7 @@ public class GameManager : MonoBehaviour
                 AdvanceTutorial();
             }
         }
-        else if (moneyManager.toggleShopKey && tutorialStage == 1)
+        else if (moneyManager.shopOpen && tutorialStage == 1)
         {
             AdvanceTutorial();
         }
@@ -137,11 +141,6 @@ public class GameManager : MonoBehaviour
         else if (tutorialStage == 7 && !advancedTutorialStage)
         {
             StartCoroutine(AdvanceTutorialLate(2f));
-        }
-        else if (tutorialStage >= tutorialStrings.Length)
-        {
-            tutorialText.gameObject.SetActive(false);
-            tutorialFinished = true;
         }
         ogMoney = GameObject.FindGameObjectWithTag("MoneyManager").GetComponent<MoneyManager>().money;
     }
@@ -204,6 +203,7 @@ public class GameManager : MonoBehaviour
         persistentVariables.difficulty = 1f;
         persistentVariables.moneyMultiplier = 1;
     }
+
     public void LoadDifficulty()
     {
         LoadScene("Difficulty Selector");
