@@ -164,7 +164,7 @@ public class MoneyManager : MonoBehaviour
         #endregion
     }
 
-    private void ToggleShop(GameObject menu)
+    public void ToggleShop(GameObject menu)
     {
         Utils.PlayAudioClip(uiToggleSound, 0.3f);
         float animTime = 0.1f;

@@ -37,8 +37,8 @@ public class DraggableSkillTreeMenu : MonoBehaviour
     void Update()
     {
         HandleDrag();
-        if (!Input.GetMouseButton(1))
-            HandleZoom();
+        //if (!Input.GetMouseButton(1))
+        //    HandleZoom();
 
         // Reset position & zoom
         if (Input.GetKeyDown(KeyCode.R))
