@@ -49,13 +49,13 @@ public class DraggableSkillTreeMenu : MonoBehaviour
 
     private void HandleDrag()
     {
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
         {
             Vector3 mouseWorldPos = ScreenToWorldPoint(Input.mousePosition);
             offset = rectTransform.position - mouseWorldPos;
         }
 
-        if (Input.GetMouseButton(1))
+        if (Input.GetMouseButton(0) || Input.GetMouseButton(1))
         {
             Vector3 mouseWorldPos = ScreenToWorldPoint(Input.mousePosition);
             Vector3 newPos = mouseWorldPos + offset;
