@@ -93,7 +93,7 @@ public class MoneyManager : MonoBehaviour
     {
         toggleShopKey = Input.GetKeyDown(KeyCode.Tab) || Input.GetKeyDown(KeyCode.Escape) || Input.GetMouseButtonDown(2);
 
-        if (toggleShopKey && GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealthAndDamage>().currentHealth > 0 && !animatingShop)
+        if (toggleShopKey && !animatingShop)
         {
             if (!GameObject.FindGameObjectWithTag("PVars").GetComponent<PersistentVariables>().infiniteMode)
                 ToggleShop(shopMenu);
@@ -181,7 +181,10 @@ public class MoneyManager : MonoBehaviour
 
     public void ToggleShop(GameObject menu)
     {
+        if (GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealthAndDamage>().dead) return;
+
         shopOpen = !shopOpen;
+
         Utils.PlayAudioClip(uiToggleSound, 0.3f);
         float animTime = 0.1f;
 

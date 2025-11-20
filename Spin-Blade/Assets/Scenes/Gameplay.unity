@@ -77639,6 +77639,7 @@ MonoBehaviour:
   circleDamageFlashColor: {r: 1, g: 0.3050313, b: 0.3050313, a: 1}
   circleMoneyGainHitFlashColor: {r: 0.48742133, g: 1, b: 0.5198665, a: 1}
   circleFullHealFlashColor: {r: 1, g: 0.92849994, b: 0.571, a: 1}
+  dead: 0
   damage: 1
   sizeMultiplier: 1
   knockbackCurve:
@@ -77854,7 +77855,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -303, y: -151}
+  m_AnchoredPosition: {x: -307, y: -130}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: -5.8564672}
 --- !u!1 &1906159230

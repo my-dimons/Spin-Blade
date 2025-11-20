@@ -25,7 +25,7 @@ public class PlayerHealthAndDamage : MonoBehaviour
     public Color circleMoneyGainHitFlashColor = Utils.ColorFromHex("#7CFF85");
     public Color circleFullHealFlashColor = Utils.ColorFromHex("#FFE45B");
 
-    bool dead;
+    public bool dead;
     private float oldHealth;
     private float oldMaxHealth;
 
