@@ -34,6 +34,9 @@ public class MoneyManager : MonoBehaviour
     public GameObject infModePauseMenu;
     public GameObject shopMenu;
     public GameObject skillTreeObject;
+
+    public GameObject shopButton;
+    public GameObject pauseButton;
     public Vector2 shopMenuPos;
     [Header("Money Text")]
     public TextMeshProUGUI moneyText;
@@ -78,6 +81,11 @@ public class MoneyManager : MonoBehaviour
             }
         }
 
+        if (GameObject.FindGameObjectWithTag("PVars").GetComponent<PersistentVariables>().infiniteMode)
+        {
+            shopButton.SetActive(false);
+            pauseButton.SetActive(true);
+        }
         InvokeRepeating(nameof(PassiveIncome), 0, 1);
     }
     // Update is called once per frame
@@ -113,6 +121,9 @@ public class MoneyManager : MonoBehaviour
             moneyText.text = "";
             bitsText.text = "";
             moneyMultiplierText.text = "";
+            bitsMultiplierText.text = "";
+            moneyPerSecondText.text = "";
+
             return;
         }
 
