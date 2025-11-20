@@ -12,12 +12,21 @@ public class DraggableSkillTreeMenu : MonoBehaviour
     public float maxZoomIn = 2f;
     public float maxZoomOut = 0.5f;
 
+    private bool isDragging = false;
+
     private RectTransform rectTransform;
     private Vector3 defaultPosition;
     private Vector3 offset;
 
     private Canvas parentCanvas;
     private Camera canvasCamera;
+
+    private MoneyManager moneyManager;
+
+    private void Start()
+    {
+        moneyManager = GameObject.FindGameObjectWithTag("MoneyManager").GetComponent<MoneyManager>();
+    }
 
     void Awake()
     {
@@ -37,8 +46,8 @@ public class DraggableSkillTreeMenu : MonoBehaviour
     void Update()
     {
         HandleDrag();
-        //if (!Input.GetMouseButton(1))
-        //    HandleZoom();
+        if (!Input.GetMouseButton(1) && !Input.GetMouseButton(0))
+            HandleZoom();
 
         // Reset position & zoom
         if (Input.GetKeyDown(KeyCode.R))
@@ -47,19 +56,31 @@ public class DraggableSkillTreeMenu : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Drags the screen if holding left or right mouse button, unless hovering over shop element with left mouse button.
+    /// </summary>
     private void HandleDrag()
     {
-        if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
+        // Initiate drag
+        if ((Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1)) && !moneyManager.hoveringOverShopElement)
         {
+            isDragging = true;
             Vector3 mouseWorldPos = ScreenToWorldPoint(Input.mousePosition);
             offset = rectTransform.position - mouseWorldPos;
         }
 
-        if (Input.GetMouseButton(0) || Input.GetMouseButton(1))
+        // Continue drag
+        else if (isDragging && (Input.GetMouseButton(0) || Input.GetMouseButton(1)))
         {
             Vector3 mouseWorldPos = ScreenToWorldPoint(Input.mousePosition);
             Vector3 newPos = mouseWorldPos + offset;
             rectTransform.position = ClampToBounds(newPos);
+        }
+
+        // End drag
+        else if (Input.GetMouseButtonUp(0) || Input.GetMouseButtonUp(1))
+        {
+            isDragging = false;
         }
     }
 

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.EventSystems;
 using System.Security.Cryptography;
 using TMPro;
 using Unity.Collections;
@@ -8,7 +9,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Upgrade : MonoBehaviour
+public class Upgrade : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [Header("SFX")]
     public AudioClip buySound;
@@ -437,5 +438,17 @@ public class Upgrade : MonoBehaviour
             StartCoroutine(Utils.AnimateValue(1.3f, 1f, animationSpeed, moneyManager.upgradeInfoAnimCurve,
                 value => tileObject.transform.localScale = Vector3.one * value, useRealtime: true));
         }
+    }
+
+    //Detect if the Cursor starts to pass over the GameObject
+    public void OnPointerEnter(PointerEventData pointerEventData)
+    {
+        moneyManager.HoverOverUIShopElement(true);
+    }
+
+    //Detect when Cursor leaves the GameObject
+    public void OnPointerExit(PointerEventData pointerEventData)
+    {
+        moneyManager.HoverOverUIShopElement(false);
     }
 }

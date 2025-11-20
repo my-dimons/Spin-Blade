@@ -56,6 +56,7 @@ public class MoneyManager : MonoBehaviour
 
     [HideInInspector] public bool toggleShopKey;
     [HideInInspector] public bool shopOpen;
+    [HideInInspector] public bool hoveringOverShopElement;
     private bool firstShopToggle;
 
     private void OnValidate()
@@ -109,8 +110,10 @@ public class MoneyManager : MonoBehaviour
 
         if (GameObject.FindGameObjectWithTag("PVars").GetComponent<PersistentVariables>().infiniteMode)
         {
-            moneyString = "";
-            bitsString = "";
+            moneyText.text = "";
+            bitsText.text = "";
+            moneyMultiplierText.text = "";
+            return;
         }
 
         moneyText.text = moneyString;
@@ -343,5 +346,10 @@ public class MoneyManager : MonoBehaviour
                 break;
         }
         return hasEnoughMoney;
+    }
+
+    public void HoverOverUIShopElement(bool hovering)
+    {
+        hoveringOverShopElement = hovering;
     }
 }
