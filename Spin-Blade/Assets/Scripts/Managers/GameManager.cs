@@ -124,7 +124,7 @@ public class GameManager : MonoBehaviour
         {
             AdvanceTutorial();
         }
-        else if (moneyManager.toggleShopKey && tutorialStage == 3)
+        else if (!moneyManager.shopOpen && (tutorialStage == 3 || tutorialStage == 2))
         {
             AdvanceTutorial();
         }

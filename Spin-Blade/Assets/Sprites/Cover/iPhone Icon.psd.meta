@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 205889f7229ef2547886abcdd7f2d6ae
+guid: a827ac641d01e8d478753bf9c1899ff0
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 5217734029258361119
-    second: Cover Image_0
+      213: 2212719742072178699
+    second: iPhone Icon_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -97,7 +97,7 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 4
-    buildTarget: WebGL
+    buildTarget: iOS
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Cover Image_0
+      name: iPhone Icon_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 630
-        height: 500
+        width: 1024
+        height: 1024
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: f198962747d196840800000000000000
-      internalID: 5217734029258361119
+      spriteID: b08c4b5c1e825be10800000000000000
+      internalID: 2212719742072178699
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Cover Image_0: 5217734029258361119
+      iPhone Icon_0: 2212719742072178699
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
