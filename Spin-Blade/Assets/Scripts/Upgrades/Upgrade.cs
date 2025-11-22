@@ -410,6 +410,8 @@ public class Upgrade : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public void TogglePopup(bool enable)
     {
         float animationSpeed = 0.1f;
+        Vector2 popupScale = new (0, 1f);
+        Vector2 upgradeScale = new(1, 1.3f);
 
         if (enable)
         {
@@ -417,11 +419,11 @@ public class Upgrade : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
             popupObject.SetActive(enable);
             // enable popup
-            StartCoroutine(Utils.AnimateValue(0f, .7f, animationSpeed, moneyManager.upgradeInfoAnimCurve,
+            StartCoroutine(Utils.AnimateValue(popupScale.x, popupScale.y, animationSpeed, moneyManager.upgradeInfoAnimCurve,
                 value => popupObject.transform.localScale = Vector3.one * value, useRealtime: true));
 
             // upgrade tile object (make bigger)
-            StartCoroutine(Utils.AnimateValue(1f, 1.3f, animationSpeed, moneyManager.upgradeInfoAnimCurve,
+            StartCoroutine(Utils.AnimateValue(upgradeScale.x, upgradeScale.y, animationSpeed, moneyManager.upgradeInfoAnimCurve,
                 value => tileObject.transform.localScale = Vector3.one * value, useRealtime: true));
 
             // sfx
@@ -430,12 +432,12 @@ public class Upgrade : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         else
         {
             // disable popup
-            StartCoroutine(Utils.AnimateValue(.7f, 0f, animationSpeed, moneyManager.upgradeInfoAnimCurve,
+            StartCoroutine(Utils.AnimateValue(popupScale.y, popupScale.x, animationSpeed, moneyManager.upgradeInfoAnimCurve,
                  value => popupObject.transform.localScale = Vector3.one * value, useRealtime: true));
             StartCoroutine(Utils.EnableObjectDelay(popupObject, enable, animationSpeed));
 
             // object (make smaller)
-            StartCoroutine(Utils.AnimateValue(1.3f, 1f, animationSpeed, moneyManager.upgradeInfoAnimCurve,
+            StartCoroutine(Utils.AnimateValue(upgradeScale.y, upgradeScale.x, animationSpeed, moneyManager.upgradeInfoAnimCurve,
                 value => tileObject.transform.localScale = Vector3.one * value, useRealtime: true));
         }
     }
