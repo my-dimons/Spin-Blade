@@ -102,7 +102,7 @@ public class EnemyManager : MonoBehaviour
         }
         if (spawnableEnemies.Count == 0)
         {
-            Debug.LogWarning("No enemies available to spawn, spawning defualt enemy");
+            Debug.LogWarning("No enemies available to spawn, spawning default enemy");
             return null;
         }
         return spawnableEnemies[Random.Range(0, spawnableEnemies.Count)];

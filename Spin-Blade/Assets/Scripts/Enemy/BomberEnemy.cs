@@ -1,20 +1,13 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Enemy))] 
 public class BomberEnemy : MonoBehaviour
 {
+    [Header("Bomber Enemy")]
     public float explosionRadius = 6;
     private bool hasExploded = false;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        GetComponent<Enemy>().OnDeath += OnDeath;
-    }
 
-    private void OnDestroy()
-    {
-        GetComponent<Enemy>().OnDeath -= OnDeath;
-    }
-    void OnDeath()
+    void BomberDeath()
     {
         if (hasExploded) return; // prevent multiple explosions
         hasExploded = true;
@@ -30,5 +23,15 @@ public class BomberEnemy : MonoBehaviour
     {
         Gizmos.color = Color.cyan;
         Gizmos.DrawWireSphere(transform.position, explosionRadius);
+    }
+
+    private void OnEnable()
+    {
+        GetComponent<Enemy>().OnDeath += BomberDeath;
+    }
+
+    private void OnDisable()
+    {
+        GetComponent<Enemy>().OnDeath -= BomberDeath;
     }
 }

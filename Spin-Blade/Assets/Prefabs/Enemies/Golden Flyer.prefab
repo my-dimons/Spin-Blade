@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 278086170378415847}
   - component: {fileID: 4118016892956801864}
   - component: {fileID: -2148560448426651013}
+  - component: {fileID: 2173669901789065959}
   m_Layer: 0
   m_Name: Golden Flyer
   m_TagString: Enemy
@@ -56,6 +57,8 @@ SpriteRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -77,6 +80,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
@@ -109,6 +113,8 @@ MonoBehaviour:
   value: 0
   valueCurrencyType: 0
   damage: 0
+  spawnRate: 0.2
+  damageFromProjectiles: 0
   maxHealth: 1
   currentHealth: 1
   rotateSpeed: 180
@@ -118,15 +124,6 @@ MonoBehaviour:
   deathMoneyText: {fileID: 866898650273556627, guid: fdd8250b469e6e94b8751cb4afca164e, type: 3}
   deathSound: {fileID: 8300000, guid: 4c8a0c216c352fa41b1e3af35bc782bd, type: 3}
   hitSound: {fileID: 8300000, guid: 08538fc898dc37940830c7b0f882c7d9, type: 3}
-  circleHitMoneyGain: 12
-  healthGain: 0
-  spawnRate: 0.2
-  isBoss: 0
-  damageFromProjectiles: 0
-  triggerEventOnDeath: 0
-  randomSize: 0
-  minSize: 0.5
-  maxSize: 1.5
 --- !u!61 &278086170378415847
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -214,3 +211,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   flashMaterial: {fileID: 2100000, guid: 2189cc038fdfa7c439d938b6e7eccaab, type: 2}
   duration: 0.08
+--- !u!114 &2173669901789065959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5993168464814414510}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85bd51679d4c58d44999be247bdcf6ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CurrencyEnemy
+  currencyGain: 12
+  currencyType: 0

@@ -4,25 +4,30 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    [Header("-- Movement --")]
-    public GameObject target;
+    [Header("Movement")]
+    [HideInInspector] public GameObject target;
     public float speed = 5f;
+    [Space(10)]
+    public float rotateSpeed = 0;
     public float rotateMultiplier = 1f;
 
-    [Header("-- Stats --")]
-    public float value; // how much this enemy is worth when killed
+    [Header("Money")]
+    public float value;
     public MoneyManager.Currency valueCurrencyType = MoneyManager.Currency.money;
-    [Space(8)]
+
+    [Header("Damage")]
     public float damage = 1f;
-    [Space(8)]
+
+    [Range(0, 1)]
+    public float spawnRate = 1;
+
+    [Header("Health")]
+    public bool damageFromProjectiles = true;
     public float maxHealth = 1f;
     public float currentHealth;
-    [Space(8)]
-    public float rotateSpeed = 0;
 
     private Coroutine knockbackRoutine;
 
-    [Header("-- Extra --")]
     [Header("On Hit")]
     public Color hitColor = Utils.ColorFromHex("#FF4E4E"); // when this enemy gets hit, particle & stuffs color
     Color damageFlashColor = Color.white;
@@ -32,39 +37,26 @@ public class Enemy : MonoBehaviour
 
     private Color badMoneyColor = Utils.ColorFromHex("#8A3131");
 
-    [Header("Audio")]
+    [Header("Audio and Effects")]
     public GameObject deathMoneyText;
     public AudioClip deathSound;
     public AudioClip hitSound;
 
-
-    // when hitting circle
-    public float circleHitMoneyGain;
-    // when killed by player (mainly for dealing damage when player hits enemy)
-    public float healthGain;
-
-    public float spawnRate = 1; // 1 is ALWAYS SPAWN (when selected), value is 0 - 1
-
-    public bool isBoss;
-
-
-    [Header("Special")] // todo: move this to a new script
-    public bool damageFromProjectiles = true;
-    public bool triggerEventOnDeath;
-
-    // death
-    public event Action OnDeath;
     private bool isDead = false;
+
+    public event Action OnDeath;
+    public event Action OnCircleHit;
+    public event Action OnHit;
 
     private void OnValidate()
     {
         currentHealth = maxHealth;
     }
 
-    private MoneyManager moneyManager;
+    MoneyManager moneyManager;
     EnemyManager enemyManager;
     PlayerHealthAndDamage playerHealth;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+
     void Start()
     {
         enemyManager = GameObject.FindGameObjectWithTag("EnemyManager").GetComponent<EnemyManager>();
@@ -73,18 +65,13 @@ public class Enemy : MonoBehaviour
 
         speed *= enemyManager.difficulty;
 
-        if (!isBoss)
+        if (!GetComponent<BossEnemy>())
         {
             damage *= enemyManager.difficulty;
             maxHealth *= enemyManager.difficulty;
-        }
-        else
-        {
-            maxHealth *= enemyManager.difficulty * Mathf.Clamp(playerHealth.damage, 1, Mathf.Infinity) * enemyManager.bossHealthMultiplier;
-            damage = Mathf.Clamp(playerHealth.maxHeath / damage, 1, Mathf.Infinity);
-        }
 
-        currentHealth = maxHealth;
+            currentHealth = maxHealth;
+        }
     }
 
     private void FixedUpdate()
@@ -96,12 +83,6 @@ public class Enemy : MonoBehaviour
     {
         transform.Rotate(0, 0, rotateSpeed * Time.deltaTime);
 
-        if (enemyManager.eventHappening && triggerEventOnDeath)
-        {
-            Death(false);
-        }
-
-        // clamp health
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
     }
 
@@ -110,6 +91,7 @@ public class Enemy : MonoBehaviour
         Vector3 vectorToTarget = target.transform.position - transform.position;
         float angle = Mathf.Atan2(vectorToTarget.y, vectorToTarget.x) * Mathf.Rad2Deg - rotateMultiplier;
         Quaternion q = Quaternion.AngleAxis(angle, Vector3.forward);
+
         transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.deltaTime * speed);
     }
 
@@ -146,8 +128,9 @@ public class Enemy : MonoBehaviour
 
     public void TakeDamage(Transform attacker, float damage, float distance = 0, float duration = 0, AnimationCurve curve = null, bool knockback = false)
     {
-        Debug.Log("ENEMY COLLISIONS");
         if (isDead) return;
+
+        OnHit?.Invoke();
 
         currentHealth -= damage;
 
@@ -158,15 +141,14 @@ public class Enemy : MonoBehaviour
         }
 
         Utils.PlayAudioClip(hitSound);
+
         Vector3 particlePos = (attacker.position + transform.position) / 2f;
         Utils.SpawnBurstParticle(hitParticles, particlePos, hitColor);
+
         GetComponent<DamageFlash>().Flash(damageFlashColor);
 
-
-        // knockback
         if (knockback)
         {
-            //Knockback(force);
             KnockbackFrom(Vector2.zero, distance, duration, curve);
         }
 
@@ -218,7 +200,7 @@ public class Enemy : MonoBehaviour
 
         Debug.Log("enemy death");
 
-        playerHealth.Heal(healthGain);
+        OnDeath?.Invoke();
 
         Utils.PlayAudioClip(deathSound, 0.8f);
         Utils.SpawnBurstParticle(deathParticles, transform.position, hitColor);
@@ -242,14 +224,8 @@ public class Enemy : MonoBehaviour
 
             playerHealth.Heal(playerHealth.killRegenAmount);
 
-            if (triggerEventOnDeath && !enemyManager.eventHappening)
-                enemyManager.StartRandomEvent();
-
             GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>().kills++;
         }
-
-        // trigger death event
-        OnDeath?.Invoke();
 
         enemyManager.IncreaseDifficulty();
         Destroy(gameObject);
@@ -257,18 +233,12 @@ public class Enemy : MonoBehaviour
 
     public void HitCircle()
     {
+        OnCircleHit?.Invoke();
+
         Utils.SpawnBurstParticle(deathParticles, transform.position, hitColor);
         Camera.main.GetComponent<CameraScript>().ScreenshakeFunction(.5f);
 
-        if (circleHitMoneyGain > 0)
-        {
-            moneyManager.AddCurrency(circleHitMoneyGain, valueCurrencyType);
-            GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealthAndDamage>().TakeDamage(damage, true);
-
-            // money text popup
-            Utils.SpawnFloatingText(deathMoneyText, transform.position, moneyManager.GetMoneyString(moneyManager.CalculateCurrency(circleHitMoneyGain), valueCurrencyType), 6f, 0.3f, 40f, 0.45f, 0.15f, moneyManager.GetCurrencyColor(valueCurrencyType));
-        } else
-            GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealthAndDamage>().TakeDamage(damage);
+        GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealthAndDamage>().TakeDamage(damage);
 
         Destroy(gameObject);
     }

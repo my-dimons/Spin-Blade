@@ -57,6 +57,8 @@ SpriteRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -78,6 +80,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
@@ -110,6 +113,8 @@ MonoBehaviour:
   value: 0.5
   valueCurrencyType: 0
   damage: 0
+  spawnRate: 0.5
+  damageFromProjectiles: 1
   maxHealth: 0.5
   currentHealth: 0.5
   rotateSpeed: 30
@@ -119,12 +124,6 @@ MonoBehaviour:
   deathMoneyText: {fileID: 866898650273556627, guid: fdd8250b469e6e94b8751cb4afca164e, type: 3}
   deathSound: {fileID: 8300000, guid: 4c8a0c216c352fa41b1e3af35bc782bd, type: 3}
   hitSound: {fileID: 8300000, guid: 08538fc898dc37940830c7b0f882c7d9, type: 3}
-  circleHitMoneyGain: 0
-  healthGain: 0
-  spawnRate: 0.5
-  isBoss: 0
-  damageFromProjectiles: 1
-  triggerEventOnDeath: 0
 --- !u!50 &1791527265086972744
 Rigidbody2D:
   serializedVersion: 5
@@ -214,4 +213,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 616dffc1f9c37eb428eed06306f760d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  explosionRadius: 6
+  explosionRadius: 8

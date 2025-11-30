@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Enemy))]
 public class DasherEnemy : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created

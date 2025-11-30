@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 4119894868425003033}
   - component: {fileID: 3067403993710964777}
   - component: {fileID: -4548325685811449260}
+  - component: {fileID: 2318994989877959118}
   m_Layer: 0
   m_Name: Boss
   m_TagString: Enemy
@@ -56,6 +57,8 @@ SpriteRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -77,6 +80,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
@@ -109,6 +113,8 @@ MonoBehaviour:
   value: 20
   valueCurrencyType: 0
   damage: 1.333
+  spawnRate: 0.03
+  damageFromProjectiles: 1
   maxHealth: 7
   currentHealth: 7
   rotateSpeed: 40
@@ -118,15 +124,6 @@ MonoBehaviour:
   deathMoneyText: {fileID: 866898650273556627, guid: fdd8250b469e6e94b8751cb4afca164e, type: 3}
   deathSound: {fileID: 8300000, guid: 4c8a0c216c352fa41b1e3af35bc782bd, type: 3}
   hitSound: {fileID: 8300000, guid: 08538fc898dc37940830c7b0f882c7d9, type: 3}
-  circleHitMoneyGain: 0
-  healthGain: 0
-  spawnRate: 0.03
-  isBoss: 1
-  damageFromProjectiles: 1
-  triggerEventOnDeath: 0
-  randomSize: 0
-  minSize: 0.5
-  maxSize: 1.5
 --- !u!50 &4119894868425003033
 Rigidbody2D:
   serializedVersion: 5
@@ -204,3 +201,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   flashMaterial: {fileID: 2100000, guid: 2189cc038fdfa7c439d938b6e7eccaab, type: 2}
   duration: 0.08
+--- !u!114 &2318994989877959118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4528608015732399353}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90118f11c67132e4c923b41fc7d905cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BossEnemy
+  damagePercent: 1.333
+  hitsToKill: 7
