@@ -8,6 +8,7 @@ public class DraggableSkillTreeMenu : MonoBehaviour
 
     [Header("Zoom Settings")]
     public Transform zoomParent; // Parent object to scale
+    public float mobileZoomMultiplier = 1;
     public float zoomStep = 0.1f;
     public float maxZoomIn = 2f;
     public float maxZoomOut = 0.5f;
@@ -46,8 +47,7 @@ public class DraggableSkillTreeMenu : MonoBehaviour
     void Update()
     {
         HandleDrag();
-        if (!Input.GetMouseButton(1) && !Input.GetMouseButton(0))
-            HandleZoom();
+        HandleZoom();
 
         // Reset position & zoom
         if (Input.GetKeyDown(KeyCode.R))
@@ -88,7 +88,7 @@ public class DraggableSkillTreeMenu : MonoBehaviour
     {
         if (zoomParent == null) return;
 
-        float scroll = Input.mouseScrollDelta.y;
+        float scroll = Input.touchCount == 2 ? GetTouchZoomAmount() : Input.mouseScrollDelta.y;
         if (Mathf.Approximately(scroll, 0f)) return;
 
         // Calculate new scale
@@ -99,6 +99,17 @@ public class DraggableSkillTreeMenu : MonoBehaviour
         );
 
         zoomParent.localScale = Vector3.one * newScale;
+    }
+
+    private float GetTouchZoomAmount()
+    {
+        Touch touch0 = Input.GetTouch(0);
+        Touch touch1 = Input.GetTouch(1);
+
+        float previousDistance = (touch0.deltaPosition - touch1.deltaPosition).magnitude;
+        float currentDistance = (touch0.position - touch1.position).magnitude;
+
+        return (currentDistance - previousDistance) * mobileZoomMultiplier;
     }
 
     private Vector3 ClampToBounds(Vector3 position)
