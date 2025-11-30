@@ -38,17 +38,21 @@ public class MoneyManager : MonoBehaviour
     public GameObject shopButton;
     public GameObject pauseButton;
     public Vector2 shopMenuPos;
+
     [Header("Money Text")]
     public TextMeshProUGUI moneyText;
     public TextMeshProUGUI moneyMultiplierText;
     public TextMeshProUGUI moneyPerSecondText;
     public Vector2 moneyPerSecondTextPos;
+
     [Header("Bits Text")]
     public TextMeshProUGUI bitsText;
     public TextMeshProUGUI bitsMultiplierText;
+
     [Header("Upgrades")]
     public GameObject upgradeParent;
     private List<GameObject> upgrades = new();
+
     [Header("Ui Animations")]
     public AnimationCurve upgradeInfoAnimCurve;
     private bool animatingShop;
@@ -186,15 +190,17 @@ public class MoneyManager : MonoBehaviour
         shopOpen = !shopOpen;
 
         Utils.PlayAudioClip(uiToggleSound, 0.3f);
-        float animTime = 0.1f;
+        const float ANIMATION_TIME = 0.1f;
+
+        Time.timeScale = Time.timeScale == 0 ? 1 : 0; // pause or unpause the game
 
         if (menu.activeSelf == true)
         {
             animatingShop = true;
-            StartCoroutine(Utils.AnimateValue(1, .6f, animTime, upgradeInfoAnimCurve,
+            StartCoroutine(Utils.AnimateValue(1, .6f, ANIMATION_TIME, upgradeInfoAnimCurve,
                 value => menu.transform.localScale = Vector3.one * value, useRealtime: true));
-            StartCoroutine(Utils.EnableObjectDelay(menu, false, animTime));
-            StartCoroutine(AnimatingBoolToggle(animTime, false));
+            StartCoroutine(Utils.EnableObjectDelay(menu, false, ANIMATION_TIME));
+            StartCoroutine(AnimatingBoolToggle(ANIMATION_TIME, false));
         } else
         {
             menu.SetActive(true);
@@ -206,14 +212,14 @@ public class MoneyManager : MonoBehaviour
             }
 
             animatingShop = true;
-            StartCoroutine(Utils.AnimateValue(.6f, 1, animTime, upgradeInfoAnimCurve,
+            StartCoroutine(Utils.AnimateValue(.6f, 1, ANIMATION_TIME, upgradeInfoAnimCurve,
                 value => menu.transform.localScale = Vector3.one * value, useRealtime: true));
-            StartCoroutine(AnimatingBoolToggle(animTime, false));
+            StartCoroutine(AnimatingBoolToggle(ANIMATION_TIME, false));
 
-            if (!GameObject.FindGameObjectWithTag("PVars").GetComponent<PersistentVariables>().infiniteMode)
-                skillTreeObject.GetComponent<DraggableSkillTreeMenu>().ResetPosition();
+            //if (!GameObject.FindGameObjectWithTag("PVars").GetComponent<PersistentVariables>().infiniteMode)
+            //    skillTreeObject.GetComponent<DraggableSkillTreeMenu>().ResetPosition();
         }
-            Time.timeScale = Time.timeScale == 0 ? 1 : 0; // pause or unpause the game
+        
 
         if (!GameObject.FindGameObjectWithTag("PVars").GetComponent<PersistentVariables>().infiniteMode)
         {
