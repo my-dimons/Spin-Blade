@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class EnemiesUpgrade : MonoBehaviour, IUpgrade
+public class EnemyUpgrade : MonoBehaviour, IUpgrade
 {
     [Header("Enemies")]
     public GameObject addEnemy; // leave null to not add any enemies to the spawning

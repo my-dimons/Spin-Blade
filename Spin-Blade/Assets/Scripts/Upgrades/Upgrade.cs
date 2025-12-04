@@ -136,7 +136,7 @@ public class Upgrade : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         }
 
         // enemy popup
-        if (GetComponent<UpgradeStats>().addEnemy != null)
+        if (GetComponent<EnemyUpgrade>() && GetComponent<EnemyUpgrade>().addEnemy != null)
         {
             enemyPopup = true;
         }
@@ -259,7 +259,7 @@ public class Upgrade : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         if (enemyPopup)
         {
             enemyPopupObject.SetActive(true);
-            UpgradeStats stats = GetComponent<UpgradeStats>();
+            EnemyUpgrade stats = GetComponent<EnemyUpgrade>();
             Enemy enemy = stats.addEnemy.GetComponent<Enemy>();
 
             // -- seting stats --
@@ -352,7 +352,7 @@ public class Upgrade : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     private void UpdateStatText()
     {
         // update upgrade name
-        name = "Upgrade | " + title.ToLower();
+        name = "Upgrade - " + title.ToLower();
 
         // update img, and strings
         imageObject.sprite = image;
@@ -397,7 +397,10 @@ public class Upgrade : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
         Utils.PlayAudioClip(buySound, 0.35f);
         Camera.main.GetComponent<CameraScript>().ScreenshakeFunction(0.1f);
-        GetComponent<UpgradeStats>().ApplyEffects();
+        foreach (IUpgrade upgrade in GetComponents<IUpgrade>())
+        {
+            upgrade.ApplyUpgrade();
+        }
 
         if (!bought)
             bought = true;

@@ -8,5 +8,9 @@ public static class WinManager
     public static void AddWinFragment(int amount)
     {
         winFragements += amount;
+        if (winFragements >= WIN_FRAGMENTS_NEEDED)
+        {
+            GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>().Win();
+        }
     }
 }

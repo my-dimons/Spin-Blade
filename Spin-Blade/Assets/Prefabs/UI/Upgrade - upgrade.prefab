@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: speed
+  m_text: upgrade
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a9438f3a38047ee42819b03430b8d999, type: 2}
   m_sharedMaterial: {fileID: 2446516073444543409, guid: a9438f3a38047ee42819b03430b8d999, type: 2}
@@ -240,7 +240,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Increase the players movement speed
+  m_text: Just a basic upgrade
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a9438f3a38047ee42819b03430b8d999, type: 2}
   m_sharedMaterial: {fileID: 2446516073444543409, guid: a9438f3a38047ee42819b03430b8d999, type: 2}
@@ -1703,11 +1703,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6568911419865416035}
-  - component: {fileID: 7234929734254115256}
   - component: {fileID: 879352506774466442}
   - component: {fileID: 8514976483135198414}
   m_Layer: 5
-  m_Name: Upgrade | speed
+  m_Name: Upgrade - upgrade
   m_TagString: Upgrade
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1734,60 +1733,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &7234929734254115256
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4362258820155142764}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd35955cde2b8144e86a3a5dbd7c662f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  healthIncrease: 0
-  regenIncrease: 0
-  healthOnKillIncrease: 0
-  reviveIncreases: 0
-  speedIncrease: 0
-  sizeIncrease: 0
-  damageIncrease: 0
-  knockbackIncrease: 0
-  knockbackDurationIncrease: 0
-  spawnMiniSaw: 0
-  miniSawSpeedIncrease: 0
-  miniSawDamageIncrease: 0
-  unlockShootingTriangles: 0
-  rangedAutofire: 0
-  homingTriangles: 0
-  piercingTriangles: 0
-  triangleDamageIncrease: 0
-  triangleSpeedIncrease: 0
-  triangleFireRateIncrease: 0
-  explodingCircleCooldownIncrease: 0
-  explodingCircleDamageMultiplierIncrease: 0
-  unlockExplodingCircle: 0
-  unlockExplodingCircleKnockback: 0
-  mineExplosionRadiusIncrease: 0
-  mineDamageMultiplierIncrease: 0
-  mineKnockbackIncrease: 0
-  mineLifetimeIncrease: 0
-  mineCooldownIncrease: 0
-  unlockMines: 0
-  explodingMines: 0
-  addEnemy: {fileID: 0}
-  enemySpeedMultiplierIncrease: 0
-  enemyDifficultyIncrease: 0
-  enemySpawnRateIncrease: 0
-  enemyBossHealthMultiplierIncrease: 0
-  moneyMultiplierIncrease: 0
-  passiveIncomeIncrease: 0
-  unlockBits: 0
-  bitsMultiplierIncrease: 0
-  giveBits: 0
-  winFragment: 0
-  sectionSeparator: 
 --- !u!114 &879352506774466442
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1802,8 +1747,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buySound: {fileID: 8300000, guid: c1b74c0eaa630624a8d112f0f28312f0, type: 3}
   image: {fileID: 0}
-  title: speed
-  description: Increase the players movement speed
+  title: upgrade
+  description: Just a basic upgrade
   price: 5
   priceCurrencyType: 0
   priceIncrease: 1.2

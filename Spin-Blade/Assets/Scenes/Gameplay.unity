@@ -119,6 +119,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &22539815 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+  m_PrefabInstance: {fileID: 1678437122}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &26343089
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -245,7 +250,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Name
-      value: Upgrade | spiker enemy
+      value: Upgrade - spiker enemy
       objectReference: {fileID: 0}
     - target: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Pivot.x
@@ -355,10 +360,14 @@ PrefabInstance:
       propertyPath: 'lineRenderers.Array.data[0]'
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7234929734254115256, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 26343094}
   m_SourcePrefab: {fileID: 100100000, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
 --- !u!224 &26343090 stripped
 RectTransform:
@@ -370,6 +379,23 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
   m_PrefabInstance: {fileID: 26343089}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &26343094
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 26343091}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eaf8ba58f37caf24fa717467381d1650, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyUpgrade
+  addEnemy: {fileID: 2734896826088632777, guid: a455901a68c03964da2a52d1e054d4b5, type: 3}
+  enemySpeedMultiplierIncrease: 0
+  enemyDifficultyIncrease: 0
+  enemySpawnRateIncrease: 0
+  enemyBossHealthMultiplierIncrease: 0
 --- !u!1 &27539320
 GameObject:
   m_ObjectHideFlags: 0
@@ -642,6 +668,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 33895787}
   m_CullTransparentMesh: 1
+--- !u!1 &41853020 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+  m_PrefabInstance: {fileID: 1684241072}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &46657940
 GameObject:
   m_ObjectHideFlags: 0
@@ -780,6 +811,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 46657940}
   m_CullTransparentMesh: 1
+--- !u!1 &51855643 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+  m_PrefabInstance: {fileID: 327720062}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &59903992
 GameObject:
   m_ObjectHideFlags: 0
@@ -1296,7 +1332,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Name
-      value: Upgrade | op
+      value: Upgrade - op
       objectReference: {fileID: 0}
     - target: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Pivot.x
@@ -1410,10 +1446,17 @@ PrefabInstance:
       propertyPath: 'lineRenderers.Array.data[0]'
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7234929734254115256, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1965702741}
+    - targetCorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1965702740}
   m_SourcePrefab: {fileID: 100100000, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
 --- !u!224 &112204859 stripped
 RectTransform:
@@ -2064,7 +2107,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Name
-      value: Upgrade | faster spinning
+      value: Upgrade - faster spinning
       objectReference: {fileID: 0}
     - target: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Pivot.x
@@ -2186,10 +2229,17 @@ PrefabInstance:
       propertyPath: 'lineRenderers.Array.data[0]'
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7234929734254115256, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 145082218}
+    - targetCorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 145082217}
   m_SourcePrefab: {fileID: 100100000, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
 --- !u!1 &145082213 stripped
 GameObject:
@@ -2201,6 +2251,35 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
   m_PrefabInstance: {fileID: 145082212}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &145082217
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 145082213}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50ba186232cb36e48afb968750efd4a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerMovementUpgrade
+  speedIncrease: 0.2
+--- !u!114 &145082218
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 145082213}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e260a46d0634544ca02fad17f3b2dbd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerDamageUpgrade
+  damageIncrease: 0.3
+  knockbackIncrease: 0
+  knockbackDurationIncrease: 0
+  sizeIncrease: 0
 --- !u!1001 &149957549
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2351,7 +2430,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Name
-      value: Upgrade | oval enemy
+      value: Upgrade - oval enemy
       objectReference: {fileID: 0}
     - target: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Pivot.x
@@ -2469,10 +2548,14 @@ PrefabInstance:
       propertyPath: 'lineRenderers.Array.data[1]'
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7234929734254115256, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 149957554}
   m_SourcePrefab: {fileID: 100100000, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
 --- !u!1 &149957550 stripped
 GameObject:
@@ -2484,6 +2567,23 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
   m_PrefabInstance: {fileID: 149957549}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &149957554
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 149957550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eaf8ba58f37caf24fa717467381d1650, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyUpgrade
+  addEnemy: {fileID: 109643523860963173, guid: eafba6ca955056549af8a027c0c28eaa, type: 3}
+  enemySpeedMultiplierIncrease: 0
+  enemyDifficultyIncrease: 0
+  enemySpawnRateIncrease: 0
+  enemyBossHealthMultiplierIncrease: 0
 --- !u!1 &157196049
 GameObject:
   m_ObjectHideFlags: 0
@@ -2559,6 +2659,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 157196049}
   m_CullTransparentMesh: 1
+--- !u!1 &160989822 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+  m_PrefabInstance: {fileID: 2143655776}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &162271245
 GameObject:
   m_ObjectHideFlags: 0
@@ -7593,7 +7698,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 37691736868015627, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_fontColor32.rgba
-      value: 4284806655
+      value: 4294953060
       objectReference: {fileID: 0}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: image
@@ -7733,7 +7838,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Name
-      value: Upgrade | more passive income
+      value: Upgrade - more passive income
       objectReference: {fileID: 0}
     - target: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Pivot.x
@@ -7855,10 +7960,14 @@ PrefabInstance:
       propertyPath: 'lineRenderers.Array.data[0]'
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7234929734254115256, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1255331420}
   m_SourcePrefab: {fileID: 100100000, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
 --- !u!224 &182311066 stripped
 RectTransform:
@@ -8066,7 +8175,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Name
-      value: Upgrade | sharpen blades
+      value: Upgrade - sharpen blades
       objectReference: {fileID: 0}
     - target: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Pivot.x
@@ -8176,10 +8285,14 @@ PrefabInstance:
       propertyPath: 'lineRenderers.Array.data[0]'
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7234929734254115256, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 569056793}
   m_SourcePrefab: {fileID: 100100000, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
 --- !u!224 &188992883 stripped
 RectTransform:
@@ -8531,7 +8644,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Name
-      value: Upgrade | triangle damage
+      value: Upgrade - triangle damage
       objectReference: {fileID: 0}
     - target: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Pivot.x
@@ -8641,10 +8754,14 @@ PrefabInstance:
       propertyPath: 'lineRenderers.Array.data[0]'
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7234929734254115256, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 229236441}
   m_SourcePrefab: {fileID: 100100000, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
 --- !u!1 &229236437 stripped
 GameObject:
@@ -8656,6 +8773,25 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
   m_PrefabInstance: {fileID: 229236436}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &229236441
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 229236437}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77bc0d91df92fe54aa70cba30f80da7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerTriangleProjectilesUpgrade
+  unlockShootingTriangles: 0
+  rangedAutofire: 0
+  homingTriangles: 0
+  piercingTriangles: 0
+  triangleDamageIncrease: 0.3
+  triangleSpeedIncrease: 0
+  triangleFireRateIncrease: 0
 --- !u!1 &233318770
 GameObject:
   m_ObjectHideFlags: 0
@@ -8836,7 +8972,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Name
-      value: Upgrade | beefy
+      value: Upgrade - beefy
       objectReference: {fileID: 0}
     - target: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Pivot.x
@@ -8958,10 +9094,17 @@ PrefabInstance:
       propertyPath: 'lineRenderers.Array.data[1]'
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7234929734254115256, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 234583574}
+    - targetCorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 234583573}
   m_SourcePrefab: {fileID: 100100000, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
 --- !u!1 &234583569 stripped
 GameObject:
@@ -8973,6 +9116,38 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
   m_PrefabInstance: {fileID: 234583568}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &234583573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 234583569}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e260a46d0634544ca02fad17f3b2dbd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerDamageUpgrade
+  damageIncrease: 0
+  knockbackIncrease: 0
+  knockbackDurationIncrease: 0
+  sizeIncrease: 0.16
+--- !u!114 &234583574
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 234583569}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f69679b49ff3d954999dcd8683aec066, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerHealthUpgrade
+  healthIncrease: 1
+  regenIncrease: 0
+  healthOnKillIncrease: 0
+  reviveIncreases: 0
 --- !u!1 &235191267
 GameObject:
   m_ObjectHideFlags: 0
@@ -9279,10 +9454,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 249756711}
   m_CullTransparentMesh: 1
+--- !u!1 &266313715 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+  m_PrefabInstance: {fileID: 861119252}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &268844334 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
   m_PrefabInstance: {fileID: 423038474}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &277714763 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+  m_PrefabInstance: {fileID: 1444478512}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &278158787
 PrefabInstance:
@@ -9414,7 +9599,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Name
-      value: Upgrade | big guy
+      value: Upgrade - big guy
       objectReference: {fileID: 0}
     - target: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Pivot.x
@@ -9524,10 +9709,14 @@ PrefabInstance:
       propertyPath: 'lineRenderers.Array.data[0]'
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7234929734254115256, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 278158792}
   m_SourcePrefab: {fileID: 100100000, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
 --- !u!1 &278158788 stripped
 GameObject:
@@ -9539,6 +9728,22 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
   m_PrefabInstance: {fileID: 278158787}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &278158792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 278158788}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e260a46d0634544ca02fad17f3b2dbd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerDamageUpgrade
+  damageIncrease: 0
+  knockbackIncrease: 0
+  knockbackDurationIncrease: 0
+  sizeIncrease: 0.1
 --- !u!1001 &284958344
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9689,7 +9894,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Name
-      value: Upgrade | another saw
+      value: Upgrade - another saw
       objectReference: {fileID: 0}
     - target: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Pivot.x
@@ -9799,10 +10004,14 @@ PrefabInstance:
       propertyPath: 'lineRenderers.Array.data[0]'
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7234929734254115256, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1320262037}
   m_SourcePrefab: {fileID: 100100000, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
 --- !u!224 &284958345 stripped
 RectTransform:
@@ -9963,7 +10172,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Name
-      value: Upgrade | more damage
+      value: Upgrade - more damage
       objectReference: {fileID: 0}
     - target: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Pivot.x
@@ -10089,10 +10298,14 @@ PrefabInstance:
       propertyPath: 'lineRenderers.Array.data[0]'
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7234929734254115256, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 305658006}
   m_SourcePrefab: {fileID: 100100000, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
 --- !u!224 &305658002 stripped
 RectTransform:
@@ -10104,6 +10317,22 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
   m_PrefabInstance: {fileID: 305658001}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &305658006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 305658003}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1fac7b10f52a6845a76bbea7cf26fc2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerExplodingCircleUpgrade
+  explodingCircleCooldownIncrease: 0
+  explodingCircleDamageMultiplierIncrease: 0.3
+  unlockExplodingCircle: 0
+  unlockExplodingCircleKnockback: 0
 --- !u!1 &312440033 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
@@ -10114,6 +10343,19 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
   m_PrefabInstance: {fileID: 9054753519930782978}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &312440038
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 312440033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50ba186232cb36e48afb968750efd4a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerMovementUpgrade
+  speedIncrease: 0.08
 --- !u!1 &318778497
 GameObject:
   m_ObjectHideFlags: 0
@@ -10314,7 +10556,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 37691736868015627, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_fontColor32.rgba
-      value: 4284806655
+      value: 4294953060
       objectReference: {fileID: 0}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: image
@@ -10438,7 +10680,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Name
-      value: Upgrade | more money mult
+      value: Upgrade - more money mult
       objectReference: {fileID: 0}
     - target: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Pivot.x
@@ -10556,16 +10798,34 @@ PrefabInstance:
       propertyPath: 'lineRenderers.Array.data[0]'
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7234929734254115256, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 327720066}
   m_SourcePrefab: {fileID: 100100000, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
 --- !u!224 &327720063 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
   m_PrefabInstance: {fileID: 327720062}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &327720066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 51855643}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76a08df9982bc1b49802f6994b971c13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MoneyUpgrade
+  moneyMultiplierIncrease: 0.5
+  passiveIncomeIncrease: 0
 --- !u!1001 &338239266
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10720,7 +10980,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Name
-      value: Upgrade | less cooldown & more damage
+      value: Upgrade - less cooldown & more damage
       objectReference: {fileID: 0}
     - target: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Pivot.x
@@ -10846,10 +11106,14 @@ PrefabInstance:
       propertyPath: 'lineRenderers.Array.data[0]'
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7234929734254115256, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 404066800}
   m_SourcePrefab: {fileID: 100100000, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
 --- !u!224 &338239267 stripped
 RectTransform:
@@ -10882,7 +11146,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 37691736868015627, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_fontColor32.rgba
-      value: 4284806655
+      value: 4294953060
       objectReference: {fileID: 0}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: image
@@ -11006,7 +11270,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Name
-      value: Upgrade | bits mult.
+      value: Upgrade - bits mult.
       objectReference: {fileID: 0}
     - target: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Pivot.x
@@ -11128,10 +11392,14 @@ PrefabInstance:
       propertyPath: 'lineRenderers.Array.data[0]'
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7234929734254115256, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 339845562}
   m_SourcePrefab: {fileID: 100100000, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
 --- !u!1 &339845558 stripped
 GameObject:
@@ -11143,6 +11411,21 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
   m_PrefabInstance: {fileID: 339845557}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &339845562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 339845558}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f5208126512e874597e06a443582a6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BitsUpgrade
+  unlockBits: 0
+  bitsMultiplierIncrease: 1
+  giveBits: 0
 --- !u!1 &342726509
 GameObject:
   m_ObjectHideFlags: 0
@@ -11426,7 +11709,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Name
-      value: Upgrade | gunner enemy
+      value: Upgrade - gunner enemy
       objectReference: {fileID: 0}
     - target: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Pivot.x
@@ -11544,10 +11827,14 @@ PrefabInstance:
       propertyPath: 'lineRenderers.Array.data[1]'
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7234929734254115256, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 343111713}
   m_SourcePrefab: {fileID: 100100000, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
 --- !u!1 &343111709 stripped
 GameObject:
@@ -11559,11 +11846,44 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
   m_PrefabInstance: {fileID: 343111708}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &343111713
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 343111709}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eaf8ba58f37caf24fa717467381d1650, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyUpgrade
+  addEnemy: {fileID: 8451218302795913100, guid: 2cc0f68b98d814048b3421de5cc97b4b, type: 3}
+  enemySpeedMultiplierIncrease: 0
+  enemyDifficultyIncrease: 0
+  enemySpawnRateIncrease: 0
+  enemyBossHealthMultiplierIncrease: 0
 --- !u!1 &352283805 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
   m_PrefabInstance: {fileID: 1953563124}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &352283808
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 352283805}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f69679b49ff3d954999dcd8683aec066, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerHealthUpgrade
+  healthIncrease: 0
+  regenIncrease: 1
+  healthOnKillIncrease: 0
+  reviveIncreases: 0
 --- !u!1 &354629977
 GameObject:
   m_ObjectHideFlags: 0
@@ -11639,6 +11959,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 354629977}
   m_CullTransparentMesh: 1
+--- !u!1 &367533601 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+  m_PrefabInstance: {fileID: 1569738155}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &384976854
 GameObject:
   m_ObjectHideFlags: 0
@@ -11850,6 +12175,27 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 385873930}
   m_CullTransparentMesh: 1
+--- !u!1 &404066797 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+  m_PrefabInstance: {fileID: 338239266}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &404066800
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 404066797}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1fac7b10f52a6845a76bbea7cf26fc2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerExplodingCircleUpgrade
+  explodingCircleCooldownIncrease: -1.5
+  explodingCircleDamageMultiplierIncrease: 0.1
+  unlockExplodingCircle: 0
+  unlockExplodingCircleKnockback: 0
 --- !u!1 &409623223
 GameObject:
   m_ObjectHideFlags: 0
@@ -12032,7 +12378,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Name
-      value: Upgrade | greedy
+      value: Upgrade - greedy
       objectReference: {fileID: 0}
     - target: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Pivot.x
@@ -12146,16 +12492,34 @@ PrefabInstance:
       propertyPath: 'lineRenderers.Array.data[0]'
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7234929734254115256, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 423038478}
   m_SourcePrefab: {fileID: 100100000, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
 --- !u!224 &423038475 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
   m_PrefabInstance: {fileID: 423038474}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &423038478
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 268844334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76a08df9982bc1b49802f6994b971c13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MoneyUpgrade
+  moneyMultiplierIncrease: 0.5
+  passiveIncomeIncrease: 1
 --- !u!1001 &426642850
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12286,7 +12650,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Name
-      value: Upgrade | mini saw damage
+      value: Upgrade - mini saw damage
       objectReference: {fileID: 0}
     - target: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Pivot.x
@@ -12396,10 +12760,14 @@ PrefabInstance:
       propertyPath: 'lineRenderers.Array.data[0]'
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7234929734254115256, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 426642855}
   m_SourcePrefab: {fileID: 100100000, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
 --- !u!224 &426642851 stripped
 RectTransform:
@@ -12411,6 +12779,21 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
   m_PrefabInstance: {fileID: 426642850}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &426642855
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 426642852}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fd5a6448d06d5540985bc2b29ec8e47, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerMiniSawsUpgrade
+  spawnMiniSaw: 0
+  miniSawSpeedIncrease: 0
+  miniSawDamageIncrease: 0.5
 --- !u!1 &429635647
 GameObject:
   m_ObjectHideFlags: 0
@@ -12453,6 +12836,23 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
   m_PrefabInstance: {fileID: 1684241072}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &431159780
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 41853020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eaf8ba58f37caf24fa717467381d1650, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyUpgrade
+  addEnemy: {fileID: 0}
+  enemySpeedMultiplierIncrease: 0
+  enemyDifficultyIncrease: 0
+  enemySpawnRateIncrease: 0
+  enemyBossHealthMultiplierIncrease: -0.3
 --- !u!1 &431885992
 GameObject:
   m_ObjectHideFlags: 0
@@ -12674,7 +13074,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Name
-      value: Upgrade | passive income
+      value: Upgrade - passive income
       objectReference: {fileID: 0}
     - target: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Pivot.x
@@ -12784,10 +13184,14 @@ PrefabInstance:
       propertyPath: 'lineRenderers.Array.data[0]'
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7234929734254115256, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 445817405}
   m_SourcePrefab: {fileID: 100100000, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
 --- !u!224 &445817401 stripped
 RectTransform:
@@ -12799,6 +13203,20 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
   m_PrefabInstance: {fileID: 445817400}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &445817405
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 445817402}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76a08df9982bc1b49802f6994b971c13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MoneyUpgrade
+  moneyMultiplierIncrease: 0
+  passiveIncomeIncrease: 1
 --- !u!1 &467292167
 GameObject:
   m_ObjectHideFlags: 0
@@ -17706,6 +18124,11 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
+--- !u!1 &469775224 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+  m_PrefabInstance: {fileID: 802521942}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &488775349
 GameObject:
   m_ObjectHideFlags: 0
@@ -17895,7 +18318,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Name
-      value: Upgrade | unlock knockback
+      value: Upgrade - unlock knockback
       objectReference: {fileID: 0}
     - target: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Pivot.x
@@ -18021,10 +18444,14 @@ PrefabInstance:
       propertyPath: 'lineRenderers.Array.data[0]'
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7234929734254115256, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 495702185}
   m_SourcePrefab: {fileID: 100100000, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
 --- !u!224 &495702181 stripped
 RectTransform:
@@ -18036,6 +18463,22 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
   m_PrefabInstance: {fileID: 495702180}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &495702185
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 495702182}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1fac7b10f52a6845a76bbea7cf26fc2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerExplodingCircleUpgrade
+  explodingCircleCooldownIncrease: 0
+  explodingCircleDamageMultiplierIncrease: 0
+  unlockExplodingCircle: 0
+  unlockExplodingCircleKnockback: 1
 --- !u!1001 &499475768
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18266,7 +18709,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Name
-      value: Upgrade | win fragment
+      value: Upgrade - win fragment
       objectReference: {fileID: 0}
     - target: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Pivot.x
@@ -18364,10 +18807,14 @@ PrefabInstance:
       propertyPath: m_text
       value: 0/1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7234929734254115256, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1540828921}
   m_SourcePrefab: {fileID: 100100000, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
 --- !u!224 &499475769 stripped
 RectTransform:
@@ -18724,7 +19171,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Name
-      value: Upgrade | bomber enemy
+      value: Upgrade - bomber enemy
       objectReference: {fileID: 0}
     - target: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Pivot.x
@@ -18842,16 +19289,41 @@ PrefabInstance:
       propertyPath: 'lineRenderers.Array.data[1]'
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7234929734254115256, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1755005743}
   m_SourcePrefab: {fileID: 100100000, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
 --- !u!224 &565017390 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
   m_PrefabInstance: {fileID: 565017389}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &569056790 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+  m_PrefabInstance: {fileID: 188992882}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &569056793
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 569056790}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e260a46d0634544ca02fad17f3b2dbd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerDamageUpgrade
+  damageIncrease: 0.5
+  knockbackIncrease: 0
+  knockbackDurationIncrease: 0
+  sizeIncrease: 0
 --- !u!1001 &585838684
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18978,7 +19450,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Name
-      value: Upgrade | star enemy
+      value: Upgrade - star enemy
       objectReference: {fileID: 0}
     - target: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Pivot.x
@@ -19092,10 +19564,14 @@ PrefabInstance:
       propertyPath: 'lineRenderers.Array.data[0]'
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7234929734254115256, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 585838689}
   m_SourcePrefab: {fileID: 100100000, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
 --- !u!1 &585838685 stripped
 GameObject:
@@ -19107,6 +19583,23 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
   m_PrefabInstance: {fileID: 585838684}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &585838689
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 585838685}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eaf8ba58f37caf24fa717467381d1650, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyUpgrade
+  addEnemy: {fileID: 2922732926517348758, guid: 0e7b3cfda3dceb645838557df1b66b8b, type: 3}
+  enemySpeedMultiplierIncrease: 0
+  enemyDifficultyIncrease: 0
+  enemySpawnRateIncrease: 0
+  enemyBossHealthMultiplierIncrease: 0
 --- !u!1 &587782227
 GameObject:
   m_ObjectHideFlags: 0
@@ -19308,7 +19801,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Name
-      value: Upgrade | tanker enemy
+      value: Upgrade - tanker enemy
       objectReference: {fileID: 0}
     - target: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Pivot.x
@@ -19418,10 +19911,14 @@ PrefabInstance:
       propertyPath: 'lineRenderers.Array.data[0]'
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7234929734254115256, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 601886941}
   m_SourcePrefab: {fileID: 100100000, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
 --- !u!224 &601886937 stripped
 RectTransform:
@@ -19433,6 +19930,23 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
   m_PrefabInstance: {fileID: 601886936}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &601886941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 601886938}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eaf8ba58f37caf24fa717467381d1650, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyUpgrade
+  addEnemy: {fileID: 4512660486342966927, guid: 4983b788908e3294fad3f1c7b1e4c485, type: 3}
+  enemySpeedMultiplierIncrease: 0
+  enemyDifficultyIncrease: 0
+  enemySpawnRateIncrease: 0
+  enemyBossHealthMultiplierIncrease: 0
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
@@ -19726,7 +20240,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Name
-      value: Upgrade | speed
+      value: Upgrade - upgrade
       objectReference: {fileID: 0}
     - target: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Pivot.x
@@ -19832,10 +20346,14 @@ PrefabInstance:
       propertyPath: 'lineRenderers.Array.data[0]'
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7234929734254115256, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 624650366}
   m_SourcePrefab: {fileID: 100100000, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
 --- !u!1 &624650362 stripped
 GameObject:
@@ -19847,6 +20365,19 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
   m_PrefabInstance: {fileID: 624650361}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &624650366
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 624650362}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50ba186232cb36e48afb968750efd4a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerMovementUpgrade
+  speedIncrease: 0.3
 --- !u!1 &632320529 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
@@ -19857,6 +20388,22 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
   m_PrefabInstance: {fileID: 874512471}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &632320534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 632320529}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f69679b49ff3d954999dcd8683aec066, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerHealthUpgrade
+  healthIncrease: 1
+  regenIncrease: 0
+  healthOnKillIncrease: 0
+  reviveIncreases: 0
 --- !u!1 &645165684
 GameObject:
   m_ObjectHideFlags: 0
@@ -20244,6 +20791,27 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
   m_PrefabInstance: {fileID: 1569738155}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &665391942
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 367533601}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f69679b49ff3d954999dcd8683aec066, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerHealthUpgrade
+  healthIncrease: 0
+  regenIncrease: 0
+  healthOnKillIncrease: 0
+  reviveIncreases: 1
+--- !u!1 &670640031 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+  m_PrefabInstance: {fileID: 794823735}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &673743705
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20270,7 +20838,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 37691736868015627, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_fontColor32.rgba
-      value: 4284806655
+      value: 4294953060
       objectReference: {fileID: 0}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: image
@@ -20410,7 +20978,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Name
-      value: Upgrade | big bits enemy
+      value: Upgrade - big bits enemy
       objectReference: {fileID: 0}
     - target: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Pivot.x
@@ -20532,10 +21100,14 @@ PrefabInstance:
       propertyPath: 'lineRenderers.Array.data[0]'
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7234929734254115256, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 673743710}
   m_SourcePrefab: {fileID: 100100000, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
 --- !u!224 &673743706 stripped
 RectTransform:
@@ -20547,6 +21119,23 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
   m_PrefabInstance: {fileID: 673743705}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &673743710
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 673743707}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eaf8ba58f37caf24fa717467381d1650, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyUpgrade
+  addEnemy: {fileID: 3598119321138681772, guid: 7c4e8b9b7c8189549b1ae1d63384aefe, type: 3}
+  enemySpeedMultiplierIncrease: 0
+  enemyDifficultyIncrease: 0
+  enemySpawnRateIncrease: 0
+  enemyBossHealthMultiplierIncrease: 0
 --- !u!1001 &678334054
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20677,7 +21266,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Name
-      value: Upgrade | golden star enemy
+      value: Upgrade - golden star enemy
       objectReference: {fileID: 0}
     - target: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Pivot.x
@@ -20787,10 +21376,14 @@ PrefabInstance:
       propertyPath: 'lineRenderers.Array.data[0]'
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7234929734254115256, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 678334059}
   m_SourcePrefab: {fileID: 100100000, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
 --- !u!1 &678334055 stripped
 GameObject:
@@ -20802,6 +21395,23 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
   m_PrefabInstance: {fileID: 678334054}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &678334059
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 678334055}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eaf8ba58f37caf24fa717467381d1650, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyUpgrade
+  addEnemy: {fileID: 7839814986260129055, guid: 6f2c184d4a92e67469421d5ced1a5a2e, type: 3}
+  enemySpeedMultiplierIncrease: 0
+  enemyDifficultyIncrease: 0
+  enemySpawnRateIncrease: 0
+  enemyBossHealthMultiplierIncrease: 0
 --- !u!1 &699087744
 GameObject:
   m_ObjectHideFlags: 0
@@ -21019,7 +21629,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Name
-      value: Upgrade | scurrier enemy
+      value: Upgrade - scurrier enemy
       objectReference: {fileID: 0}
     - target: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Pivot.x
@@ -21129,10 +21739,14 @@ PrefabInstance:
       propertyPath: 'lineRenderers.Array.data[0]'
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7234929734254115256, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 727103081}
   m_SourcePrefab: {fileID: 100100000, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
 --- !u!224 &727103077 stripped
 RectTransform:
@@ -21143,6 +21757,28 @@ RectTransform:
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
   m_PrefabInstance: {fileID: 727103076}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &727103081
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 727103078}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eaf8ba58f37caf24fa717467381d1650, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyUpgrade
+  addEnemy: {fileID: 792755521272432369, guid: fff697beed3a89941b94e85dd66b5395, type: 3}
+  enemySpeedMultiplierIncrease: 0
+  enemyDifficultyIncrease: 0
+  enemySpawnRateIncrease: 0
+  enemyBossHealthMultiplierIncrease: 0
+--- !u!1 &736956895 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+  m_PrefabInstance: {fileID: 2050648830}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &749828461
 PrefabInstance:
@@ -21274,7 +21910,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Name
-      value: Upgrade | faster spawning
+      value: Upgrade - faster spawning
       objectReference: {fileID: 0}
     - target: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Pivot.x
@@ -21384,10 +22020,14 @@ PrefabInstance:
       propertyPath: 'lineRenderers.Array.data[0]'
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7234929734254115256, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 930514023}
   m_SourcePrefab: {fileID: 100100000, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
 --- !u!224 &749828462 stripped
 RectTransform:
@@ -21635,7 +22275,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Name
-      value: Upgrade | less cooldown
+      value: Upgrade - less cooldown
       objectReference: {fileID: 0}
     - target: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Pivot.x
@@ -21765,16 +22405,39 @@ PrefabInstance:
       propertyPath: 'lineRenderers.Array.data[0]'
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7234929734254115256, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 794823739}
   m_SourcePrefab: {fileID: 100100000, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
 --- !u!224 &794823736 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
   m_PrefabInstance: {fileID: 794823735}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &794823739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 670640031}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f9738b43be38c8489d4c94b8d6baba7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerMinesUpgrade
+  mineExplosionRadiusIncrease: 0
+  mineDamageMultiplierIncrease: 0
+  mineKnockbackIncrease: 0
+  mineLifetimeIncrease: 0
+  mineCooldownIncrease: -1
+  unlockMines: 0
+  explodingMines: 0
 --- !u!1001 &802521942
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -21945,7 +22608,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Name
-      value: Upgrade | homing triangles
+      value: Upgrade - homing triangles
       objectReference: {fileID: 0}
     - target: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Pivot.x
@@ -22071,16 +22734,39 @@ PrefabInstance:
       propertyPath: 'lineRenderers.Array.data[1]'
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7234929734254115256, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 802521946}
   m_SourcePrefab: {fileID: 100100000, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
 --- !u!224 &802521943 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
   m_PrefabInstance: {fileID: 802521942}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &802521946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 469775224}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77bc0d91df92fe54aa70cba30f80da7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerTriangleProjectilesUpgrade
+  unlockShootingTriangles: 0
+  rangedAutofire: 0
+  homingTriangles: 1
+  piercingTriangles: 0
+  triangleDamageIncrease: 0
+  triangleSpeedIncrease: 0
+  triangleFireRateIncrease: 0
 --- !u!1001 &841434980
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22235,7 +22921,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Name
-      value: Upgrade | the healthiest
+      value: Upgrade - the healthiest
       objectReference: {fileID: 0}
     - target: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Pivot.x
@@ -22353,10 +23039,14 @@ PrefabInstance:
       propertyPath: 'lineRenderers.Array.data[1]'
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7234929734254115256, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2075772935}
   m_SourcePrefab: {fileID: 100100000, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
 --- !u!224 &841434981 stripped
 RectTransform:
@@ -27339,7 +28029,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Name
-      value: Upgrade | harder enemies
+      value: Upgrade - harder enemies
       objectReference: {fileID: 0}
     - target: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Pivot.x
@@ -27449,10 +28139,14 @@ PrefabInstance:
       propertyPath: 'lineRenderers.Array.data[0]'
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7234929734254115256, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 860802788}
   m_SourcePrefab: {fileID: 100100000, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
 --- !u!1 &860802784 stripped
 GameObject:
@@ -27464,6 +28158,23 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
   m_PrefabInstance: {fileID: 860802783}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &860802788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 860802784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eaf8ba58f37caf24fa717467381d1650, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyUpgrade
+  addEnemy: {fileID: 0}
+  enemySpeedMultiplierIncrease: 0
+  enemyDifficultyIncrease: 0.4
+  enemySpawnRateIncrease: 0
+  enemyBossHealthMultiplierIncrease: 0
 --- !u!1001 &861119252
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -27606,7 +28317,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Name
-      value: Upgrade | bits converter
+      value: Upgrade - bits converter
       objectReference: {fileID: 0}
     - target: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Pivot.x
@@ -27740,16 +28451,35 @@ PrefabInstance:
       propertyPath: 'lineRenderers.Array.data[0]'
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7234929734254115256, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 861119256}
   m_SourcePrefab: {fileID: 100100000, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
 --- !u!224 &861119253 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
   m_PrefabInstance: {fileID: 861119252}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &861119256
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 266313715}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f5208126512e874597e06a443582a6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BitsUpgrade
+  unlockBits: 0
+  bitsMultiplierIncrease: 0
+  giveBits: 1
 --- !u!1 &872894082
 GameObject:
   m_ObjectHideFlags: 0
@@ -27955,7 +28685,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Name
-      value: Upgrade | increase health
+      value: Upgrade - increase health
       objectReference: {fileID: 0}
     - target: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Pivot.x
@@ -28065,10 +28795,14 @@ PrefabInstance:
       propertyPath: 'lineRenderers.Array.data[0]'
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7234929734254115256, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 632320534}
   m_SourcePrefab: {fileID: 100100000, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
 --- !u!1 &877833079
 GameObject:
@@ -28347,7 +29081,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Name
-      value: Upgrade | health
+      value: Upgrade - health
       objectReference: {fileID: 0}
     - target: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Pivot.x
@@ -28461,10 +29195,14 @@ PrefabInstance:
       propertyPath: 'lineRenderers.Array.data[0]'
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7234929734254115256, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 910152866}
   m_SourcePrefab: {fileID: 100100000, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
 --- !u!1 &910152862 stripped
 GameObject:
@@ -28476,6 +29214,22 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
   m_PrefabInstance: {fileID: 910152861}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &910152866
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 910152862}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f69679b49ff3d954999dcd8683aec066, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerHealthUpgrade
+  healthIncrease: 0.6
+  regenIncrease: 0
+  healthOnKillIncrease: 0
+  reviveIncreases: 0
 --- !u!224 &911106350 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
@@ -28524,6 +29278,23 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
   m_PrefabInstance: {fileID: 749828461}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &930514023
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 930514020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eaf8ba58f37caf24fa717467381d1650, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyUpgrade
+  addEnemy: {fileID: 0}
+  enemySpeedMultiplierIncrease: 0
+  enemyDifficultyIncrease: 0
+  enemySpawnRateIncrease: 0.1
+  enemyBossHealthMultiplierIncrease: 0
 --- !u!1001 &949672915
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -28662,7 +29433,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Name
-      value: Upgrade | golden spinner
+      value: Upgrade - golden spinner
       objectReference: {fileID: 0}
     - target: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Pivot.x
@@ -28772,10 +29543,14 @@ PrefabInstance:
       propertyPath: 'lineRenderers.Array.data[0]'
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7234929734254115256, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 949672920}
   m_SourcePrefab: {fileID: 100100000, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
 --- !u!1 &949672916 stripped
 GameObject:
@@ -28787,6 +29562,23 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
   m_PrefabInstance: {fileID: 949672915}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &949672920
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 949672916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eaf8ba58f37caf24fa717467381d1650, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyUpgrade
+  addEnemy: {fileID: 5993168464814414510, guid: 66a040794b6e2ba44ad549642a16765e, type: 3}
+  enemySpeedMultiplierIncrease: 0
+  enemyDifficultyIncrease: 0
+  enemySpawnRateIncrease: 0
+  enemyBossHealthMultiplierIncrease: 0
 --- !u!1 &953449044
 GameObject:
   m_ObjectHideFlags: 0
@@ -34142,7 +34934,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Name
-      value: Upgrade | slower enemies
+      value: Upgrade - slower enemies
       objectReference: {fileID: 0}
     - target: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Pivot.x
@@ -34252,10 +35044,14 @@ PrefabInstance:
       propertyPath: 'lineRenderers.Array.data[0]'
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7234929734254115256, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 985142586}
   m_SourcePrefab: {fileID: 100100000, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
 --- !u!224 &985142582 stripped
 RectTransform:
@@ -34267,6 +35063,23 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
   m_PrefabInstance: {fileID: 985142581}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &985142586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 985142583}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eaf8ba58f37caf24fa717467381d1650, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyUpgrade
+  addEnemy: {fileID: 0}
+  enemySpeedMultiplierIncrease: 0.3
+  enemyDifficultyIncrease: 0
+  enemySpawnRateIncrease: 0
+  enemyBossHealthMultiplierIncrease: 0
 --- !u!1 &998059380
 GameObject:
   m_ObjectHideFlags: 0
@@ -34492,7 +35305,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Name
-      value: Upgrade | more damage
+      value: Upgrade - more damage
       objectReference: {fileID: 0}
     - target: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Pivot.x
@@ -34618,10 +35431,14 @@ PrefabInstance:
       propertyPath: 'lineRenderers.Array.data[0]'
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7234929734254115256, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1014745793}
   m_SourcePrefab: {fileID: 100100000, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
 --- !u!1 &1014745789 stripped
 GameObject:
@@ -34633,6 +35450,25 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
   m_PrefabInstance: {fileID: 1014745788}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1014745793
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1014745789}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f9738b43be38c8489d4c94b8d6baba7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerMinesUpgrade
+  mineExplosionRadiusIncrease: 0
+  mineDamageMultiplierIncrease: 0.3
+  mineKnockbackIncrease: 0.4
+  mineLifetimeIncrease: 0
+  mineCooldownIncrease: 0
+  unlockMines: 0
+  explodingMines: 0
 --- !u!1001 &1033598105
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -34775,7 +35611,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Name
-      value: Upgrade | be there or be square!
+      value: Upgrade - be there or be square!
       objectReference: {fileID: 0}
     - target: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Pivot.x
@@ -34893,10 +35729,14 @@ PrefabInstance:
       propertyPath: 'lineRenderers.Array.data[1]'
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7234929734254115256, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1033598110}
   m_SourcePrefab: {fileID: 100100000, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
 --- !u!224 &1033598106 stripped
 RectTransform:
@@ -34908,6 +35748,23 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
   m_PrefabInstance: {fileID: 1033598105}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1033598110
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1033598107}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eaf8ba58f37caf24fa717467381d1650, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyUpgrade
+  addEnemy: {fileID: 5411431729939318139, guid: 19c715153066d1b4a90f7d9cb71c70c5, type: 3}
+  enemySpeedMultiplierIncrease: 0
+  enemyDifficultyIncrease: 0
+  enemySpawnRateIncrease: 0
+  enemyBossHealthMultiplierIncrease: 0
 --- !u!1 &1043965006
 GameObject:
   m_ObjectHideFlags: 0
@@ -45099,6 +45956,20 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
   m_PrefabInstance: {fileID: 1692700321}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1172927006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1172927003}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76a08df9982bc1b49802f6994b971c13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MoneyUpgrade
+  moneyMultiplierIncrease: 0.3
+  passiveIncomeIncrease: 0
 --- !u!1 &1202211578
 GameObject:
   m_ObjectHideFlags: 0
@@ -45344,7 +46215,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Name
-      value: Upgrade | less cooldown
+      value: Upgrade - less cooldown
       objectReference: {fileID: 0}
     - target: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Pivot.x
@@ -45466,10 +46337,14 @@ PrefabInstance:
       propertyPath: 'lineRenderers.Array.data[0]'
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7234929734254115256, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1204864512}
   m_SourcePrefab: {fileID: 100100000, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
 --- !u!1 &1204864508 stripped
 GameObject:
@@ -45481,6 +46356,22 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
   m_PrefabInstance: {fileID: 1204864507}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1204864512
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1204864508}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1fac7b10f52a6845a76bbea7cf26fc2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerExplodingCircleUpgrade
+  explodingCircleCooldownIncrease: -3
+  explodingCircleDamageMultiplierIncrease: 0
+  unlockExplodingCircle: 0
+  unlockExplodingCircleKnockback: 0
 --- !u!1001 &1228748461
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -45617,7 +46508,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Name
-      value: Upgrade | event enemy
+      value: Upgrade - event enemy
       objectReference: {fileID: 0}
     - target: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Pivot.x
@@ -45727,10 +46618,14 @@ PrefabInstance:
       propertyPath: 'lineRenderers.Array.data[0]'
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7234929734254115256, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1228748466}
   m_SourcePrefab: {fileID: 100100000, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
 --- !u!1 &1228748462 stripped
 GameObject:
@@ -45742,6 +46637,23 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
   m_PrefabInstance: {fileID: 1228748461}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1228748466
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1228748462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eaf8ba58f37caf24fa717467381d1650, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyUpgrade
+  addEnemy: {fileID: 6944894831603675888, guid: 09aebb858ab0664438aa86c59970bb93, type: 3}
+  enemySpeedMultiplierIncrease: 0
+  enemyDifficultyIncrease: 0
+  enemySpawnRateIncrease: 0
+  enemyBossHealthMultiplierIncrease: 0
 --- !u!1 &1231059571
 GameObject:
   m_ObjectHideFlags: 0
@@ -50819,7 +51731,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Name
-      value: Upgrade | ball o' bits enemy
+      value: Upgrade - ball o' bits enemy
       objectReference: {fileID: 0}
     - target: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Pivot.x
@@ -50929,10 +51841,14 @@ PrefabInstance:
       propertyPath: 'lineRenderers.Array.data[0]'
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7234929734254115256, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1650967654}
   m_SourcePrefab: {fileID: 100100000, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
 --- !u!224 &1253459659 stripped
 RectTransform:
@@ -51276,6 +52192,25 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 200
   m_TargetDisplay: 0
+--- !u!1 &1255331417 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+  m_PrefabInstance: {fileID: 182311065}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1255331420
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1255331417}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76a08df9982bc1b49802f6994b971c13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MoneyUpgrade
+  moneyMultiplierIncrease: 0
+  passiveIncomeIncrease: 3
 --- !u!1 &1278714716
 GameObject:
   m_ObjectHideFlags: 0
@@ -51497,7 +52432,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Name
-      value: Upgrade | your worst enemy
+      value: Upgrade - your worst enemy
       objectReference: {fileID: 0}
     - target: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Pivot.x
@@ -51615,10 +52550,14 @@ PrefabInstance:
       propertyPath: 'lineRenderers.Array.data[1]'
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7234929734254115256, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1278857054}
   m_SourcePrefab: {fileID: 100100000, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
 --- !u!1 &1278857050 stripped
 GameObject:
@@ -51630,6 +52569,23 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
   m_PrefabInstance: {fileID: 1278857049}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1278857054
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1278857050}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eaf8ba58f37caf24fa717467381d1650, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyUpgrade
+  addEnemy: {fileID: 6023885759167444665, guid: d3444ac8d6087b442a6696144558ac14, type: 3}
+  enemySpeedMultiplierIncrease: 0
+  enemyDifficultyIncrease: 0
+  enemySpawnRateIncrease: 0
+  enemyBossHealthMultiplierIncrease: 0
 --- !u!1 &1280713293
 GameObject:
   m_ObjectHideFlags: 0
@@ -51950,7 +52906,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Name
-      value: Upgrade | mines
+      value: Upgrade - mines
       objectReference: {fileID: 0}
     - target: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Pivot.x
@@ -52068,10 +53024,14 @@ PrefabInstance:
       propertyPath: 'lineRenderers.Array.data[0]'
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7234929734254115256, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1282458559}
   m_SourcePrefab: {fileID: 100100000, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
 --- !u!1 &1282458555 stripped
 GameObject:
@@ -52083,6 +53043,25 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
   m_PrefabInstance: {fileID: 1282458554}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1282458559
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1282458555}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f9738b43be38c8489d4c94b8d6baba7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerMinesUpgrade
+  mineExplosionRadiusIncrease: 0
+  mineDamageMultiplierIncrease: 0
+  mineKnockbackIncrease: 0
+  mineLifetimeIncrease: 0
+  mineCooldownIncrease: 0
+  unlockMines: 1
+  explodingMines: 1
 --- !u!1001 &1303121229
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -52229,7 +53208,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Name
-      value: Upgrade | explosion radius
+      value: Upgrade - explosion radius
       objectReference: {fileID: 0}
     - target: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Pivot.x
@@ -52355,10 +53334,14 @@ PrefabInstance:
       propertyPath: 'lineRenderers.Array.data[0]'
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7234929734254115256, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1504527196}
   m_SourcePrefab: {fileID: 100100000, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
 --- !u!224 &1303121230 stripped
 RectTransform:
@@ -52544,7 +53527,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Name
-      value: Upgrade | big boi
+      value: Upgrade - big boi
       objectReference: {fileID: 0}
     - target: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Pivot.x
@@ -52654,10 +53637,14 @@ PrefabInstance:
       propertyPath: 'lineRenderers.Array.data[0]'
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7234929734254115256, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1310667826}
   m_SourcePrefab: {fileID: 100100000, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
 --- !u!1 &1310667822 stripped
 GameObject:
@@ -52669,6 +53656,22 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
   m_PrefabInstance: {fileID: 1310667821}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1310667826
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1310667822}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e260a46d0634544ca02fad17f3b2dbd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerDamageUpgrade
+  damageIncrease: 0
+  knockbackIncrease: 0
+  knockbackDurationIncrease: 0
+  sizeIncrease: 0.06
 --- !u!1 &1315276611
 GameObject:
   m_ObjectHideFlags: 0
@@ -52705,6 +53708,26 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -701}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1320262034 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+  m_PrefabInstance: {fileID: 284958344}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1320262037
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1320262034}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fd5a6448d06d5540985bc2b29ec8e47, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerMiniSawsUpgrade
+  spawnMiniSaw: 1
+  miniSawSpeedIncrease: 0
+  miniSawDamageIncrease: 0
 --- !u!1 &1323966122
 GameObject:
   m_ObjectHideFlags: 0
@@ -52780,6 +53803,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1323966122}
   m_CullTransparentMesh: 1
+--- !u!1 &1327614309 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+  m_PrefabInstance: {fileID: 1607848267}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1357593883
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -52926,7 +53954,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Name
-      value: Upgrade | money multiplier
+      value: Upgrade - money multiplier
       objectReference: {fileID: 0}
     - target: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Pivot.x
@@ -53040,10 +54068,14 @@ PrefabInstance:
       propertyPath: 'lineRenderers.Array.data[0]'
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7234929734254115256, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1357593888}
   m_SourcePrefab: {fileID: 100100000, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
 --- !u!224 &1357593884 stripped
 RectTransform:
@@ -53055,6 +54087,20 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
   m_PrefabInstance: {fileID: 1357593883}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1357593888
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1357593885}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76a08df9982bc1b49802f6994b971c13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MoneyUpgrade
+  moneyMultiplierIncrease: 1
+  passiveIncomeIncrease: 0
 --- !u!1 &1359145708
 GameObject:
   m_ObjectHideFlags: 0
@@ -53659,7 +54705,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 37691736868015627, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_fontColor32.rgba
-      value: 4284806655
+      value: 4294953060
       objectReference: {fileID: 0}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: image
@@ -53799,7 +54845,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Name
-      value: Upgrade | bits mult.
+      value: Upgrade - bits mult.
       objectReference: {fileID: 0}
     - target: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Pivot.x
@@ -53921,10 +54967,14 @@ PrefabInstance:
       propertyPath: 'lineRenderers.Array.data[0]'
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7234929734254115256, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1415222390}
   m_SourcePrefab: {fileID: 100100000, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
 --- !u!224 &1415222386 stripped
 RectTransform:
@@ -53936,6 +54986,21 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
   m_PrefabInstance: {fileID: 1415222385}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1415222390
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1415222387}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f5208126512e874597e06a443582a6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BitsUpgrade
+  unlockBits: 0
+  bitsMultiplierIncrease: 1
+  giveBits: 0
 --- !u!1 &1421786202
 GameObject:
   m_ObjectHideFlags: 0
@@ -54406,7 +55471,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Name
-      value: Upgrade | less cooldown
+      value: Upgrade - less cooldown
       objectReference: {fileID: 0}
     - target: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Pivot.x
@@ -54528,10 +55593,14 @@ PrefabInstance:
       propertyPath: 'lineRenderers.Array.data[0]'
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7234929734254115256, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1436022651}
   m_SourcePrefab: {fileID: 100100000, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
 --- !u!1 &1436022647 stripped
 GameObject:
@@ -54543,6 +55612,22 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
   m_PrefabInstance: {fileID: 1436022646}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1436022651
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1436022647}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1fac7b10f52a6845a76bbea7cf26fc2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerExplodingCircleUpgrade
+  explodingCircleCooldownIncrease: -2
+  explodingCircleDamageMultiplierIncrease: 0
+  unlockExplodingCircle: 0
+  unlockExplodingCircleKnockback: 0
 --- !u!1 &1439385569 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
@@ -54778,7 +55863,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Name
-      value: Upgrade | win fragment
+      value: Upgrade - win fragment
       objectReference: {fileID: 0}
     - target: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Pivot.x
@@ -54876,16 +55961,33 @@ PrefabInstance:
       propertyPath: m_text
       value: 0/1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7234929734254115256, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1444478516}
   m_SourcePrefab: {fileID: 100100000, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
 --- !u!224 &1444478513 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
   m_PrefabInstance: {fileID: 1444478512}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1444478516
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 277714763}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa0b252ddedfe9e41a7f1bcd9515ac42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WinUpgrade
+  winFragments: 1
 --- !u!1001 &1445867001
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -55044,7 +56146,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Name
-      value: Upgrade | unlock ranged attack
+      value: Upgrade - unlock ranged attack
       objectReference: {fileID: 0}
     - target: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Pivot.x
@@ -55158,10 +56260,14 @@ PrefabInstance:
       propertyPath: 'lineRenderers.Array.data[0]'
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7234929734254115256, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1445867006}
   m_SourcePrefab: {fileID: 100100000, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
 --- !u!1 &1445867002 stripped
 GameObject:
@@ -55173,6 +56279,25 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
   m_PrefabInstance: {fileID: 1445867001}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1445867006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1445867002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77bc0d91df92fe54aa70cba30f80da7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerTriangleProjectilesUpgrade
+  unlockShootingTriangles: 1
+  rangedAutofire: 1
+  homingTriangles: 0
+  piercingTriangles: 0
+  triangleDamageIncrease: 0
+  triangleSpeedIncrease: 0
+  triangleFireRateIncrease: 0
 --- !u!1001 &1466229747
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -55319,7 +56444,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Name
-      value: Upgrade | another saw
+      value: Upgrade - another saw
       objectReference: {fileID: 0}
     - target: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Pivot.x
@@ -55429,10 +56554,14 @@ PrefabInstance:
       propertyPath: 'lineRenderers.Array.data[0]'
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7234929734254115256, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1466229752}
   m_SourcePrefab: {fileID: 100100000, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
 --- !u!1 &1466229748 stripped
 GameObject:
@@ -55444,6 +56573,21 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
   m_PrefabInstance: {fileID: 1466229747}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1466229752
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1466229748}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fd5a6448d06d5540985bc2b29ec8e47, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerMiniSawsUpgrade
+  spawnMiniSaw: 1
+  miniSawSpeedIncrease: 0
+  miniSawDamageIncrease: 0
 --- !u!1 &1484986182
 GameObject:
   m_ObjectHideFlags: 0
@@ -60661,6 +61805,48 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1504112464}
   m_CullTransparentMesh: 1
+--- !u!1 &1504527193 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+  m_PrefabInstance: {fileID: 1303121229}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1504527196
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1504527193}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f9738b43be38c8489d4c94b8d6baba7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerMinesUpgrade
+  mineExplosionRadiusIncrease: 3
+  mineDamageMultiplierIncrease: 0
+  mineKnockbackIncrease: 0
+  mineLifetimeIncrease: 4
+  mineCooldownIncrease: 0
+  unlockMines: 0
+  explodingMines: 0
+--- !u!1 &1540828918 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+  m_PrefabInstance: {fileID: 499475768}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1540828921
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1540828918}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa0b252ddedfe9e41a7f1bcd9515ac42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WinUpgrade
+  winFragments: 1
 --- !u!1001 &1554039849
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -60831,7 +62017,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Name
-      value: Upgrade | revive
+      value: Upgrade - revive
       objectReference: {fileID: 0}
     - target: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Pivot.x
@@ -60941,10 +62127,14 @@ PrefabInstance:
       propertyPath: 'lineRenderers.Array.data[0]'
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7234929734254115256, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1554039854}
   m_SourcePrefab: {fileID: 100100000, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
 --- !u!224 &1554039850 stripped
 RectTransform:
@@ -60956,6 +62146,22 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
   m_PrefabInstance: {fileID: 1554039849}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1554039854
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1554039851}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f69679b49ff3d954999dcd8683aec066, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerHealthUpgrade
+  healthIncrease: 0
+  regenIncrease: 0
+  healthOnKillIncrease: 0
+  reviveIncreases: 1
 --- !u!1001 &1569738155
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -61114,7 +62320,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Name
-      value: Upgrade | revive
+      value: Upgrade - revive
       objectReference: {fileID: 0}
     - target: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Pivot.x
@@ -61224,10 +62430,14 @@ PrefabInstance:
       propertyPath: 'lineRenderers.Array.data[0]'
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7234929734254115256, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 665391942}
   m_SourcePrefab: {fileID: 100100000, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
 --- !u!1 &1575567763
 GameObject:
@@ -61505,7 +62715,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Name
-      value: Upgrade | homerun!
+      value: Upgrade - homerun!
       objectReference: {fileID: 0}
     - target: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Pivot.x
@@ -61619,10 +62829,14 @@ PrefabInstance:
       propertyPath: 'lineRenderers.Array.data[0]'
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7234929734254115256, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1591741970}
   m_SourcePrefab: {fileID: 100100000, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
 --- !u!1 &1591741966 stripped
 GameObject:
@@ -61634,6 +62848,22 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
   m_PrefabInstance: {fileID: 1591741965}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1591741970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1591741966}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e260a46d0634544ca02fad17f3b2dbd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerDamageUpgrade
+  damageIncrease: 0
+  knockbackIncrease: 4
+  knockbackDurationIncrease: 0.3
+  sizeIncrease: 0
 --- !u!1001 &1607848267
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -61808,7 +63038,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Name
-      value: Upgrade | piercing triangles
+      value: Upgrade - piercing triangles
       objectReference: {fileID: 0}
     - target: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Pivot.x
@@ -61926,16 +63156,39 @@ PrefabInstance:
       propertyPath: 'lineRenderers.Array.data[0]'
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7234929734254115256, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1607848271}
   m_SourcePrefab: {fileID: 100100000, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
 --- !u!224 &1607848268 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
   m_PrefabInstance: {fileID: 1607848267}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1607848271
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1327614309}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77bc0d91df92fe54aa70cba30f80da7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerTriangleProjectilesUpgrade
+  unlockShootingTriangles: 0
+  rangedAutofire: 0
+  homingTriangles: 0
+  piercingTriangles: 1
+  triangleDamageIncrease: 0
+  triangleSpeedIncrease: 0
+  triangleFireRateIncrease: 0
 --- !u!1 &1612143362
 GameObject:
   m_ObjectHideFlags: 0
@@ -62122,7 +63375,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Name
-      value: Upgrade | mini saw
+      value: Upgrade - mini saw
       objectReference: {fileID: 0}
     - target: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Pivot.x
@@ -62232,10 +63485,14 @@ PrefabInstance:
       propertyPath: 'lineRenderers.Array.data[0]'
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7234929734254115256, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1616663515}
   m_SourcePrefab: {fileID: 100100000, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
 --- !u!1 &1616663511 stripped
 GameObject:
@@ -62247,6 +63504,21 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
   m_PrefabInstance: {fileID: 1616663510}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1616663515
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1616663511}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fd5a6448d06d5540985bc2b29ec8e47, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerMiniSawsUpgrade
+  spawnMiniSaw: 1
+  miniSawSpeedIncrease: 0
+  miniSawDamageIncrease: 0
 --- !u!1 &1620302931
 GameObject:
   m_ObjectHideFlags: 0
@@ -62589,6 +63861,23 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
   m_PrefabInstance: {fileID: 1253459657}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1650967654
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1650967651}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eaf8ba58f37caf24fa717467381d1650, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyUpgrade
+  addEnemy: {fileID: 5846892998561787661, guid: 1e5d85640abdb7e4099750cb31beab75, type: 3}
+  enemySpeedMultiplierIncrease: 0
+  enemyDifficultyIncrease: 0
+  enemySpawnRateIncrease: 0
+  enemyBossHealthMultiplierIncrease: 0
 --- !u!1 &1656873541
 GameObject:
   m_ObjectHideFlags: 0
@@ -67717,7 +69006,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Name
-      value: Upgrade | healer
+      value: Upgrade - healer
       objectReference: {fileID: 0}
     - target: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Pivot.x
@@ -67827,10 +69116,14 @@ PrefabInstance:
       propertyPath: 'lineRenderers.Array.data[0]'
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7234929734254115256, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1677427469}
   m_SourcePrefab: {fileID: 100100000, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
 --- !u!1 &1677427465 stripped
 GameObject:
@@ -67842,6 +69135,22 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
   m_PrefabInstance: {fileID: 1677427464}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1677427469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1677427465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f69679b49ff3d954999dcd8683aec066, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerHealthUpgrade
+  healthIncrease: 0
+  regenIncrease: 0.5
+  healthOnKillIncrease: 0
+  reviveIncreases: 0
 --- !u!1001 &1678437122
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -68088,7 +69397,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Name
-      value: Upgrade | win fragment
+      value: Upgrade - win fragment
       objectReference: {fileID: 0}
     - target: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Pivot.x
@@ -68186,16 +69495,33 @@ PrefabInstance:
       propertyPath: m_text
       value: 0/1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7234929734254115256, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1678437126}
   m_SourcePrefab: {fileID: 100100000, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
 --- !u!224 &1678437123 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
   m_PrefabInstance: {fileID: 1678437122}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1678437126
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 22539815}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa0b252ddedfe9e41a7f1bcd9515ac42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WinUpgrade
+  winFragments: 1
 --- !u!1001 &1678967712
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -68326,7 +69652,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Name
-      value: Upgrade | increase health
+      value: Upgrade - increase health
       objectReference: {fileID: 0}
     - target: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Pivot.x
@@ -68436,10 +69762,14 @@ PrefabInstance:
       propertyPath: 'lineRenderers.Array.data[0]'
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7234929734254115256, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2085958712}
   m_SourcePrefab: {fileID: 100100000, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
 --- !u!224 &1678967713 stripped
 RectTransform:
@@ -68678,7 +70008,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Name
-      value: Upgrade | decrease boss health
+      value: Upgrade - decrease boss health
       objectReference: {fileID: 0}
     - target: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Pivot.x
@@ -68788,10 +70118,14 @@ PrefabInstance:
       propertyPath: 'lineRenderers.Array.data[0]'
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7234929734254115256, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 431159780}
   m_SourcePrefab: {fileID: 100100000, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
 --- !u!1001 &1692700321
 PrefabInstance:
@@ -68927,7 +70261,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Name
-      value: Upgrade | money bags
+      value: Upgrade - money bags
       objectReference: {fileID: 0}
     - target: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Pivot.x
@@ -69037,10 +70371,14 @@ PrefabInstance:
       propertyPath: 'lineRenderers.Array.data[0]'
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7234929734254115256, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1172927006}
   m_SourcePrefab: {fileID: 100100000, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
 --- !u!1 &1698729876
 GameObject:
@@ -74042,7 +75380,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Name
-      value: Upgrade | explosion radius
+      value: Upgrade - explosion radius
       objectReference: {fileID: 0}
     - target: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Pivot.x
@@ -74168,10 +75506,14 @@ PrefabInstance:
       propertyPath: 'lineRenderers.Array.data[0]'
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7234929734254115256, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1707568683}
   m_SourcePrefab: {fileID: 100100000, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
 --- !u!1 &1707568679 stripped
 GameObject:
@@ -74183,6 +75525,25 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
   m_PrefabInstance: {fileID: 1707568678}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1707568683
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1707568679}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f9738b43be38c8489d4c94b8d6baba7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerMinesUpgrade
+  mineExplosionRadiusIncrease: 2
+  mineDamageMultiplierIncrease: 0
+  mineKnockbackIncrease: 0
+  mineLifetimeIncrease: 6
+  mineCooldownIncrease: 0
+  unlockMines: 0
+  explodingMines: 0
 --- !u!1 &1711554139
 GameObject:
   m_ObjectHideFlags: 0
@@ -74449,7 +75810,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Name
-      value: Upgrade | triangle enemies
+      value: Upgrade - triangle enemies
       objectReference: {fileID: 0}
     - target: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Pivot.x
@@ -74543,10 +75904,14 @@ PrefabInstance:
       propertyPath: m_text
       value: 0/1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7234929734254115256, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1731304176}
   m_SourcePrefab: {fileID: 100100000, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
 --- !u!1 &1731304172 stripped
 GameObject:
@@ -74557,6 +75922,28 @@ GameObject:
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
   m_PrefabInstance: {fileID: 1731304171}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1731304176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1731304172}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eaf8ba58f37caf24fa717467381d1650, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyUpgrade
+  addEnemy: {fileID: 6615156670388213931, guid: 72ef867855514f74585a9a3771b33ea6, type: 3}
+  enemySpeedMultiplierIncrease: 0
+  enemyDifficultyIncrease: 0
+  enemySpawnRateIncrease: 0
+  enemyBossHealthMultiplierIncrease: 0
+--- !u!1 &1733229557 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+  m_PrefabInstance: {fileID: 2105574446}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1754578581
 GameObject:
@@ -74607,6 +75994,28 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1755005740 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+  m_PrefabInstance: {fileID: 565017389}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1755005743
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1755005740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eaf8ba58f37caf24fa717467381d1650, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyUpgrade
+  addEnemy: {fileID: 8261043462687939977, guid: 3232dd13daa99684f86d84de0f793449, type: 3}
+  enemySpeedMultiplierIncrease: 0
+  enemyDifficultyIncrease: 0
+  enemySpawnRateIncrease: 0
+  enemyBossHealthMultiplierIncrease: 0
 --- !u!1 &1768297051
 GameObject:
   m_ObjectHideFlags: 0
@@ -74804,7 +76213,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Name
-      value: Upgrade | hexagon enemy
+      value: Upgrade - hexagon enemy
       objectReference: {fileID: 0}
     - target: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Pivot.x
@@ -74914,10 +76323,14 @@ PrefabInstance:
       propertyPath: 'lineRenderers.Array.data[0]'
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7234929734254115256, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1771587736}
   m_SourcePrefab: {fileID: 100100000, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
 --- !u!1 &1771587732 stripped
 GameObject:
@@ -74929,6 +76342,23 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
   m_PrefabInstance: {fileID: 1771587731}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1771587736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1771587732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eaf8ba58f37caf24fa717467381d1650, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyUpgrade
+  addEnemy: {fileID: 8908154359821757514, guid: 129198686ba8628498dabb8fc32797df, type: 3}
+  enemySpeedMultiplierIncrease: 0
+  enemyDifficultyIncrease: 0
+  enemySpawnRateIncrease: 0
+  enemyBossHealthMultiplierIncrease: 0
 --- !u!1 &1783146058
 GameObject:
   m_ObjectHideFlags: 0
@@ -75281,7 +76711,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Name
-      value: Upgrade | unlock exploding circles
+      value: Upgrade - unlock exploding circles
       objectReference: {fileID: 0}
     - target: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Pivot.x
@@ -75403,10 +76833,14 @@ PrefabInstance:
       propertyPath: 'lineRenderers.Array.data[0]'
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7234929734254115256, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1786098256}
   m_SourcePrefab: {fileID: 100100000, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
 --- !u!1 &1786098252 stripped
 GameObject:
@@ -75418,6 +76852,22 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
   m_PrefabInstance: {fileID: 1786098251}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1786098256
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1786098252}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1fac7b10f52a6845a76bbea7cf26fc2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerExplodingCircleUpgrade
+  explodingCircleCooldownIncrease: 0
+  explodingCircleDamageMultiplierIncrease: 0
+  unlockExplodingCircle: 1
+  unlockExplodingCircleKnockback: 0
 --- !u!1001 &1799011302
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -75564,7 +77014,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Name
-      value: Upgrade | healthy
+      value: Upgrade - healthy
       objectReference: {fileID: 0}
     - target: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Pivot.x
@@ -75674,10 +77124,14 @@ PrefabInstance:
       propertyPath: 'lineRenderers.Array.data[0]'
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7234929734254115256, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1799011307}
   m_SourcePrefab: {fileID: 100100000, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
 --- !u!1 &1799011303 stripped
 GameObject:
@@ -75689,6 +77143,22 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
   m_PrefabInstance: {fileID: 1799011302}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1799011307
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1799011303}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f69679b49ff3d954999dcd8683aec066, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerHealthUpgrade
+  healthIncrease: 3
+  regenIncrease: 0
+  healthOnKillIncrease: 0
+  reviveIncreases: 0
 --- !u!1001 &1815752470
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -75823,7 +77293,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Name
-      value: Upgrade | faster enemy spawning
+      value: Upgrade - faster enemy spawning
       objectReference: {fileID: 0}
     - target: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Pivot.x
@@ -75949,16 +77419,54 @@ PrefabInstance:
       propertyPath: 'lineRenderers.Array.data[1]'
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7234929734254115256, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1815752475}
+    - targetCorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1815752474}
   m_SourcePrefab: {fileID: 100100000, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
 --- !u!224 &1815752471 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
   m_PrefabInstance: {fileID: 1815752470}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1815752474
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1439385569}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76a08df9982bc1b49802f6994b971c13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MoneyUpgrade
+  moneyMultiplierIncrease: 0.2
+  passiveIncomeIncrease: 0
+--- !u!114 &1815752475
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1439385569}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eaf8ba58f37caf24fa717467381d1650, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyUpgrade
+  addEnemy: {fileID: 0}
+  enemySpeedMultiplierIncrease: 0
+  enemyDifficultyIncrease: 0
+  enemySpawnRateIncrease: 0.1
+  enemyBossHealthMultiplierIncrease: 0
 --- !u!1001 &1838678556
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -76117,7 +77625,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Name
-      value: Upgrade | turret enemy
+      value: Upgrade - turret enemy
       objectReference: {fileID: 0}
     - target: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Pivot.x
@@ -76235,10 +77743,14 @@ PrefabInstance:
       propertyPath: 'lineRenderers.Array.data[1]'
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7234929734254115256, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1838678561}
   m_SourcePrefab: {fileID: 100100000, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
 --- !u!1 &1838678557 stripped
 GameObject:
@@ -76250,6 +77762,23 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
   m_PrefabInstance: {fileID: 1838678556}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1838678561
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1838678557}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eaf8ba58f37caf24fa717467381d1650, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyUpgrade
+  addEnemy: {fileID: 4826456899753453317, guid: fbf55ec05ef7a724eb8529d41ea99cb5, type: 3}
+  enemySpeedMultiplierIncrease: 0
+  enemyDifficultyIncrease: 0
+  enemySpawnRateIncrease: 0
+  enemyBossHealthMultiplierIncrease: 0
 --- !u!1001 &1838807516
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -76384,7 +77913,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Name
-      value: Upgrade | unlock bits
+      value: Upgrade - unlock bits
       objectReference: {fileID: 0}
     - target: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Pivot.x
@@ -76498,10 +78027,14 @@ PrefabInstance:
       propertyPath: 'lineRenderers.Array.data[0]'
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7234929734254115256, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1838807521}
   m_SourcePrefab: {fileID: 100100000, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
 --- !u!1 &1838807517 stripped
 GameObject:
@@ -76513,6 +78046,21 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
   m_PrefabInstance: {fileID: 1838807516}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1838807521
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1838807517}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f5208126512e874597e06a443582a6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BitsUpgrade
+  unlockBits: 1
+  bitsMultiplierIncrease: 0
+  giveBits: 0
 --- !u!1 &1840048646
 GameObject:
   m_ObjectHideFlags: 0
@@ -76901,7 +78449,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Name
-      value: Upgrade | harder enemies
+      value: Upgrade - harder enemies
       objectReference: {fileID: 0}
     - target: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Pivot.x
@@ -77027,10 +78575,14 @@ PrefabInstance:
       propertyPath: 'lineRenderers.Array.data[1]'
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7234929734254115256, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1866199320}
   m_SourcePrefab: {fileID: 100100000, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
 --- !u!224 &1866199316 stripped
 RectTransform:
@@ -77042,6 +78594,23 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
   m_PrefabInstance: {fileID: 1866199315}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1866199320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1866199317}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eaf8ba58f37caf24fa717467381d1650, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyUpgrade
+  addEnemy: {fileID: 0}
+  enemySpeedMultiplierIncrease: 0
+  enemyDifficultyIncrease: 0.3
+  enemySpawnRateIncrease: 0.2
+  enemyBossHealthMultiplierIncrease: 0
 --- !u!1001 &1871383883
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -77172,7 +78741,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Name
-      value: Upgrade | mini saw speed
+      value: Upgrade - mini saw speed
       objectReference: {fileID: 0}
     - target: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Pivot.x
@@ -77286,10 +78855,14 @@ PrefabInstance:
       propertyPath: 'lineRenderers.Array.data[0]'
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7234929734254115256, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1871383888}
   m_SourcePrefab: {fileID: 100100000, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
 --- !u!224 &1871383884 stripped
 RectTransform:
@@ -77301,6 +78874,21 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
   m_PrefabInstance: {fileID: 1871383883}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1871383888
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1871383885}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fd5a6448d06d5540985bc2b29ec8e47, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerMiniSawsUpgrade
+  spawnMiniSaw: 0
+  miniSawSpeedIncrease: 0.3
+  miniSawDamageIncrease: 0
 --- !u!1001 &1881883425
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -77423,7 +79011,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Name
-      value: Upgrade | harder enemies
+      value: Upgrade - harder enemies
       objectReference: {fileID: 0}
     - target: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Pivot.x
@@ -77533,10 +79121,14 @@ PrefabInstance:
       propertyPath: 'lineRenderers.Array.data[0]'
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7234929734254115256, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1881883430}
   m_SourcePrefab: {fileID: 100100000, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
 --- !u!1 &1881883426 stripped
 GameObject:
@@ -77548,6 +79140,23 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
   m_PrefabInstance: {fileID: 1881883425}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1881883430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1881883426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eaf8ba58f37caf24fa717467381d1650, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyUpgrade
+  addEnemy: {fileID: 0}
+  enemySpeedMultiplierIncrease: 0
+  enemyDifficultyIncrease: 0.7
+  enemySpawnRateIncrease: 0
+  enemyBossHealthMultiplierIncrease: 0
 --- !u!1 &1883204292
 GameObject:
   m_ObjectHideFlags: 0
@@ -78554,7 +80163,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Name
-      value: Upgrade | regen
+      value: Upgrade - regen
       objectReference: {fileID: 0}
     - target: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Pivot.x
@@ -78664,10 +80273,14 @@ PrefabInstance:
       propertyPath: 'lineRenderers.Array.data[0]'
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7234929734254115256, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 352283808}
   m_SourcePrefab: {fileID: 100100000, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
 --- !u!1001 &1953635935
 PrefabInstance:
@@ -78807,7 +80420,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Name
-      value: Upgrade | triangle speed
+      value: Upgrade - triangle speed
       objectReference: {fileID: 0}
     - target: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Pivot.x
@@ -78921,10 +80534,14 @@ PrefabInstance:
       propertyPath: 'lineRenderers.Array.data[0]'
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7234929734254115256, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1953635940}
   m_SourcePrefab: {fileID: 100100000, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
 --- !u!1 &1953635936 stripped
 GameObject:
@@ -78936,11 +80553,62 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
   m_PrefabInstance: {fileID: 1953635935}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1953635940
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1953635936}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77bc0d91df92fe54aa70cba30f80da7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerTriangleProjectilesUpgrade
+  unlockShootingTriangles: 0
+  rangedAutofire: 0
+  homingTriangles: 0
+  piercingTriangles: 0
+  triangleDamageIncrease: 0
+  triangleSpeedIncrease: 0.6
+  triangleFireRateIncrease: -0.15
 --- !u!1 &1965702737 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
   m_PrefabInstance: {fileID: 112204858}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1965702740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1965702737}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e260a46d0634544ca02fad17f3b2dbd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerDamageUpgrade
+  damageIncrease: 0
+  knockbackIncrease: 0
+  knockbackDurationIncrease: 0
+  sizeIncrease: 0.08
+--- !u!114 &1965702741
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1965702737}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f69679b49ff3d954999dcd8683aec066, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerHealthUpgrade
+  healthIncrease: 0.5
+  regenIncrease: 0
+  healthOnKillIncrease: 0
+  reviveIncreases: 0
 --- !u!1001 &2006897675
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -79079,7 +80747,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Name
-      value: Upgrade | mini boss
+      value: Upgrade - mini boss
       objectReference: {fileID: 0}
     - target: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Pivot.x
@@ -79197,10 +80865,14 @@ PrefabInstance:
       propertyPath: 'lineRenderers.Array.data[1]'
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7234929734254115256, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2006897680}
   m_SourcePrefab: {fileID: 100100000, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
 --- !u!1 &2006897676 stripped
 GameObject:
@@ -79212,6 +80884,23 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
   m_PrefabInstance: {fileID: 2006897675}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2006897680
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2006897676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eaf8ba58f37caf24fa717467381d1650, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyUpgrade
+  addEnemy: {fileID: 4528608015732399353, guid: 7b2b908c6924e2843813d2aaa05503de, type: 3}
+  enemySpeedMultiplierIncrease: 0
+  enemyDifficultyIncrease: 0
+  enemySpawnRateIncrease: 0
+  enemyBossHealthMultiplierIncrease: 0
 --- !u!1 &2011003832
 GameObject:
   m_ObjectHideFlags: 0
@@ -84542,7 +86231,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Name
-      value: Upgrade | mini saw damage
+      value: Upgrade - mini saw damage
       objectReference: {fileID: 0}
     - target: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Pivot.x
@@ -84652,16 +86341,35 @@ PrefabInstance:
       propertyPath: 'lineRenderers.Array.data[0]'
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7234929734254115256, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2050648834}
   m_SourcePrefab: {fileID: 100100000, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
 --- !u!224 &2050648831 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
   m_PrefabInstance: {fileID: 2050648830}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2050648834
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 736956895}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fd5a6448d06d5540985bc2b29ec8e47, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerMiniSawsUpgrade
+  spawnMiniSaw: 0
+  miniSawSpeedIncrease: 0
+  miniSawDamageIncrease: 0.5
 --- !u!1 &2057161293
 GameObject:
   m_ObjectHideFlags: 0
@@ -84704,6 +86412,48 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -540}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &2075772932 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+  m_PrefabInstance: {fileID: 841434980}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2075772935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2075772932}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f69679b49ff3d954999dcd8683aec066, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerHealthUpgrade
+  healthIncrease: 5
+  regenIncrease: 0
+  healthOnKillIncrease: 0
+  reviveIncreases: 0
+--- !u!1 &2085958709 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+  m_PrefabInstance: {fileID: 1678967712}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2085958712
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2085958709}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f69679b49ff3d954999dcd8683aec066, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerHealthUpgrade
+  healthIncrease: 0.2
+  regenIncrease: 0
+  healthOnKillIncrease: 0
+  reviveIncreases: 0
 --- !u!1 &2094763869
 GameObject:
   m_ObjectHideFlags: 0
@@ -84976,7 +86726,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Name
-      value: Upgrade | heavier money bags
+      value: Upgrade - heavier money bags
       objectReference: {fileID: 0}
     - target: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Pivot.x
@@ -85086,16 +86836,34 @@ PrefabInstance:
       propertyPath: 'lineRenderers.Array.data[0]'
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7234929734254115256, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2105574450}
   m_SourcePrefab: {fileID: 100100000, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
 --- !u!224 &2105574447 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
   m_PrefabInstance: {fileID: 2105574446}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2105574450
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1733229557}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76a08df9982bc1b49802f6994b971c13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MoneyUpgrade
+  moneyMultiplierIncrease: 0.3
+  passiveIncomeIncrease: 0
 --- !u!1 &2108382812
 GameObject:
   m_ObjectHideFlags: 0
@@ -85276,7 +87044,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Name
-      value: Upgrade | even more health
+      value: Upgrade - even more health
       objectReference: {fileID: 0}
     - target: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Pivot.x
@@ -85386,10 +87154,14 @@ PrefabInstance:
       propertyPath: 'lineRenderers.Array.data[0]'
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7234929734254115256, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2108429840}
   m_SourcePrefab: {fileID: 100100000, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
 --- !u!224 &2108429836 stripped
 RectTransform:
@@ -85401,6 +87173,22 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
   m_PrefabInstance: {fileID: 2108429835}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2108429840
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2108429837}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f69679b49ff3d954999dcd8683aec066, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerHealthUpgrade
+  healthIncrease: 1
+  regenIncrease: 0
+  healthOnKillIncrease: 0
+  reviveIncreases: 0
 --- !u!1 &2131032773
 GameObject:
   m_ObjectHideFlags: 0
@@ -85663,7 +87451,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Name
-      value: Upgrade | sharpen blades
+      value: Upgrade - sharpen blades
       objectReference: {fileID: 0}
     - target: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Pivot.x
@@ -85773,16 +87561,36 @@ PrefabInstance:
       propertyPath: 'lineRenderers.Array.data[0]'
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7234929734254115256, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2143655780}
   m_SourcePrefab: {fileID: 100100000, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
 --- !u!224 &2143655777 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
   m_PrefabInstance: {fileID: 2143655776}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2143655780
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 160989822}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e260a46d0634544ca02fad17f3b2dbd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerDamageUpgrade
+  damageIncrease: 0.5
+  knockbackIncrease: 0
+  knockbackDurationIncrease: 0
+  sizeIncrease: 0
 --- !u!1001 &9054753519930782978
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -85917,7 +87725,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Name
-      value: Upgrade | speed
+      value: Upgrade - upgrade
       objectReference: {fileID: 0}
     - target: {fileID: 6568911419865416035, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Pivot.x
@@ -86023,10 +87831,14 @@ PrefabInstance:
       propertyPath: 'lineRenderers.Array.data[0]'
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7234929734254115256, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 312440038}
   m_SourcePrefab: {fileID: 100100000, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
