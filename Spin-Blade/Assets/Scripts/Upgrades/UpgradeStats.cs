@@ -13,7 +13,6 @@ public class UpgradeStats : MonoBehaviour
     public float healthOnKillIncrease;
     public int reviveIncreases;
 
-
     [Header("Speed & Size")]
     public float speedIncrease;
     public float sizeIncrease;
@@ -244,9 +243,6 @@ public class UpgradeStats : MonoBehaviour
         if (winFragment)
         {
             winFragments++;
-            player.GetComponent<PlayerWinVisuals>().ShowNewFragment();
-            if (winFragments >= winFragmentsNeeded)
-                GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>().Win();
         }
     }
 }

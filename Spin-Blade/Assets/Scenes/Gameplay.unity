@@ -28164,6 +28164,7 @@ MonoBehaviour:
   maxXLimit: 120
   maxYLimit: 120
   zoomParent: {fileID: 1315276612}
+  mobileZoomMultiplier: 1
   zoomStep: 0.3
   maxZoomIn: 1.7
   maxZoomOut: 0.65
@@ -61238,6 +61239,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1575567764}
   - component: {fileID: 1575567765}
+  - component: {fileID: 1575567766}
   m_Layer: 0
   m_Name: Player Sprite
   m_TagString: Untagged
@@ -61318,6 +61320,23 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1575567766
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1575567763}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 606fe619ab87029488a442e4e3f51d01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WinVisuals
+  fragmentSprites:
+  - {fileID: -2311659948842064771, guid: 3fc214a9bf635a54c9667f82f44291f3, type: 3}
+  - {fileID: 21300000, guid: 2cd4528591edeaa4694ad0a558b90f89, type: 3}
+  - {fileID: 21300000, guid: 49b7d8dd576a2124d9a19d4eb8817072, type: 3}
+  - {fileID: 21300000, guid: 0da1bd65ca724b44fa17c90c516a52c6, type: 3}
 --- !u!1 &1581732367
 GameObject:
   m_ObjectHideFlags: 0
@@ -77542,7 +77561,6 @@ GameObject:
   - component: {fileID: 1883204297}
   - component: {fileID: 1883204296}
   - component: {fileID: 1883204298}
-  - component: {fileID: 1883204299}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -77804,23 +77822,6 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 1.1146796
---- !u!114 &1883204299
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1883204292}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 606fe619ab87029488a442e4e3f51d01, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerSpriteRenderer: {fileID: 1575567765}
-  fragmentSprites:
-  - {fileID: 21300000, guid: 2cd4528591edeaa4694ad0a558b90f89, type: 3}
-  - {fileID: 21300000, guid: 49b7d8dd576a2124d9a19d4eb8817072, type: 3}
-  - {fileID: 21300000, guid: 0da1bd65ca724b44fa17c90c516a52c6, type: 3}
 --- !u!1 &1893588347
 GameObject:
   m_ObjectHideFlags: 0
