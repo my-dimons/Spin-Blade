@@ -4796,6 +4796,8 @@ ParticleSystemRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -4817,6 +4819,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 4
@@ -5012,6 +5015,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7600367522053189208}
   - component: {fileID: 1038265093017024342}
+  - component: {fileID: 5770068985272683055}
   m_Layer: 0
   m_Name: sprite
   m_TagString: Untagged
@@ -5054,6 +5058,8 @@ SpriteRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -5075,17 +5081,35 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2311659948842064771, guid: 3fc214a9bf635a54c9667f82f44291f3, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e952685710a2c07418e16cebfd74585f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 5.12, y: 5.12}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &5770068985272683055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8267151407519439982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 606fe619ab87029488a442e4e3f51d01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WinVisuals
+  fragmentSprites:
+  - {fileID: 21300000, guid: 3fc214a9bf635a54c9667f82f44291f3, type: 3}
+  - {fileID: 21300000, guid: 2cd4528591edeaa4694ad0a558b90f89, type: 3}
+  - {fileID: 21300000, guid: 49b7d8dd576a2124d9a19d4eb8817072, type: 3}
+  - {fileID: 21300000, guid: 0da1bd65ca724b44fa17c90c516a52c6, type: 3}

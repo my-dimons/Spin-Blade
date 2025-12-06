@@ -1,16 +1,18 @@
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.UI;
 
-[RequireComponent(typeof(SpriteRenderer))]
 public class WinVisuals : MonoBehaviour
 {
     private SpriteRenderer spriteRenderer;
+    private Image imageRenderer;
     public Sprite[] fragmentSprites = new Sprite[4];
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        imageRenderer = GetComponent<Image>();
     }
 
     private void Update()
@@ -20,7 +22,12 @@ public class WinVisuals : MonoBehaviour
 
     private void ShowFragments()
     {
-        if (spriteRenderer.sprite != fragmentSprites[WinManager.winFragements])
-            spriteRenderer.sprite = fragmentSprites[WinManager.winFragements];
+        Sprite winSprite = fragmentSprites[WinManager.winFragements];
+
+        if (spriteRenderer != null && spriteRenderer.sprite != winSprite)
+            spriteRenderer.sprite = winSprite;
+        
+        if (imageRenderer != null && imageRenderer.sprite != winSprite)
+            imageRenderer.sprite = winSprite;
     }
 }

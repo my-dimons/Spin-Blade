@@ -222,7 +222,6 @@ public class PlayerHealthAndDamage : MonoBehaviour
         Vector2 direction = (transform.position - rotationPivot.transform.position).normalized;
 
         triangle.GetComponent<TriangleProjectile>().Initialize(direction, homingTriangles, piercingTriangles);
-
     }
 
     public void ExplodeCircle(Vector2 spawnPos, float circleDamage, float finalSize, bool knockback)
@@ -310,7 +309,8 @@ public class PlayerHealthAndDamage : MonoBehaviour
         // spawn a mine within the spawning enemy circle
         Vector2 spawnPos = GetRandomPointInDonut(4.5f, GameObject.FindGameObjectWithTag("EnemyManager").GetComponent<EnemyManager>().radius / minesRadiusDivisor);
 
-        GameObject mine = Instantiate(minePrefab, spawnPos, Quaternion.identity);
+        Quaternion randomRotation = Quaternion.Euler(new Vector3(0, 0, Random.Range(0, 360)));
+        GameObject mine = Instantiate(minePrefab, spawnPos, randomRotation);
 
         // set mine stats
         float knockbackDivisor = 2;

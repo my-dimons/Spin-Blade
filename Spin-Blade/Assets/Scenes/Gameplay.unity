@@ -53739,6 +53739,7 @@ GameObject:
   - component: {fileID: 1323966123}
   - component: {fileID: 1323966125}
   - component: {fileID: 1323966124}
+  - component: {fileID: 1323966126}
   m_Layer: 5
   m_Name: Blue Cooldown Bar
   m_TagString: Untagged
@@ -53778,14 +53779,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.35686275, g: 0.7568628, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -5508312327095114342, guid: 82ac9abc97a425a49bdd17f7f6da9485, type: 3}
+  m_Sprite: {fileID: 21300000, guid: beb5f056559456f4e90aff9fde7b864d, type: 3}
   m_Type: 3
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -53803,6 +53804,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1323966122}
   m_CullTransparentMesh: 1
+--- !u!114 &1323966126
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1323966122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 606fe619ab87029488a442e4e3f51d01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WinVisuals
+  fragmentSprites:
+  - {fileID: 21300000, guid: beb5f056559456f4e90aff9fde7b864d, type: 3}
+  - {fileID: 21300000, guid: 17d56638e2b134048a4e2909d689b1ec, type: 3}
+  - {fileID: 21300000, guid: 2ade85ecf2a328c4fbd26a73b5dc9091, type: 3}
+  - {fileID: 21300000, guid: d7e84de7cc8c4f74d8d9bfb1688f1c5d, type: 3}
 --- !u!1 &1327614309 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
@@ -62519,12 +62537,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Sprite: {fileID: -2311659948842064771, guid: 3fc214a9bf635a54c9667f82f44291f3, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3fc214a9bf635a54c9667f82f44291f3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 5.12, y: 5.12}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -62543,7 +62561,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WinVisuals
   fragmentSprites:
-  - {fileID: -2311659948842064771, guid: 3fc214a9bf635a54c9667f82f44291f3, type: 3}
+  - {fileID: 21300000, guid: 3fc214a9bf635a54c9667f82f44291f3, type: 3}
   - {fileID: 21300000, guid: 2cd4528591edeaa4694ad0a558b90f89, type: 3}
   - {fileID: 21300000, guid: 49b7d8dd576a2124d9a19d4eb8817072, type: 3}
   - {fileID: 21300000, guid: 0da1bd65ca724b44fa17c90c516a52c6, type: 3}
