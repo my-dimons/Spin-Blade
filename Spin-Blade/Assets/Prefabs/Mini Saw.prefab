@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4329600083676201534}
   - component: {fileID: 2599245864954733322}
   - component: {fileID: 5954436179446531120}
+  - component: {fileID: 47529929864983003}
   m_Layer: 0
   m_Name: Movement Particles
   m_TagString: Untagged
@@ -224,7 +225,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.36078432, g: 0.76470596, b: 1, a: 0.2}
+      maxColor: {r: 1, g: 1, b: 1, a: 0.39215687}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -1387,8 +1388,8 @@ ParticleSystem:
         m_NumAlphaKeys: 2
   UVModule:
     serializedVersion: 2
-    enabled: 0
-    mode: 0
+    enabled: 1
+    mode: 1
     timeMode: 0
     fps: 30
     frameOverTime:
@@ -1506,7 +1507,7 @@ ParticleSystem:
     uvChannelMask: -1
     rowMode: 1
     sprites:
-    - sprite: {fileID: 0}
+    - sprite: {fileID: 21300000, guid: beb5f056559456f4e90aff9fde7b864d, type: 3}
     flipU: 0
     flipV: 0
   VelocityModule:
@@ -4871,6 +4872,23 @@ MonoBehaviour:
   rotationOffset: 100
   altRotationOffset: 85
   useAltRotationOffset: 0
+--- !u!114 &47529929864983003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 358445339881374376}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 606fe619ab87029488a442e4e3f51d01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WinVisuals
+  fragmentSprites:
+  - {fileID: 21300000, guid: beb5f056559456f4e90aff9fde7b864d, type: 3}
+  - {fileID: 21300000, guid: 17d56638e2b134048a4e2909d689b1ec, type: 3}
+  - {fileID: 21300000, guid: 2ade85ecf2a328c4fbd26a73b5dc9091, type: 3}
+  - {fileID: 21300000, guid: d7e84de7cc8c4f74d8d9bfb1688f1c5d, type: 3}
 --- !u!1 &734129064361634801
 GameObject:
   m_ObjectHideFlags: 0
