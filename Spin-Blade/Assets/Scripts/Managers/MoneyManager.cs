@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using TMPro;
 using UnityEngine;
+using UnityUtils.ScriptUtils.Audio;
 
 public class MoneyManager : MonoBehaviour
 {
@@ -189,7 +190,7 @@ public class MoneyManager : MonoBehaviour
 
         shopOpen = !shopOpen;
 
-        Utils.PlayAudioClip(uiToggleSound, 0.3f);
+        SfxManager.PlaySfxAudioClip(uiToggleSound, 0.3f);
         const float ANIMATION_TIME = 0.1f;
 
         Time.timeScale = Time.timeScale == 0 ? 1 : 0; // pause or unpause the game

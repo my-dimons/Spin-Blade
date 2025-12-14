@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using UnityEngine;
+using UnityUtils.ScriptUtils.Audio;
 
 public class Enemy : MonoBehaviour
 {
@@ -140,7 +141,7 @@ public class Enemy : MonoBehaviour
             return;
         }
 
-        Utils.PlayAudioClip(hitSound);
+        SfxManager.PlaySfxAudioClip(hitSound);
 
         Vector3 particlePos = (attacker.position + transform.position) / 2f;
         Utils.SpawnBurstParticle(hitParticles, particlePos, hitColor);
@@ -202,7 +203,7 @@ public class Enemy : MonoBehaviour
 
         OnDeath?.Invoke();
 
-        Utils.PlayAudioClip(deathSound, 0.8f);
+        SfxManager.PlaySfxAudioClip(deathSound, 0.8f);
         Utils.SpawnBurstParticle(deathParticles, transform.position, hitColor);
         Camera.main.GetComponent<CameraScript>().ScreenshakeFunction(.08f);
 

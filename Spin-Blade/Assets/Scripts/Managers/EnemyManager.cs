@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityUtils.ScriptUtils.Audio;
 
 public class EnemyManager : MonoBehaviour
 {
@@ -112,7 +113,7 @@ public class EnemyManager : MonoBehaviour
     {
         int randomNum = Random.Range(0, 2);
         if (randomNum != 2)
-            Utils.PlayAudioClip(eventPing, 0.7f);
+            SfxManager.PlaySfxAudioClip(eventPing, 0.7f);
 
         if (eventCount == 1)
         {

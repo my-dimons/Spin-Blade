@@ -1,13 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.EventSystems;
 using System.Security.Cryptography;
 using TMPro;
 using Unity.Collections;
 using Unity.Jobs;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using UnityUtils.ScriptUtils.Audio;
 
 public class Upgrade : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
@@ -395,7 +396,7 @@ public class Upgrade : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         } else if (!locked)
             moneyManager.AddCurrency(-price, priceCurrencyType);
 
-        Utils.PlayAudioClip(buySound, 0.35f);
+        SfxManager.PlaySfxAudioClip(buySound, 0.35f);
         Camera.main.GetComponent<CameraScript>().ScreenshakeFunction(0.1f);
         foreach (IUpgrade upgrade in GetComponents<IUpgrade>())
         {
@@ -430,7 +431,7 @@ public class Upgrade : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
                 value => tileObject.transform.localScale = Vector3.one * value, useRealtime: true));
 
             // sfx
-            Utils.PlayAudioClip(moneyManager.upgradeHoverSound, 0.15f, 0.07f);
+            SfxManager.PlaySfxAudioClip(moneyManager.upgradeHoverSound, 0.15f, 0.07f);
         }
         else
         {

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityUtils.ScriptUtils.Audio;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -59,7 +60,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void ReverseDirection()
     {
-        Utils.PlayAudioClip(reverseDirectionSound, 0.06f);
+        SfxManager.PlaySfxAudioClip(reverseDirectionSound, 0.06f);
         direction *= -1;
 
         // Flip particle system direction

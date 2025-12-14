@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityUtils.ScriptUtils.Audio;
 
 public class PlayerHealthAndDamage : MonoBehaviour
 {
@@ -149,7 +150,7 @@ public class PlayerHealthAndDamage : MonoBehaviour
         // exploding circle timer
         if (explodingCircle)
             explodingCircleCooldownTimer += Time.deltaTime;
-        if ((explodingCircle && explodingCircleCooldownTimer >= explodingCircleCooldown))
+        if (explodingCircle && explodingCircleCooldownTimer >= explodingCircleCooldown)
         {
             explodingCircleCooldownTimer = 0f;
             ExplodeCircle(Vector2.zero, damage * explodingCircleDamageMultiplier, explodingCircleVisualFinalSize, explodingCircleKnockback);
@@ -182,7 +183,7 @@ public class PlayerHealthAndDamage : MonoBehaviour
         // full health ping
         if (currentHealth >= maxHeath && oldHealth < maxHeath && oldHealth != oldMaxHealth)
         {
-            Utils.PlayAudioClip(fullHealthSound, 0.7f);
+            SfxManager.PlaySfxAudioClip(fullHealthSound, 0.7f);
             circleDamageFlash.Flash(circleFullHealFlashColor);
         }
 
@@ -253,7 +254,7 @@ public class PlayerHealthAndDamage : MonoBehaviour
 
         float screenshakeDuration = .6f;
         Camera.main.GetComponent<CameraScript>().ScreenshakeFunction(screenshakeDuration);
-        Utils.PlayAudioClip(explodingCircleSound, 0.8f);
+        SfxManager.PlaySfxAudioClip(explodingCircleSound, 0.8f);
 
 
         IEnumerator ExplodingCircleVisual()
@@ -371,14 +372,14 @@ public class PlayerHealthAndDamage : MonoBehaviour
 
         dead = true;
         GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>().tutorialText.gameObject.SetActive(false); 
-        Utils.PlayAudioClip(deathSound, 1.3f);
+        SfxManager.PlaySfxAudioClip(deathSound, 1.3f);
         Time.timeScale = 0;
         deathScreen.SetActive(true);
     }
 
     public void TakeDamage(float damage, bool flashMoney = false)
     {
-        Utils.PlayAudioClip(hitSound, 1f);
+        SfxManager.PlaySfxAudioClip(hitSound, 1f);
         currentHealth -= damage;
 
         if (currentHealth > 0 && !flashMoney)

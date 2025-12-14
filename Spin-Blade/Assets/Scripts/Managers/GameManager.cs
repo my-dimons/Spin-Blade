@@ -6,6 +6,7 @@ using UnityEngine;
 
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityUtils.ScriptUtils.Audio;
 
 public class GameManager : MonoBehaviour
 {
@@ -244,6 +245,6 @@ public class GameManager : MonoBehaviour
     public void Win()
     {
         StartCoroutine(WinScreen());
-        Utils.PlayAudioClip(winSfx, 1f);
+        SfxManager.PlaySfxAudioClip(winSfx, 1f);
     }
 }

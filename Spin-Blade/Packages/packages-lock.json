@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.mydimons.unityutils": {
+      "version": "https://github.com/my-dimons/Unity-Utils.git?path=/Unity Utils/Packages/UnityUtils",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "20ca649faf8a42b03f218564e7dfe83830fa2494"
+    },
     "com.unity.2d.animation": {
       "version": "12.0.2",
       "depth": 1,
