@@ -4,6 +4,8 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityUtils.ScriptUtils.Audio;
+using UnityUtils.ScriptUtils;
+using System.Numerics;
 
 public class PlayerHealthAndDamage : MonoBehaviour
 {
@@ -149,31 +151,28 @@ public class PlayerHealthAndDamage : MonoBehaviour
 
         // exploding circle timer
         if (explodingCircle)
+        {
             explodingCircleCooldownTimer += Time.deltaTime;
-        if (explodingCircle && explodingCircleCooldownTimer >= explodingCircleCooldown)
-        {
-            explodingCircleCooldownTimer = 0f;
-            ExplodeCircle(Vector2.zero, damage * explodingCircleDamageMultiplier, explodingCircleVisualFinalSize, explodingCircleKnockback);
-        }
-        // exploding circle visual cooldown
-        if (explodingCircle)
-        {
-            explodingCircleVisualCooldown.fillAmount = (float)explodingCircleCooldownTimer / explodingCircleCooldown;
-        } else
-        {
-            // full fill
-            explodingCircleVisualCooldown.fillAmount = 1;
+            explodingCircleVisualCooldown.fillAmount = explodingCircleCooldownTimer / explodingCircleCooldown;
+
+            if (explodingCircleCooldownTimer >= explodingCircleCooldown)
+            {
+                explodingCircleCooldownTimer = 0f;
+                ExplodeCircle(Vector2.zero, damage * explodingCircleDamageMultiplier, explodingCircleVisualFinalSize, explodingCircleKnockback);
+            }
+
         }
 
         // mines
         if (mines)
         {
             minesCooldownTimer += Time.deltaTime;
-        }
-        if (mines && minesCooldownTimer >= minesCooldown || Input.GetKeyDown(KeyCode.R))
-        {
-            minesCooldownTimer = 0f;
-            SpawnMine();
+
+            if (minesCooldownTimer >= minesCooldown || Input.GetKeyDown(KeyCode.R))
+            {
+                minesCooldownTimer = 0f;
+                SpawnMine();
+            }
         }
 
         // clamp health & add regen
@@ -192,7 +191,7 @@ public class PlayerHealthAndDamage : MonoBehaviour
         oldMaxHealth = maxHeath;
 
         // health bar visual fill
-        healthBar.fillAmount = (float)currentHealth / maxHeath;
+        healthBar.fillAmount = currentHealth / maxHeath;
 
         // death if health is 0
         if (currentHealth <= 0 && !dead)
@@ -260,47 +259,13 @@ public class PlayerHealthAndDamage : MonoBehaviour
         IEnumerator ExplodingCircleVisual()
         {
             GameObject circle = Instantiate(explodingCirclePrefab, spawnPos, Quaternion.identity);
-            Transform circleTransform = circle.transform;
-            SpriteRenderer sr = circle.GetComponent<SpriteRenderer>();
-
-            Vector3 startScale = circleTransform.localScale;
+            
             Vector3 endScale = 2 * finalSize * Vector3.one; // multiply by 2 because for some reason the scale is half the size of the sprite or smth ¯\(°_o)/¯ idk it just works
+            ObjectAnimations.AnimateTransformScale(circle.transform, Vector3.zero, endScale, explodingCircleAnimationDuration, animationCurve: explodingCircleSizeAnimationCurve);
+            ObjectAnimations.AnimateSpriteRendererOpacity(circle.GetComponent<SpriteRenderer>(), 1, 0, explodingCircleAnimationDuration);
 
-            float startAlpha = sr != null ? sr.color.a : 1f;
-            float endAlpha = 0f;
-
-            float time = 0f;
-
-            while (time < explodingCircleAnimationDuration)
-            {
-                float t = time / explodingCircleAnimationDuration;
-
-                // Scale
-                float scaleValue = explodingCircleSizeAnimationCurve.Evaluate(t);
-                circleTransform.localScale = Vector3.LerpUnclamped(startScale, endScale, scaleValue);
-
-                // Opacity
-                if (sr != null)
-                {
-                    float alphaValue = explodingCircleOpacityAnimationCurve.Evaluate(t);
-                    Color c = sr.color;
-                    c.a = Mathf.LerpUnclamped(startAlpha, endAlpha, alphaValue);
-                    sr.color = c;
-                }
-
-                time += Time.deltaTime;
-                yield return null;
-            }
-
-            // Snap final state
-            circleTransform.localScale = endScale;
-            if (sr != null)
-            {
-                Color c = sr.color;
-                c.a = endAlpha;
-                sr.color = c;
-            }
-
+            yield return new WaitForSeconds(explodingCircleAnimationDuration);
+            
             Destroy(circle);
         }
     }
