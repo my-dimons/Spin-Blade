@@ -167,6 +167,7 @@ GameObject:
   - component: {fileID: 43699773}
   - component: {fileID: 43699772}
   - component: {fileID: 43699771}
+  - component: {fileID: 43699776}
   - component: {fileID: 43699775}
   - component: {fileID: 43699774}
   m_Layer: 5
@@ -299,10 +300,40 @@ MonoBehaviour:
   m_GameObject: {fileID: 43699769}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f62f6813f3003d4381b2f6966df9790, type: 3}
+  m_Script: {fileID: 11500000, guid: c43bcbe38c2aea0428781ce40b15cdf2, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
-  hoverAudio: {fileID: 8300000, guid: 95b4ba9c86e9c1d4a8a9dd36744cba52, type: 3}
+  m_EditorClassIdentifier: mydimons.unityutils.runtime::UnityUtils.ScriptUtils.UI.UIButtonHoverRotate
+  hoverRotation: 8
+  rotationAnimationSeconds: 0.1
+  rotateBackAfterHover: 1
+  useRealtime: 1
+  SizingCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  useRandomRotation: 1
+  randomRotation: {x: -5, y: 5}
+  hoveringOverButton: 0
 --- !u!114 &43699775
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -312,26 +343,58 @@ MonoBehaviour:
   m_GameObject: {fileID: 43699769}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Script: {fileID: 11500000, guid: a31f557759d1e9d4a82f4d262fadd54c, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
-  m_Delegates:
-  - eventID: 0
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 43699774}
-          m_TargetAssemblyTypeName: UiHoverSounds, Assembly-CSharp
-          m_MethodName: HoverSfx
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
+  m_EditorClassIdentifier: mydimons.unityutils.runtime::UnityUtils.ScriptUtils.UI.UIButtonHoverExpand
+  hoverSize: 1.1
+  sizeAnimationSeconds: 0.1
+  useRealtime: 1
+  SizingCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  hoveringOverButton: 0
+--- !u!114 &43699776
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 43699769}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a2cffe2536ed0646a1403300f4efde8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: mydimons.unityutils.runtime::UnityUtils.ScriptUtils.UI.UIButtonSFX
+  hoverEnterSfx: {fileID: 8300000, guid: 95b4ba9c86e9c1d4a8a9dd36744cba52, type: 3}
+  hoverEnterVolume: 1
+  hoverExitSfx: {fileID: 0}
+  hoverExitVolume: 1
+  clickSfx: {fileID: 0}
+  clickVolume: 1
+  pitchVariance: 0.1
+  volumeType: 1
+  emptySfxErrorMessages: 0
 --- !u!1 &94790707
 GameObject:
   m_ObjectHideFlags: 0
@@ -548,7 +611,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 98823271}
   m_OnClick:
     m_PersistentCalls:
@@ -1026,6 +1089,7 @@ GameObject:
   - component: {fileID: 238638941}
   - component: {fileID: 238638940}
   - component: {fileID: 238638939}
+  - component: {fileID: 238638944}
   - component: {fileID: 238638943}
   - component: {fileID: 238638942}
   m_Layer: 5
@@ -1158,10 +1222,40 @@ MonoBehaviour:
   m_GameObject: {fileID: 238638937}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f62f6813f3003d4381b2f6966df9790, type: 3}
+  m_Script: {fileID: 11500000, guid: c43bcbe38c2aea0428781ce40b15cdf2, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
-  hoverAudio: {fileID: 8300000, guid: 95b4ba9c86e9c1d4a8a9dd36744cba52, type: 3}
+  m_EditorClassIdentifier: mydimons.unityutils.runtime::UnityUtils.ScriptUtils.UI.UIButtonHoverRotate
+  hoverRotation: 8
+  rotationAnimationSeconds: 0.1
+  rotateBackAfterHover: 1
+  useRealtime: 1
+  SizingCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  useRandomRotation: 1
+  randomRotation: {x: -5, y: 5}
+  hoveringOverButton: 0
 --- !u!114 &238638943
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1171,26 +1265,58 @@ MonoBehaviour:
   m_GameObject: {fileID: 238638937}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Script: {fileID: 11500000, guid: a31f557759d1e9d4a82f4d262fadd54c, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
-  m_Delegates:
-  - eventID: 0
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 238638942}
-          m_TargetAssemblyTypeName: UiHoverSounds, Assembly-CSharp
-          m_MethodName: HoverSfx
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
+  m_EditorClassIdentifier: mydimons.unityutils.runtime::UnityUtils.ScriptUtils.UI.UIButtonHoverExpand
+  hoverSize: 1.1
+  sizeAnimationSeconds: 0.1
+  useRealtime: 1
+  SizingCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  hoveringOverButton: 0
+--- !u!114 &238638944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 238638937}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a2cffe2536ed0646a1403300f4efde8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: mydimons.unityutils.runtime::UnityUtils.ScriptUtils.UI.UIButtonSFX
+  hoverEnterSfx: {fileID: 8300000, guid: 95b4ba9c86e9c1d4a8a9dd36744cba52, type: 3}
+  hoverEnterVolume: 1
+  hoverExitSfx: {fileID: 0}
+  hoverExitVolume: 1
+  clickSfx: {fileID: 0}
+  clickVolume: 1
+  pitchVariance: 0.1
+  volumeType: 1
+  emptySfxErrorMessages: 0
 --- !u!1 &244222152
 GameObject:
   m_ObjectHideFlags: 0
@@ -17517,7 +17643,9 @@ GameObject:
   - component: {fileID: 1622109258}
   - component: {fileID: 1622109257}
   - component: {fileID: 1622109261}
-  - component: {fileID: 1622109260}
+  - component: {fileID: 1622109264}
+  - component: {fileID: 1622109263}
+  - component: {fileID: 1622109262}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -17639,19 +17767,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1622109255}
   m_CullTransparentMesh: 1
---- !u!114 &1622109260
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1622109255}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f62f6813f3003d4381b2f6966df9790, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hoverAudio: {fileID: 8300000, guid: 95b4ba9c86e9c1d4a8a9dd36744cba52, type: 3}
 --- !u!114 &1622109261
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17668,19 +17783,111 @@ MonoBehaviour:
   - eventID: 0
     callback:
       m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1622109260}
-          m_TargetAssemblyTypeName: UiHoverSounds, Assembly-CSharp
-          m_MethodName: HoverSfx
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
+        m_Calls: []
+--- !u!114 &1622109262
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1622109255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c43bcbe38c2aea0428781ce40b15cdf2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: mydimons.unityutils.runtime::UnityUtils.ScriptUtils.UI.UIButtonHoverRotate
+  hoverRotation: 8
+  rotationAnimationSeconds: 0.1
+  rotateBackAfterHover: 1
+  useRealtime: 1
+  SizingCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  useRandomRotation: 1
+  randomRotation: {x: -5, y: 5}
+  hoveringOverButton: 0
+--- !u!114 &1622109263
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1622109255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a31f557759d1e9d4a82f4d262fadd54c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: mydimons.unityutils.runtime::UnityUtils.ScriptUtils.UI.UIButtonHoverExpand
+  hoverSize: 1.1
+  sizeAnimationSeconds: 0.1
+  useRealtime: 1
+  SizingCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  hoveringOverButton: 0
+--- !u!114 &1622109264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1622109255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a2cffe2536ed0646a1403300f4efde8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: mydimons.unityutils.runtime::UnityUtils.ScriptUtils.UI.UIButtonSFX
+  hoverEnterSfx: {fileID: 8300000, guid: 95b4ba9c86e9c1d4a8a9dd36744cba52, type: 3}
+  hoverEnterVolume: 1
+  hoverExitSfx: {fileID: 0}
+  hoverExitVolume: 1
+  clickSfx: {fileID: 0}
+  clickVolume: 1
+  pitchVariance: 0.1
+  volumeType: 1
+  emptySfxErrorMessages: 0
 --- !u!1 &1650629888
 GameObject:
   m_ObjectHideFlags: 0
