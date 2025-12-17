@@ -9,6 +9,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using UnityUtils.ScriptUtils.Audio;
+using UnityUtils.ScriptUtils.UI;
 
 public class Upgrade : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
@@ -372,10 +373,19 @@ public class Upgrade : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             priceObject.color = moneyManager.GetCurrencyColor(priceCurrencyType);
         }
 
+        // sprite opacity
+        if (bought)
+        {
+            imageObject.color = new Color(imageObject.color.r, imageObject.color.g, imageObject.color.b, 1);
+        } else
+        {
+            imageObject.color = new Color(imageObject.color.r, imageObject.color.g, imageObject.color.b, 0.4f);
+        }
+
         // max lvl
         if (maxLevel == 0)
             maxLevelObject.text = currentLevel.ToString();
-        else 
+        else
             maxLevelObject.text = currentLevel.ToString() + "/" + maxLevel.ToString();
     }
 
@@ -413,36 +423,17 @@ public class Upgrade : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public void TogglePopup(bool enable)
     {
-        float animationSpeed = 0.1f;
-        Vector2 popupScale = new (0, 1f);
-        Vector2 upgradeScale = new(1, 1.3f);
-
         if (enable)
         {
             gameObject.transform.SetAsLastSibling(); // bring to front
 
             popupObject.SetActive(enable);
-            // enable popup
-            //StartCoroutine(Utils.AnimateValue(popupScale.x, popupScale.y, animationSpeed, moneyManager.upgradeInfoAnimCurve,
-            //    value => popupObject.transform.localScale = Vector3.one * value, useRealtime: true));
-            //
-            //// upgrade tile object (make bigger)
-            //StartCoroutine(Utils.AnimateValue(upgradeScale.x, upgradeScale.y, animationSpeed, moneyManager.upgradeInfoAnimCurve,
-            //    value => tileObject.transform.localScale = Vector3.one * value, useRealtime: true));
 
-            // sfx
             SfxManager.PlaySfxAudioClip(moneyManager.upgradeHoverSound, 0.15f, 0.07f);
         }
         else
         {
-            // disable popup
-            //StartCoroutine(Utils.AnimateValue(popupScale.y, popupScale.x, animationSpeed, moneyManager.upgradeInfoAnimCurve,
-            //     value => popupObject.transform.localScale = Vector3.one * value, useRealtime: true));
-            //StartCoroutine(Utils.EnableObjectDelay(popupObject, enable, animationSpeed));
-
-            // object (make smaller)
-            StartCoroutine(Utils.AnimateValue(upgradeScale.y, upgradeScale.x, animationSpeed, moneyManager.upgradeInfoAnimCurve,
-                value => tileObject.transform.localScale = Vector3.one * value, useRealtime: true));
+            StartCoroutine(Utils.EnableObjectDelay(popupObject, enable, buyButton.GetComponent<UIButtonHoverExpand>().sizeAnimationSeconds));
         }
     }
 
