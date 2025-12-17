@@ -6,6 +6,7 @@ using System.Runtime.CompilerServices;
 using TMPro;
 using UnityEngine;
 using UnityUtils.ScriptUtils.Audio;
+using UnityUtils.ScriptUtils;
 
 public class MoneyManager : MonoBehaviour
 {
@@ -191,17 +192,18 @@ public class MoneyManager : MonoBehaviour
         shopOpen = !shopOpen;
 
         SfxManager.PlaySfxAudioClip(uiToggleSound, 0.3f);
-        const float ANIMATION_TIME = 0.1f;
+
+        float animationTime = 0.1f;
+        Vector3 shopAnimationSize = new Vector3(0.6f, 0.6f, 0.6f);
 
         Time.timeScale = Time.timeScale == 0 ? 1 : 0; // pause or unpause the game
 
         if (menu.activeSelf == true)
         {
             animatingShop = true;
-            StartCoroutine(Utils.AnimateValue(1, .6f, ANIMATION_TIME, upgradeInfoAnimCurve,
-                value => menu.transform.localScale = Vector3.one * value, useRealtime: true));
-            StartCoroutine(Utils.EnableObjectDelay(menu, false, ANIMATION_TIME));
-            StartCoroutine(AnimatingBoolToggle(ANIMATION_TIME, false));
+            ObjectAnimations.AnimateTransformScale(menu.transform, menu.transform.localScale, shopAnimationSize, animationTime, true, upgradeInfoAnimCurve);
+            StartCoroutine(Utils.EnableObjectDelay(menu, false, animationTime));
+            StartCoroutine(AnimatingBoolToggle(animationTime, false));
         } else
         {
             menu.SetActive(true);
@@ -213,12 +215,8 @@ public class MoneyManager : MonoBehaviour
             }
 
             animatingShop = true;
-            StartCoroutine(Utils.AnimateValue(.6f, 1, ANIMATION_TIME, upgradeInfoAnimCurve,
-                value => menu.transform.localScale = Vector3.one * value, useRealtime: true));
-            StartCoroutine(AnimatingBoolToggle(ANIMATION_TIME, false));
-
-            //if (!GameObject.FindGameObjectWithTag("PVars").GetComponent<PersistentVariables>().infiniteMode)
-            //    skillTreeObject.GetComponent<DraggableSkillTreeMenu>().ResetPosition();
+            ObjectAnimations.AnimateTransformScale(menu.transform, shopAnimationSize, menu.transform.localScale, animationTime, true, upgradeInfoAnimCurve);
+            StartCoroutine(AnimatingBoolToggle(animationTime, false));
         }
         
 

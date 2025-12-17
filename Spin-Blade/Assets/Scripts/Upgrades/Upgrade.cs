@@ -423,12 +423,12 @@ public class Upgrade : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
             popupObject.SetActive(enable);
             // enable popup
-            StartCoroutine(Utils.AnimateValue(popupScale.x, popupScale.y, animationSpeed, moneyManager.upgradeInfoAnimCurve,
-                value => popupObject.transform.localScale = Vector3.one * value, useRealtime: true));
-
-            // upgrade tile object (make bigger)
-            StartCoroutine(Utils.AnimateValue(upgradeScale.x, upgradeScale.y, animationSpeed, moneyManager.upgradeInfoAnimCurve,
-                value => tileObject.transform.localScale = Vector3.one * value, useRealtime: true));
+            //StartCoroutine(Utils.AnimateValue(popupScale.x, popupScale.y, animationSpeed, moneyManager.upgradeInfoAnimCurve,
+            //    value => popupObject.transform.localScale = Vector3.one * value, useRealtime: true));
+            //
+            //// upgrade tile object (make bigger)
+            //StartCoroutine(Utils.AnimateValue(upgradeScale.x, upgradeScale.y, animationSpeed, moneyManager.upgradeInfoAnimCurve,
+            //    value => tileObject.transform.localScale = Vector3.one * value, useRealtime: true));
 
             // sfx
             SfxManager.PlaySfxAudioClip(moneyManager.upgradeHoverSound, 0.15f, 0.07f);
@@ -436,9 +436,9 @@ public class Upgrade : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         else
         {
             // disable popup
-            StartCoroutine(Utils.AnimateValue(popupScale.y, popupScale.x, animationSpeed, moneyManager.upgradeInfoAnimCurve,
-                 value => popupObject.transform.localScale = Vector3.one * value, useRealtime: true));
-            StartCoroutine(Utils.EnableObjectDelay(popupObject, enable, animationSpeed));
+            //StartCoroutine(Utils.AnimateValue(popupScale.y, popupScale.x, animationSpeed, moneyManager.upgradeInfoAnimCurve,
+            //     value => popupObject.transform.localScale = Vector3.one * value, useRealtime: true));
+            //StartCoroutine(Utils.EnableObjectDelay(popupObject, enable, animationSpeed));
 
             // object (make smaller)
             StartCoroutine(Utils.AnimateValue(upgradeScale.y, upgradeScale.x, animationSpeed, moneyManager.upgradeInfoAnimCurve,
