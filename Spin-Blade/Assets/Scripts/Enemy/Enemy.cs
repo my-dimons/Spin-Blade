@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityUtils.ScriptUtils;
 using UnityUtils.ScriptUtils.Audio;
+using UnityUtils.ScriptUtils.Particles
 
 public class Enemy : MonoBehaviour
 {
@@ -119,8 +120,8 @@ public class Enemy : MonoBehaviour
             if (proj.destroyOnHit)
                 Destroy(other.gameObject);
 
-            particlePos = other.transform.position;
-            TakeDamage(other.transform, proj.damage, proj.knockbackForce, proj.stunDuration, playerHealth.knockbackCurve, true);
+            Vector3 particlePos = other.ClosestPoint(transform.position);
+            TakeDamage(other.transform, proj.damage, particlePos, proj.knockbackForce, proj.stunDuration, playerHealth.knockbackCurve, true);
         }
 
         if (other.CompareTag("Circle") && currentHealth > 0)
@@ -129,7 +130,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    public void TakeDamage(Transform attacker, float damage, float distance = 0, float duration = 0, Vector3 particlePos, AnimationCurve curve = null, bool knockback = false)
+    public void TakeDamage(Transform attacker, float damage, Vector3 particlePos, float distance = 0, float duration = 0, AnimationCurve curve = null, bool knockback = false)
     {
         if (isDead) return;
 
@@ -145,7 +146,8 @@ public class Enemy : MonoBehaviour
 
         SfxManager.PlaySfxAudioClip(hitSound);
 
-        Utils.SpawnBurstParticle(hitParticles, particlePos, hitColor);
+        ParticleManager.SpawnBurstParticle(hitParticles, particlePos, hitColor);
+
 
         GetComponent<DamageFlash>().Flash(damageFlashColor);
 
@@ -205,7 +207,7 @@ public class Enemy : MonoBehaviour
         OnDeath?.Invoke();
 
         SfxManager.PlaySfxAudioClip(deathSound, 0.8f);
-        Utils.SpawnBurstParticle(deathParticles, transform.position, hitColor);
+        ParticleManager.SpawnBurstParticle(deathParticles, transform.position, hitColor);
         Camera.main.GetComponent<CameraScript>().ScreenshakeFunction(.08f);
 
         // text
@@ -237,7 +239,7 @@ public class Enemy : MonoBehaviour
     {
         OnCircleHit?.Invoke();
 
-        Utils.SpawnBurstParticle(deathParticles, transform.position, hitColor);
+        ParticleManager.SpawnBurstParticle(deathParticles, transform.position, hitColor);
         Camera.main.GetComponent<CameraScript>().ScreenshakeFunction(.5f);
 
         GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealthAndDamage>().TakeDamage(damage);
