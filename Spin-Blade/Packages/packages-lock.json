@@ -1,11 +1,21 @@
 {
   "dependencies": {
+    "com.coffee.ui-particle": {
+      "version": "https://github.com/mob-sakai/ParticleEffectForUGUI.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.unity.ugui": "1.0.0",
+        "com.unity.modules.particlesystem": "1.0.0"
+      },
+      "hash": "c54f63cb18a22382215b142b63e232f0f86fff58"
+    },
     "com.mydimons.unityutils": {
       "version": "https://github.com/my-dimons/Unity-Utils.git?path=/Unity Utils/Packages/UnityUtils",
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "56145001d9162a6cd3e3aea9b817b380a1a9f927"
+      "hash": "2959f70530e0c65ed8cfbd8cb77dfaa66be7d478"
     },
     "com.unity.2d.animation": {
       "version": "12.0.2",

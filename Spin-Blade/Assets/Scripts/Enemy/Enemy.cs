@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityUtils.ScriptUtils;
 using UnityUtils.ScriptUtils.Audio;
-using UnityUtils.ScriptUtils.Particles
+using UnityUtils.ScriptUtils.Particles;
 
 public class Enemy : MonoBehaviour
 {
@@ -146,7 +146,7 @@ public class Enemy : MonoBehaviour
 
         SfxManager.PlaySfxAudioClip(hitSound);
 
-        ParticleManager.SpawnBurstParticle(hitParticles, particlePos, hitColor);
+        ParticleManager.SpawnBurstParticle(hitParticles, particlePos, color: hitColor);
 
 
         GetComponent<DamageFlash>().Flash(damageFlashColor);
@@ -207,7 +207,7 @@ public class Enemy : MonoBehaviour
         OnDeath?.Invoke();
 
         SfxManager.PlaySfxAudioClip(deathSound, 0.8f);
-        ParticleManager.SpawnBurstParticle(deathParticles, transform.position, hitColor);
+        ParticleManager.SpawnBurstParticle(deathParticles, transform.position, color: hitColor);
         Camera.main.GetComponent<CameraScript>().ScreenshakeFunction(.08f);
 
         // text
@@ -239,7 +239,7 @@ public class Enemy : MonoBehaviour
     {
         OnCircleHit?.Invoke();
 
-        ParticleManager.SpawnBurstParticle(deathParticles, transform.position, hitColor);
+        ParticleManager.SpawnBurstParticle(deathParticles, transform.position, color: hitColor);
         Camera.main.GetComponent<CameraScript>().ScreenshakeFunction(.5f);
 
         GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealthAndDamage>().TakeDamage(damage);

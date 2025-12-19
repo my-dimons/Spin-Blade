@@ -16697,6 +16697,7 @@ MonoBehaviour:
   clickVolume: 1
   pitchVariance: 0.1
   volumeType: 1
+  sceneSwitcherButton: 0
   emptySfxErrorMessages: 0
 --- !u!1 &1722051466
 GameObject:
@@ -21809,6 +21810,7 @@ MonoBehaviour:
   clickVolume: 1
   pitchVariance: 0.1
   volumeType: 1
+  sceneSwitcherButton: 0
   emptySfxErrorMessages: 0
 --- !u!1 &1845167476
 GameObject:

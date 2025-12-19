@@ -1883,6 +1883,7 @@ MonoBehaviour:
   clickVolume: 1
   pitchVariance: 0.1
   volumeType: 1
+  sceneSwitcherButton: 0
   emptySfxErrorMessages: 0
 --- !u!114 &123015467
 MonoBehaviour:
@@ -21747,6 +21748,7 @@ GameObject:
   - component: {fileID: 699087746}
   - component: {fileID: 699087749}
   - component: {fileID: 699087748}
+  - component: {fileID: 699087750}
   m_Layer: 5
   m_Name: Handle
   m_TagString: Untagged
@@ -21895,6 +21897,28 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &699087750
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 699087744}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a2cffe2536ed0646a1403300f4efde8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: mydimons.unityutils.runtime::UnityUtils.ScriptUtils.UI.UIButtonSFX
+  hoverEnterSfx: {fileID: 8300000, guid: 95b4ba9c86e9c1d4a8a9dd36744cba52, type: 3}
+  hoverEnterVolume: 1
+  hoverExitSfx: {fileID: 0}
+  hoverExitVolume: 1
+  clickSfx: {fileID: 0}
+  clickVolume: 1
+  pitchVariance: 0.1
+  volumeType: 1
+  sceneSwitcherButton: 0
+  emptySfxErrorMessages: 0
 --- !u!1001 &727103076
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -55971,6 +55995,7 @@ MonoBehaviour:
   clickVolume: 1
   pitchVariance: 0.1
   volumeType: 1
+  sceneSwitcherButton: 1
   emptySfxErrorMessages: 0
 --- !u!114 &1435609835
 MonoBehaviour:
@@ -64398,6 +64423,7 @@ GameObject:
   - component: {fileID: 1624390746}
   - component: {fileID: 1624390749}
   - component: {fileID: 1624390748}
+  - component: {fileID: 1624390750}
   m_Layer: 5
   m_Name: Handle
   m_TagString: Untagged
@@ -64546,6 +64572,28 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1624390750
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1624390744}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a2cffe2536ed0646a1403300f4efde8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: mydimons.unityutils.runtime::UnityUtils.ScriptUtils.UI.UIButtonSFX
+  hoverEnterSfx: {fileID: 8300000, guid: 95b4ba9c86e9c1d4a8a9dd36744cba52, type: 3}
+  hoverEnterVolume: 1
+  hoverExitSfx: {fileID: 0}
+  hoverExitVolume: 1
+  clickSfx: {fileID: 0}
+  clickVolume: 1
+  pitchVariance: 0.1
+  volumeType: 1
+  sceneSwitcherButton: 0
+  emptySfxErrorMessages: 0
 --- !u!1 &1637531545
 GameObject:
   m_ObjectHideFlags: 0

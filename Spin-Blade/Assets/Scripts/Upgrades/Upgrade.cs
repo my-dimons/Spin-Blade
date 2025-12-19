@@ -9,6 +9,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using UnityUtils.ScriptUtils.Audio;
+using UnityUtils.ScriptUtils.Particles;
 using UnityUtils.ScriptUtils.UI;
 
 public class Upgrade : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
@@ -54,12 +55,12 @@ public class Upgrade : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public TextMeshProUGUI enemyPopupValueText;
     public TextMeshProUGUI enemyPopupDamageText;
     public TextMeshProUGUI enemyPopupHealthText;
-    [Space(4)]
+    [Space(10)]
     public Image enemyPopupValueIconMoney;
     public Image enemyPopupValueIconBits;
-    [Space(4)]
+    [Space(10)]
     public bool enemyPopup;
-    [Space(8)]
+    [Space(10)]
     public GameObject outlineObject;
     public GameObject backgroundObject;
     public GameObject tileObject;
@@ -68,10 +69,10 @@ public class Upgrade : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public GameObject miniLockObject;
     public GameObject lockObject;
     [Space(10)]
+    public GameObject buyParticlesPrefab;
     [Header("Buttons")]
     public GameObject buyButton;
     [Header("|--- Upgrade Objects ---|")]
-    [Space(20)]
     [Header("|--- Skill Tree ---|")]
 
     [Header("-- Extra --")]
@@ -408,6 +409,8 @@ public class Upgrade : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
         SfxManager.PlaySfxAudioClip(buySound, 0.8f);
         Camera.main.GetComponent<CameraScript>().ScreenshakeFunction(0.1f);
+        ParticleManager.SpawnBurstParticle(buyParticlesPrefab, transform.position, transform, fullyBoughtOutlineColor);
+
         foreach (IUpgrade upgrade in GetComponents<IUpgrade>())
         {
             upgrade.ApplyUpgrade();
@@ -426,14 +429,6 @@ public class Upgrade : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         if (enable)
         {
             gameObject.transform.SetAsLastSibling(); // bring to front
-
-            popupObject.SetActive(enable);
-
-            SfxManager.PlaySfxAudioClip(moneyManager.upgradeHoverSound, 0.15f, 0.07f);
-        }
-        else
-        {
-            StartCoroutine(Utils.EnableObjectDelay(popupObject, enable, buyButton.GetComponent<UIButtonHoverExpand>().sizeAnimationSeconds));
         }
     }
 

@@ -36,7 +36,6 @@ public class DraggableSkillTreeMenu : MonoBehaviour
         canvasCamera = parentCanvas.worldCamera;
 
         defaultPosition = rectTransform.localPosition;
-        Debug.Log(defaultPosition);
 
         if (zoomParent == null)
         {
