@@ -237,9 +237,9 @@ public class PlayerHealthAndDamage : MonoBehaviour
                 if (!enemy.GetComponent<Enemy>().damageFromProjectiles) return;
 
                 if (knockback)
-                    enemy.GetComponent<Enemy>().TakeDamage(enemy.transform, circleDamage, knockbackDistance, knockbackDuration, knockbackCurve, true);
+                    enemy.GetComponent<Enemy>().TakeDamage(enemy.transform, circleDamage, enemy.transform.position, knockbackDistance, knockbackDuration, knockbackCurve, true);
                 else
-                    enemy.GetComponent<Enemy>().TakeDamage(enemy.transform, circleDamage, 1, 0.8f, knockbackCurve, true); // do a little knockback to 'stun' the enemy
+                    enemy.GetComponent<Enemy>().TakeDamage(enemy.transform, circleDamage, enemy.transform.position, 1, 0.8f, knockbackCurve, true); // do a little knockback to 'stun' the enemy
             }
         }
         foreach (GameObject mine in mines)
@@ -371,7 +371,8 @@ public class PlayerHealthAndDamage : MonoBehaviour
         {
             Enemy enemyScript = collision.GetComponent<Enemy>();
 
-            enemyScript.TakeDamage(transform, damage, knockbackDistance, knockbackDuration, knockbackCurve, true);
+            Vector3 particlePos = collision.ClosestPoint(transform.position);
+            enemyScript.TakeDamage(transform, damage, particlePos, knockbackDistance, knockbackDuration, knockbackCurve, true);
         }
     }
 
