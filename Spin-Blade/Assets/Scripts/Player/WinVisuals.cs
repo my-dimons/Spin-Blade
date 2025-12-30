@@ -5,7 +5,8 @@ public class WinVisuals : MonoBehaviour
 {
     private SpriteRenderer spriteRenderer;
     private Image imageRenderer;
-    private ParticleSystem particleSystem;
+    private ParticleSystem winParticleSystem;
+
     public Sprite[] fragmentSprites = new Sprite[4];
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -13,7 +14,7 @@ public class WinVisuals : MonoBehaviour
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         imageRenderer = GetComponent<Image>();
-        particleSystem = GetComponent<ParticleSystem>();
+        winParticleSystem = GetComponent<ParticleSystem>();
     }
 
     private void Update()
@@ -31,7 +32,7 @@ public class WinVisuals : MonoBehaviour
         if (imageRenderer != null && imageRenderer.sprite != winSprite)
             imageRenderer.sprite = winSprite;
             
-        if (particleSystem != null && particleSystem.textureSheetAnimation.GetSprite(0) != winSprite)
-            particleSystem.textureSheetAnimation.SetSprite(0, winSprite);
+        if (winParticleSystem != null && winParticleSystem.textureSheetAnimation.GetSprite(0) != winSprite)
+            winParticleSystem.textureSheetAnimation.SetSprite(0, winSprite);
     }
 }

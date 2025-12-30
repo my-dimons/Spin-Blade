@@ -2698,7 +2698,11 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  applyTransform: {fileID: 2128968004907963074}
   hoveringOverButton: 0
+  logScale: 0
+  logScaleUp: 0
+  logScaleDown: 0
 --- !u!222 &5534402457558791244
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2727,8 +2731,7 @@ MonoBehaviour:
   clickVolume: 1
   pitchVariance: 0.1
   volumeType: 1
-  sceneSwitcherButton: 0
-  emptySfxErrorMessages: 0
+  logEmptySfx: 0
 --- !u!114 &6565746589425189305
 MonoBehaviour:
   m_ObjectHideFlags: 0

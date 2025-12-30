@@ -333,7 +333,12 @@ MonoBehaviour:
     m_RotationOrder: 4
   useRandomRotation: 1
   randomRotation: {x: -5, y: 5}
+  applyTransform: {fileID: 43699770}
   hoveringOverButton: 0
+  logRotate: 0
+  logRotateSetPos: 0
+  logRotateBack: 0
+  logRandomRotation: 0
 --- !u!114 &43699775
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -373,7 +378,11 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  applyTransform: {fileID: 43699770}
   hoveringOverButton: 0
+  logScale: 0
+  logScaleUp: 0
+  logScaleDown: 0
 --- !u!114 &43699776
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -394,8 +403,7 @@ MonoBehaviour:
   clickVolume: 1
   pitchVariance: 0.1
   volumeType: 1
-  sceneSwitcherButton: 1
-  emptySfxErrorMessages: 0
+  logEmptySfx: 0
 --- !u!1 &94790707
 GameObject:
   m_ObjectHideFlags: 0
@@ -1256,7 +1264,12 @@ MonoBehaviour:
     m_RotationOrder: 4
   useRandomRotation: 1
   randomRotation: {x: -5, y: 5}
+  applyTransform: {fileID: 238638938}
   hoveringOverButton: 0
+  logRotate: 0
+  logRotateSetPos: 0
+  logRotateBack: 0
+  logRandomRotation: 0
 --- !u!114 &238638943
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1296,7 +1309,11 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  applyTransform: {fileID: 238638938}
   hoveringOverButton: 0
+  logScale: 0
+  logScaleUp: 0
+  logScaleDown: 0
 --- !u!114 &238638944
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1317,8 +1334,7 @@ MonoBehaviour:
   clickVolume: 1
   pitchVariance: 0.1
   volumeType: 1
-  sceneSwitcherButton: 1
-  emptySfxErrorMessages: 0
+  logEmptySfx: 0
 --- !u!1 &244222152
 GameObject:
   m_ObjectHideFlags: 0
@@ -17828,7 +17844,12 @@ MonoBehaviour:
     m_RotationOrder: 4
   useRandomRotation: 1
   randomRotation: {x: -5, y: 5}
+  applyTransform: {fileID: 1622109256}
   hoveringOverButton: 0
+  logRotate: 0
+  logRotateSetPos: 0
+  logRotateBack: 0
+  logRandomRotation: 0
 --- !u!114 &1622109263
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17868,7 +17889,11 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  applyTransform: {fileID: 1622109256}
   hoveringOverButton: 0
+  logScale: 0
+  logScaleUp: 0
+  logScaleDown: 0
 --- !u!114 &1622109264
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17889,8 +17914,7 @@ MonoBehaviour:
   clickVolume: 1
   pitchVariance: 0.1
   volumeType: 1
-  sceneSwitcherButton: 1
-  emptySfxErrorMessages: 0
+  logEmptySfx: 0
 --- !u!1 &1650629888
 GameObject:
   m_ObjectHideFlags: 0

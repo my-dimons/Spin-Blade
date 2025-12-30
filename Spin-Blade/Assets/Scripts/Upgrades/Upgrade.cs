@@ -122,10 +122,7 @@ public class Upgrade : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     private void OnValidate()
     {
         if (!GameObject.FindGameObjectWithTag("MoneyManager"))
-        {
-            Debug.Log("No money manager found in scene! Please add one.");
             return;
-        }
 
         moneyManager = GameObject.FindGameObjectWithTag("MoneyManager").GetComponent<MoneyManager>();
         // bg color
@@ -409,7 +406,7 @@ public class Upgrade : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
         SfxManager.PlaySfxAudioClip(buySound, 0.8f);
         Camera.main.GetComponent<CameraScript>().ScreenshakeFunction(0.1f);
-        ParticleManager.SpawnBurstParticle(buyParticlesPrefab, transform.position, transform, fullyBoughtOutlineColor);
+        ParticleSpawner.SpawnBurstParticle(buyParticlesPrefab, transform.position, transform, fullyBoughtOutlineColor);
 
         foreach (IUpgrade upgrade in GetComponents<IUpgrade>())
         {

@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 using TMPro;
 using UnityEngine;
 using UnityUtils.ScriptUtils.Audio;
-using UnityUtils.ScriptUtils;
+using UnityUtils.ScriptUtils.Objects;
 
 public class MoneyManager : MonoBehaviour
 {

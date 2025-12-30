@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityUtils.ScriptUtils.Audio;
-using UnityUtils.ScriptUtils;
+using UnityUtils.ScriptUtils.Objects;
 
 public class PlayerHealthAndDamage : MonoBehaviour
 {
