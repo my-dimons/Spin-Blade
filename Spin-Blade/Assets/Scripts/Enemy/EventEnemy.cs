@@ -1,11 +1,11 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Enemy))] 
+[RequireComponent(typeof(Enemy))]
 public class EventEnemy : MonoBehaviour
 {
     void TriggerEvent()
     {
-        GameObject.FindGameObjectWithTag("EnemyManager").GetComponent<EnemyManager>().StartRandomEvent();
+        EventManager.Instance.StartRandomEvent();
     }
 
     private void OnEnable()

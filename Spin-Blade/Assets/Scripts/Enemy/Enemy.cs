@@ -62,7 +62,7 @@ public class Enemy : MonoBehaviour
 
     void Start()
     {
-        enemyManager = GameObject.FindGameObjectWithTag("EnemyManager").GetComponent<EnemyManager>();
+        enemyManager = EnemyManager.Instance;
         playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealthAndDamage>();
         moneyManager = GameObject.FindGameObjectWithTag("MoneyManager").GetComponent<MoneyManager>();
 
@@ -231,7 +231,6 @@ public class Enemy : MonoBehaviour
             GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>().kills++;
         }
 
-        enemyManager.IncreaseDifficulty();
         Destroy(gameObject);
     }
 

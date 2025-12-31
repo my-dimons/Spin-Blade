@@ -3,7 +3,7 @@ using UnityEngine;
 public class EnemyUpgrade : MonoBehaviour, IUpgrade
 {
     [Header("Enemies")]
-    public GameObject addEnemy; // leave null to not add any enemies to the spawning
+    public Enemy addEnemy;
     public float enemySpeedMultiplierIncrease;
     public float enemyDifficultyIncrease;
     public float enemySpawnRateIncrease;
@@ -13,7 +13,7 @@ public class EnemyUpgrade : MonoBehaviour, IUpgrade
 
     public void ApplyUpgrade()
     {
-        EnemyManager enemyManager = GameObject.FindGameObjectWithTag("EnemyManager").GetComponent<EnemyManager>();
+        EnemyManager enemyManager = EnemyManager.Instance;
 
         if (addEnemy != null)
             enemyManager.enemies.Add(addEnemy);
