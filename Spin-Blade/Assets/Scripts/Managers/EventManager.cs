@@ -1,10 +1,19 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityUtils.ScriptUtils.Audio;
 
 public class EventManager : MonoBehaviour
 {
+    public enum Event
+    {
+        None,
+        EnemySwarm,
+        Boss,
+        DifficultyIncrease
+    }
+
     [Header("Event Setup")]
     public TextMeshPro eventText;
     public AudioClip eventPing;
@@ -13,12 +22,19 @@ public class EventManager : MonoBehaviour
     public float eventCooldown;
 
     public float eventEnemySwarmAmount;
-    public float eventMoneyMultiplierAmount;
-    public Enemy eventBossPrefab;
-    public float bossEventSpawnRate;
 
     [Header("Events")]
 
+    [Header("Enemy Swarm Event")]
+
+    [Header("Boss Event")]
+    public Enemy[] eventBossPrefabs;
+    public float bossEventSpawnRate;
+
+    [Header("Money Increase Event")]
+    public float eventMoneyMultiplierAmount;
+
+    [Header("Difficulty Increase Event")]
     [Tooltip("% to increase the difficulty during the increase difficulty event")]
     public float difficultyIncreasePercentEvent; 
 
@@ -41,33 +57,43 @@ public class EventManager : MonoBehaviour
         StartCoroutine(EventLoop());
     }
 
-    public void StartRandomEvent()
+    public void StartSpecificEvent(Event selectedEvent)
     {
-        int randomNum = Random.Range(0, 2);
-        if (randomNum != 2)
+        float enemySwarmAmount = eventEnemySwarmAmount * enemyManager.difficulty * 1.7f;
+
+        // Sfx
+        if (selectedEvent != Event.None)
             SfxManager.PlaySfxAudioClip(eventPing, 0.7f);
 
-        if (eventCount == 1)
+        // Start event
+        switch (selectedEvent)
         {
-            DifficultyIncreaseEvent();
-            eventCount = 0;
-            return;
+            case Event.None:
+                break;
+            case Event.EnemySwarm:
+                StartCoroutine(EnemySwarm(enemySwarmAmount));
+                break;
+            case Event.Boss:
+                StartCoroutine(BossEvent());
+                break;
+            case Event.DifficultyIncrease:
+                DifficultyIncreaseEvent();
+                break;
         }
-        else
-            eventCount++;
+    }
 
-        switch (randomNum)
-        {
-            case 0:
-                StartCoroutine(EnemySwarm(eventEnemySwarmAmount * enemyManager.difficulty * 1.7f));
-                break;
-            case 1:
-                StartCoroutine(MiniBossEvent());
-                break;
-            case 2:
-                StartCoroutine(EventLoop());
-                break;
-        }
+    public Event GetRandomEvent()
+    {
+        Array values = Enum.GetValues(typeof(Event));
+
+        Event randomEvent = (Event)values.GetValue(UnityEngine.Random.Range(0, values.Length));
+
+        return randomEvent;
+    }
+
+    public void StartRandomEvent()
+    {
+        StartSpecificEvent(GetRandomEvent());
     }
 
     IEnumerator EventLoop()
@@ -90,6 +116,7 @@ public class EventManager : MonoBehaviour
         eventHappening = true;
 
         enemyAmount = Mathf.Round(enemyAmount);
+
         // Spawn a large number of enemies in a short time
         for (int i = 0; i < enemyAmount; i++)
         {
@@ -102,12 +129,12 @@ public class EventManager : MonoBehaviour
         StartCoroutine(EventLoop());
     }
 
-    IEnumerator MiniBossEvent()
+    IEnumerator BossEvent()
     {
         EnableEventText("Boss Incoming!", defaultEventTextAppearTime);
         eventHappening = true;
 
-        enemyManager.SpawnEnemy(eventBossPrefab);
+        enemyManager.SpawnEnemy(GetRandomBoss());
         eventSpawnRate *= bossEventSpawnRate;
 
         if (GameObject.FindGameObjectWithTag("PVars").GetComponent<PersistentVariables>().infiniteMode)
@@ -160,5 +187,13 @@ public class EventManager : MonoBehaviour
 
         eventText.text = "";
         eventText.gameObject.SetActive(false);
+    }
+
+    private Enemy GetRandomBoss()
+    {
+        int enemyInt = UnityEngine.Random.Range(0, eventBossPrefabs.Length);
+        Enemy enemy = eventBossPrefabs[enemyInt];
+
+        return enemy;
     }
 }
