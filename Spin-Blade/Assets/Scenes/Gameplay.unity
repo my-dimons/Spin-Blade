@@ -166,7 +166,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: enemyPopup
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: description
@@ -2436,7 +2436,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: enemyPopup
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: description
@@ -9314,6 +9314,7 @@ Transform:
   - {fileID: 1863450294}
   - {fileID: 1280713295}
   - {fileID: 1620302932}
+  - {fileID: 1025392128}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &239287954
@@ -11783,7 +11784,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: enemyPopup
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: description
@@ -19281,7 +19282,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: enemyPopup
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: description
@@ -19604,7 +19605,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: enemyPopup
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: description
@@ -19963,7 +19964,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: enemyPopup
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: description
@@ -21147,7 +21148,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: enemyPopup
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: description
@@ -21463,7 +21464,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: enemyPopup
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: description
@@ -21934,7 +21935,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: enemyPopup
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: description
@@ -29814,7 +29815,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: enemyPopup
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: description
@@ -35970,6 +35971,60 @@ MonoBehaviour:
   mineCooldownIncrease: 0
   unlockMines: 0
   explodingMines: 0
+--- !u!1 &1025392127
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1025392128}
+  - component: {fileID: 1025392129}
+  m_Layer: 0
+  m_Name: EventManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1025392128
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1025392127}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 235191268}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1025392129
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1025392127}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: facc9ba2e8b484a448a47eb77477c0cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EventManager
+  eventText: {fileID: 1783146061}
+  eventPing: {fileID: 8300000, guid: fef53fd28c5c1bc499c714b56343f806, type: 3}
+  eventHappening: 0
+  eventDuration: 15
+  eventCooldown: 60
+  eventEnemySwarmAmount: 0
+  eventBossPrefabs: []
+  bossEventSpawnRate: 0.5
+  eventMoneyMultiplierAmount: 0
+  difficultyIncreasePercentEvent: 0
 --- !u!1001 &1033598105
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -36012,7 +36067,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: enemyPopup
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: description
@@ -46933,7 +46988,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: enemyPopup
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: description
@@ -52166,7 +52221,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: enemyPopup
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: description
@@ -52863,7 +52918,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: enemyPopup
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: description
@@ -76660,7 +76715,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: enemyPopup
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: description
@@ -77071,7 +77126,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: enemyPopup
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: description
@@ -78487,7 +78542,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: enemyPopup
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: description
@@ -79134,37 +79189,9 @@ MonoBehaviour:
   enemyParent: {fileID: 212686492}
   radius: 20
   difficulty: 1
-  bossHealthMultiplier: 1
-  difficultyIncrease: 0
   spawnRate: 1
+  bossHealthMultiplier: 1
   enemySpeedMultiplier: 1
-  eventText: {fileID: 1783146061}
-  eventPing: {fileID: 8300000, guid: fef53fd28c5c1bc499c714b56343f806, type: 3}
-  eventHappening: 0
-  eventDuration: 10
-  eventCooldown: 60
-  infEventCooldown: 15
-  eventEnemySwarmAmount: 3.5
-  eventMoneyMultiplierAmount: 2
-  eventDifficultyIncreasePercent: 0.06
-  eventBossPrefab: {fileID: 4528608015732399353, guid: 91e29ee0c4c2f6d4da6eaef75fe67710, type: 3}
-  bossEventSpawnRate: 0.5
-  infEnemies:
-  - {fileID: 6615156670388213931, guid: 72ef867855514f74585a9a3771b33ea6, type: 3}
-  - {fileID: 8908154359821757514, guid: 129198686ba8628498dabb8fc32797df, type: 3}
-  - {fileID: 8261043462687939977, guid: 3232dd13daa99684f86d84de0f793449, type: 3}
-  - {fileID: 4512660486342966927, guid: 4983b788908e3294fad3f1c7b1e4c485, type: 3}
-  - {fileID: 2734896826088632777, guid: a455901a68c03964da2a52d1e054d4b5, type: 3}
-  - {fileID: 792755521272432369, guid: fff697beed3a89941b94e85dd66b5395, type: 3}
-  - {fileID: 109643523860963173, guid: eafba6ca955056549af8a027c0c28eaa, type: 3}
-  - {fileID: 6944894831603675888, guid: 09aebb858ab0664438aa86c59970bb93, type: 3}
-  - {fileID: 5411431729939318139, guid: 19c715153066d1b4a90f7d9cb71c70c5, type: 3}
-  - {fileID: 2922732926517348758, guid: 0e7b3cfda3dceb645838557df1b66b8b, type: 3}
-  - {fileID: 8451218302795913100, guid: 2cc0f68b98d814048b3421de5cc97b4b, type: 3}
-  - {fileID: 4528608015732399353, guid: 7b2b908c6924e2843813d2aaa05503de, type: 3}
-  - {fileID: 6023885759167444665, guid: d3444ac8d6087b442a6696144558ac14, type: 3}
-  - {fileID: 4528608015732399353, guid: 91e29ee0c4c2f6d4da6eaef75fe67710, type: 3}
-  infEnemiesNum: 0
 --- !u!1 &1863752101
 GameObject:
   m_ObjectHideFlags: 0
@@ -81684,7 +81711,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: enemyPopup
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: description

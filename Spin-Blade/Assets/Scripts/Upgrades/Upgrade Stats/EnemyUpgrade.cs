@@ -19,7 +19,7 @@ public class EnemyUpgrade : MonoBehaviour, IUpgrade
             enemyManager.enemies.Add(addEnemy);
 
         enemyManager.bossHealthMultiplier += enemyBossHealthMultiplierIncrease;
-        enemyManager.spawnRate += enemySpawnRateIncrease;
+        enemyManager.enemySpawnTimeSeconds += enemySpawnRateIncrease;
         enemyManager.enemySpeedMultiplier += enemySpeedMultiplierIncrease;
     }
 }

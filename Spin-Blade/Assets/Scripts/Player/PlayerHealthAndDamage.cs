@@ -107,7 +107,7 @@ public class PlayerHealthAndDamage : MonoBehaviour
     public int mineHitsBeforeDeath = 1;
 
     float minesCooldownTimer = 0f;
-    float minesRadiusDivisor = 1.3f; // make radius smaller so most mines are in the camera view
+    float minesRadiusDivisor = 1.3f; // make enemySpawningRadius smaller so most mines are in the camera view
     [Header("Unlocks")]
     public bool explodingMines;
 
@@ -272,7 +272,7 @@ public class PlayerHealthAndDamage : MonoBehaviour
     void SpawnMine()
     {
         // spawn a mine within the spawning enemy circle
-        Vector2 spawnPos = GetRandomPointInDonut(4.5f, GameObject.FindGameObjectWithTag("EnemyManager").GetComponent<EnemyManager>().radius / minesRadiusDivisor);
+        Vector2 spawnPos = GetRandomPointInDonut(4.5f, GameObject.FindGameObjectWithTag("EnemyManager").GetComponent<EnemyManager>().enemySpawningRadius / minesRadiusDivisor);
 
         Quaternion randomRotation = Quaternion.Euler(new Vector3(0, 0, Random.Range(0, 360)));
         GameObject mine = Instantiate(minePrefab, spawnPos, randomRotation);
@@ -315,7 +315,7 @@ public class PlayerHealthAndDamage : MonoBehaviour
     {
         // mine spawning circles (make sure these are correct)
         Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(Vector2.zero, GameObject.FindGameObjectWithTag("EnemyManager").GetComponent<EnemyManager>().radius / minesRadiusDivisor);
+        Gizmos.DrawWireSphere(Vector2.zero, GameObject.FindGameObjectWithTag("EnemyManager").GetComponent<EnemyManager>().enemySpawningRadius / minesRadiusDivisor);
 
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(Vector2.zero, 4.5f);

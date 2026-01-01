@@ -10,12 +10,16 @@ public class EnemyManager : MonoBehaviour
 {
     public List<Enemy> enemies;
     public GameObject enemyParent;
-    public float radius = 5f; // Adjustable spawning radius
-    public float difficulty = 1f;
-    public float spawnRate = 1f;
 
+    [Header("Enemy Spawning")]
+    public float enemySpawningRadius = 5f; // Adjustable spawning radius
+    public float difficulty = 1f;
+    public float enemySpawnTimeSeconds = 1f;
+
+    [Header("Msc Multipliers")]
     public float bossHealthMultiplier = 1f;
     public float enemySpeedMultiplier = 1f;
+
     public static EnemyManager Instance { get; private set; }
 
     private void Start()
@@ -32,7 +36,7 @@ public class EnemyManager : MonoBehaviour
         {
             SpawnRandomSpawnableEnemy();
 
-            yield return new WaitForSeconds(spawnRate);
+            yield return new WaitForSeconds(enemySpawnTimeSeconds);
         }
     }
 
@@ -48,8 +52,8 @@ public class EnemyManager : MonoBehaviour
 
         // Calculate the x and y position on the circle's edge
         Vector2 spawnPos = new(
-            transform.position.x + Mathf.Cos(angle) * radius,
-            transform.position.y + Mathf.Sin(angle) * radius
+            transform.position.x + Mathf.Cos(angle) * enemySpawningRadius,
+            transform.position.y + Mathf.Sin(angle) * enemySpawningRadius
         );
 
         if (enemyPrefab == null)
@@ -93,7 +97,7 @@ public class EnemyManager : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red; // Circle color
-        Gizmos.DrawWireSphere(transform.position, radius); // Draw the wireframe circle
+        Gizmos.DrawWireSphere(transform.position, enemySpawningRadius); // Draw the wireframe circle
     }
 
     public void IncreaseDifficulty(float increase)

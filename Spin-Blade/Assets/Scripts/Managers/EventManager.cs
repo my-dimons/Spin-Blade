@@ -17,19 +17,17 @@ public class EventManager : MonoBehaviour
     [Header("Event Setup")]
     public TextMeshPro eventText;
     public AudioClip eventPing;
+
+    [Header("Events")]
     public bool eventHappening;
     public float eventDuration;
     public float eventCooldown;
 
-    public float eventEnemySwarmAmount;
-
-    [Header("Events")]
-
     [Header("Enemy Swarm Event")]
+    public float eventEnemySwarmAmount;
 
     [Header("Boss Event")]
     public Enemy[] eventBossPrefabs;
-    public float bossEventSpawnRate;
 
     [Header("Money Increase Event")]
     public float eventMoneyMultiplierAmount;
@@ -37,10 +35,6 @@ public class EventManager : MonoBehaviour
     [Header("Difficulty Increase Event")]
     [Tooltip("% to increase the difficulty during the increase difficulty event")]
     public float difficultyIncreasePercentEvent; 
-
-    // used by events
-    private float eventSpawnRate = 1f;
-    private int eventCount;
 
     private float defaultEventTextAppearTime = 5;
 
@@ -135,7 +129,6 @@ public class EventManager : MonoBehaviour
         eventHappening = true;
 
         enemyManager.SpawnEnemy(GetRandomBoss());
-        eventSpawnRate *= bossEventSpawnRate;
 
         if (GameObject.FindGameObjectWithTag("PVars").GetComponent<PersistentVariables>().infiniteMode)
         {
@@ -146,7 +139,6 @@ public class EventManager : MonoBehaviour
             yield return new WaitForSeconds(35);
         }
 
-        eventSpawnRate = 1f;
         eventHappening = false;
 
         StartCoroutine(EventLoop());
