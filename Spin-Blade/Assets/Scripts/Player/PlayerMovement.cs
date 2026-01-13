@@ -33,11 +33,11 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         // Input
-        switchKey = Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.Space);
+        switchKey = (Input.GetMouseButtonDown(0) && !hoveringOverUI) || Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.Space);
         // spin sprite
         sprite.transform.Rotate(0, 0, spinSpeed * Time.deltaTime);
 
-        if (switchKey && Time.timeScale > 0 && !hoveringOverUI)
+        if (switchKey && Time.timeScale > 0)
         {
             ReverseDirection();
         }
