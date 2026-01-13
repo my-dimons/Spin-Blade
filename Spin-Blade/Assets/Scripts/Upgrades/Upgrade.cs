@@ -406,7 +406,7 @@ public class Upgrade : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
         SfxManager.PlaySfxAudioClip(buySound, 0.8f);
         Camera.main.GetComponent<CameraScript>().ScreenshakeFunction(0.1f);
-        ParticleSpawner.SpawnBurstParticle(buyParticlesPrefab, transform.position, transform, fullyBoughtOutlineColor);
+        ParticleSpawner.SpawnBurstParticle(buyParticlesPrefab, transform.position, transform, moneyManager.GetCurrencyColor(priceCurrencyType));
 
         foreach (IUpgrade upgrade in GetComponents<IUpgrade>())
         {
