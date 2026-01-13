@@ -159,7 +159,6 @@ public class PlayerHealthAndDamage : MonoBehaviour
                 explodingCircleCooldownTimer = 0f;
                 ExplodeCircle(Vector2.zero, damage * explodingCircleDamageMultiplier, explodingCircleVisualFinalSize, explodingCircleKnockback);
             }
-
         }
 
         // mines
@@ -167,7 +166,7 @@ public class PlayerHealthAndDamage : MonoBehaviour
         {
             minesCooldownTimer += Time.deltaTime;
 
-            if (minesCooldownTimer >= minesCooldown || Input.GetKeyDown(KeyCode.R))
+            if (minesCooldownTimer >= minesCooldown)
             {
                 minesCooldownTimer = 0f;
                 SpawnMine();
