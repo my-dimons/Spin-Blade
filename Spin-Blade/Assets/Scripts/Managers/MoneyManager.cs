@@ -194,16 +194,17 @@ public class MoneyManager : MonoBehaviour
         SfxManager.PlaySfxAudioClip(uiToggleSound, 0.3f);
 
         float animationTime = 0.1f;
-        Vector3 shopAnimationSize = new Vector3(0.6f, 0.6f, 0.6f);
+        Vector3 shrunkAnimationSize = Vector3.one * 0.6f;
+        Vector3 grownShopSize = Vector3.one;
 
         Time.timeScale = Time.timeScale == 0 ? 1 : 0; // pause or unpause the game
 
         if (menu.activeSelf == true)
         {
             animatingShop = true;
-            ObjectAnimations.AnimateTransformScale(menu.transform, menu.transform.localScale, shopAnimationSize, animationTime, true, upgradeInfoAnimCurve);
-            StartCoroutine(Utils.EnableObjectDelay(menu, false, animationTime));
-            StartCoroutine(AnimatingBoolToggle(animationTime, false));
+            ObjectAnimations.AnimateTransformScale(menu.transform, grownShopSize, shrunkAnimationSize, animationTime, true, upgradeInfoAnimCurve);
+            ObjectDelays.CallFunctionAfterTime(() => menu.SetActive(false), animationTime);
+            ObjectDelays.ChangeValueAfterTime<bool>(value => animatingShop = value, false, animationTime, true);
         } else
         {
             menu.SetActive(true);
@@ -215,10 +216,9 @@ public class MoneyManager : MonoBehaviour
             }
 
             animatingShop = true;
-            ObjectAnimations.AnimateTransformScale(menu.transform, shopAnimationSize, menu.transform.localScale, animationTime, true, upgradeInfoAnimCurve);
-            StartCoroutine(AnimatingBoolToggle(animationTime, false));
+            ObjectAnimations.AnimateTransformScale(menu.transform, shrunkAnimationSize, grownShopSize, animationTime, true, upgradeInfoAnimCurve);
+            ObjectDelays.ChangeValueAfterTime<bool>(value => animatingShop = value, false, animationTime, true);
         }
-        
 
         if (!GameObject.FindGameObjectWithTag("PVars").GetComponent<PersistentVariables>().infiniteMode)
         {
@@ -240,12 +240,6 @@ public class MoneyManager : MonoBehaviour
     {
         if (Time.timeScale > 0)
             money += passiveIncome;
-    }
-
-    IEnumerator AnimatingBoolToggle(float time, bool enable)
-    {
-        yield return new WaitForSecondsRealtime(time);
-        animatingShop = enable;
     }
 
     void GetUpgradePostcursors()

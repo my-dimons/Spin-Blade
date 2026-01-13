@@ -36022,7 +36022,6 @@ MonoBehaviour:
   eventCooldown: 60
   eventEnemySwarmAmount: 0
   eventBossPrefabs: []
-  bossEventSpawnRate: 0.5
   eventMoneyMultiplierAmount: 0
   difficultyIncreasePercentEvent: 0
 --- !u!1001 &1033598105
@@ -76936,7 +76935,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eaf8ba58f37caf24fa717467381d1650, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyUpgrade
-  addEnemy: {fileID: 6615156670388213931, guid: 72ef867855514f74585a9a3771b33ea6, type: 3}
+  addEnemy: {fileID: 2523201905702502384, guid: 72ef867855514f74585a9a3771b33ea6, type: 3}
   enemySpeedMultiplierIncrease: 0
   enemyDifficultyIncrease: 0
   enemySpawnRateIncrease: 0
@@ -77363,7 +77362,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eaf8ba58f37caf24fa717467381d1650, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyUpgrade
-  addEnemy: {fileID: 8908154359821757514, guid: 129198686ba8628498dabb8fc32797df, type: 3}
+  addEnemy: {fileID: 14179453211134900, guid: 129198686ba8628498dabb8fc32797df, type: 3}
   enemySpeedMultiplierIncrease: 0
   enemyDifficultyIncrease: 0
   enemySpawnRateIncrease: 0
@@ -79187,9 +79186,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemies: []
   enemyParent: {fileID: 212686492}
-  radius: 20
+  enemySpawningRadius: 20
   difficulty: 1
-  spawnRate: 1
+  enemySpawnTimeSeconds: 2
   bossHealthMultiplier: 1
   enemySpeedMultiplier: 1
 --- !u!1 &1863752101
