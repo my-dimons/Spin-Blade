@@ -14,11 +14,6 @@ public class PersistentVariables : MonoBehaviour
 
     public bool infiniteMode;
 
-    [Header("Music Settings")]
-    public AudioSource musicSource;
-    public AudioClip[] musicTracks;
-    public AudioClip currentMusic;
-
     void Awake()
     {
         // Singleton pattern
@@ -30,35 +25,5 @@ public class PersistentVariables : MonoBehaviour
 
         Instance = this;
         DontDestroyOnLoad(gameObject); 
-        
-        if (musicTracks.Length > 0)
-            StartCoroutine(PlayMusicContinuously());
-    }
-
-    private void Update()
-    {
-        if (musicSource != null)
-            musicSource.volume = musicVolume;
-    }
-
-    private IEnumerator PlayMusicContinuously()
-    {
-        while (true)
-        {
-            AudioClip clip = musicTracks[Random.Range(0, musicTracks.Length)];
-            musicSource.clip = clip;
-            currentMusic = clip;
-            musicSource.Play();
-
-            Debug.Log($"Playing: {clip.name}");
-
-            // Wait until playback finishes
-            Debug.Log("Clip Started");
-            yield return new WaitWhile(() => musicSource.isPlaying);
-            Debug.Log("Clip Ended");
-
-            Debug.Log("Finished Music Clip");
-            yield return new WaitForSecondsRealtime(Random.Range(3, 6));
-        }
     }
 }
