@@ -161,7 +161,7 @@ public class EventManager : MonoBehaviour
         EnableEventText("x" + multiplier + " Money Multiplier", duration);
         eventHappening = true;
 
-        MoneyManager moneyManager = GameObject.FindGameObjectWithTag("MoneyManager").GetComponent<MoneyManager>();
+        MoneyManager moneyManager = MoneyManager.Instance.GetComponent<MoneyManager>();
         moneyManager.eventMoneyMultiplier *= multiplier;
 
         yield return new WaitForSeconds(eventDuration);

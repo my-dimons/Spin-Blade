@@ -26,7 +26,7 @@ public class DraggableSkillTreeMenu : MonoBehaviour
 
     private void Start()
     {
-        moneyManager = GameObject.FindGameObjectWithTag("MoneyManager").GetComponent<MoneyManager>();
+        moneyManager = MoneyManager.Instance.GetComponent<MoneyManager>();
     }
 
     void Awake()

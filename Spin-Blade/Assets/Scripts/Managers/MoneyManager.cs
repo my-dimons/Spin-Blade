@@ -10,6 +10,8 @@ using UnityUtils.ScriptUtils.Objects;
 
 public class MoneyManager : MonoBehaviour
 {
+    public static MoneyManager Instance { get; private set; }
+
     [Header("=-- CURRENCY --=")]
     public Currency currency;
     public enum Currency
@@ -59,6 +61,9 @@ public class MoneyManager : MonoBehaviour
     public AnimationCurve upgradeInfoAnimCurve;
     private bool animatingShop;
 
+    public event Action OnShopOpen;
+    public event Action OnShopClose;
+
     [Header("Audio")]
     public AudioClip uiToggleSound;
     public AudioClip upgradeHoverSound;
@@ -76,6 +81,8 @@ public class MoneyManager : MonoBehaviour
 
     private void Start()
     {
+        if (Instance == null) Instance = this; else Destroy(gameObject);
+
         moneyMultiplier *= GameObject.FindGameObjectWithTag("PVars").GetComponent<PersistentVariables>().moneyMultiplier;
         shopMenuPos = skillTreeObject.GetComponent<RectTransform>().anchoredPosition;
         // add all upgrades to an array
@@ -205,6 +212,8 @@ public class MoneyManager : MonoBehaviour
             ObjectAnimations.AnimateTransformScale(menu.transform, grownShopSize, shrunkAnimationSize, animationTime, true, upgradeInfoAnimCurve);
             ObjectDelays.CallFunctionAfterTime(() => menu.SetActive(false), animationTime);
             ObjectDelays.ChangeValueAfterTime<bool>(value => animatingShop = value, false, animationTime, true);
+
+            OnShopClose?.Invoke();
         } else
         {
             menu.SetActive(true);
@@ -218,6 +227,8 @@ public class MoneyManager : MonoBehaviour
             animatingShop = true;
             ObjectAnimations.AnimateTransformScale(menu.transform, shrunkAnimationSize, grownShopSize, animationTime, true, upgradeInfoAnimCurve);
             ObjectDelays.ChangeValueAfterTime<bool>(value => animatingShop = value, false, animationTime, true);
+
+            OnShopOpen?.Invoke();
         }
 
         if (!GameObject.FindGameObjectWithTag("PVars").GetComponent<PersistentVariables>().infiniteMode)

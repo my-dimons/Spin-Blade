@@ -121,10 +121,10 @@ public class Upgrade : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     MoneyManager moneyManager;
     private void OnValidate()
     {
-        if (!GameObject.FindGameObjectWithTag("MoneyManager"))
+        if (MoneyManager.Instance == null)
             return;
 
-        moneyManager = GameObject.FindGameObjectWithTag("MoneyManager").GetComponent<MoneyManager>();
+        moneyManager = MoneyManager.Instance.GetComponent<MoneyManager>();
         // bg color
         switch (backgroundColorTintDropdown)
         {
@@ -153,7 +153,7 @@ public class Upgrade : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     void Start()
     {
         if (moneyManager == null)
-            moneyManager = GameObject.FindGameObjectWithTag("MoneyManager").GetComponent<MoneyManager>();
+            moneyManager = MoneyManager.Instance.GetComponent<MoneyManager>();
 
         canBeBought = false;
         if (skillTreePrecursors == null)
@@ -439,5 +439,20 @@ public class Upgrade : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public void OnPointerExit(PointerEventData pointerEventData)
     {
         moneyManager.HoverOverUIShopElement(false);
+    }
+
+    private void DisablePopup()
+    {
+        popupObject.SetActive(false);
+    }
+
+    private void OnEnable()
+    {
+        MoneyManager.Instance.OnShopOpen += DisablePopup;
+    }
+
+    private void OnDisable()
+    {
+        MoneyManager.Instance.OnShopOpen -= DisablePopup;
     }
 }

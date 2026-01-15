@@ -90,8 +90,8 @@ public class GameManager : MonoBehaviour
 
     private void Tutorial()
     {
-        float money = GameObject.FindGameObjectWithTag("MoneyManager").GetComponent<MoneyManager>().money;
-        MoneyManager moneyManager = GameObject.FindGameObjectWithTag("MoneyManager").GetComponent<MoneyManager>();
+        MoneyManager moneyManager = MoneyManager.Instance.GetComponent<MoneyManager>();
+        float money = moneyManager.money;
 
         // skip tutorial
         if (Input.GetKeyDown(KeyCode.RightShift))
@@ -133,7 +133,7 @@ public class GameManager : MonoBehaviour
         {
             StartCoroutine(AdvanceTutorialLate(4f));
         }
-        else if (GameObject.FindGameObjectWithTag("MoneyManager").GetComponent<MoneyManager>().money >= 5 && tutorialStage == 5)
+        else if (MoneyManager.Instance.GetComponent<MoneyManager>().money >= 5 && tutorialStage == 5)
         {
             AdvanceTutorial();
         }
@@ -143,7 +143,7 @@ public class GameManager : MonoBehaviour
         {
             StartCoroutine(AdvanceTutorialLate(2f));
         }
-        ogMoney = GameObject.FindGameObjectWithTag("MoneyManager").GetComponent<MoneyManager>().money;
+        ogMoney = MoneyManager.Instance.GetComponent<MoneyManager>().money;
     }
 
     void AdvanceTutorial(int amount = 1)

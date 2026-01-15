@@ -6,59 +6,6 @@ using UnityEngine.UI;
 
 public static class Utils
 {
-    public static void PlayAudioClip(AudioClip clip, float volume = 1f, float pitchVariance = 0.1f)
-    { 
-        if (clip == null) return;
-
-        GameObject tempGO = new("TempAudio");
-        if (Camera.main != null)
-            tempGO.transform.position = Camera.main.transform.position;
-
-        tempGO.transform.parent = null;
-        PersistentVariables pv = GameObject.FindGameObjectWithTag("PVars").GetComponent<PersistentVariables>();
-
-        // Set up AudioSource
-        AudioSource audioSource = tempGO.AddComponent<AudioSource>();
-        audioSource.clip = clip;
-        audioSource.volume = volume * pv.sfxVolume;
-
-        // random pitch
-        audioSource.pitch = UnityEngine.Random.Range(1 - pitchVariance, 1 + pitchVariance);
-
-        audioSource.spatialBlend = 0f; // 2D sound
-        audioSource.Play();
-
-        // Destroy after the adjusted length
-        UnityEngine.Object.Destroy(tempGO, clip.length / audioSource.pitch);
-    }
-
-    public static void SpawnBurstParticle(GameObject particlePrefab, Vector3 position, Color color = default)
-    {
-        if (particlePrefab == null) return;
-        if (color == default) color = Color.white;
-
-        // Instantiate the particle prefab
-        GameObject particleInstance = UnityEngine.Object.Instantiate(particlePrefab, position, Quaternion.identity);
-
-        // Get the ParticleSystem component
-        if (!particleInstance.TryGetComponent<ParticleSystem>(out var ps))
-        {
-            Debug.LogWarning("Prefab has no ParticleSystem component!");
-            UnityEngine.Object.Destroy(particleInstance);
-            return;
-        }
-
-        // set color
-        var main = ps.main;
-        main.startColor = color;
-
-        // Play it (in case it's not already set to play on awake)
-        ps.Play();
-
-        // Schedule destruction when it's done
-        UnityEngine.Object.Destroy(particleInstance, ps.main.duration + ps.main.startLifetime.constantMax);
-    }
-
     public static void SpawnFloatingText(GameObject textPrefab, Vector3 position, string textValue, float upwardForce = 3f, float sidewaysMax = 0.3f, float torqueForce = 5f, float lifetime = 0.8f, float fadeDuration = 0.4f, Color color = default)
     {
         if (textPrefab == null) return;

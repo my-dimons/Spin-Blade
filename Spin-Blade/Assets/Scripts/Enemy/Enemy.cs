@@ -64,7 +64,7 @@ public class Enemy : MonoBehaviour
     {
         enemyManager = EnemyManager.Instance;
         playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealthAndDamage>();
-        moneyManager = GameObject.FindGameObjectWithTag("MoneyManager").GetComponent<MoneyManager>();
+        moneyManager = MoneyManager.Instance.GetComponent<MoneyManager>();
 
         speed *= enemyManager.difficulty;
 

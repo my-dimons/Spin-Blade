@@ -858,9 +858,6 @@ MonoBehaviour:
   difficulty: 1
   moneyMultiplier: 1
   infiniteMode: 0
-  musicSource: {fileID: 0}
-  musicTracks: []
-  currentMusic: {fileID: 0}
 --- !u!4 &59903994
 Transform:
   m_ObjectHideFlags: 0

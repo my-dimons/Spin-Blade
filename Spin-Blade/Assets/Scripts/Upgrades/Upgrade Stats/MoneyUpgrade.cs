@@ -7,7 +7,7 @@ public class MoneyUpgrade : MonoBehaviour, IUpgrade
 
     public void ApplyUpgrade()
     {
-        MoneyManager moneyManager = GameObject.FindGameObjectWithTag("MoneyManager").GetComponent<MoneyManager>();
+        MoneyManager moneyManager = MoneyManager.Instance.GetComponent<MoneyManager>();
 
         moneyManager.moneyMultiplier += moneyMultiplierIncrease;
         moneyManager.passiveIncome += passiveIncomeIncrease;
