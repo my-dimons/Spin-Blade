@@ -97,7 +97,7 @@ public class MoneyManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        toggleShopKey = Input.GetKeyDown(KeyCode.Tab) || Input.GetKeyDown(KeyCode.Escape) || Input.GetMouseButtonDown(2);
+        toggleShopKey = Input.GetKeyDown(KeyCode.Tab) || Input.GetKeyDown(KeyCode.Escape);
 
         if (toggleShopKey && !animatingShop)
         {
