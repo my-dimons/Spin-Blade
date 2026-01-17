@@ -136,12 +136,15 @@ public class GameManager : MonoBehaviour
     public void LoadMenu()
     {
         LoadScene("Menu");
+        Time.timeScale = 1;
     }
     public void LoadGame(float difficulty = 1)
     {
         float easyMoneyMultiplier = 1.5f;
         float hardMoneyMultiplier = 0.7f;
+
         LoadScene("Gameplay");
+
         difficultyVariables.difficulty = difficulty;
         if (difficulty < 1)
         {
