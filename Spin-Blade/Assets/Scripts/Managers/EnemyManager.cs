@@ -25,7 +25,7 @@ public class EnemyManager : MonoBehaviour
     private void Start()
     {
         if (Instance == null) Instance = this; else Destroy(gameObject);
-        difficulty *= GameObject.FindGameObjectWithTag("PVars").GetComponent<PersistentVariables>().difficulty;
+        difficulty *= DifficultyVariables.Instance.difficulty;
 
         StartCoroutine(SpawnEnemyLoop());
     }

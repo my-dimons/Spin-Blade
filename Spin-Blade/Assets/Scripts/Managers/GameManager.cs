@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
     [Header("Win Screen")]
     public GameObject winScreen;
     public float winTime; // how long the win screen is up for
-    PersistentVariables persistentVariables;
+    DifficultyVariables difficultyVariables;
     public GameObject timeText;
     public GameObject killsText;
     public GameObject totalMoneyText;
@@ -49,48 +49,22 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        persistentVariables = GameObject.FindGameObjectWithTag("PVars").GetComponent<PersistentVariables>();
-        foreach (Slider sfx in sfxSliders)
-        {
-            sfx.onValueChanged.AddListener(OnSfxSliderValueChanged);
-            sfx.value = persistentVariables.sfxVolume;
-        }
-        foreach (Slider music in musicSliders)
-        {
-            music.onValueChanged.AddListener(OnMusicSliderValueChanged);
-            music.value = persistentVariables.musicVolume;
-        }
+        difficultyVariables = DifficultyVariables.Instance;
 
-        if (tutorialText != null && !persistentVariables.infiniteMode)
+        if (tutorialText != null)
             tutorialText.text = tutorialStrings[tutorialStage];
-        else if (persistentVariables.infiniteMode)
-            tutorialText.text = "";
-            Time.timeScale = 1; // Ensure the game is running at normal speed
-
-
     }
     private void Update()
     {
         totalTimePlayed += Time.deltaTime;
 
-        if (persistentVariables.infiniteMode)
-        {
-            if (!totalTimeText.activeSelf)
-            {
-                totalTimeText.SetActive(true);
-            }
-
-            TimeSpan timePlayed = TimeSpan.FromSeconds(Mathf.RoundToInt(totalTimePlayed));
-            totalTimeText.GetComponent<TextMeshProUGUI>().text = string.Format("{0:00}:{1:00}", timePlayed.Minutes, timePlayed.Seconds);
-        }
-
-        if (!tutorialFinished && tutorialText != null && !persistentVariables.infiniteMode)
+        if (!tutorialFinished && tutorialText != null)
             Tutorial();
     }
 
     private void Tutorial()
     {
-        MoneyManager moneyManager = MoneyManager.Instance.GetComponent<MoneyManager>();
+        MoneyManager moneyManager = MoneyManager.Instance;
         float money = moneyManager.money;
 
         // skip tutorial
@@ -133,7 +107,7 @@ public class GameManager : MonoBehaviour
         {
             StartCoroutine(AdvanceTutorialLate(4f));
         }
-        else if (MoneyManager.Instance.GetComponent<MoneyManager>().money >= 5 && tutorialStage == 5)
+        else if (MoneyManager.Instance.money >= 5 && tutorialStage == 5)
         {
             AdvanceTutorial();
         }
@@ -143,7 +117,7 @@ public class GameManager : MonoBehaviour
         {
             StartCoroutine(AdvanceTutorialLate(2f));
         }
-        ogMoney = MoneyManager.Instance.GetComponent<MoneyManager>().money;
+        ogMoney = MoneyManager.Instance.money;
     }
 
     void AdvanceTutorial(int amount = 1)
@@ -153,16 +127,6 @@ public class GameManager : MonoBehaviour
         advancedTutorialStage = false;
     }
 
-    public void OnSfxSliderValueChanged(float value)
-    {
-        persistentVariables.sfxVolume = value;
-        Debug.Log("Variable updated: " + persistentVariables.sfxVolume);
-    }
-    public void OnMusicSliderValueChanged(float value)
-    {
-        persistentVariables.musicVolume = value;
-        Debug.Log("Variable updated: " + persistentVariables.musicVolume);
-    }
     IEnumerator AdvanceTutorialLate(float duration)
     {
         advancedTutorialStage = true;
@@ -172,37 +136,28 @@ public class GameManager : MonoBehaviour
     public void LoadMenu()
     {
         LoadScene("Menu");
-        persistentVariables.infiniteMode = false;
     }
     public void LoadGame(float difficulty = 1)
     {
         float easyMoneyMultiplier = 1.5f;
         float hardMoneyMultiplier = 0.7f;
         LoadScene("Gameplay");
-        persistentVariables.difficulty = difficulty;
+        difficultyVariables.difficulty = difficulty;
         if (difficulty < 1)
         {
-            persistentVariables.moneyMultiplier = easyMoneyMultiplier;
+            difficultyVariables.moneyMultiplier = easyMoneyMultiplier;
         } else if (difficulty > 1)
         {
-            persistentVariables.moneyMultiplier = hardMoneyMultiplier;
+            difficultyVariables.moneyMultiplier = hardMoneyMultiplier;
         } else
         {
-            persistentVariables.moneyMultiplier = 1;
+            difficultyVariables.moneyMultiplier = 1;
         }
     }
 
     public void RetryGame()
     {
         LoadScene("Gameplay");
-    }
-
-    public void LoadGameInf()
-    {
-        LoadScene("Gameplay");
-        persistentVariables.infiniteMode = true;
-        persistentVariables.difficulty = 1f;
-        persistentVariables.moneyMultiplier = 1;
     }
 
     public void LoadDifficulty()

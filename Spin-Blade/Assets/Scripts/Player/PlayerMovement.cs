@@ -27,7 +27,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
-        moneyManager = MoneyManager.Instance.GetComponent<MoneyManager>();
+        moneyManager = MoneyManager.Instance;
     }
 
     void Update()

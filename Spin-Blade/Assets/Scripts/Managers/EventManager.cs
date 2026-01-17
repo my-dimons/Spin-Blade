@@ -36,7 +36,7 @@ public class EventManager : MonoBehaviour
     [Tooltip("% to increase the difficulty during the increase difficulty event")]
     public float difficultyIncreasePercentEvent; 
 
-    private float defaultEventTextAppearTime = 5;
+    private readonly float defaultEventTextAppearTime = 5;
 
     EnemyManager enemyManager;
     public static EventManager Instance { get; private set; }
@@ -94,19 +94,12 @@ public class EventManager : MonoBehaviour
     {
         yield return new WaitForSeconds(eventCooldown);
 
-        if (!eventHappening && enemyManager.enemies.Count > 2 || !eventHappening && GameObject.FindGameObjectWithTag("PVars").GetComponent<PersistentVariables>().infiniteMode)
-        {
-            StartRandomEvent();
-        }
-        else
-        {
-            StartCoroutine(EventLoop());
-        }
+        StartCoroutine(EventLoop());
     }
 
     IEnumerator EnemySwarm(float enemyAmount)
     {
-        EnableEventText("Enemy Swarm Incoming!", defaultEventTextAppearTime);
+        StartCoroutine(EnableEventText("Enemy Swarm Incoming!", defaultEventTextAppearTime));
         eventHappening = true;
 
         enemyAmount = Mathf.Round(enemyAmount);
@@ -125,19 +118,12 @@ public class EventManager : MonoBehaviour
 
     IEnumerator BossEvent()
     {
-        EnableEventText("Boss Incoming!", defaultEventTextAppearTime);
+        StartCoroutine(EnableEventText("Boss Incoming!", defaultEventTextAppearTime));
         eventHappening = true;
 
         enemyManager.SpawnEnemy(GetRandomBoss());
 
-        if (GameObject.FindGameObjectWithTag("PVars").GetComponent<PersistentVariables>().infiniteMode)
-        {
-            yield return new WaitForSeconds(20);
-        }
-        else
-        {
-            yield return new WaitForSeconds(35);
-        }
+        yield return new WaitForSeconds(35);
 
         eventHappening = false;
 
@@ -146,7 +132,7 @@ public class EventManager : MonoBehaviour
 
     void DifficultyIncreaseEvent()
     {
-        EnableEventText("Difficulty Increase!", defaultEventTextAppearTime);
+        StartCoroutine(EnableEventText("Difficulty Increase!", defaultEventTextAppearTime));
         eventHappening = true;
 
         EnemyManager.Instance.IncreaseDifficulty(enemyManager.difficulty * (difficultyIncreasePercentEvent / 100));
@@ -158,10 +144,10 @@ public class EventManager : MonoBehaviour
 
     IEnumerator MoneyMultiplierEvent(float multiplier, float duration)
     {
-        EnableEventText("x" + multiplier + " Money Multiplier", duration);
+        StartCoroutine(EnableEventText("x" + multiplier + " Money Multiplier", duration));
         eventHappening = true;
 
-        MoneyManager moneyManager = MoneyManager.Instance.GetComponent<MoneyManager>();
+        MoneyManager moneyManager = MoneyManager.Instance;
         moneyManager.eventMoneyMultiplier *= multiplier;
 
         yield return new WaitForSeconds(eventDuration);

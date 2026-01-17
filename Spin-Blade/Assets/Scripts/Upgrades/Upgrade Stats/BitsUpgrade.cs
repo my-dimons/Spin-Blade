@@ -8,7 +8,7 @@ public class BitsUpgrade : MonoBehaviour, IUpgrade
 
     public void ApplyUpgrade()
     {
-        MoneyManager moneyManager = MoneyManager.Instance.GetComponent<MoneyManager>();
+        MoneyManager moneyManager = MoneyManager.Instance;
 
         if (!moneyManager.bitsUnlocked)
             moneyManager.bitsUnlocked = unlockBits;

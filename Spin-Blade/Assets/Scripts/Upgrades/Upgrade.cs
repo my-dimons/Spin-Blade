@@ -124,7 +124,7 @@ public class Upgrade : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         if (MoneyManager.Instance == null)
             return;
 
-        moneyManager = MoneyManager.Instance.GetComponent<MoneyManager>();
+        moneyManager = MoneyManager.Instance;
         // bg color
         switch (backgroundColorTintDropdown)
         {
@@ -153,7 +153,7 @@ public class Upgrade : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     void Start()
     {
         if (moneyManager == null)
-            moneyManager = MoneyManager.Instance.GetComponent<MoneyManager>();
+            moneyManager = MoneyManager.Instance;
 
         canBeBought = false;
         if (skillTreePrecursors == null)
@@ -166,8 +166,6 @@ public class Upgrade : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             yield return new WaitForSecondsRealtime(0.1f);
             updateSkillTree = true;
         }
-
-
     }
 
     // Update is called once per frame

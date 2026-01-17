@@ -1,18 +1,12 @@
 using System.Collections;
 using UnityEngine;
 
-public class PersistentVariables : MonoBehaviour
+public class DifficultyVariables : MonoBehaviour
 {
-    public static PersistentVariables Instance { get; private set; }
-
-    // Persistent audio settings
-    public float sfxVolume = 1f;
-    public float musicVolume = 1f;
+    public static DifficultyVariables Instance { get; private set; }
 
     public float difficulty = 1;
     public float moneyMultiplier = 1;
-
-    public bool infiniteMode;
 
     void Awake()
     {

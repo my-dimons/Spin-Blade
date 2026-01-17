@@ -8,7 +8,7 @@ public class CurrencyEnemy : MonoBehaviour
 
     void AddPlayerMoney()
     {
-        MoneyManager moneyManager = MoneyManager.Instance.GetComponent<MoneyManager>();
+        MoneyManager moneyManager = MoneyManager.Instance;
 
         moneyManager.AddCurrency(currencyGain, currencyType);
 

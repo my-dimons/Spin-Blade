@@ -2,7 +2,7 @@ using System.Collections;
 
 using UnityEngine;
 
-
+[RequireComponent(typeof(SpriteRenderer))]
 public class DamageFlash : MonoBehaviour
 {
     #region Datamembers

@@ -835,7 +835,7 @@ GameObject:
   - component: {fileID: 59903994}
   - component: {fileID: 59903993}
   m_Layer: 0
-  m_Name: Persistant Vars
+  m_Name: Difficulty Vars
   m_TagString: PVars
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -853,11 +853,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b078d0d0bcfff8499523d834136a70a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sfxVolume: 1
-  musicVolume: 1
   difficulty: 1
   moneyMultiplier: 1
-  infiniteMode: 0
 --- !u!4 &59903994
 Transform:
   m_ObjectHideFlags: 0

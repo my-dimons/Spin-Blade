@@ -83,7 +83,7 @@ public class MoneyManager : MonoBehaviour
     {
         if (Instance == null) Instance = this; else Destroy(gameObject);
 
-        moneyMultiplier *= GameObject.FindGameObjectWithTag("PVars").GetComponent<PersistentVariables>().moneyMultiplier;
+        moneyMultiplier *= DifficultyVariables.Instance.moneyMultiplier;
         shopMenuPos = skillTreeObject.GetComponent<RectTransform>().anchoredPosition;
         // add all upgrades to an array
         foreach (Transform child in upgradeParent.transform)
@@ -94,11 +94,6 @@ public class MoneyManager : MonoBehaviour
             }
         }
 
-        if (GameObject.FindGameObjectWithTag("PVars").GetComponent<PersistentVariables>().infiniteMode)
-        {
-            shopButton.SetActive(false);
-            pauseButton.SetActive(true);
-        }
         InvokeRepeating(nameof(PassiveIncome), 0, 1);
     }
     // Update is called once per frame
@@ -108,10 +103,7 @@ public class MoneyManager : MonoBehaviour
 
         if (toggleShopKey && !animatingShop)
         {
-            if (!GameObject.FindGameObjectWithTag("PVars").GetComponent<PersistentVariables>().infiniteMode)
-                ToggleShop(shopMenu);
-            else 
-                ToggleShop(infModePauseMenu);
+            ToggleShop(infModePauseMenu);
         }
 
         UpdateCurrencyText();
@@ -122,30 +114,19 @@ public class MoneyManager : MonoBehaviour
     private void UpdateCurrencyText()
     {
         // money & bits text
-        string bitsString = "";
-        string moneyString = "";
+        string bitsString = String.Empty;
+        string moneyString;
 
         moneyString = GetMoneyString(money);
         if (bitsUnlocked)
             bitsString = GetMoneyString(bits, Currency.bits);
-
-        if (GameObject.FindGameObjectWithTag("PVars").GetComponent<PersistentVariables>().infiniteMode)
-        {
-            moneyText.text = "";
-            bitsText.text = "";
-            moneyMultiplierText.text = "";
-            bitsMultiplierText.text = "";
-            moneyPerSecondText.text = "";
-
-            return;
-        }
 
         moneyText.text = moneyString;
         bitsText.text = bitsString;
 
         // money & bits multiplier text
 
-        string moneyMultiplierString = "";
+        string moneyMultiplierString;
         string bitsMultiplierString = "";
 
         moneyMultiplierString = "x" + moneyMultiplier.ToString("F2");
@@ -230,19 +211,16 @@ public class MoneyManager : MonoBehaviour
 
             OnShopOpen?.Invoke();
         }
-
-        if (!GameObject.FindGameObjectWithTag("PVars").GetComponent<PersistentVariables>().infiniteMode)
+        
+        foreach (GameObject upgrade in upgrades)
         {
-            foreach (GameObject upgrade in upgrades)
+            foreach (Transform child in upgrade.transform)
             {
-                foreach (Transform child in upgrade.transform)
-                {
-                    if (child.CompareTag("UpgradeDsc"))
-                        child.gameObject.SetActive(false);
-                    // reset to default size
-                    if (child.CompareTag("Upgrade"))
-                        child.gameObject.transform.localScale = Vector3.one;
-                }
+                if (child.CompareTag("UpgradeDsc"))
+                    child.gameObject.SetActive(false);
+                // reset to default size
+                if (child.CompareTag("Upgrade"))
+                    child.gameObject.transform.localScale = Vector3.one;
             }
         }
     }
@@ -310,7 +288,7 @@ public class MoneyManager : MonoBehaviour
     /// <returns>A string from a currency type and an amount</returns>
     public string GetMoneyString(float money, Currency currencyType = Currency.money, int decimalPoints = -1)
     {
-        string moneyString = "";
+        string moneyString;
         // decimal points
         if (decimalPoints < 0)
         {
