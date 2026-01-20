@@ -135,7 +135,7 @@ public class GameManager : MonoBehaviour
     }
     public void LoadMenu()
     {
-        LoadScene("Menu");
+        SceneLoader.GetInstance().LoadSceneWithAnimation("Menu");
         Time.timeScale = 1;
     }
     public void LoadGame(float difficulty = 1)
@@ -143,7 +143,7 @@ public class GameManager : MonoBehaviour
         float easyMoneyMultiplier = 1.5f;
         float hardMoneyMultiplier = 0.7f;
 
-        LoadScene("Gameplay");
+        SceneLoader.GetInstance().LoadSceneWithAnimation("Gameplay");
 
         difficultyVariables.difficulty = difficulty;
         if (difficulty < 1)
@@ -160,19 +160,14 @@ public class GameManager : MonoBehaviour
 
     public void RetryGame()
     {
-        LoadScene("Gameplay");
+        SceneLoader.GetInstance().LoadSceneWithAnimation("Gameplay");
     }
 
     public void LoadDifficulty()
     {
-        LoadScene("Difficulty Selector");
+        SceneLoader.GetInstance().LoadSceneWithAnimation("Difficulty Selector");
     }
 
-    public void LoadScene(string sceneName)
-    {
-        Debug.Log("Loading scene: " + sceneName);
-        SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
-    }
     public void QuitGame()
     {
         Debug.Log("Quitting game...");
