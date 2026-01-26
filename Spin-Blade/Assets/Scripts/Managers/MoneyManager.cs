@@ -103,7 +103,7 @@ public class MoneyManager : MonoBehaviour
 
         if (toggleShopKey && !animatingShop)
         {
-            ToggleShop(infModePauseMenu);
+            ToggleShop(shopMenu);
         }
 
         UpdateCurrencyText();
@@ -263,6 +263,7 @@ public class MoneyManager : MonoBehaviour
         GameManager gameManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
         float currencyGain = value;
         bool isNegative = value < 0;
+
         switch (currencyType)
         {
             case Currency.money:
