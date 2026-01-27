@@ -20,6 +20,7 @@ public class SceneLoader : MonoBehaviour
 
         transition = GetComponent<Animator>();
     }
+
     public void LoadScene(string sceneName)
     {
         SceneManager.LoadScene(sceneName);

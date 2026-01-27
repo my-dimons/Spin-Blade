@@ -451,7 +451,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eaf8ba58f37caf24fa717467381d1650, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyUpgrade
-  addEnemy: {fileID: 2734896826088632777, guid: a455901a68c03964da2a52d1e054d4b5, type: 3}
+  addEnemy: {fileID: 4957592547087773741, guid: a455901a68c03964da2a52d1e054d4b5, type: 3}
   enemySpeedMultiplierIncrease: 0
   enemyDifficultyIncrease: 0
   enemySpawnRateIncrease: 0
@@ -12303,7 +12303,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1280713294}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: RetryGame
+        m_MethodName: LoadMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -79451,7 +79451,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: retry
+  m_text: Main Menu
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2ea297e1eb604d44f89e4223da9aba41, type: 2}
   m_sharedMaterial: {fileID: 2446516073444543409, guid: 2ea297e1eb604d44f89e4223da9aba41, type: 2}

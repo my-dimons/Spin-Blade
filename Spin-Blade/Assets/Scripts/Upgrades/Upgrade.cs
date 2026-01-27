@@ -117,14 +117,28 @@ public class Upgrade : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     [Space(20)]
 
     bool updateSkillTree = false;
-
     MoneyManager moneyManager;
-    private void OnValidate()
-    {
-        if (MoneyManager.Instance == null)
-            return;
 
-        moneyManager = MoneyManager.Instance;
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start()
+    {
+        if (moneyManager == null)
+            moneyManager = MoneyManager.Instance;
+
+        canBeBought = false;
+
+        if (skillTreePrecursors == null)
+        {
+            canBeBought = true;
+        }
+
+        StartCoroutine(SkillTreeDelay());
+        IEnumerator SkillTreeDelay()
+        {
+            yield return new WaitForSecondsRealtime(0.1f);
+            updateSkillTree = true;
+        }
+
         // bg color
         switch (backgroundColorTintDropdown)
         {
@@ -143,28 +157,6 @@ public class Upgrade : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         else
         {
             enemyPopup = false;
-        }
-
-        UpdateStatText();
-        Locking();
-    }
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        if (moneyManager == null)
-            moneyManager = MoneyManager.Instance;
-
-        canBeBought = false;
-        if (skillTreePrecursors == null)
-        {
-            canBeBought = true;
-        }
-        StartCoroutine(SkillTreeDelay());
-        IEnumerator SkillTreeDelay()
-        {
-            yield return new WaitForSecondsRealtime(0.1f);
-            updateSkillTree = true;
         }
     }
 
