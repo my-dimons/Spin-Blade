@@ -90679,7 +90679,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d00ff2ab2c50ea4c9f3fd1b2d39ac07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DeveloperMenuManager
-  developmentMode: 1
+  developmentMode: 0
   developerMenuUI: {fileID: 1832663899}
   takeDamageField: {fileID: 530141085}
   healField: {fileID: 1691937872}
