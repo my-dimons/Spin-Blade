@@ -14,9 +14,13 @@ public class SceneLoader : MonoBehaviour
     [Tooltip("How long the transitions are. NOTE: Does not change the animation, just input how long the animation itself is")]
     public float transitionTime = 0.5f;
 
+    private void Awake()
+    { 
+        if (Instance == null) Instance = this; else Destroy(gameObject);
+    }
+
     private void Start()
     {
-        if (Instance == null) Instance = this; else Destroy(gameObject);
 
         transition = GetComponent<Animator>();
     }

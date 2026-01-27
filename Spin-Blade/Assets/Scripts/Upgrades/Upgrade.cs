@@ -59,7 +59,7 @@ public class Upgrade : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public Image enemyPopupValueIconMoney;
     public Image enemyPopupValueIconBits;
     [Space(10)]
-    public bool enemyPopup;
+    private bool enemyPopup;
     [Space(10)]
     public GameObject outlineObject;
     public GameObject backgroundObject;
@@ -132,12 +132,6 @@ public class Upgrade : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             canBeBought = true;
         }
 
-        StartCoroutine(SkillTreeDelay());
-        IEnumerator SkillTreeDelay()
-        {
-            yield return new WaitForSecondsRealtime(0.1f);
-            updateSkillTree = true;
-        }
 
         // bg color
         switch (backgroundColorTintDropdown)
@@ -149,14 +143,17 @@ public class Upgrade : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             case BackgroundPresetColors.Damage: backgroundTintColor = Utils.ColorFromHex("#AED4FF"); break;
         }
 
-        // enemy popup
-        if (GetComponent<EnemyUpgrade>() && GetComponent<EnemyUpgrade>().addEnemy != null)
+        if (TryGetComponent<EnemyUpgrade>(out EnemyUpgrade enemyUpgrade))
         {
-            enemyPopup = true;
+            if (enemyUpgrade.addEnemy != null)
+                enemyPopup = true;
         }
-        else
+
+        StartCoroutine(SkillTreeDelay());
+        IEnumerator SkillTreeDelay()
         {
-            enemyPopup = false;
+            yield return new WaitForSecondsRealtime(0.1f);
+            updateSkillTree = true;
         }
     }
 

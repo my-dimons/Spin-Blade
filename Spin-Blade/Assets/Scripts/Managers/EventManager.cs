@@ -41,11 +41,14 @@ public class EventManager : MonoBehaviour
     EnemyManager enemyManager;
     public static EventManager Instance { get; private set; }
 
+    private void Awake()
+    {
+        if (Instance == null) Instance = this; else Destroy(gameObject);
+    }
+
     // Use this for initialization
     void Start()
     {
-        if (Instance == null) Instance = this; else Destroy(gameObject);
-
         enemyManager = EnemyManager.Instance;
 
         StartCoroutine(EventLoop());

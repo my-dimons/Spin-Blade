@@ -79,10 +79,12 @@ public class MoneyManager : MonoBehaviour
         bitsColor = Utils.ColorFromHex("#64C8FF");
     }
 
-    private void Start()
+    private void Awake()
     {
         if (Instance == null) Instance = this; else Destroy(gameObject);
-
+    }
+    private void Start()
+    {
         moneyMultiplier *= DifficultyVariables.Instance.moneyMultiplier;
         shopMenuPos = skillTreeObject.GetComponent<RectTransform>().anchoredPosition;
         // add all upgrades to an array
