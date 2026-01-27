@@ -247,7 +247,7 @@ public class Upgrade : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         {
             enemyPopupObject.SetActive(true);
             EnemyUpgrade stats = GetComponent<EnemyUpgrade>();
-            Enemy enemy = stats.addEnemy.GetComponent<Enemy>();
+            Enemy enemy = stats.addEnemy;
 
             // -- seting stats --
 
@@ -266,10 +266,10 @@ public class Upgrade : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
                     Debug.LogError("Enemy has no currency type set!");
                     break;
             }
-
+            
             enemyPopupValueText.text = moneyManager.GetMoneyString(enemy.value, enemy.valueCurrencyType).ToString();
             enemyPopupValueText.color = moneyManager.GetCurrencyColor(enemy.valueCurrencyType);
-
+            
             enemyPopupHealthText.text = enemy.maxHealth.ToString();
             enemyPopupDamageText.text = enemy.damage.ToString();
         }
