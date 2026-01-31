@@ -20,8 +20,8 @@ public class MoneyManager : MonoBehaviour
         bits
     }
 
-    public Color moneyColor;
-    public Color bitsColor;
+    public static Color moneyColor = Utils.ColorFromHex("#FFF564");
+    public static Color bitsColor = Utils.ColorFromHex("64C8FF");
 
     [Header("-- Money --")]
     public float money;
@@ -289,7 +289,7 @@ public class MoneyManager : MonoBehaviour
     /// <param name="decimalPoints">-1 = auto decimal points</param>
     /// <param name="currencyType"></param>
     /// <returns>A string from a currency type and an amount</returns>
-    public string GetMoneyString(float money, Currency currencyType = Currency.money, int decimalPoints = -1)
+    public static string GetMoneyString(float money, Currency currencyType = Currency.money, int decimalPoints = -1)
     {
         string moneyString;
         // decimal points
@@ -319,7 +319,7 @@ public class MoneyManager : MonoBehaviour
         return moneyString;
     }
 
-    public Color GetCurrencyColor(Currency currenyType = Currency.money)
+    public static Color GetCurrencyColor(Currency currenyType = Currency.money)
     {
         Color color = Color.white;
 

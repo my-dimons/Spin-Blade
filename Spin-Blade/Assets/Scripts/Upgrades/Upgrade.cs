@@ -119,6 +119,11 @@ public class Upgrade : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     bool updateSkillTree = false;
     MoneyManager moneyManager;
 
+    private void OnValidate()
+    {
+        UpdateStatText();
+    }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -267,8 +272,8 @@ public class Upgrade : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
                     break;
             }
             
-            enemyPopupValueText.text = moneyManager.GetMoneyString(enemy.value, enemy.valueCurrencyType).ToString();
-            enemyPopupValueText.color = moneyManager.GetCurrencyColor(enemy.valueCurrencyType);
+            enemyPopupValueText.text = MoneyManager.GetMoneyString(enemy.value, enemy.valueCurrencyType).ToString();
+            enemyPopupValueText.color = MoneyManager.GetCurrencyColor(enemy.valueCurrencyType);
             
             enemyPopupHealthText.text = enemy.maxHealth.ToString();
             enemyPopupDamageText.text = enemy.damage.ToString();
@@ -349,13 +354,13 @@ public class Upgrade : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         // price
         if (locked && unlockable)
         {
-            priceObject.text = moneyManager.GetMoneyString(unlockablePrice, unlockableCurrency);
-            priceObject.color = moneyManager.GetCurrencyColor(unlockableCurrency);
+            priceObject.text = MoneyManager.GetMoneyString(unlockablePrice, unlockableCurrency);
+            priceObject.color = MoneyManager.GetCurrencyColor(unlockableCurrency);
         }
         else
         {
-            priceObject.text = moneyManager.GetMoneyString(price, priceCurrencyType);
-            priceObject.color = moneyManager.GetCurrencyColor(priceCurrencyType);
+            priceObject.text = MoneyManager.GetMoneyString(price, priceCurrencyType);
+            priceObject.color = MoneyManager.GetCurrencyColor(priceCurrencyType);
         }
 
         // sprite opacity
@@ -393,7 +398,7 @@ public class Upgrade : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
         SfxManager.PlaySfxAudioClip(buySound, 0.8f);
         Camera.main.GetComponent<CameraScript>().ScreenshakeFunction(0.1f);
-        ParticleSpawner.SpawnBurstParticle(buyParticlesPrefab, transform.position, transform, moneyManager.GetCurrencyColor(priceCurrencyType));
+        ParticleSpawner.SpawnBurstParticle(buyParticlesPrefab, transform.position, transform, MoneyManager.GetCurrencyColor(priceCurrencyType));
 
         foreach (IUpgrade upgrade in GetComponents<IUpgrade>())
         {

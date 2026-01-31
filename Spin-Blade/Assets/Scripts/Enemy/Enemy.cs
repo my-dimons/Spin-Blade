@@ -213,7 +213,7 @@ public class Enemy : MonoBehaviour
         // text
         Color color;
         if (value > 0)
-            color = moneyManager.GetCurrencyColor(valueCurrencyType);
+            color = MoneyManager.GetCurrencyColor(valueCurrencyType);
         else
         {
             color = badMoneyColor;
@@ -221,7 +221,7 @@ public class Enemy : MonoBehaviour
 
         if (playerStatGain)
         {
-            Utils.SpawnFloatingText(deathMoneyText, transform.position, moneyManager.GetMoneyString(moneyManager.CalculateCurrency(value, valueCurrencyType), valueCurrencyType), 6f, 0.3f, 40f, 0.45f, 0.15f, color);
+            Utils.SpawnFloatingText(deathMoneyText, transform.position, MoneyManager.GetMoneyString(moneyManager.CalculateCurrency(value, valueCurrencyType), valueCurrencyType), 6f, 0.3f, 40f, 0.45f, 0.15f, color);
             
             moneyManager.AddCurrency(value, valueCurrencyType);
 
