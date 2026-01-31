@@ -67,56 +67,58 @@ public class GameManager : MonoBehaviour
         MoneyManager moneyManager = MoneyManager.Instance;
         float money = moneyManager.money;
 
-        // skip tutorial
-        if (Input.GetKeyDown(KeyCode.RightShift))
+        switch (tutorialStage)
         {
-            tutorialFinished = true;
-            tutorialText.text = "";
+            case 0:
+                if (GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>().switchKey || moneyManager.toggleShopKey)
+                {
+                    if (moneyManager.toggleShopKey)
+                        AdvanceTutorial(2);
+                    else
+                        AdvanceTutorial();
+                }
+                break;
+
+            case 1:
+                if (moneyManager.shopOpen)
+                    AdvanceTutorial();
+                break;
+
+            case 2:
+                if (Input.GetMouseButtonUp(1) || Input.GetMouseButtonDown(0))
+                    AdvanceTutorial();
+                else if (!moneyManager.shopOpen)
+                    AdvanceTutorial();
+                break;
+
+            case 3:
+                if (!moneyManager.shopOpen)
+                    AdvanceTutorial();
+                break;
+
+             case 4:
+                if (!advancedTutorialStage)
+                    StartCoroutine(AdvanceTutorialLate(4f));
+                break;
+
+             case 5:
+                if (MoneyManager.Instance.money >= 5)
+                    AdvanceTutorial();
+                break;
+
+             case 6:
+                if (money < ogMoney)
+                    AdvanceTutorial();
+                break;
+
+            case 7: 
+                if (!advancedTutorialStage)
+                    StartCoroutine(AdvanceTutorialLate(2f));
+                break;
+            default: 
+                break;
         }
-            
-        // tutorial
-        if (tutorialStage >= tutorialStrings.Length)
-        {
-            tutorialText.gameObject.SetActive(false);
-            tutorialFinished = true;
-        }
-        else if ((GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>().switchKey || moneyManager.toggleShopKey) && tutorialStage == 0)
-        {
-            if (moneyManager.toggleShopKey)
-            {
-                AdvanceTutorial(2);
-            }
-            else
-            {
-                AdvanceTutorial();
-            }
-        }
-        else if (moneyManager.shopOpen && tutorialStage == 1)
-        {
-            AdvanceTutorial();
-        }
-        else if ((Input.GetMouseButtonUp(1) || Input.GetMouseButtonDown(0)) && tutorialStage == 2)
-        {
-            AdvanceTutorial();
-        }
-        else if (!moneyManager.shopOpen && (tutorialStage == 3 || tutorialStage == 2))
-        {
-            AdvanceTutorial();
-        }
-        else if (tutorialStage == 4 && !advancedTutorialStage)
-        {
-            StartCoroutine(AdvanceTutorialLate(4f));
-        }
-        else if (MoneyManager.Instance.money >= 5 && tutorialStage == 5)
-        {
-            AdvanceTutorial();
-        }
-        else if (money < ogMoney && tutorialStage == 6)
-            AdvanceTutorial();
-        else if (tutorialStage == 7 && !advancedTutorialStage)
-        {
-            StartCoroutine(AdvanceTutorialLate(2f));
-        }
+
         ogMoney = MoneyManager.Instance.money;
     }
 
