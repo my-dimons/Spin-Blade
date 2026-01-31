@@ -36335,7 +36335,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f9738b43be38c8489d4c94b8d6baba7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMinesUpgrade
-  mineExplosionRadiusIncrease: 1
+  mineExplosionRadiusIncrease: 0.2
   mineDamageMultiplierIncrease: 1
   mineKnockbackIncrease: 0.4
   mineLifetimeIncrease: 0
@@ -54083,6 +54083,7 @@ MonoBehaviour:
   - 
   - buy the next upgrade in the shop!
   - Have fun!
+  - 
   tutorialStage: 0
   sfxSliders:
   - {fileID: 771960861}
@@ -63392,7 +63393,7 @@ MonoBehaviour:
   mineDamageMultiplierIncrease: 0
   mineKnockbackIncrease: 0
   mineLifetimeIncrease: 2
-  mineCooldownIncrease: -0.5
+  mineCooldownIncrease: -1
   unlockMines: 0
   explodingMines: 0
 --- !u!1 &1531303000

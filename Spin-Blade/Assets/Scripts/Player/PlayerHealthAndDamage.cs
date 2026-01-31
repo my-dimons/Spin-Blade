@@ -253,7 +253,7 @@ public class PlayerHealthAndDamage : MonoBehaviour
         {
             GameObject circle = Instantiate(explodingCirclePrefab, spawnPos, Quaternion.identity);
             
-            Vector3 endScale = 2 * finalSize * Vector3.one; // multiply by 2 because for some reason the scale is half the size of the sprite or smth ¯\(°_o)/¯ idk it just works
+            Vector3 endScale = finalSize * Vector3.one / 2;
             ObjectAnimations.AnimateTransformScale(circle.transform, Vector3.zero, endScale, explodingCircleAnimationDuration, animationCurve: explodingCircleSizeAnimationCurve);
             ObjectAnimations.AnimateSpriteRendererOpacity(circle.GetComponent<SpriteRenderer>(), 1, 0, explodingCircleAnimationDuration);
 
