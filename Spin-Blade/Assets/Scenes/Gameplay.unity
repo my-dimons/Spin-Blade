@@ -81530,7 +81530,7 @@ MonoBehaviour:
   explodingCircle: 0
   explodingCirclePrefab: {fileID: 3930423445408462108, guid: d4763f897ce5f9a438620ead6ca5d695, type: 3}
   explodingCircleVisualCooldown: {fileID: 1323966124}
-  explodingCircleVisualFinalSize: 30
+  explodingCircleVisualFinalSize: 20
   explodingCircleSizeAnimationCurve:
     serializedVersion: 2
     m_Curve:
@@ -81589,7 +81589,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   explodingCircleAnimationDuration: 0.4
-  explodingCircleCooldown: 30
+  explodingCircleCooldown: 60
   explodingCircleDamageMultiplier: 9999
   explodingCircleKnockback: 0
   mines: 0
