@@ -202,7 +202,7 @@ public class Enemy : MonoBehaviour
         if (isDead) return;
         isDead = true;
 
-        Debug.Log("enemy death");
+        Debug.Log("Killed enemy");
 
         OnDeath?.Invoke();
 

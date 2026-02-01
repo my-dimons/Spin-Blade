@@ -10239,7 +10239,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: title
-      value: big guy
+      value: chunky
       objectReference: {fileID: 0}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: player
@@ -10343,7 +10343,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Name
-      value: Upgrade - big guy
+      value: Upgrade - chunky
       objectReference: {fileID: 0}
     - target: {fileID: 6418451865226575593, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Sprite
@@ -10519,6 +10519,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovementUpgrade
   speedIncrease: 0.08
+--- !u!114 &312440039
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 312440033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a0eb1578b96a9749942552ba39da7b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EventUpgrade
+  enableEvents: 1
 --- !u!1 &318778497
 GameObject:
   m_ObjectHideFlags: 0
@@ -20584,6 +20597,10 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+      propertyPath: title
+      value: speed
+      objectReference: {fileID: 0}
+    - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: player
       value: 
       objectReference: {fileID: 1883204292}
@@ -20697,7 +20714,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Name
-      value: Upgrade - upgrade
+      value: Upgrade - speed
       objectReference: {fileID: 0}
     - target: {fileID: 6418451865226575593, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Sprite
@@ -36388,13 +36405,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EventManager
   eventText: {fileID: 1783146061}
   eventPing: {fileID: 8300000, guid: fef53fd28c5c1bc499c714b56343f806, type: 3}
+  enableEvents: 0
   eventHappening: 0
   eventDuration: 15
   eventCooldown: 60
-  eventEnemySwarmAmount: 0
-  eventBossPrefabs: []
-  eventMoneyMultiplierAmount: 0
-  difficultyIncreasePercentEvent: 0
+  eventEnemySwarmAmount: 3.5
+  eventBossPrefabs:
+  - {fileID: 3131010577480444355, guid: 91e29ee0c4c2f6d4da6eaef75fe67710, type: 3}
+  eventMoneyMultiplierAmount: 1
+  difficultyIncreasePercentEvent: 10
 --- !u!1001 &1033598105
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -57895,7 +57914,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: maxLevel
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: description
@@ -81089,7 +81108,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMiniSawsUpgrade
   spawnMiniSaw: 0
-  miniSawSpeedIncrease: 0.3
+  miniSawSpeedIncrease: 0.2
   miniSawDamageIncrease: 0
 --- !u!1001 &1881883425
 PrefabInstance:
@@ -81516,12 +81535,12 @@ MonoBehaviour:
   miniSaws: []
   miniSawPrefab: {fileID: 734129064361634801, guid: 0425f3bb76713f74597db754a0e730d1, type: 3}
   miniSawParent: {fileID: 1840048646}
-  miniSawBaseSpeed: 1.2
-  miniSawDamage: 0.7
+  miniSawBaseSpeed: 0.6
+  miniSawDamage: 0.4
   unlockedRangedTriangles: 0
   rotationPivot: {fileID: 1094684725}
   trianglePrefab: {fileID: 6882114765160408786, guid: ab4dd729380f8cf47b39b9fe24a1fa47, type: 3}
-  triangleDamage: 1
+  triangleDamage: 0.5
   triangleSpeed: 10
   triangleFireRate: 0.8
   autofireTriangles: 0
@@ -90138,6 +90157,10 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+      propertyPath: title
+      value: superspeed
+      objectReference: {fileID: 0}
+    - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: player
       value: 
       objectReference: {fileID: 1883204292}
@@ -90247,7 +90270,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Name
-      value: Upgrade - upgrade
+      value: Upgrade - superspeed
       objectReference: {fileID: 0}
     - target: {fileID: 6418451865226575593, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_Sprite
@@ -90369,6 +90392,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       insertIndex: -1
       addedObject: {fileID: 312440038}
+    - targetCorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 312440039}
   m_SourcePrefab: {fileID: 100100000, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

@@ -11,7 +11,8 @@ public class EventManager : MonoBehaviour
         None,
         EnemySwarm,
         Boss,
-        DifficultyIncrease
+        DifficultyIncrease,
+        MoneyIncrease
     }
 
     [Header("Event Setup")]
@@ -19,7 +20,11 @@ public class EventManager : MonoBehaviour
     public AudioClip eventPing;
 
     [Header("Events")]
+    public bool enableEvents;
     public bool eventHappening;
+
+    [Space(10)]
+
     public float eventDuration;
     public float eventCooldown;
 
@@ -76,7 +81,12 @@ public class EventManager : MonoBehaviour
             case Event.DifficultyIncrease:
                 DifficultyIncreaseEvent();
                 break;
+            case Event.MoneyIncrease:
+                MoneyMultiplierEvent(eventMoneyMultiplierAmount, eventDuration);
+                break;
         }
+
+        Debug.Log("Started event: " + selectedEvent);
     }
 
     public Event GetRandomEvent()
@@ -96,6 +106,9 @@ public class EventManager : MonoBehaviour
     IEnumerator EventLoop()
     {
         yield return new WaitForSeconds(eventCooldown);
+        
+        if (enableEvents)
+            StartRandomEvent();
 
         StartCoroutine(EventLoop());
     }
