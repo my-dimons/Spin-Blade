@@ -17,11 +17,11 @@ public class CurrencyEnemy : MonoBehaviour
 
     private void OnEnable()
     {
-        GetComponent<Enemy>().OnDeath += AddPlayerMoney;
+        GetComponent<Enemy>().OnCircleHit += AddPlayerMoney;
     }
 
     private void OnDisable()
     {
-        GetComponent<Enemy>().OnDeath -= AddPlayerMoney;
+        GetComponent<Enemy>().OnCircleHit -= AddPlayerMoney;
     }
 }

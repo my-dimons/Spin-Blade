@@ -68,7 +68,7 @@ public class Enemy : MonoBehaviour
 
         speed *= enemyManager.difficulty;
 
-        if (!GetComponent<BossEnemy>())
+        if (!TryGetComponent<BossEnemy>(out _))
         {
             damage *= enemyManager.difficulty;
             maxHealth *= enemyManager.difficulty;
@@ -240,8 +240,13 @@ public class Enemy : MonoBehaviour
         ParticleSpawner.SpawnBurstParticle(deathParticles, transform.position, color: hitColor);
         Camera.main.GetComponent<CameraScript>().ScreenshakeFunction(.5f);
 
-        GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealthAndDamage>().TakeDamage(damage);
+        PlayerHealthAndDamage player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealthAndDamage>();
 
+        bool doMoneyFlash = false;
+        if (TryGetComponent<CurrencyEnemy>(out _))
+            doMoneyFlash = true;
+
+        player.TakeDamage(damage, doMoneyFlash);
         Destroy(gameObject);
     }
 }
