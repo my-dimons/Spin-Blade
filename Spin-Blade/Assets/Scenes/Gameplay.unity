@@ -81535,12 +81535,12 @@ MonoBehaviour:
   miniSaws: []
   miniSawPrefab: {fileID: 734129064361634801, guid: 0425f3bb76713f74597db754a0e730d1, type: 3}
   miniSawParent: {fileID: 1840048646}
-  miniSawBaseSpeed: 0.6
-  miniSawDamage: 0.4
+  miniSawBaseSpeed: 0.8
+  miniSawDamage: 0.5
   unlockedRangedTriangles: 0
   rotationPivot: {fileID: 1094684725}
   trianglePrefab: {fileID: 6882114765160408786, guid: ab4dd729380f8cf47b39b9fe24a1fa47, type: 3}
-  triangleDamage: 0.5
+  triangleDamage: 0.2
   triangleSpeed: 10
   triangleFireRate: 0.8
   autofireTriangles: 0
