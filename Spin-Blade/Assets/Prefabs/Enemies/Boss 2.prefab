@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: -4548325685811449260}
   - component: {fileID: 2318994989877959118}
   m_Layer: 0
-  m_Name: Boss 1
+  m_Name: Boss 2
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -84,7 +84,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: 7f178d911353c864d815dd72118eb5e0, type: 3}
+  m_Sprite: {fileID: -3530720302699838993, guid: c52bf9ff113bea0458d1fe9ae3d53075, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0.69803923}
   m_FlipX: 0
   m_FlipY: 0
@@ -108,12 +108,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  speed: 2.1
+  speed: 2
   rotateSpeed: 40
   rotateMultiplier: 90
   value: 20
   valueCurrencyType: 0
-  damage: 1.6
+  damage: 1.333
   spawnRate: 0.03
   damageFromProjectiles: 1
   maxHealth: 7
@@ -213,5 +213,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90118f11c67132e4c923b41fc7d905cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BossEnemy
-  damagePercent: 0.33
-  hitsToKill: 7
+  damagePercent: 0.7
+  hitsToKill: 3
