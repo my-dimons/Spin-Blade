@@ -36412,6 +36412,7 @@ MonoBehaviour:
   eventEnemySwarmAmount: 3.5
   eventBossPrefabs:
   - {fileID: 3131010577480444355, guid: 91e29ee0c4c2f6d4da6eaef75fe67710, type: 3}
+  - {fileID: 3131010577480444355, guid: c2b59f14e93731149a2a1e878f71c916, type: 3}
   eventMoneyMultiplierAmount: 1
   difficultyIncreasePercentEvent: 10
 --- !u!1001 &1033598105
@@ -77568,8 +77569,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Main Menu
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 2ea297e1eb604d44f89e4223da9aba41, type: 2}
-  m_sharedMaterial: {fileID: 2446516073444543409, guid: 2ea297e1eb604d44f89e4223da9aba41, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: a9438f3a38047ee42819b03430b8d999, type: 2}
+  m_sharedMaterial: {fileID: 2446516073444543409, guid: a9438f3a38047ee42819b03430b8d999, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

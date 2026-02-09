@@ -108,7 +108,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  speed: 2.1
+  speed: 2
   rotateSpeed: 40
   rotateMultiplier: 90
   value: 20
@@ -186,7 +186,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 1.7543796
+  m_Radius: 1.8567343
 --- !u!114 &-4548325685811449260
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -213,5 +213,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90118f11c67132e4c923b41fc7d905cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BossEnemy
-  damagePercent: 0.33
-  hitsToKill: 7
+  damagePercent: 0.7
+  hitsToKill: 5
