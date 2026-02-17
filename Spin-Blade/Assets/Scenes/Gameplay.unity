@@ -21723,7 +21723,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: description
-      value: Don't hit it for 5$+!
+      value: Don't hit it for 5$
       objectReference: {fileID: 0}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: moneyManager
@@ -35906,7 +35906,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyUpgrade
   addEnemy: {fileID: 0}
-  enemySpeedMultiplierIncrease: 0.3
+  enemySpeedMultiplierIncrease: -0.3
   enemyDifficultyIncrease: 0
   enemySpawnRateIncrease: 0
   enemyBossHealthMultiplierIncrease: 0
@@ -79645,7 +79645,7 @@ MonoBehaviour:
   addEnemy: {fileID: 0}
   enemySpeedMultiplierIncrease: 0
   enemyDifficultyIncrease: 0
-  enemySpawnRateIncrease: 0.1
+  enemySpawnRateIncrease: 0.05
   enemyBossHealthMultiplierIncrease: 0
 --- !u!1 &1832663899
 GameObject:
