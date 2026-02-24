@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "BossEvent", menuName = "ScriptableObjects/Events/BossEvent")]
-public class BossEvent : ScriptableObject, IEvent
+public class BossEvent : Event
 {
     public Enemy[] bosses;
 
@@ -12,22 +12,22 @@ public class BossEvent : ScriptableObject, IEvent
     public string eventName = "BossEvent";
     public string eventPopup = "Boss Incoming!";
 
-    public void ApplyEvent()
+    public override void ApplyEvent()
     {
         Event(GetRandomBoss());
     }
 
-    public bool IsEnabled()
+    public override bool IsEnabled()
     {
         return enabled;
     }
 
-    public string GetEventName()
+    public override string GetEventName()
     {
         return eventName;
     }
 
-    public string GetEventPopupTextString()
+    public override string GetEventPopupTextString()
     {
         return eventPopup;
     }

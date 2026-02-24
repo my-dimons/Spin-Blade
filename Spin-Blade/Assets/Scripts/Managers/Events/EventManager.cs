@@ -1,14 +1,17 @@
 ﻿using System;
 using System.Collections;
+using System.ComponentModel;
 using TMPro;
 using UnityEngine;
 using UnityUtils.ScriptUtils.Audio;
 
 public class EventManager : MonoBehaviour
 {
-    public IEvent[] events;
-
     [Header("Event Setup")]
+    public Event[] events;
+
+    [Space(5)]
+
     public TextMeshPro eventText;
     public AudioClip eventPing;
 
@@ -18,21 +21,7 @@ public class EventManager : MonoBehaviour
 
     [Space(10)]
 
-    public float eventDuration;
     public float eventCooldown;
-
-    [Header("Enemy Swarm Event")]
-    public float eventEnemySwarmAmount;
-
-    [Header("Boss Event")]
-    public Enemy[] eventBossPrefabs;
-
-    [Header("Money Increase Event")]
-    public float eventMoneyMultiplierAmount;
-
-    [Header("Difficulty Increase Event")]
-    [Tooltip("% to increase the difficulty during the increase difficulty event")]
-    public float difficultyIncreasePercentEvent; 
 
     public readonly float DEFAULT_EVENT_TEXT_APPEAR_TIME = 5;
 
@@ -52,7 +41,7 @@ public class EventManager : MonoBehaviour
         StartCoroutine(EventLoop());
     }
 
-    public void StartSpecificEvent(IEvent selectedEvent)
+    public void StartSpecificEvent(Event selectedEvent)
     {
         SfxManager.PlaySfxAudioClip(eventPing, 0.7f);
 
@@ -65,11 +54,11 @@ public class EventManager : MonoBehaviour
         }
     }
 
-    public IEvent GetRandomEvent()
+    public Event GetRandomEvent()
     {
         int randInt = UnityEngine.Random.Range(0, events.Length);
 
-        IEvent randomEvent = events[randInt];
+        Event randomEvent = events[randInt];
 
         return randomEvent;
     }

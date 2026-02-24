@@ -3,7 +3,7 @@ using Unity.Hierarchy;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "EnemySwarmEvent", menuName = "ScriptableObjects/Events/EnemySwarmEvent")]
-public class EnemySwarmEvent : ScriptableObject, IEvent
+public class EnemySwarmEvent : Event
 {
     public float enemyAmount;
     public float enemySpawnSpeed;
@@ -14,22 +14,22 @@ public class EnemySwarmEvent : ScriptableObject, IEvent
     public string eventName = "EnemySwarmEvent";
     public string eventPopup = "Enemy Swarm Incoming!";
 
-    public void ApplyEvent()
+    public override void ApplyEvent()
     {
         EventManager.Instance.StartCoroutine(Event(CalculateEnemySwarmAmount(enemyAmount), enemySpawnSpeed));
     }
 
-    public bool IsEnabled()
+    public override bool IsEnabled()
     {
         return enabled;
     }
 
-    public string GetEventName()
+    public override string GetEventName()
     {
         return eventName;
     }
 
-    public string GetEventPopupTextString()
+    public override string GetEventPopupTextString()
     {
         return eventPopup;
     }

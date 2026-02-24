@@ -36407,18 +36407,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: facc9ba2e8b484a448a47eb77477c0cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EventManager
+  events:
+  - {fileID: 11400000, guid: 27f823007069cee45ac6c64b31e3e290, type: 2}
+  - {fileID: 11400000, guid: 825a8196b23135642a463c6633087d46, type: 2}
+  - {fileID: 11400000, guid: 224298a1f53ed94469483064bbd91a5f, type: 2}
+  - {fileID: 11400000, guid: dfc9a7002288dc3469313f14a50dbc19, type: 2}
   eventText: {fileID: 1783146061}
   eventPing: {fileID: 8300000, guid: fef53fd28c5c1bc499c714b56343f806, type: 3}
   enableEvents: 0
   eventHappening: 0
-  eventDuration: 15
   eventCooldown: 60
-  eventEnemySwarmAmount: 3.5
-  eventBossPrefabs:
-  - {fileID: 3131010577480444355, guid: 91e29ee0c4c2f6d4da6eaef75fe67710, type: 3}
-  - {fileID: 3131010577480444355, guid: c2b59f14e93731149a2a1e878f71c916, type: 3}
-  eventMoneyMultiplierAmount: 1
-  difficultyIncreasePercentEvent: 10
 --- !u!1001 &1033598105
 PrefabInstance:
   m_ObjectHideFlags: 0
