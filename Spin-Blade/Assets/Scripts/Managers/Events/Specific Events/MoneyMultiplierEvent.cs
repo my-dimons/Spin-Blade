@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "MoneyMultiplierEvent", menuName = "ScriptableObjects/Events")]
+[CreateAssetMenu(fileName = "MoneyMultiplierEvent", menuName = "ScriptableObjects/Events/MoneyMultiplierEvent")]
 public class MoneyMultiplierEvent : ScriptableObject, IEvent
 {
     public float moneyIncrease;
@@ -10,6 +10,8 @@ public class MoneyMultiplierEvent : ScriptableObject, IEvent
     [Space(10)]
 
     public bool enabled = true;
+    public string eventName = "MoneyMultiplierEvent";
+    public string eventPopup = " Money Multiplier";
 
     public void ApplyEvent()
     {
@@ -21,12 +23,22 @@ public class MoneyMultiplierEvent : ScriptableObject, IEvent
         return enabled;
     }
 
+    public string GetEventName()
+    {
+        return eventName;
+    }
+
+    public string GetEventPopupTextString()
+    {
+        return "x" + moneyIncrease + eventPopup;
+    }
+
     IEnumerator Event(float multiplier, float duration)
     {
         EventManager eventManager = EventManager.Instance;
         MoneyManager moneyManager = MoneyManager.Instance;
 
-        eventManager.StartCoroutine(eventManager.EnableEventText("x" + multiplier + " Money Multiplier", duration));
+        eventManager.StartCoroutine(eventManager.EnableEventText(GetEventPopupTextString(), duration));
         eventManager.eventHappening = true;
 
         moneyManager.eventMoneyMultiplier *= multiplier;

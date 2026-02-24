@@ -61,7 +61,7 @@ public class EventManager : MonoBehaviour
         {
             selectedEvent.ApplyEvent();
 
-            Debug.Log("Started event: " + selectedEvent);
+            Debug.Log("Started event: " + selectedEvent.GetEventName());
         }
     }
 
