@@ -59,7 +59,7 @@ public class Upgrade : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public Image enemyPopupValueIconMoney;
     public Image enemyPopupValueIconBits;
     [Space(10)]
-    public bool enemyPopup;
+    private bool enemyPopup;
     [Space(10)]
     public GameObject outlineObject;
     public GameObject backgroundObject;
@@ -117,14 +117,27 @@ public class Upgrade : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     [Space(20)]
 
     bool updateSkillTree = false;
-
     MoneyManager moneyManager;
+
     private void OnValidate()
     {
-        if (MoneyManager.Instance == null)
-            return;
+        UpdateStatText();
+    }
 
-        moneyManager = MoneyManager.Instance;
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start()
+    {
+        if (moneyManager == null)
+            moneyManager = MoneyManager.Instance;
+
+        canBeBought = false;
+
+        if (skillTreePrecursors == null)
+        {
+            canBeBought = true;
+        }
+
+
         // bg color
         switch (backgroundColorTintDropdown)
         {
@@ -135,31 +148,12 @@ public class Upgrade : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             case BackgroundPresetColors.Damage: backgroundTintColor = Utils.ColorFromHex("#AED4FF"); break;
         }
 
-        // enemy popup
-        if (GetComponent<EnemyUpgrade>() && GetComponent<EnemyUpgrade>().addEnemy != null)
+        if (TryGetComponent<EnemyUpgrade>(out EnemyUpgrade enemyUpgrade))
         {
-            enemyPopup = true;
-        }
-        else
-        {
-            enemyPopup = false;
+            if (enemyUpgrade.addEnemy != null)
+                enemyPopup = true;
         }
 
-        UpdateStatText();
-        Locking();
-    }
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        if (moneyManager == null)
-            moneyManager = MoneyManager.Instance;
-
-        canBeBought = false;
-        if (skillTreePrecursors == null)
-        {
-            canBeBought = true;
-        }
         StartCoroutine(SkillTreeDelay());
         IEnumerator SkillTreeDelay()
         {
@@ -258,7 +252,7 @@ public class Upgrade : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         {
             enemyPopupObject.SetActive(true);
             EnemyUpgrade stats = GetComponent<EnemyUpgrade>();
-            Enemy enemy = stats.addEnemy.GetComponent<Enemy>();
+            Enemy enemy = stats.addEnemy;
 
             // -- seting stats --
 
@@ -277,10 +271,10 @@ public class Upgrade : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
                     Debug.LogError("Enemy has no currency type set!");
                     break;
             }
-
-            enemyPopupValueText.text = moneyManager.GetMoneyString(enemy.value, enemy.valueCurrencyType).ToString();
-            enemyPopupValueText.color = moneyManager.GetCurrencyColor(enemy.valueCurrencyType);
-
+            
+            enemyPopupValueText.text = MoneyManager.GetMoneyString(enemy.value, enemy.valueCurrencyType).ToString();
+            enemyPopupValueText.color = MoneyManager.GetCurrencyColor(enemy.valueCurrencyType);
+            
             enemyPopupHealthText.text = enemy.maxHealth.ToString();
             enemyPopupDamageText.text = enemy.damage.ToString();
         }
@@ -360,13 +354,13 @@ public class Upgrade : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         // price
         if (locked && unlockable)
         {
-            priceObject.text = moneyManager.GetMoneyString(unlockablePrice, unlockableCurrency);
-            priceObject.color = moneyManager.GetCurrencyColor(unlockableCurrency);
+            priceObject.text = MoneyManager.GetMoneyString(unlockablePrice, unlockableCurrency);
+            priceObject.color = MoneyManager.GetCurrencyColor(unlockableCurrency);
         }
         else
         {
-            priceObject.text = moneyManager.GetMoneyString(price, priceCurrencyType);
-            priceObject.color = moneyManager.GetCurrencyColor(priceCurrencyType);
+            priceObject.text = MoneyManager.GetMoneyString(price, priceCurrencyType);
+            priceObject.color = MoneyManager.GetCurrencyColor(priceCurrencyType);
         }
 
         // sprite opacity
@@ -404,7 +398,7 @@ public class Upgrade : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
         SfxManager.PlaySfxAudioClip(buySound, 0.8f);
         Camera.main.GetComponent<CameraScript>().ScreenshakeFunction(0.1f);
-        ParticleSpawner.SpawnBurstParticle(buyParticlesPrefab, transform.position, transform, moneyManager.GetCurrencyColor(priceCurrencyType));
+        ParticleSpawner.SpawnBurstParticle(buyParticlesPrefab, transform.position, transform, MoneyManager.GetCurrencyColor(priceCurrencyType));
 
         foreach (IUpgrade upgrade in GetComponents<IUpgrade>())
         {

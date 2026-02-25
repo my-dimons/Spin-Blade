@@ -68,7 +68,7 @@ public class Enemy : MonoBehaviour
 
         speed *= enemyManager.difficulty;
 
-        if (!GetComponent<BossEnemy>())
+        if (!TryGetComponent<BossEnemy>(out _))
         {
             damage *= enemyManager.difficulty;
             maxHealth *= enemyManager.difficulty;
@@ -202,7 +202,7 @@ public class Enemy : MonoBehaviour
         if (isDead) return;
         isDead = true;
 
-        Debug.Log("enemy death");
+        Debug.Log("Killed enemy");
 
         OnDeath?.Invoke();
 
@@ -213,7 +213,7 @@ public class Enemy : MonoBehaviour
         // text
         Color color;
         if (value > 0)
-            color = moneyManager.GetCurrencyColor(valueCurrencyType);
+            color = MoneyManager.GetCurrencyColor(valueCurrencyType);
         else
         {
             color = badMoneyColor;
@@ -221,7 +221,7 @@ public class Enemy : MonoBehaviour
 
         if (playerStatGain)
         {
-            Utils.SpawnFloatingText(deathMoneyText, transform.position, moneyManager.GetMoneyString(moneyManager.CalculateCurrency(value, valueCurrencyType), valueCurrencyType), 6f, 0.3f, 40f, 0.45f, 0.15f, color);
+            Utils.SpawnFloatingText(deathMoneyText, transform.position, MoneyManager.GetMoneyString(moneyManager.CalculateCurrency(value, valueCurrencyType), valueCurrencyType), 6f, 0.3f, 40f, 0.45f, 0.15f, color);
             
             moneyManager.AddCurrency(value, valueCurrencyType);
 
@@ -240,8 +240,13 @@ public class Enemy : MonoBehaviour
         ParticleSpawner.SpawnBurstParticle(deathParticles, transform.position, color: hitColor);
         Camera.main.GetComponent<CameraScript>().ScreenshakeFunction(.5f);
 
-        GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealthAndDamage>().TakeDamage(damage);
+        PlayerHealthAndDamage player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealthAndDamage>();
 
+        bool doMoneyFlash = false;
+        if (TryGetComponent<CurrencyEnemy>(out _))
+            doMoneyFlash = true;
+
+        player.TakeDamage(damage, doMoneyFlash);
         Destroy(gameObject);
     }
 }

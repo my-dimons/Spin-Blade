@@ -22,9 +22,13 @@ public class EnemyManager : MonoBehaviour
 
     public static EnemyManager Instance { get; private set; }
 
-    private void Start()
+    private void Awake()
     {
         if (Instance == null) Instance = this; else Destroy(gameObject);
+    }
+
+    private void Start()
+    {
         difficulty *= DifficultyVariables.Instance.difficulty;
 
         StartCoroutine(SpawnEnemyLoop());

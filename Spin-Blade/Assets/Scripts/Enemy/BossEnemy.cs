@@ -4,7 +4,7 @@ using UnityEngine;
 public class BossEnemy : MonoBehaviour
 {
     [Tooltip("% of player health to take")]
-    public float damagePercent = 1.333f;
+    public float damagePercent = 0.7f;
 
     public float hitsToKill = 3;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -15,7 +15,7 @@ public class BossEnemy : MonoBehaviour
         EnemyManager enemyManager = GameObject.FindGameObjectWithTag("EnemyManager").GetComponent<EnemyManager>();
 
         enemy.maxHealth = playerHealthAndDamage.damage * hitsToKill * enemyManager.bossHealthMultiplier;
-        enemy.damage = playerHealthAndDamage.maxHeath / damagePercent;
+        enemy.damage = playerHealthAndDamage.maxHeath * damagePercent;
 
         enemy.currentHealth = enemy.maxHealth;
     }
