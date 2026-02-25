@@ -11,7 +11,6 @@ public class MoneyMultiplierEvent : Event
 
     public bool enabled = true;
     public string eventName = "MoneyMultiplierEvent";
-    public string eventPopup = " Money Multiplier";
 
     public override void ApplyEvent()
     {
@@ -30,10 +29,10 @@ public class MoneyMultiplierEvent : Event
 
     public override string GetEventPopupTextString()
     {
-        return "x" + moneyIncrease + eventPopup;
+        return "+" + moneyIncrease + "x Money Multiplier";
     }
 
-    IEnumerator Event(float multiplier, float duration)
+    IEnumerator Event(float moneyMultiplier, float duration)
     {
         EventManager eventManager = EventManager.Instance;
         MoneyManager moneyManager = MoneyManager.Instance;
@@ -41,11 +40,11 @@ public class MoneyMultiplierEvent : Event
         eventManager.StartCoroutine(eventManager.EnableEventText(GetEventPopupTextString(), duration));
         eventManager.eventHappening = true;
 
-        moneyManager.eventMoneyMultiplier *= multiplier;
+        moneyManager.moneyMultiplier += moneyMultiplier;
 
         yield return new WaitForSeconds(duration);
 
-        moneyManager.eventMoneyMultiplier = 1f;
+        moneyManager.moneyMultiplier -= moneyMultiplier;
         eventManager.eventHappening = false;
     }
 }

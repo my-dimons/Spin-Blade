@@ -44,6 +44,11 @@ public class EnemyManager : MonoBehaviour
         }
     }
 
+    float CalculateEnemySpawnRate(Enemy enemy)
+    {
+        return enemy.spawnRate * difficulty;
+    }
+
     public void SpawnRandomSpawnableEnemy()
     {
         SpawnEnemy(GetRandomSpawnableEnemy());

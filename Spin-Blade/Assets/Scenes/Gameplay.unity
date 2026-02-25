@@ -21676,7 +21676,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eaf8ba58f37caf24fa717467381d1650, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyUpgrade
-  addEnemy: {fileID: 3598119321138681772, guid: 7c4e8b9b7c8189549b1ae1d63384aefe, type: 3}
+  addEnemy: {fileID: 7289434404120095196, guid: 7c4e8b9b7c8189549b1ae1d63384aefe, type: 3}
   enemySpeedMultiplierIncrease: 0
   enemyDifficultyIncrease: 0
   enemySpawnRateIncrease: 0
@@ -28858,7 +28858,7 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: c5be6080db6e3264097d1d5f5cd04278, type: 3}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: price
-      value: 500
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: title
@@ -28882,7 +28882,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: description
-      value: $500 -> 1 bit
+      value: $300 = 1 bit
       objectReference: {fileID: 0}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: moneyManager
@@ -47955,7 +47955,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eaf8ba58f37caf24fa717467381d1650, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyUpgrade
-  addEnemy: {fileID: 6944894831603675888, guid: 09aebb858ab0664438aa86c59970bb93, type: 3}
+  addEnemy: {fileID: 7695227251566863971, guid: 09aebb858ab0664438aa86c59970bb93, type: 3}
   enemySpeedMultiplierIncrease: 0
   enemyDifficultyIncrease: 0
   enemySpawnRateIncrease: 0
@@ -56482,7 +56482,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: description
-      value: +1.0x bits mult
+      value: +2.0x bits mult
       objectReference: {fileID: 0}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: moneyManager
@@ -56748,7 +56748,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BitsUpgrade
   unlockBits: 0
-  bitsMultiplierIncrease: 1
+  bitsMultiplierIncrease: 2
   giveBits: 0
 --- !u!1 &1421786202
 GameObject:
@@ -79733,7 +79733,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: description
-      value: this enemy doesn't move and shoots ranged projectiles at the you
+      value: this enemy moves slowly and shoots ranged projectiles at the you
       objectReference: {fileID: 0}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: moneyManager
@@ -80376,7 +80376,7 @@ MonoBehaviour:
   enemyParent: {fileID: 212686492}
   enemySpawningRadius: 20
   difficulty: 1
-  enemySpawnTimeSeconds: 2
+  enemySpawnTimeSeconds: 2.5
   bossHealthMultiplier: 1
   enemySpeedMultiplier: 1
 --- !u!1 &1863752101
