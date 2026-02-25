@@ -1,10 +1,6 @@
-﻿using NUnit.Framework;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using TMPro;
 using UnityEngine;
-using UnityUtils.ScriptUtils.Objects;
 
 public class EnemyManager : MonoBehaviour
 {
@@ -12,7 +8,7 @@ public class EnemyManager : MonoBehaviour
     public GameObject enemyParent;
 
     [Header("Enemy Spawning")]
-    public float enemySpawningRadius = 5f; // Adjustable spawning radius
+    public float enemySpawningRadius = 5f;
     public float difficulty = 1f;
     public float enemySpawnTimeSeconds = 1f;
 
@@ -40,13 +36,13 @@ public class EnemyManager : MonoBehaviour
         {
             SpawnRandomSpawnableEnemy();
 
-            yield return new WaitForSeconds(enemySpawnTimeSeconds);
+            yield return new WaitForSeconds(CalculateEnemySpawnRate(enemySpawnTimeSeconds));
         }
     }
 
-    float CalculateEnemySpawnRate(Enemy enemy)
+    float CalculateEnemySpawnRate(float spawnRate)
     {
-        return enemy.spawnRate * difficulty;
+        return spawnRate / difficulty;
     }
 
     public void SpawnRandomSpawnableEnemy()
@@ -67,20 +63,16 @@ public class EnemyManager : MonoBehaviour
 
         if (enemyPrefab == null)
         {
-           enemyPrefab = GetRandomSpawnableEnemy();
-        }
-        if (enemyPrefab != null)
+            enemyPrefab = GetRandomSpawnableEnemy();
+        } else
         {
             GameObject enemy = Instantiate(enemyPrefab.gameObject, spawnPos, Quaternion.identity);
 
             enemy.transform.parent = enemyParent.transform;
             enemy.GetComponent<Enemy>().target = enemyParent;
-        } else
-        {
-            Debug.LogWarning("No enemy prefab found to spawn.");
         }
     }
-    
+
     public Enemy GetRandomSpawnableEnemy()
     {
         List<Enemy> spawnableEnemies = new();
@@ -88,13 +80,15 @@ public class EnemyManager : MonoBehaviour
         {
             Enemy enemyScript = enemy.GetComponent<Enemy>();
             float randomNum = Random.Range(0f, 1f);
-            if (enemy != null && randomNum <= enemyScript.spawnRate)
+
+            bool canSpawnEnemy = enemy != null && randomNum <= enemyScript.spawnRate;
+            if (canSpawnEnemy)
             {
                 spawnableEnemies.Add(enemy);
             }
         }
 
-        if (spawnableEnemies.Count == 0)
+        if (spawnableEnemies.Count <= 0)
         {
             Debug.LogWarning("No enemies available to spawn");
             return null;
@@ -105,6 +99,7 @@ public class EnemyManager : MonoBehaviour
 
     private void OnDrawGizmos()
     {
+        // Enemy spawning circle
         Gizmos.color = Color.red; // Circle color
         Gizmos.DrawWireSphere(transform.position, enemySpawningRadius); // Draw the wireframe circle
     }

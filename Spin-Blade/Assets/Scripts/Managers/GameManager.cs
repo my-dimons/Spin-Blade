@@ -186,12 +186,13 @@ public class GameManager : MonoBehaviour
 
         // kills
         killsText.GetComponent<TextMeshProUGUI>().text = $"Kills: {kills}";
-
         // money
         totalMoneyText.GetComponent<TextMeshProUGUI>().text = "Gained: $" + totalMoneyGained.ToString("F2");
 
         Debug.Log("WIN SCREEN ENABLED");
+
         yield return new WaitForSeconds(winTime);
+
         Debug.Log("WIN SCREEN DISABLED");
         winScreen.SetActive(false);
     }
