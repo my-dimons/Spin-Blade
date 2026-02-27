@@ -19,6 +19,7 @@ public class PlayerStatsTextManager : MonoBehaviour
 
     private PlayerHealthAndDamage player;
     private float boughtUpgradePercent = 0;
+    private int playerHealthRounding = 0;
 
     private void Start()
     {
@@ -37,9 +38,9 @@ public class PlayerStatsTextManager : MonoBehaviour
             boughtUpgradePercent = GetPercentOfUnlockedUpgrades();
         }
 
-        playerHealthText.text = "Health: " + player.currentHealth + "/" + player.maxHeath;
-        playerDamageText.text = "Damage: " + player.damage;
-        unlockedUpgradePercentText.text = "Upgrades Unlocked: " + Math.Round(boughtUpgradePercent * 100, percentTextRounding) + "%";
+        playerHealthText.text = Math.Round(player.currentHealth, playerHealthRounding) + "/" + Math.Round(player.maxHeath, playerHealthRounding);
+        playerDamageText.text = "" + player.damage;
+        unlockedUpgradePercentText.text = "Upgrades: " + Math.Round(boughtUpgradePercent * 100, percentTextRounding) + "%";
     }
 
     private Upgrade[] GetAllUpgrades()
