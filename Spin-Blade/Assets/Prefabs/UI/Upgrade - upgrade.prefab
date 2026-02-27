@@ -1649,6 +1649,7 @@ MonoBehaviour:
   priceCurrencyType: 0
   priceIncrease: 1.2
   maxLevel: 5
+  currentLevel: 0
   imageObject: {fileID: 8480113856005224445}
   descriptionObject: {fileID: 3856775334563055168}
   titleObject: {fileID: 6706228616887220454}

@@ -9,7 +9,7 @@ using UnityUtils.ScriptUtils.Objects;
 public class PlayerHealthAndDamage : MonoBehaviour
 {
     [Header("-- Health --")]
-    public float maxHeath = 1;
+    public float maxHeath = 1; // mispelled but i'm keeping it
     public float currentHealth;
     [Space(10)]
     public int revives;

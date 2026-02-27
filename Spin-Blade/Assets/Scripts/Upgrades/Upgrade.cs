@@ -33,7 +33,7 @@ public class Upgrade : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     [Header("Level")]
     [Tooltip("Set this to 0 to have no limit on level")]
     public int maxLevel;
-    private int currentLevel;
+    public int currentLevel;
 
     [Header("|--- Upgrade Values ---|")]
     [Space(20)]
