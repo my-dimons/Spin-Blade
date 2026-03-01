@@ -1662,7 +1662,6 @@ MonoBehaviour:
   enemyPopupHealthText: {fileID: 7705725254313199472}
   enemyPopupValueIconMoney: {fileID: 8969452496678572650}
   enemyPopupValueIconBits: {fileID: 2766217481165092422}
-  enemyPopup: 0
   outlineObject: {fileID: 3903720382919740542}
   backgroundObject: {fileID: 1107720655848042539}
   tileObject: {fileID: 77398100168431502}
