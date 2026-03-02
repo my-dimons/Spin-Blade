@@ -261,12 +261,13 @@ public class Enemy : MonoBehaviour
 
         PlayerHealthAndDamage player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealthAndDamage>();
 
-        bool doMoneyFlash = false;
-        if (TryGetComponent<CurrencyEnemy>(out _))
-            doMoneyFlash = true;
+        Color flashColor = Utils.ColorFromHex("#FF4E4E");
+        if (TryGetComponent<CurrencyEnemy>(out _) || damage <= 0)
+            flashColor = MoneyManager.GetCurrencyColor(valueCurrencyType);
+        else
+            Utils.SpawnFloatingText(takeDamageText, transform.position, damage.ToString(), 6f, 0.3f, 40f, 0.45f, 0.15f, Color.white);
 
-        player.TakeDamage(damage, doMoneyFlash);
-        Utils.SpawnFloatingText(takeDamageText, transform.position, damage.ToString(), 6f, 0.3f, 40f, 0.45f, 0.15f, Color.white);
+        player.TakeDamage(damage, flashColor);
 
         Destroy(gameObject);
     }

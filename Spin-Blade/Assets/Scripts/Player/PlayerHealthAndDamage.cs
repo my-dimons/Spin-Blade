@@ -23,8 +23,6 @@ public class PlayerHealthAndDamage : MonoBehaviour
     [Space(10)]
     [Header("Damage Flashes")]
     public DamageFlash circleDamageFlash;
-    public Color circleDamageFlashColor = Utils.ColorFromHex("#FF4E4E");
-    public Color circleMoneyGainHitFlashColor = Utils.ColorFromHex("#7CFF85");
     public Color circleFullHealFlashColor = Utils.ColorFromHex("#FFE45B");
 
     public bool dead;
@@ -335,15 +333,13 @@ public class PlayerHealthAndDamage : MonoBehaviour
         deathScreen.SetActive(true);
     }
 
-    public void TakeDamage(float damage, bool flashMoney = false)
+    public void TakeDamage(float damage, Color flashColor = default)
     {
         SfxManager.PlaySfxAudioClip(hitSound, 1f);
+        if (flashColor == default) flashColor = Color.white;
         currentHealth -= damage;
 
-        if (currentHealth > 0 && !flashMoney)
-            circleDamageFlash.Flash(circleDamageFlashColor);
-        else if (currentHealth > 0 && flashMoney)
-            circleDamageFlash.Flash(circleMoneyGainHitFlashColor);
+        circleDamageFlash.Flash(flashColor);
 
         Mathf.Clamp(currentHealth, 0, maxHeath);
     }

@@ -23871,7 +23871,7 @@ MonoBehaviour:
   playerDamageText: {fileID: 63129889}
   unlockedUpgradePercentText: {fileID: 1349148293}
   percentTextRounding: 2
-  playerHealthRounding: 2
+  playerHealthRounding: 0
 --- !u!1001 &841434980
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -82365,9 +82365,7 @@ MonoBehaviour:
   healthBar: {fileID: 1421786204}
   deathScreen: {fileID: 1581732367}
   circleDamageFlash: {fileID: 1094684729}
-  circleDamageFlashColor: {r: 1, g: 0.3050313, b: 0.3050313, a: 1}
-  circleMoneyGainHitFlashColor: {r: 0.48742133, g: 1, b: 0.5198665, a: 1}
-  circleFullHealFlashColor: {r: 1, g: 0.92849994, b: 0.571, a: 1}
+  circleFullHealFlashColor: {r: 0.5878833, g: 1, b: 0.57254905, a: 1}
   dead: 0
   damage: 1
   sizeMultiplier: 1
