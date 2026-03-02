@@ -23871,6 +23871,7 @@ MonoBehaviour:
   playerDamageText: {fileID: 63129889}
   unlockedUpgradePercentText: {fileID: 1349148293}
   percentTextRounding: 2
+  playerHealthRounding: 2
 --- !u!1001 &841434980
 PrefabInstance:
   m_ObjectHideFlags: 0

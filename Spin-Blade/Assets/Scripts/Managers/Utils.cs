@@ -37,11 +37,11 @@ public static class Utils
 
         // Start fade-out coroutine
         MonoBehaviour runner = GetRunner();
-        runner.StartCoroutine(FadeAndDestroy(tmp, textInstance, lifetime, fadeDuration));
+        runner.StartCoroutine(FadeAndDestroyText(tmp, textInstance, lifetime, fadeDuration));
     }
 
     // Fades text opacity and destroys the object
-    private static IEnumerator FadeAndDestroy(TextMeshPro tmp, GameObject obj, float lifetime, float fadeDuration)
+    private static IEnumerator FadeAndDestroyText(TextMeshPro tmp, GameObject obj, float lifetime, float fadeDuration)
     {
         // Wait before starting fade
         yield return new WaitForSeconds(lifetime - fadeDuration);

@@ -15,11 +15,11 @@ public class PlayerStatsTextManager : MonoBehaviour
     public TMP_Text unlockedUpgradePercentText;
 
     [Header("Constants")]
-    public int percentTextRounding = 2;
+    [SerializeField] private int percentTextRounding = 2;
+    [SerializeField] private int playerHealthRounding = 2;
 
     private PlayerHealthAndDamage player;
     private float boughtUpgradePercent = 0;
-    private int playerHealthRounding = 0;
 
     private void Start()
     {

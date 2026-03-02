@@ -37,11 +37,13 @@ public class Enemy : MonoBehaviour
 
     public GameObject deathParticles;
     public GameObject hitParticles;
+    public float deathParticleScale = 0.23f;
 
     private Color badMoneyColor = Utils.ColorFromHex("#8A3131");
 
     [Header("Audio and Effects")]
     public GameObject deathMoneyText;
+    public GameObject takeDamageText;
     public AudioClip deathSound;
     public AudioClip hitSound;
 
@@ -145,9 +147,8 @@ public class Enemy : MonoBehaviour
         }
 
         SfxManager.PlaySfxAudioClip(hitSound);
-
         ParticleSpawner.SpawnBurstParticle(hitParticles, particlePos, color: hitColor);
-
+        Utils.SpawnFloatingText(takeDamageText, transform.position, damage.ToString(), 6f, 0.3f, 40f, 0.45f, 0.15f, Color.white);
 
         GetComponent<DamageFlash>().Flash(damageFlashColor);
 
@@ -197,6 +198,13 @@ public class Enemy : MonoBehaviour
         transform.position = endPos; // Snap to end
         knockbackRoutine = null;
     }
+
+    [ContextMenu("Kill Enemy")]
+    private void ContextMenuDeath()
+    {
+        Death(false);
+    }
+
     public void Death(bool playerStatGain = true)
     {
         if (isDead) return;
@@ -207,7 +215,9 @@ public class Enemy : MonoBehaviour
         OnDeath?.Invoke();
 
         SfxManager.PlaySfxAudioClip(deathSound, 0.8f);
-        ParticleSpawner.SpawnBurstParticle(deathParticles, transform.position, color: hitColor);
+
+        ParticleSpawner.SpawnBurstParticle(deathParticles, transform.position, scale: GetScaledDeathParticleScale(), color: hitColor);
+
         Camera.main.GetComponent<CameraScript>().ScreenshakeFunction(.08f);
 
         // text
@@ -233,11 +243,20 @@ public class Enemy : MonoBehaviour
         Destroy(gameObject);
     }
 
+    private Vector3 GetScaledDeathParticleScale()
+    {
+        Vector3 scale = Vector3.one;
+
+        scale = Vector3.one * (this.transform.localScale.x / deathParticles.transform.localScale.x); // enemyScale / particleScale
+
+        return scale;
+    }
+
     public void HitCircle()
     {
         OnCircleHit?.Invoke();
 
-        ParticleSpawner.SpawnBurstParticle(deathParticles, transform.position, color: hitColor);
+        ParticleSpawner.SpawnBurstParticle(deathParticles, transform.position, scale: GetScaledDeathParticleScale(), color: hitColor);
         Camera.main.GetComponent<CameraScript>().ScreenshakeFunction(.5f);
 
         PlayerHealthAndDamage player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealthAndDamage>();
