@@ -216,7 +216,7 @@ public class Enemy : MonoBehaviour
 
         SfxManager.PlaySfxAudioClip(deathSound, 0.8f);
 
-        ParticleSpawner.SpawnBurstParticle(deathParticles, transform.position, scale: GetScaledDeathParticleScale(), color: hitColor);
+        ParticleSpawner.SpawnBurstParticle(deathParticles, transform.position, color: hitColor);
 
         Camera.main.GetComponent<CameraScript>().ScreenshakeFunction(.08f);
 
@@ -256,7 +256,7 @@ public class Enemy : MonoBehaviour
     {
         OnCircleHit?.Invoke();
 
-        ParticleSpawner.SpawnBurstParticle(deathParticles, transform.position, scale: GetScaledDeathParticleScale(), color: hitColor);
+        ParticleSpawner.SpawnBurstParticle(deathParticles, transform.position, color: hitColor);
         Camera.main.GetComponent<CameraScript>().ScreenshakeFunction(.5f);
 
         PlayerHealthAndDamage player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealthAndDamage>();
