@@ -132,13 +132,13 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    public void TakeDamage(Transform attacker, float damage, Vector3 particlePos, float distance = 0, float duration = 0, AnimationCurve curve = null, bool knockback = false)
+    public void TakeDamage(Transform attacker, float damageAmount, Vector3 particlePos, float distance = 0, float duration = 0, AnimationCurve curve = null, bool knockback = false)
     {
         if (isDead) return;
 
         OnHit?.Invoke();
 
-        currentHealth -= damage;
+        currentHealth -= damageAmount;
 
         if (currentHealth <= 0)
         {
@@ -148,7 +148,7 @@ public class Enemy : MonoBehaviour
 
         SfxManager.PlaySfxAudioClip(hitSound);
         ParticleSpawner.SpawnBurstParticle(hitParticles, particlePos, color: hitColor);
-        Utils.SpawnFloatingText(takeDamageText, transform.position, damage.ToString(), 6f, 0.3f, 40f, 0.45f, 0.15f, Color.white);
+        Utils.SpawnFloatingText(takeDamageText, transform.position, damageAmount.ToString(), 6f, 0.3f, 40f, 0.45f, 0.15f, Color.white);
 
         GetComponent<DamageFlash>().Flash(damageFlashColor);
 
@@ -266,6 +266,8 @@ public class Enemy : MonoBehaviour
             doMoneyFlash = true;
 
         player.TakeDamage(damage, doMoneyFlash);
+        Utils.SpawnFloatingText(takeDamageText, transform.position, damage.ToString(), 6f, 0.3f, 40f, 0.45f, 0.15f, Color.white);
+
         Destroy(gameObject);
     }
 }
