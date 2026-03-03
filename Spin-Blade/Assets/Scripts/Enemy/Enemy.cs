@@ -148,7 +148,7 @@ public class Enemy : MonoBehaviour
 
         SfxManager.PlaySfxAudioClip(hitSound);
         ParticleSpawner.SpawnBurstParticle(hitParticles, particlePos, color: hitColor);
-        Utils.SpawnFloatingText(takeDamageText, transform.position, damageAmount.ToString(), 6f, 0.3f, 40f, 0.45f, 0.15f, Color.white);
+        Utils.SpawnFloatingText(takeDamageText, transform.position, Math.Round(damageAmount, 2).ToString(), 6f, 0.3f, 40f, 0.45f, 0.15f, Color.white);
 
         GetComponent<DamageFlash>().Flash(damageFlashColor);
 
@@ -243,15 +243,6 @@ public class Enemy : MonoBehaviour
         Destroy(gameObject);
     }
 
-    private Vector3 GetScaledDeathParticleScale()
-    {
-        Vector3 scale = Vector3.one;
-
-        scale = Vector3.one * (this.transform.localScale.x / deathParticles.transform.localScale.x); // enemyScale / particleScale
-
-        return scale;
-    }
-
     public void HitCircle()
     {
         OnCircleHit?.Invoke();
@@ -265,7 +256,7 @@ public class Enemy : MonoBehaviour
         if (TryGetComponent<CurrencyEnemy>(out _) || damage <= 0)
             flashColor = MoneyManager.GetCurrencyColor(valueCurrencyType);
         else
-            Utils.SpawnFloatingText(takeDamageText, transform.position, damage.ToString(), 6f, 0.3f, 40f, 0.45f, 0.15f, Color.white);
+            Utils.SpawnFloatingText(takeDamageText, transform.position, Math.Round(damage, 2).ToString(), 6f, 0.3f, 40f, 0.45f, 0.15f, Color.white);
 
         player.TakeDamage(damage, flashColor);
 
