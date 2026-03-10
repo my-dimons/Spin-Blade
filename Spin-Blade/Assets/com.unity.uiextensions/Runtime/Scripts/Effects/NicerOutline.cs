@@ -15,10 +15,10 @@ namespace UnityEngine.UI.Extensions
 	[Obsolete("BestFitOutline is not supported in Unity 2022.1 or newer. Use TMPro instead.")]
 	public class NicerOutline : BaseMeshEffect
 	{
-        public override void ModifyMesh(VertexHelper vh)
-        {
-        }
-    }
+		public override void ModifyMesh(VertexHelper vh)
+		{
+		}
+	}
 #else
     //An outline that looks a bit nicer than the default one. It has less "holes" in the outline by drawing more copies of the effect
     [AddComponentMenu("UI/Effects/Extensions/Nicer Outline")]
@@ -208,4 +208,4 @@ namespace UnityEngine.UI.Extensions
 #endif
 	}
 #endif
-    }
+}

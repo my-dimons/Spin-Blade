@@ -5,6 +5,6 @@ using UnityEditor;
 
 namespace UnityEngine.UI.Extensions
 {
-    [CustomEditor(typeof(CUIText))]
-    public class CUITextEditor : CUIGraphicEditor { }
+	[CustomEditor(typeof(CUIText))]
+	public class CUITextEditor : CUIGraphicEditor { }
 }

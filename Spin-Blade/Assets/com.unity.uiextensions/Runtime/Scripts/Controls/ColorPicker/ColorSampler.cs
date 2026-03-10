@@ -15,12 +15,12 @@ namespace UnityEngine.UI.Extensions.ColorPicker
 	/// This does not work well with a world space UI as positioning is working with screen space.
 	/// </summary>
 	public class ColorSampler : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler
-    {
-        private Vector2 m_screenPos;
+	{
+		private Vector2 m_screenPos;
 
-        [SerializeField]
+		[SerializeField]
 		protected Button sampler;
-        private RectTransform sampleRectTransform;
+		private RectTransform sampleRectTransform;
 
 		[SerializeField]
 		protected Outline samplerOutline;
@@ -34,8 +34,8 @@ namespace UnityEngine.UI.Extensions.ColorPicker
 		protected virtual void OnEnable()
 		{
 			screenCapture = ScreenCapture.CaptureScreenshotAsTexture();
-            sampleRectTransform = sampler.GetComponent<RectTransform>();
-            sampler.gameObject.SetActive(true);
+			sampleRectTransform = sampler.GetComponent<RectTransform>();
+			sampler.gameObject.SetActive(true);
 			sampler.onClick.AddListener(SelectColor);
 		}
 
@@ -51,9 +51,9 @@ namespace UnityEngine.UI.Extensions.ColorPicker
 			if (screenCapture == null)
 				return;
 
-            sampleRectTransform.position = m_screenPos;
-            color = screenCapture.GetPixel((int)m_screenPos.x, (int)m_screenPos.y);
-		
+			sampleRectTransform.position = m_screenPos;
+			color = screenCapture.GetPixel((int)m_screenPos.x, (int)m_screenPos.y);
+
 			HandleSamplerColoring();
 		}
 
@@ -77,19 +77,19 @@ namespace UnityEngine.UI.Extensions.ColorPicker
 			enabled = false;
 		}
 
-        public void OnPointerDown(PointerEventData eventData)
-        {
-            m_screenPos = eventData.position;
-        }
+		public void OnPointerDown(PointerEventData eventData)
+		{
+			m_screenPos = eventData.position;
+		}
 
-        public void OnPointerUp(PointerEventData eventData)
-        {
-            m_screenPos = Vector2.zero;
-        }
+		public void OnPointerUp(PointerEventData eventData)
+		{
+			m_screenPos = Vector2.zero;
+		}
 
-        public void OnDrag(PointerEventData eventData)
-        {
-            m_screenPos = eventData.position;
-        }
-    }
+		public void OnDrag(PointerEventData eventData)
+		{
+			m_screenPos = eventData.position;
+		}
+	}
 }

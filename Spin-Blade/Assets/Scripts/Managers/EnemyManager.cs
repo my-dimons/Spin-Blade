@@ -4,108 +4,109 @@ using UnityEngine;
 
 public class EnemyManager : MonoBehaviour
 {
-    public List<Enemy> enemies;
-    public GameObject enemyParent;
+	public List<Enemy> enemies;
+	public GameObject enemyParent;
 
-    [Header("Enemy Spawning")]
-    public float enemySpawningRadius = 5f;
-    public float difficulty = 1f;
-    public float enemySpawnTimeSeconds = 1f;
+	[Header("Enemy Spawning")]
+	public float enemySpawningRadius = 5f;
+	public float difficulty = 1f;
+	public float enemySpawnTimeSeconds = 1f;
 
-    [Header("Msc Multipliers")]
-    public float bossHealthMultiplier = 1f;
-    public float enemySpeedMultiplier = 1f;
+	[Header("Msc Multipliers")]
+	public float bossHealthMultiplier = 1f;
+	public float enemySpeedMultiplier = 1f;
 
-    public static EnemyManager Instance { get; private set; }
+	public static EnemyManager Instance { get; private set; }
 
-    private void Awake()
-    {
-        if (Instance == null) Instance = this; else Destroy(gameObject);
-    }
+	private void Awake()
+	{
+		if (Instance == null) Instance = this; else Destroy(gameObject);
+	}
 
-    private void Start()
-    {
-        difficulty *= DifficultyVariables.Instance.difficulty;
+	private void Start()
+	{
+		difficulty *= DifficultyVariables.Instance.difficulty;
 
-        StartCoroutine(SpawnEnemyLoop());
-    }
+		StartCoroutine(SpawnEnemyLoop());
+	}
 
-    IEnumerator SpawnEnemyLoop()
-    {
-        while (true)
-        {
-            SpawnRandomSpawnableEnemy();
+	IEnumerator SpawnEnemyLoop()
+	{
+		while (true)
+		{
+			SpawnRandomSpawnableEnemy();
 
-            yield return new WaitForSeconds(CalculateEnemySpawnRate(enemySpawnTimeSeconds));
-        }
-    }
+			yield return new WaitForSeconds(CalculateEnemySpawnRate(enemySpawnTimeSeconds));
+		}
+	}
 
-    float CalculateEnemySpawnRate(float spawnRate)
-    {
-        return spawnRate / difficulty;
-    }
+	float CalculateEnemySpawnRate(float spawnRate)
+	{
+		return spawnRate / difficulty;
+	}
 
-    public void SpawnRandomSpawnableEnemy()
-    {
-        SpawnEnemy(GetRandomSpawnableEnemy());
-    }
+	public void SpawnRandomSpawnableEnemy()
+	{
+		SpawnEnemy(GetRandomSpawnableEnemy());
+	}
 
-    public void SpawnEnemy(Enemy enemyPrefab)
-    {
-        // Get a random angle (in radians)
-        float angle = Random.Range(0f, Mathf.PI * 2f);
+	public void SpawnEnemy(Enemy enemyPrefab)
+	{
+		// Get a random angle (in radians)
+		float angle = Random.Range(0f, Mathf.PI * 2f);
 
-        // Calculate the x and y position on the circle's edge
-        Vector2 spawnPos = new(
-            transform.position.x + Mathf.Cos(angle) * enemySpawningRadius,
-            transform.position.y + Mathf.Sin(angle) * enemySpawningRadius
-        );
+		// Calculate the x and y position on the circle's edge
+		Vector2 spawnPos = new(
+			transform.position.x + Mathf.Cos(angle) * enemySpawningRadius,
+			transform.position.y + Mathf.Sin(angle) * enemySpawningRadius
+		);
 
-        if (enemyPrefab == null)
-        {
-            enemyPrefab = GetRandomSpawnableEnemy();
-        } else
-        {
-            GameObject enemy = Instantiate(enemyPrefab.gameObject, spawnPos, Quaternion.identity);
+		if (enemyPrefab == null)
+		{
+			enemyPrefab = GetRandomSpawnableEnemy();
+		}
+		else
+		{
+			GameObject enemy = Instantiate(enemyPrefab.gameObject, spawnPos, Quaternion.identity);
 
-            enemy.transform.parent = enemyParent.transform;
-            enemy.GetComponent<Enemy>().target = enemyParent;
-        }
-    }
+			enemy.transform.parent = enemyParent.transform;
+			enemy.GetComponent<Enemy>().target = enemyParent;
+		}
+	}
 
-    public Enemy GetRandomSpawnableEnemy()
-    {
-        List<Enemy> spawnableEnemies = new();
-        foreach (Enemy enemy in enemies)
-        {
-            Enemy enemyScript = enemy.GetComponent<Enemy>();
-            float randomNum = Random.Range(0f, 1f);
+	public Enemy GetRandomSpawnableEnemy()
+	{
+		List<Enemy> spawnableEnemies = new();
+		foreach (Enemy enemy in enemies)
+		{
+			Enemy enemyScript = enemy.GetComponent<Enemy>();
+			float randomNum = Random.Range(0f, 1f);
 
-            bool canSpawnEnemy = enemy != null && randomNum <= enemyScript.spawnRate;
-            if (canSpawnEnemy)
-            {
-                spawnableEnemies.Add(enemy);
-            }
-        }
+			bool canSpawnEnemy = enemy != null && randomNum <= enemyScript.spawnRate;
+			if (canSpawnEnemy)
+			{
+				spawnableEnemies.Add(enemy);
+			}
+		}
 
-        if (spawnableEnemies.Count <= 0)
-        {
-            Debug.LogWarning("No enemies available to spawn");
-            return null;
-        }
+		if (spawnableEnemies.Count <= 0)
+		{
+			Debug.LogWarning("No enemies available to spawn");
+			return null;
+		}
 
-        return spawnableEnemies[Random.Range(0, spawnableEnemies.Count)];
-    }
+		return spawnableEnemies[Random.Range(0, spawnableEnemies.Count)];
+	}
 
-    private void OnDrawGizmos()
-    {
-        // Enemy spawning circle
-        Gizmos.color = Color.red; // Circle color
-        Gizmos.DrawWireSphere(transform.position, enemySpawningRadius); // Draw the wireframe circle
-    }
+	private void OnDrawGizmos()
+	{
+		// Enemy spawning circle
+		Gizmos.color = Color.red; // Circle color
+		Gizmos.DrawWireSphere(transform.position, enemySpawningRadius); // Draw the wireframe circle
+	}
 
-    public void IncreaseDifficulty(float increase)
-    {
-        difficulty += increase;
-    }
+	public void IncreaseDifficulty(float increase)
+	{
+		difficulty += increase;
+	}
 }

@@ -49,13 +49,13 @@ using System;
 namespace UnityEngine.UI.Extensions
 {
 #if UNITY_2022_1_OR_NEWER
-    [Obsolete("LetterSpacing is not supported in Unity 2022.1 or newer. Use TMPro instead.")]
-    public class LetterSpacing : BaseMeshEffect
-    {
-        public override void ModifyMesh(VertexHelper vh)
-        {
-        }
-    }
+	[Obsolete("LetterSpacing is not supported in Unity 2022.1 or newer. Use TMPro instead.")]
+	public class LetterSpacing : BaseMeshEffect
+	{
+		public override void ModifyMesh(VertexHelper vh)
+		{
+		}
+	}
 #else
     [AddComponentMenu("UI/Effects/Extensions/Letter Spacing")]
     ///Summary

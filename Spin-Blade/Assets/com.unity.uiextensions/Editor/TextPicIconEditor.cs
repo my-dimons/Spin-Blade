@@ -21,19 +21,18 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
-using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
-using System;
-using System.Collections;
 
 namespace UnityEngine.UI.Extensions
 {
 
-	public class TextPicIconEditor : EditorWindow {
+	public class TextPicIconEditor : EditorWindow
+	{
 		[MenuItem("Window/UI/Extensions/TextPic Edit Icons")]
-		protected static void ShowTextPicIconEditor() {
+		protected static void ShowTextPicIconEditor()
+		{
 			var wnd = GetWindow<TextPicIconEditor>();
 			wnd.titleContent.text = "Edit Icons in TextPic";
 			wnd.Show();
@@ -46,17 +45,22 @@ namespace UnityEngine.UI.Extensions
 		private string iconName;
 		private Sprite icon;
 
-		public void Swap(GameObject o) {
-			#if UNITY_EDITOR
+		public void Swap(GameObject o)
+		{
+#if UNITY_EDITOR
 			Debug.Log("Editing icons for " + o.name);
 
 
 			TextPic[] children = o.GetComponentsInChildren<TextPic>(true);
-			for(int i = 0; i < children.Length; i++) {
-				if (children[i] != null) {
-					for (int j = 0; j < children[i].inspectorIconList.Length; j++) {
-						if (!string.IsNullOrEmpty(iconName) 
-						&& children[i].inspectorIconList[j].name == iconName) { 
+			for (int i = 0; i < children.Length; i++)
+			{
+				if (children[i] != null)
+				{
+					for (int j = 0; j < children[i].inspectorIconList.Length; j++)
+					{
+						if (!string.IsNullOrEmpty(iconName)
+						&& children[i].inspectorIconList[j].name == iconName)
+						{
 							children[i].inspectorIconList[j].sprite = icon;
 							Debug.Log("Swapped icon for " + children[i].inspectorIconList[j].name);
 						}
@@ -66,23 +70,26 @@ namespace UnityEngine.UI.Extensions
 					Debug.Log("Swapped icons for " + children[i].name);
 				}
 			}
-			#endif
+#endif
 		}
 
-		public void OnGUI() {
+		public void OnGUI()
+		{
 			GUILayout.Label("Select a GameObject to edit TextPic icons", EditorStyles.boldLabel);
 			EditorGUILayout.Separator();
 			GUILayout.Label("GameObject", EditorStyles.boldLabel);
 
 			EditorGUI.BeginChangeCheck();
-			
-			if (Selection.activeGameObject != null) {
+
+			if (Selection.activeGameObject != null)
+			{
 				o = Selection.activeGameObject;
 			}
 			EditorGUILayout.ObjectField(o, typeof(GameObject), true);
 			EditorGUI.EndChangeCheck();
 
-			if (o != null) {
+			if (o != null)
+			{
 				EditorGUILayout.BeginHorizontal();
 
 				GUILayout.Label("Icon Name:", GUILayout.Width(columnWidth));
@@ -96,7 +103,7 @@ namespace UnityEngine.UI.Extensions
 				EditorGUILayout.EndHorizontal();
 
 				EditorGUILayout.Separator();
-				
+
 				EditorGUILayout.BeginHorizontal();
 
 				GUILayout.Label("New Sprite:", GUILayout.Width(columnWidth));
@@ -114,10 +121,11 @@ namespace UnityEngine.UI.Extensions
 				EditorGUILayout.Separator();
 
 				EditorGUILayout.BeginHorizontal();
-				if (GUILayout.Button("Edit Icons")) {
-					#if UNITY_EDITOR
+				if (GUILayout.Button("Edit Icons"))
+				{
+#if UNITY_EDITOR
 					Swap(o);
-					#endif
+#endif
 				}
 
 				EditorGUILayout.EndHorizontal();

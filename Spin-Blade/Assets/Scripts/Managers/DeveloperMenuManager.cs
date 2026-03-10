@@ -1,77 +1,76 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.UI;
 
 public class DeveloperMenuManager : MonoBehaviour
 {
-    public bool developmentMode = true;
+	public bool developmentMode = true;
 
-    [Space(10)]
+	[Space(10)]
 
-    public GameObject developerMenuUI;
+	public GameObject developerMenuUI;
 
-    [Header("UI Input Fields")]
-    public TMP_InputField takeDamageField;
-    public TMP_InputField healField;
-    public TMP_InputField addMoneyField;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+	[Header("UI Input Fields")]
+	public TMP_InputField takeDamageField;
+	public TMP_InputField healField;
+	public TMP_InputField addMoneyField;
+	// Start is called once before the first execution of Update after the MonoBehaviour is created
+	void Start()
+	{
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (Keyboard.current.dKey.wasPressedThisFrame && developmentMode)
-        {
-            ToggleDeveloperMenu();
-        }
-    }
+	}
 
-    public void ToggleDeveloperMenu()
-    {
-        developerMenuUI.SetActive(!developerMenuUI.activeSelf);
-    }
+	// Update is called once per frame
+	void Update()
+	{
+		if (Keyboard.current.dKey.wasPressedThisFrame && developmentMode)
+		{
+			ToggleDeveloperMenu();
+		}
+	}
 
-    public void AddMoney()
-    {
-        float moneyToAdd = float.Parse(addMoneyField.text);
+	public void ToggleDeveloperMenu()
+	{
+		developerMenuUI.SetActive(!developerMenuUI.activeSelf);
+	}
 
-        MoneyManager.Instance.AddCurrency(moneyToAdd);
-    }
+	public void AddMoney()
+	{
+		float moneyToAdd = float.Parse(addMoneyField.text);
 
-    public void TakeDamage()
-    {
-        float damageToTake = float.Parse(takeDamageField.text);
-        PlayerHealthAndDamage playerHealthAndDamage = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealthAndDamage>();
+		MoneyManager.Instance.AddCurrency(moneyToAdd);
+	}
 
-        playerHealthAndDamage.TakeDamage(damageToTake);
-    }
+	public void TakeDamage()
+	{
+		float damageToTake = float.Parse(takeDamageField.text);
+		PlayerHealthAndDamage playerHealthAndDamage = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealthAndDamage>();
 
-    public void Heal()
-    {
-        float healAmount = float.Parse(healField.text);
-        PlayerHealthAndDamage playerHealthAndDamage = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealthAndDamage>();
+		playerHealthAndDamage.TakeDamage(damageToTake);
+	}
 
-        playerHealthAndDamage.Heal(healAmount);
-    }
+	public void Heal()
+	{
+		float healAmount = float.Parse(healField.text);
+		PlayerHealthAndDamage playerHealthAndDamage = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealthAndDamage>();
 
-    public void KillAllEnemies()
-    {
+		playerHealthAndDamage.Heal(healAmount);
+	}
 
-        EnemyManager enemyManager = EnemyManager.Instance;
-        foreach (Enemy enemy in enemyManager.enemies)
-        {
-            enemy.Death(false);
-        }
-    }
+	public void KillAllEnemies()
+	{
 
-    public void TriggerEvent()
-    {
-        EventManager eventManager = EventManager.Instance;
+		EnemyManager enemyManager = EnemyManager.Instance;
+		foreach (Enemy enemy in enemyManager.enemies)
+		{
+			enemy.Death(false);
+		}
+	}
 
-        eventManager.StartRandomEvent();
-    }
+	public void TriggerEvent()
+	{
+		EventManager eventManager = EventManager.Instance;
+
+		eventManager.StartRandomEvent();
+	}
 }

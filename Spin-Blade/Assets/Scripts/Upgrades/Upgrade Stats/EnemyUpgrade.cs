@@ -2,24 +2,24 @@ using UnityEngine;
 
 public class EnemyUpgrade : MonoBehaviour, IUpgrade
 {
-    [Header("Enemies")]
-    public Enemy addEnemy;
-    public float enemySpeedMultiplierIncrease;
-    public float enemyDifficultyIncrease;
-    public float enemySpawnRateIncrease;
+	[Header("Enemies")]
+	public Enemy addEnemy;
+	public float enemySpeedMultiplierIncrease;
+	public float enemyDifficultyIncrease;
+	public float enemySpawnRateIncrease;
 
-    [Header("Bosses")]
-    public float enemyBossHealthMultiplierIncrease;
+	[Header("Bosses")]
+	public float enemyBossHealthMultiplierIncrease;
 
-    public void ApplyUpgrade()
-    {
-        EnemyManager enemyManager = EnemyManager.Instance;
+	public void ApplyUpgrade()
+	{
+		EnemyManager enemyManager = EnemyManager.Instance;
 
-        if (addEnemy != null)
-            enemyManager.enemies.Add(addEnemy);
+		if (addEnemy != null)
+			enemyManager.enemies.Add(addEnemy);
 
-        enemyManager.bossHealthMultiplier += enemyBossHealthMultiplierIncrease;
-        enemyManager.enemySpawnTimeSeconds += enemySpawnRateIncrease;
-        enemyManager.enemySpeedMultiplier += enemySpeedMultiplierIncrease;
-    }
+		enemyManager.bossHealthMultiplier += enemyBossHealthMultiplierIncrease;
+		enemyManager.enemySpawnTimeSeconds += enemySpawnRateIncrease;
+		enemyManager.enemySpeedMultiplier += enemySpeedMultiplierIncrease;
+	}
 }

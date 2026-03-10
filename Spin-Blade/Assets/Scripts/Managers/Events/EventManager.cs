@@ -1,91 +1,89 @@
-﻿using System;
-using System.Collections;
-using System.ComponentModel;
+﻿using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityUtils.ScriptUtils.Audio;
 
 public class EventManager : MonoBehaviour
 {
-    [Header("Event Setup")]
-    public Event[] events;
+	[Header("Event Setup")]
+	public Event[] events;
 
-    [Space(5)]
+	[Space(5)]
 
-    public TextMeshPro eventText;
-    public AudioClip eventPing;
+	public TextMeshPro eventText;
+	public AudioClip eventPing;
 
-    [Header("Events")]
-    public bool enableEvents;
-    public bool eventHappening;
+	[Header("Events")]
+	public bool enableEvents;
+	public bool eventHappening;
 
-    [Space(10)]
+	[Space(10)]
 
-    public float eventCooldown;
+	public float eventCooldown;
 
-    public readonly float DEFAULT_EVENT_TEXT_APPEAR_TIME = 5;
+	public readonly float DEFAULT_EVENT_TEXT_APPEAR_TIME = 5;
 
-    EnemyManager enemyManager;
-    public static EventManager Instance { get; private set; }
+	EnemyManager enemyManager;
+	public static EventManager Instance { get; private set; }
 
-    private void Awake()
-    {
-        if (Instance == null) Instance = this; else Destroy(gameObject);
-    }
+	private void Awake()
+	{
+		if (Instance == null) Instance = this; else Destroy(gameObject);
+	}
 
-    // Use this for initialization
-    void Start()
-    {
-        enemyManager = EnemyManager.Instance;
+	// Use this for initialization
+	void Start()
+	{
+		enemyManager = EnemyManager.Instance;
 
-        StartCoroutine(EventLoop());
-    }
+		StartCoroutine(EventLoop());
+	}
 
-    public void StartSpecificEvent(Event selectedEvent)
-    {
-        SfxManager.PlaySfxAudioClip(eventPing, 0.7f);
+	public void StartSpecificEvent(Event selectedEvent)
+	{
+		SfxManager.PlaySfxAudioClip(eventPing, 0.7f);
 
-        // Start event
-        if (selectedEvent.IsEnabled())
-        {
-            selectedEvent.ApplyEvent();
+		// Start event
+		if (selectedEvent.IsEnabled())
+		{
+			selectedEvent.ApplyEvent();
 
-            Debug.Log("Started event: " + selectedEvent.GetEventName());
-        }
-    }
+			Debug.Log("Started event: " + selectedEvent.GetEventName());
+		}
+	}
 
-    public Event GetRandomEvent()
-    {
-        int randInt = UnityEngine.Random.Range(0, events.Length);
+	public Event GetRandomEvent()
+	{
+		int randInt = UnityEngine.Random.Range(0, events.Length);
 
-        Event randomEvent = events[randInt];
+		Event randomEvent = events[randInt];
 
-        return randomEvent;
-    }
+		return randomEvent;
+	}
 
-    public void StartRandomEvent()
-    {
-        StartSpecificEvent(GetRandomEvent());
-    }
+	public void StartRandomEvent()
+	{
+		StartSpecificEvent(GetRandomEvent());
+	}
 
-    IEnumerator EventLoop()
-    {
-        yield return new WaitForSeconds(eventCooldown);
-        
-        if (enableEvents)
-            StartRandomEvent();
+	IEnumerator EventLoop()
+	{
+		yield return new WaitForSeconds(eventCooldown);
 
-        StartCoroutine(EventLoop());
-    }
+		if (enableEvents)
+			StartRandomEvent();
 
-    public IEnumerator EnableEventText(string text, float eventTextTime)
-    {
-        eventText.text = text;
-        eventText.gameObject.SetActive(true);
+		StartCoroutine(EventLoop());
+	}
 
-        yield return new WaitForSeconds(eventTextTime);
+	public IEnumerator EnableEventText(string text, float eventTextTime)
+	{
+		eventText.text = text;
+		eventText.gameObject.SetActive(true);
 
-        eventText.text = "";
-        eventText.gameObject.SetActive(false);
-    }
+		yield return new WaitForSeconds(eventTextTime);
+
+		eventText.text = "";
+		eventText.gameObject.SetActive(false);
+	}
 }

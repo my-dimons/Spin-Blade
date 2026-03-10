@@ -57,7 +57,7 @@ namespace UnityEngine.UI.Extensions
 		private float _scrollBarWidth = 20.0f;
 		public float ScrollBarWidth
 		{
-			get { return _scrollBarWidth; }
+			get => _scrollBarWidth;
 			set
 			{
 				_scrollBarWidth = value;
@@ -71,7 +71,7 @@ namespace UnityEngine.UI.Extensions
 		private int _itemsToDisplay;
 		public int ItemsToDisplay
 		{
-			get { return _itemsToDisplay; }
+			get => _itemsToDisplay;
 			set
 			{
 				_itemsToDisplay = value;
@@ -438,7 +438,7 @@ namespace UnityEngine.UI.Extensions
 		public void ToggleDropdownPanel(bool directClick = false)
 		{
 			ToggleDropdownPanel();
-		}		
+		}
 
 		/// <summary>
 		/// Toggle the drop down list if it is active
@@ -470,7 +470,7 @@ namespace UnityEngine.UI.Extensions
 			{
 				return;
 			}
-			
+
 			ToggleDropdownPanel();
 		}
 

@@ -3,9 +3,9 @@
 
 namespace UnityEngine.UI.Extensions
 {
-    public enum ScrollDirection
-    {
-        Vertical,
-        Horizontal,
-    }
+	public enum ScrollDirection
+	{
+		Vertical,
+		Horizontal,
+	}
 }

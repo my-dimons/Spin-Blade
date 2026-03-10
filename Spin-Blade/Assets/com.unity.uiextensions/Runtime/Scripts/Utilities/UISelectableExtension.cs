@@ -29,7 +29,7 @@ namespace UnityEngine.UI.Extensions
 		[Tooltip("Event that continually fires while a button is held down")]
 		public UIButtonEvent OnButtonHeld;
 		#endregion
-		
+
 		private bool _pressed;
 		private PointerEventData _heldEventData;
 
@@ -57,57 +57,57 @@ namespace UnityEngine.UI.Extensions
 			}
 			_pressed = false;
 			_heldEventData = null;
-	   }
-	   
+		}
+
 		void Update()
 		{
 			if (!_pressed)
 				return;
-			
+
 			if (OnButtonHeld != null)
 			{
 				OnButtonHeld.Invoke(_heldEventData.button);
 			}
 		}
-		
+
 		/// <summary>
 		/// Test method to verify a control has been clicked
 		/// </summary>
 		public void TestClicked()
 		{
-			#if DEBUG || UNITY_EDITOR
-				Debug.Log("Control Clicked");
-			#endif
+#if DEBUG || UNITY_EDITOR
+			Debug.Log("Control Clicked");
+#endif
 		}
-		
+
 		/// <summary>
 		/// Test method to verify a control is pressed
 		/// </summary>
 		public void TestPressed()
 		{
-			#if DEBUG || UNITY_EDITOR
-				Debug.Log("Control Pressed");
-			#endif
+#if DEBUG || UNITY_EDITOR
+			Debug.Log("Control Pressed");
+#endif
 		}
-		
+
 		/// <summary>
 		/// est method to verify if a control is released
 		/// </summary>
 		public void TestReleased()
 		{
-			#if DEBUG || UNITY_EDITOR
-				Debug.Log("Control Released");
-			#endif
+#if DEBUG || UNITY_EDITOR
+			Debug.Log("Control Released");
+#endif
 		}
-		
+
 		/// <summary>
 		/// est method to verify if a control is being held
 		/// </summary>
 		public void TestHold()
 		{
-			#if DEBUG || UNITY_EDITOR
-				Debug.Log("Control Held");
-			#endif
+#if DEBUG || UNITY_EDITOR
+			Debug.Log("Control Held");
+#endif
 		}
 
 		//Fixed UISelectableExtension inactive bug (if gameObject becomes inactive while button is held down it never goes back to _pressed = false)

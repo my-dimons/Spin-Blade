@@ -4,7 +4,7 @@
 
 namespace UnityEngine.UI.Extensions.Tweens
 {
-    internal interface ITweenValue
+	internal interface ITweenValue
 	{
 		void TweenValue(float floatPercentage);
 		bool ignoreTimeScale { get; }

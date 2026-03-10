@@ -54,13 +54,11 @@ namespace UnityEngine.UI.Extensions
 		// REFERENCES
 		public RectTransform ViewRectTransform
 		{
-			get { return viewportRectTransform; }
-			set { viewportRectTransform = value; }
+			get => viewportRectTransform; set => viewportRectTransform = value;
 		}
 		public ScrollRect TargetScrollRect
 		{
-			get { return targetScrollRect; }
-			set { targetScrollRect = value; }
+			get => targetScrollRect; set => targetScrollRect = value;
 		}
 
 		// SCROLLING
@@ -103,13 +101,13 @@ namespace UnityEngine.UI.Extensions
 
 		private void ValidateReferences()
 		{
-            if (!targetScrollRect)
-            {
+			if (!targetScrollRect)
+			{
 				targetScrollRect = GetComponent<ScrollRect>();
-            }
+			}
 
-            if (!targetScrollRect)
-            {
+			if (!targetScrollRect)
+			{
 				Debug.LogError("[UIScrollToSelection] No ScrollRect found. Either attach this script to a ScrollRect or assign on in the 'Target Scroll Rect' property");
 				gameObject.SetActive(false);
 				return;

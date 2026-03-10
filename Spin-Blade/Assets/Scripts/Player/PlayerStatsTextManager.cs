@@ -8,6 +8,7 @@ public class PlayerStatsTextManager : MonoBehaviour
 {
     [Header("Text")]
     public TMP_Text playerHealthText;
+    public TMP_Text playerRegenText;
     public TMP_Text playerDamageText;
 
     [Space(5)]
@@ -39,7 +40,8 @@ public class PlayerStatsTextManager : MonoBehaviour
         }
 
         playerHealthText.text = Math.Round(player.currentHealth, playerHealthRounding) + "/" + Math.Round(player.maxHeath, playerHealthRounding);
-        playerDamageText.text = "" + player.damage;
+        playerRegenText.text = "+" + Math.Round(player.regenPerSecond, playerHealthRounding) + "/s";
+        playerDamageText.text = player.damage.ToString();
         unlockedUpgradePercentText.text = "Upgrades: " + Math.Round(boughtUpgradePercent * 100, percentTextRounding) + "%";
     }
 

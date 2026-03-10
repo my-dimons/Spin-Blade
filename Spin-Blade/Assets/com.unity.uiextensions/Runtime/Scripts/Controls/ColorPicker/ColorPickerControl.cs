@@ -67,10 +67,7 @@ namespace UnityEngine.UI.Extensions.ColorPicker
 
 		public Color CurrentColor
 		{
-			get
-			{
-				return new Color(_red, _green, _blue, _alpha);
-			}
+			get => new Color(_red, _green, _blue, _alpha);
 			set
 			{
 				if (CurrentColor == value)
@@ -94,10 +91,7 @@ namespace UnityEngine.UI.Extensions.ColorPicker
 
 		public float H
 		{
-			get
-			{
-				return _hue;
-			}
+			get => _hue;
 			set
 			{
 				if (_hue == value)
@@ -113,10 +107,7 @@ namespace UnityEngine.UI.Extensions.ColorPicker
 
 		public float S
 		{
-			get
-			{
-				return _saturation;
-			}
+			get => _saturation;
 			set
 			{
 				if (_saturation == value)
@@ -132,10 +123,7 @@ namespace UnityEngine.UI.Extensions.ColorPicker
 
 		public float V
 		{
-			get
-			{
-				return _brightness;
-			}
+			get => _brightness;
 			set
 			{
 				if (_brightness == value)
@@ -151,10 +139,7 @@ namespace UnityEngine.UI.Extensions.ColorPicker
 
 		public float R
 		{
-			get
-			{
-				return _red;
-			}
+			get => _red;
 			set
 			{
 				if (_red == value)
@@ -170,10 +155,7 @@ namespace UnityEngine.UI.Extensions.ColorPicker
 
 		public float G
 		{
-			get
-			{
-				return _green;
-			}
+			get => _green;
 			set
 			{
 				if (_green == value)
@@ -189,10 +171,7 @@ namespace UnityEngine.UI.Extensions.ColorPicker
 
 		public float B
 		{
-			get
-			{
-				return _blue;
-			}
+			get => _blue;
 			set
 			{
 				if (_blue == value)
@@ -208,10 +187,7 @@ namespace UnityEngine.UI.Extensions.ColorPicker
 
 		private float A
 		{
-			get
-			{
-				return _alpha;
-			}
+			get => _alpha;
 			set
 			{
 				if (_alpha == value)

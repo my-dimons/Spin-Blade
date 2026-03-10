@@ -1,265 +1,264 @@
 ﻿using System;
 using System.Collections;
 using UnityEngine;
-using UnityUtils.ScriptUtils;
 using UnityUtils.ScriptUtils.Audio;
 using UnityUtils.ScriptUtils.Particles;
 
 public class Enemy : MonoBehaviour
 {
-    [Header("Movement")]
-    [HideInInspector] public GameObject target;
-    public float speed = 5f;
-    [Space(10)]
-    public float rotateSpeed = 0;
-    public float rotateMultiplier = 1f;
+	[Header("Movement")]
+	[HideInInspector] public GameObject target;
+	public float speed = 5f;
+	[Space(10)]
+	public float rotateSpeed = 0;
+	public float rotateMultiplier = 1f;
 
-    [Header("Money")]
-    public float value;
-    public MoneyManager.Currency valueCurrencyType = MoneyManager.Currency.money;
+	[Header("Money")]
+	public float value;
+	public MoneyManager.Currency valueCurrencyType = MoneyManager.Currency.money;
 
-    [Header("Damage")]
-    public float damage = 1f;
+	[Header("Damage")]
+	public float damage = 1f;
 
-    [Range(0, 1)]
-    public float spawnRate = 1;
+	[Range(0, 1)]
+	public float spawnRate = 1;
 
-    [Header("Health")]
-    public bool damageFromProjectiles = true;
-    public float maxHealth = 1f;
-    public float currentHealth;
+	[Header("Health")]
+	public bool damageFromProjectiles = true;
+	public float maxHealth = 1f;
+	public float currentHealth;
 
-    private Coroutine knockbackRoutine;
+	private Coroutine knockbackRoutine;
 
-    [Header("On Hit")]
-    public Color hitColor = Utils.ColorFromHex("#FF4E4E"); // when this enemy gets hit, particle & stuffs color
-    Color damageFlashColor = Color.white;
+	[Header("On Hit")]
+	public Color hitColor = Utils.ColorFromHex("#FF4E4E"); // when this enemy gets hit, particle & stuffs color
+	Color damageFlashColor = Color.white;
 
-    public GameObject deathParticles;
-    public GameObject hitParticles;
-    public float deathParticleScale = 0.23f;
+	public GameObject deathParticles;
+	public GameObject hitParticles;
+	public float deathParticleScale = 0.23f;
 
-    private Color badMoneyColor = Utils.ColorFromHex("#8A3131");
+	private Color badMoneyColor = Utils.ColorFromHex("#8A3131");
 
-    [Header("Audio and Effects")]
-    public GameObject deathMoneyText;
-    public GameObject takeDamageText;
-    public AudioClip deathSound;
-    public AudioClip hitSound;
+	[Header("Audio and Effects")]
+	public GameObject deathMoneyText;
+	public GameObject takeDamageText;
+	public AudioClip deathSound;
+	public AudioClip hitSound;
 
-    private bool isDead = false;
+	private bool isDead = false;
 
-    public event Action OnDeath;
-    public event Action OnCircleHit;
-    public event Action OnHit;
+	public event Action OnDeath;
+	public event Action OnCircleHit;
+	public event Action OnHit;
 
-    private void OnValidate()
-    {
-        currentHealth = maxHealth;
-    }
+	private void OnValidate()
+	{
+		currentHealth = maxHealth;
+	}
 
-    MoneyManager moneyManager;
-    EnemyManager enemyManager;
-    PlayerHealthAndDamage playerHealth;
+	MoneyManager moneyManager;
+	EnemyManager enemyManager;
+	PlayerHealthAndDamage playerHealth;
 
-    void Start()
-    {
-        enemyManager = EnemyManager.Instance;
-        playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealthAndDamage>();
-        moneyManager = MoneyManager.Instance;
+	void Start()
+	{
+		enemyManager = EnemyManager.Instance;
+		playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealthAndDamage>();
+		moneyManager = MoneyManager.Instance;
 
-        speed *= enemyManager.difficulty;
+		speed *= enemyManager.difficulty;
 
-        if (!TryGetComponent<BossEnemy>(out _))
-        {
-            damage *= enemyManager.difficulty;
-            maxHealth *= enemyManager.difficulty;
+		if (!TryGetComponent<BossEnemy>(out _))
+		{
+			damage *= enemyManager.difficulty;
+			maxHealth *= enemyManager.difficulty;
 
-            currentHealth = maxHealth;
-        }
-    }
+			currentHealth = maxHealth;
+		}
+	}
 
-    private void FixedUpdate()
-    {
-        if (target != null)
-            EnemyMovement();
-    }
-    private void Update()
-    {
-        transform.Rotate(0, 0, rotateSpeed * Time.deltaTime);
+	private void FixedUpdate()
+	{
+		if (target != null)
+			EnemyMovement();
+	}
+	private void Update()
+	{
+		transform.Rotate(0, 0, rotateSpeed * Time.deltaTime);
 
-        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
-    }
+		currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+	}
 
-    void RotateTowardsTarget(GameObject target)
-    {
-        Vector3 vectorToTarget = target.transform.position - transform.position;
-        float angle = Mathf.Atan2(vectorToTarget.y, vectorToTarget.x) * Mathf.Rad2Deg - rotateMultiplier;
-        Quaternion q = Quaternion.AngleAxis(angle, Vector3.forward);
+	void RotateTowardsTarget(GameObject target)
+	{
+		Vector3 vectorToTarget = target.transform.position - transform.position;
+		float angle = Mathf.Atan2(vectorToTarget.y, vectorToTarget.x) * Mathf.Rad2Deg - rotateMultiplier;
+		Quaternion q = Quaternion.AngleAxis(angle, Vector3.forward);
 
-        transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.deltaTime * speed);
-    }
+		transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.deltaTime * speed);
+	}
 
-    void EnemyMovement()
-    {
-        if (rotateSpeed == 0)
-            RotateTowardsTarget(target);
+	void EnemyMovement()
+	{
+		if (rotateSpeed == 0)
+			RotateTowardsTarget(target);
 
-        transform.position = Vector2.MoveTowards(transform.position, target.transform.position, speed * Time.deltaTime * enemyManager.enemySpeedMultiplier);
-    }
+		transform.position = Vector2.MoveTowards(transform.position, target.transform.position, speed * Time.deltaTime * enemyManager.enemySpeedMultiplier);
+	}
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTag("PlayerProjectile") && damageFromProjectiles)
-        {
-            Projectile proj = other.GetComponent<Projectile>();
+	private void OnTriggerEnter2D(Collider2D other)
+	{
+		if (other.CompareTag("PlayerProjectile") && damageFromProjectiles)
+		{
+			Projectile proj = other.GetComponent<Projectile>();
 
-            if (other.GetComponent<TriangleProjectile>())
-            {
-                other.GetComponent<TriangleProjectile>().homingTarget = null;
-            }
-            
-            if (proj.destroyOnHit)
-                Destroy(other.gameObject);
+			if (other.GetComponent<TriangleProjectile>())
+			{
+				other.GetComponent<TriangleProjectile>().homingTarget = null;
+			}
 
-            Vector3 particlePos = other.ClosestPoint(transform.position);
-            TakeDamage(other.transform, proj.damage, particlePos, proj.knockbackForce, proj.stunDuration, playerHealth.knockbackCurve, true);
-        }
+			if (proj.destroyOnHit)
+				Destroy(other.gameObject);
 
-        if (other.CompareTag("Circle") && currentHealth > 0)
-        {
-            HitCircle();
-        }
-    }
+			Vector3 particlePos = other.ClosestPoint(transform.position);
+			TakeDamage(other.transform, proj.damage, particlePos, proj.knockbackForce, proj.stunDuration, playerHealth.knockbackCurve, true);
+		}
 
-    public void TakeDamage(Transform attacker, float damageAmount, Vector3 particlePos, float distance = 0, float duration = 0, AnimationCurve curve = null, bool knockback = false)
-    {
-        if (isDead) return;
+		if (other.CompareTag("Circle") && currentHealth > 0)
+		{
+			HitCircle();
+		}
+	}
 
-        OnHit?.Invoke();
+	public void TakeDamage(Transform attacker, float damageAmount, Vector3 particlePos, float distance = 0, float duration = 0, AnimationCurve curve = null, bool knockback = false)
+	{
+		if (isDead) return;
 
-        currentHealth -= damageAmount;
+		OnHit?.Invoke();
 
-        if (currentHealth <= 0)
-        {
-            Death();
-            return;
-        }
+		currentHealth -= damageAmount;
 
-        SfxManager.PlaySfxAudioClip(hitSound);
-        ParticleSpawner.SpawnBurstParticle(hitParticles, particlePos, color: hitColor);
-        Utils.SpawnFloatingText(takeDamageText, transform.position, Math.Round(damageAmount, 2).ToString(), 6f, 0.3f, 40f, 0.45f, 0.15f, Color.white);
+		if (currentHealth <= 0)
+		{
+			Death();
+			return;
+		}
 
-        GetComponent<DamageFlash>().Flash(damageFlashColor);
+		SfxManager.PlaySfxAudioClip(hitSound);
+		ParticleSpawner.SpawnBurstParticle(hitParticles, particlePos, color: hitColor);
+		Utils.SpawnFloatingText(takeDamageText, transform.position, Math.Round(damageAmount, 2).ToString(), 6f, 0.3f, 40f, 0.45f, 0.15f, Color.white);
 
-        if (knockback)
-        {
-            KnockbackFrom(Vector2.zero, distance, duration, curve);
-        }
+		GetComponent<DamageFlash>().Flash(damageFlashColor);
 
-    }
-    /// <summary>
-    /// Moves the enemy away from a point by a given distance, following an animation curve.
-    /// </summary>
-    public void KnockbackFrom(Vector3 centerPoint, float distance, float duration, AnimationCurve curve)
-    {
-        // Cancel any ongoing knockback
-        if (knockbackRoutine != null)
-            StopCoroutine(knockbackRoutine);
+		if (knockback)
+		{
+			KnockbackFrom(Vector2.zero, distance, duration, curve);
+		}
 
-        knockbackRoutine = StartCoroutine(KnockbackRoutine(centerPoint, distance, duration, curve));
-    }
+	}
+	/// <summary>
+	/// Moves the enemy away from a point by a given distance, following an animation curve.
+	/// </summary>
+	public void KnockbackFrom(Vector3 centerPoint, float distance, float duration, AnimationCurve curve)
+	{
+		// Cancel any ongoing knockback
+		if (knockbackRoutine != null)
+			StopCoroutine(knockbackRoutine);
 
-    private IEnumerator KnockbackRoutine(Vector3 centerPoint, float distance, float knockbackDuration, AnimationCurve knockbackCurve)
-    {
-        Vector3 startPos = transform.position;
+		knockbackRoutine = StartCoroutine(KnockbackRoutine(centerPoint, distance, duration, curve));
+	}
 
-        // Direction away from the point
-        Vector3 dir = (startPos - centerPoint).normalized;
+	private IEnumerator KnockbackRoutine(Vector3 centerPoint, float distance, float knockbackDuration, AnimationCurve knockbackCurve)
+	{
+		Vector3 startPos = transform.position;
 
-        // Calculate knockback target once
-        Vector3 endPos = startPos + dir * distance;
+		// Direction away from the point
+		Vector3 dir = (startPos - centerPoint).normalized;
 
-        float time = 0f;
-        while (time < knockbackDuration)
-        {
-            float t = time / knockbackDuration;
-            float curveValue = knockbackCurve.Evaluate(t); // Curve mapping 0 → 1
+		// Calculate knockback target once
+		Vector3 endPos = startPos + dir * distance;
 
-            // Smoothly move along the curve
-            transform.position = Vector3.Lerp(startPos, endPos, curveValue);
-            // If using physics:
-            // rb.MovePosition(Vector3.Lerp(startPos, endPos, curveValue));
+		float time = 0f;
+		while (time < knockbackDuration)
+		{
+			float t = time / knockbackDuration;
+			float curveValue = knockbackCurve.Evaluate(t); // Curve mapping 0 → 1
 
-            time += Time.deltaTime;
-            yield return null;
-        }
+			// Smoothly move along the curve
+			transform.position = Vector3.Lerp(startPos, endPos, curveValue);
+			// If using physics:
+			// rb.MovePosition(Vector3.Lerp(startPos, endPos, curveValue));
 
-        transform.position = endPos; // Snap to end
-        knockbackRoutine = null;
-    }
+			time += Time.deltaTime;
+			yield return null;
+		}
 
-    [ContextMenu("Kill Enemy")]
-    private void ContextMenuDeath()
-    {
-        Death(false);
-    }
+		transform.position = endPos; // Snap to end
+		knockbackRoutine = null;
+	}
 
-    public void Death(bool playerStatGain = true)
-    {
-        if (isDead) return;
-        isDead = true;
+	[ContextMenu("Kill Enemy")]
+	private void ContextMenuDeath()
+	{
+		Death(false);
+	}
 
-        Debug.Log("Killed enemy");
+	public void Death(bool playerStatGain = true)
+	{
+		if (isDead) return;
+		isDead = true;
 
-        OnDeath?.Invoke();
+		Debug.Log("Killed enemy");
 
-        SfxManager.PlaySfxAudioClip(deathSound, 0.8f);
+		OnDeath?.Invoke();
 
-        ParticleSpawner.SpawnBurstParticle(deathParticles, transform.position, color: hitColor);
+		SfxManager.PlaySfxAudioClip(deathSound, 0.8f);
 
-        Camera.main.GetComponent<CameraScript>().ScreenshakeFunction(.08f);
+		ParticleSpawner.SpawnBurstParticle(deathParticles, transform.position, color: hitColor);
 
-        // text
-        Color color;
-        if (value > 0)
-            color = MoneyManager.GetCurrencyColor(valueCurrencyType);
-        else
-        {
-            color = badMoneyColor;
-        }
+		Camera.main.GetComponent<CameraScript>().ScreenshakeFunction(.08f);
 
-        if (playerStatGain)
-        {
-            Utils.SpawnFloatingText(deathMoneyText, transform.position, MoneyManager.GetMoneyString(moneyManager.CalculateCurrency(value, valueCurrencyType), valueCurrencyType), 6f, 0.3f, 40f, 0.45f, 0.15f, color);
-            
-            moneyManager.AddCurrency(value, valueCurrencyType);
+		// text
+		Color color;
+		if (value > 0)
+			color = MoneyManager.GetCurrencyColor(valueCurrencyType);
+		else
+		{
+			color = badMoneyColor;
+		}
 
-            playerHealth.Heal(playerHealth.killRegenAmount);
+		if (playerStatGain)
+		{
+			Utils.SpawnFloatingText(deathMoneyText, transform.position, MoneyManager.GetMoneyString(moneyManager.CalculateCurrency(value, valueCurrencyType), valueCurrencyType), 6f, 0.3f, 40f, 0.45f, 0.15f, color);
 
-            GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>().kills++;
-        }
+			moneyManager.AddCurrency(value, valueCurrencyType);
 
-        Destroy(gameObject);
-    }
+			playerHealth.Heal(playerHealth.killRegenAmount);
 
-    public void HitCircle()
-    {
-        OnCircleHit?.Invoke();
+			GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>().kills++;
+		}
 
-        ParticleSpawner.SpawnBurstParticle(deathParticles, transform.position, color: hitColor);
-        Camera.main.GetComponent<CameraScript>().ScreenshakeFunction(.5f);
+		Destroy(gameObject);
+	}
 
-        PlayerHealthAndDamage player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealthAndDamage>();
+	public void HitCircle()
+	{
+		OnCircleHit?.Invoke();
 
-        Color flashColor = Utils.ColorFromHex("#FF4E4E");
-        if (TryGetComponent<CurrencyEnemy>(out _) || damage <= 0)
-            flashColor = MoneyManager.GetCurrencyColor(valueCurrencyType);
-        else
-            Utils.SpawnFloatingText(takeDamageText, transform.position, Math.Round(damage, 2).ToString(), 6f, 0.3f, 40f, 0.45f, 0.15f, Color.white);
+		ParticleSpawner.SpawnBurstParticle(deathParticles, transform.position, color: hitColor);
+		Camera.main.GetComponent<CameraScript>().ScreenshakeFunction(.5f);
 
-        player.TakeDamage(damage, flashColor);
+		PlayerHealthAndDamage player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealthAndDamage>();
 
-        Destroy(gameObject);
-    }
+		Color flashColor = Utils.ColorFromHex("#FF4E4E");
+		if (TryGetComponent<CurrencyEnemy>(out _) || damage <= 0)
+			flashColor = MoneyManager.GetCurrencyColor(valueCurrencyType);
+		else
+			Utils.SpawnFloatingText(takeDamageText, transform.position, Math.Round(damage, 2).ToString(), 6f, 0.3f, 40f, 0.45f, 0.15f, Color.white);
+
+		player.TakeDamage(damage, flashColor);
+
+		Destroy(gameObject);
+	}
 }

@@ -28,10 +28,7 @@ namespace UnityEngine.UI.Extensions.ColorPicker
 		[SerializeField]
 		protected string playerPrefsKey;
 
-		public virtual string JsonFilePath
-		{
-			get { return Application.persistentDataPath + "/" + playerPrefsKey + ".json"; }
-		}
+		public virtual string JsonFilePath => Application.persistentDataPath + "/" + playerPrefsKey + ".json";
 
 		protected virtual void Reset()
 		{
@@ -75,7 +72,7 @@ namespace UnityEngine.UI.Extensions.ColorPicker
 					break;
 				default:
 					throw new System.NotImplementedException(saveType.ToString());
-			}	
+			}
 
 			if (!string.IsNullOrEmpty(jsonData))
 			{
@@ -159,7 +156,7 @@ namespace UnityEngine.UI.Extensions.ColorPicker
 			newPresetButton.transform.SetAsLastSibling();
 			newPresetButton.SetActive(true);
 			newPresetButton.GetComponent<Image>().color = color;
-			
+
 			createPresetImage.color = Color.white;
 
 			if (!loading)

@@ -3,22 +3,22 @@
 
 namespace UnityEngine.UI.Extensions.ColorPicker
 {
-    public class ColorPickerTester : MonoBehaviour
-    {
-        public Renderer pickerRenderer;
-        public ColorPickerControl picker;
+	public class ColorPickerTester : MonoBehaviour
+	{
+		public Renderer pickerRenderer;
+		public ColorPickerControl picker;
 
-        void Awake()
-        {
-            pickerRenderer = GetComponent<Renderer>();
-        }
-        // Use this for initialization
-        void Start()
-        {
-            picker.onValueChanged.AddListener(color =>
-            {
-                pickerRenderer.material.color = color;
-            });
-        }
-    }
+		void Awake()
+		{
+			pickerRenderer = GetComponent<Renderer>();
+		}
+		// Use this for initialization
+		void Start()
+		{
+			picker.onValueChanged.AddListener(color =>
+			{
+				pickerRenderer.material.color = color;
+			});
+		}
+	}
 }

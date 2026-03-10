@@ -1,206 +1,205 @@
 using System;
 using System.Collections;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
-
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityUtils.ScriptUtils.Audio;
 
 public class GameManager : MonoBehaviour
 {
 
-    public TextMeshProUGUI tutorialText;
-    [TextArea]
-    public string[] tutorialStrings;
-    public int tutorialStage = 0;
-    bool advancedTutorialStage = false;
-    bool tutorialFinished = false;    
-    
-    // used for tutorial
-    float ogMoney;
+	public TextMeshProUGUI tutorialText;
+	[TextArea]
+	public string[] tutorialStrings;
+	public int tutorialStage = 0;
+	bool advancedTutorialStage = false;
+	bool tutorialFinished = false;
 
-    [Header("Volume Settings")]
-    public Slider[] sfxSliders;
-    public Slider[] musicSliders;
+	// used for tutorial
+	float ogMoney;
 
-    [Header("Win Screen")]
-    public GameObject winScreen;
-    public float winTime; // how long the win screen is up for
-    DifficultyVariables difficultyVariables;
-    public GameObject timeText;
-    public GameObject killsText;
-    public GameObject totalMoneyText;
+	[Header("Volume Settings")]
+	public Slider[] sfxSliders;
+	public Slider[] musicSliders;
 
-    public GameObject totalTimeText;
+	[Header("Win Screen")]
+	public GameObject winScreen;
+	public float winTime; // how long the win screen is up for
+	DifficultyVariables difficultyVariables;
+	public GameObject timeText;
+	public GameObject killsText;
+	public GameObject totalMoneyText;
 
-    [Space(5)]
+	public GameObject totalTimeText;
 
-    public AudioClip winSfx;
+	[Space(5)]
 
-    [Header("Stats")]
+	public AudioClip winSfx;
 
-    public int lShiftPresses = 0;
-    public int kills = 0;
-    public float totalMoneyGained;
-    public float totalBitsGained;
-    float totalTimePlayed;
+	[Header("Stats")]
 
-    private void Start()
-    {
-        difficultyVariables = DifficultyVariables.Instance;
+	public int lShiftPresses = 0;
+	public int kills = 0;
+	public float totalMoneyGained;
+	public float totalBitsGained;
+	float totalTimePlayed;
 
-        if (tutorialText != null)
-            tutorialText.text = tutorialStrings[tutorialStage];
-    }
-    private void Update()
-    {
-        totalTimePlayed += Time.deltaTime;
+	private void Start()
+	{
+		difficultyVariables = DifficultyVariables.Instance;
 
-        if (!tutorialFinished && tutorialText != null)
-            Tutorial();
-    }
+		if (tutorialText != null)
+			tutorialText.text = tutorialStrings[tutorialStage];
+	}
+	private void Update()
+	{
+		totalTimePlayed += Time.deltaTime;
 
-    private void Tutorial()
-    {
-        MoneyManager moneyManager = MoneyManager.Instance;
-        float money = moneyManager.money;
+		if (!tutorialFinished && tutorialText != null)
+			Tutorial();
+	}
 
-        switch (tutorialStage)
-        {
-            case 0:
-                if (GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>().switchKey || moneyManager.toggleShopKey)
-                {
-                    if (moneyManager.toggleShopKey)
-                        AdvanceTutorial(2);
-                    else
-                        AdvanceTutorial();
-                }
-                break;
+	private void Tutorial()
+	{
+		MoneyManager moneyManager = MoneyManager.Instance;
+		float money = moneyManager.money;
 
-            case 1:
-                if (moneyManager.shopOpen)
-                    AdvanceTutorial();
-                break;
+		switch (tutorialStage)
+		{
+			case 0:
+				if (GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>().switchKey || moneyManager.toggleShopKey)
+				{
+					if (moneyManager.toggleShopKey)
+						AdvanceTutorial(2);
+					else
+						AdvanceTutorial();
+				}
+				break;
 
-            case 2:
-                if (Input.GetMouseButtonUp(1) || Input.GetMouseButtonDown(0))
-                    AdvanceTutorial();
-                else if (!moneyManager.shopOpen)
-                    AdvanceTutorial();
-                break;
+			case 1:
+				if (moneyManager.shopOpen)
+					AdvanceTutorial();
+				break;
 
-            case 3:
-                if (!moneyManager.shopOpen)
-                    AdvanceTutorial();
-                break;
+			case 2:
+				if (Input.GetMouseButtonUp(1) || Input.GetMouseButtonDown(0))
+					AdvanceTutorial();
+				else if (!moneyManager.shopOpen)
+					AdvanceTutorial();
+				break;
 
-             case 4:
-                if (!advancedTutorialStage)
-                    StartCoroutine(AdvanceTutorialLate(4f));
-                break;
+			case 3:
+				if (!moneyManager.shopOpen)
+					AdvanceTutorial();
+				break;
 
-             case 5:
-                if (MoneyManager.Instance.money >= 5)
-                    AdvanceTutorial();
-                break;
+			case 4:
+				if (!advancedTutorialStage)
+					StartCoroutine(AdvanceTutorialLate(4f));
+				break;
 
-             case 6:
-                if (money < ogMoney)
-                    AdvanceTutorial();
-                break;
+			case 5:
+				if (MoneyManager.Instance.money >= 5)
+					AdvanceTutorial();
+				break;
 
-            case 7: 
-                if (!advancedTutorialStage)
-                    StartCoroutine(AdvanceTutorialLate(2f));
-                break;
-            default: 
-                break;
-        }
+			case 6:
+				if (money < ogMoney)
+					AdvanceTutorial();
+				break;
 
-        ogMoney = MoneyManager.Instance.money;
-    }
+			case 7:
+				if (!advancedTutorialStage)
+					StartCoroutine(AdvanceTutorialLate(2f));
+				break;
+			default:
+				break;
+		}
 
-    void AdvanceTutorial(int amount = 1)
-    {
-        tutorialStage += amount;
-        tutorialText.text = tutorialStrings[tutorialStage];
-        advancedTutorialStage = false;
-    }
+		ogMoney = MoneyManager.Instance.money;
+	}
 
-    IEnumerator AdvanceTutorialLate(float duration)
-    {
-        advancedTutorialStage = true;
-        yield return new WaitForSecondsRealtime(duration);
-        AdvanceTutorial();
-    }
-    public void LoadMenu()
-    {
-        SceneLoader.GetInstance().LoadSceneWithAnimation("Menu");
-        Time.timeScale = 1;
-    }
-    public void LoadGame(float difficulty = 1)
-    {
-        float easyMoneyMultiplier = 1.5f;
-        float hardMoneyMultiplier = 0.7f;
+	void AdvanceTutorial(int amount = 1)
+	{
+		tutorialStage += amount;
+		tutorialText.text = tutorialStrings[tutorialStage];
+		advancedTutorialStage = false;
+	}
 
-        SceneLoader.GetInstance().LoadSceneWithAnimation("Gameplay");
+	IEnumerator AdvanceTutorialLate(float duration)
+	{
+		advancedTutorialStage = true;
+		yield return new WaitForSecondsRealtime(duration);
+		AdvanceTutorial();
+	}
+	public void LoadMenu()
+	{
+		SceneLoader.GetInstance().LoadSceneWithAnimation("Menu");
+		Time.timeScale = 1;
+	}
+	public void LoadGame(float difficulty = 1)
+	{
+		float easyMoneyMultiplier = 1.5f;
+		float hardMoneyMultiplier = 0.7f;
 
-        difficultyVariables.difficulty = difficulty;
-        if (difficulty < 1)
-        {
-            difficultyVariables.moneyMultiplier = easyMoneyMultiplier;
-        } else if (difficulty > 1)
-        {
-            difficultyVariables.moneyMultiplier = hardMoneyMultiplier;
-        } else
-        {
-            difficultyVariables.moneyMultiplier = 1;
-        }
-    }
+		SceneLoader.GetInstance().LoadSceneWithAnimation("Gameplay");
 
-    public void RetryGame()
-    {
-        SceneLoader.GetInstance().LoadSceneWithAnimation("Gameplay");
-    }
+		difficultyVariables.difficulty = difficulty;
+		if (difficulty < 1)
+		{
+			difficultyVariables.moneyMultiplier = easyMoneyMultiplier;
+		}
+		else if (difficulty > 1)
+		{
+			difficultyVariables.moneyMultiplier = hardMoneyMultiplier;
+		}
+		else
+		{
+			difficultyVariables.moneyMultiplier = 1;
+		}
+	}
 
-    public void LoadDifficulty()
-    {
-        SceneLoader.GetInstance().LoadSceneWithAnimation("Difficulty Selector");
-    }
+	public void RetryGame()
+	{
+		SceneLoader.GetInstance().LoadSceneWithAnimation("Gameplay");
+	}
 
-    public void QuitGame()
-    {
-        Debug.Log("Quitting game...");
-        Application.Quit();
-    }
+	public void LoadDifficulty()
+	{
+		SceneLoader.GetInstance().LoadSceneWithAnimation("Difficulty Selector");
+	}
 
-    public IEnumerator WinScreen()
-    {
-        winScreen.SetActive(true);
+	public void QuitGame()
+	{
+		Debug.Log("Quitting game...");
+		Application.Quit();
+	}
 
-        // time played
-        TimeSpan timePlayed = TimeSpan.FromSeconds(Mathf.RoundToInt(totalTimePlayed));
-        timeText.GetComponent<TextMeshProUGUI>().text = "Time: " + string.Format("{0:00}:{1:00}", timePlayed.Minutes, timePlayed.Seconds);
+	public IEnumerator WinScreen()
+	{
+		winScreen.SetActive(true);
 
-        // kills
-        killsText.GetComponent<TextMeshProUGUI>().text = $"Kills: {kills}";
-        // money
-        totalMoneyText.GetComponent<TextMeshProUGUI>().text = "Gained: $" + totalMoneyGained.ToString("F2");
+		// time played
+		TimeSpan timePlayed = TimeSpan.FromSeconds(Mathf.RoundToInt(totalTimePlayed));
+		timeText.GetComponent<TextMeshProUGUI>().text = "Time: " + string.Format("{0:00}:{1:00}", timePlayed.Minutes, timePlayed.Seconds);
 
-        Debug.Log("WIN SCREEN ENABLED");
+		// kills
+		killsText.GetComponent<TextMeshProUGUI>().text = $"Kills: {kills}";
+		// money
+		totalMoneyText.GetComponent<TextMeshProUGUI>().text = "Gained: $" + totalMoneyGained.ToString("F2");
 
-        yield return new WaitForSeconds(winTime);
+		Debug.Log("WIN SCREEN ENABLED");
 
-        Debug.Log("WIN SCREEN DISABLED");
-        winScreen.SetActive(false);
-    }
+		yield return new WaitForSeconds(winTime);
 
-    [ContextMenu("Win")]
-    public void Win()
-    {
-        StartCoroutine(WinScreen());
-        SfxManager.PlaySfxAudioClip(winSfx, 1f);
-    }
+		Debug.Log("WIN SCREEN DISABLED");
+		winScreen.SetActive(false);
+	}
+
+	[ContextMenu("Win")]
+	public void Win()
+	{
+		StartCoroutine(WinScreen());
+		SfxManager.PlaySfxAudioClip(winSfx, 1f);
+	}
 }

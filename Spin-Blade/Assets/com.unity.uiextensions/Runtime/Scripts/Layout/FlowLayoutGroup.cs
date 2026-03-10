@@ -6,7 +6,6 @@
 /// Vertical Flow by Ramon Molossi 
 
 using System.Collections.Generic;
-using System.Text;
 
 namespace UnityEngine.UI.Extensions
 {
@@ -18,10 +17,10 @@ namespace UnityEngine.UI.Extensions
 	{
 		public enum Axis { Horizontal = 0, Vertical = 1 }
 
-        private float _layoutHeight;
-        private float _layoutWidth;
+		private float _layoutHeight;
+		private float _layoutWidth;
 
-        public float SpacingX = 0f;
+		public float SpacingX = 0f;
 		public float SpacingY = 0f;
 		public bool ExpandHorizontalSpacing = false;
 		public bool ChildForceExpandWidth = false;
@@ -31,7 +30,7 @@ namespace UnityEngine.UI.Extensions
 		[SerializeField]
 		protected Axis m_StartAxis = Axis.Horizontal;
 
-		public Axis StartAxis { get { return m_StartAxis; } set { SetProperty(ref m_StartAxis, value); } }
+		public Axis StartAxis { get => m_StartAxis; set => SetProperty(ref m_StartAxis, value); }
 
 		public override void CalculateLayoutInputHorizontal()
 		{
@@ -72,25 +71,13 @@ namespace UnityEngine.UI.Extensions
 			}
 		}
 
-		protected bool IsCenterAlign
-		{
-			get => childAlignment == TextAnchor.LowerCenter || childAlignment == TextAnchor.MiddleCenter || childAlignment == TextAnchor.UpperCenter;
-		}
+		protected bool IsCenterAlign => childAlignment == TextAnchor.LowerCenter || childAlignment == TextAnchor.MiddleCenter || childAlignment == TextAnchor.UpperCenter;
 
-		protected bool IsRightAlign
-		{
-			get => childAlignment == TextAnchor.LowerRight || childAlignment == TextAnchor.MiddleRight || childAlignment == TextAnchor.UpperRight;
-		}
+		protected bool IsRightAlign => childAlignment == TextAnchor.LowerRight || childAlignment == TextAnchor.MiddleRight || childAlignment == TextAnchor.UpperRight;
 
-		protected bool IsMiddleAlign
-		{
-			get => childAlignment == TextAnchor.MiddleLeft || childAlignment == TextAnchor.MiddleRight || childAlignment == TextAnchor.MiddleCenter;
-		}
+		protected bool IsMiddleAlign => childAlignment == TextAnchor.MiddleLeft || childAlignment == TextAnchor.MiddleRight || childAlignment == TextAnchor.MiddleCenter;
 
-		protected bool IsLowerAlign
-		{
-			get => childAlignment == TextAnchor.LowerLeft || childAlignment == TextAnchor.LowerRight || childAlignment == TextAnchor.LowerCenter;
-		}
+		protected bool IsLowerAlign => childAlignment == TextAnchor.LowerLeft || childAlignment == TextAnchor.LowerRight || childAlignment == TextAnchor.LowerCenter;
 
 		/// <summary>
 		/// Holds the rects that will make up the current bar being processed

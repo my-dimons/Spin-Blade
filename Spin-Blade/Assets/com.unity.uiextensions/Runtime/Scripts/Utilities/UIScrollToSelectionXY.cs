@@ -11,74 +11,74 @@ using UnityEngine.EventSystems;
 
 namespace UnityEngine.UI.Extensions
 {
-    [AddComponentMenu("UI/Extensions/UI ScrollTo Selection XY")]
-    [RequireComponent(typeof(ScrollRect))]
-    public class UIScrollToSelectionXY : MonoBehaviour
-    {
+	[AddComponentMenu("UI/Extensions/UI ScrollTo Selection XY")]
+	[RequireComponent(typeof(ScrollRect))]
+	public class UIScrollToSelectionXY : MonoBehaviour
+	{
 
-        #region Variables
+		#region Variables
 
-        // settings
-        public float scrollSpeed = 10f;
+		// settings
+		public float scrollSpeed = 10f;
 
-        [SerializeField]
-        private RectTransform layoutListGroup = null;
+		[SerializeField]
+		private RectTransform layoutListGroup = null;
 
-        // temporary variables
-        private RectTransform targetScrollObject;
-        private bool scrollToSelection = true;
+		// temporary variables
+		private RectTransform targetScrollObject;
+		private bool scrollToSelection = true;
 
-        // references
-        private RectTransform scrollWindow = null;
-        private ScrollRect targetScrollRect = null;
-        #endregion
+		// references
+		private RectTransform scrollWindow = null;
+		private ScrollRect targetScrollRect = null;
+		#endregion
 
-        // Use this for initialization
-        private void Start()
-        {
-            targetScrollRect = GetComponent<ScrollRect>();
-            scrollWindow = targetScrollRect.GetComponent<RectTransform>();
-        }
+		// Use this for initialization
+		private void Start()
+		{
+			targetScrollRect = GetComponent<ScrollRect>();
+			scrollWindow = targetScrollRect.GetComponent<RectTransform>();
+		}
 
-        // Update is called once per frame
-        private void Update()
-        {
-            ScrollRectToLevelSelection();
-        }
+		// Update is called once per frame
+		private void Update()
+		{
+			ScrollRectToLevelSelection();
+		}
 
-        private void ScrollRectToLevelSelection()
-        {
+		private void ScrollRectToLevelSelection()
+		{
 			// FIX: if you do not do that here events can have null value
 			var events = EventSystem.current;
 
-            // check main references
-            bool referencesAreIncorrect =
-                (targetScrollRect == null || layoutListGroup == null || scrollWindow == null);
-            if (referencesAreIncorrect == true)
-            {
-                return;
-            }
+			// check main references
+			bool referencesAreIncorrect =
+				(targetScrollRect == null || layoutListGroup == null || scrollWindow == null);
+			if (referencesAreIncorrect == true)
+			{
+				return;
+			}
 
-            // get calculation references
-            RectTransform selection = events.currentSelectedGameObject != null ?
-                events.currentSelectedGameObject.GetComponent<RectTransform>() :
-                null;
+			// get calculation references
+			RectTransform selection = events.currentSelectedGameObject != null ?
+				events.currentSelectedGameObject.GetComponent<RectTransform>() :
+				null;
 
-            if (selection != targetScrollObject)
+			if (selection != targetScrollObject)
 			{
 				scrollToSelection = true;
 			}
 
-            // check if scrolling is possible
-            bool isScrollDirectionUnknown = (selection == null || scrollToSelection == false);
+			// check if scrolling is possible
+			bool isScrollDirectionUnknown = (selection == null || scrollToSelection == false);
 
-            if (isScrollDirectionUnknown == true || selection.transform.parent != layoutListGroup.transform)
+			if (isScrollDirectionUnknown == true || selection.transform.parent != layoutListGroup.transform)
 			{
 				return;
 			}
 
 			bool finishedX = false, finishedY = false;
-            
+
 			if (targetScrollRect.vertical)
 			{
 				// move the current scroll rect to correct position
@@ -102,10 +102,10 @@ namespace UnityEngine.UI.Extensions
 				float selectionPos = -selection.anchoredPosition.x;
 
 				float listPixelAnchor = layoutListGroup.anchoredPosition.x;
-				
+
 				// get the element offset value depending on the cursor move direction
 				float offlimitsValue = 0;
-				
+
 				offlimitsValue = listPixelAnchor - selectionPos;
 				// move the target scroll rect
 				targetScrollRect.horizontalNormalizedPosition += (offlimitsValue / layoutListGroup.sizeDelta.x) * Time.deltaTime * scrollSpeed;
@@ -113,11 +113,12 @@ namespace UnityEngine.UI.Extensions
 				finishedX = Mathf.Abs(offlimitsValue) < 2f;
 			}
 			// check if we reached our destination
-			if (finishedX && finishedY) {
+			if (finishedX && finishedY)
+			{
 				scrollToSelection = false;
 			}
-            // save last object we were "heading to" to prevent blocking
-            targetScrollObject = selection;
-        }
-    }
+			// save last object we were "heading to" to prevent blocking
+			targetScrollObject = selection;
+		}
+	}
 }

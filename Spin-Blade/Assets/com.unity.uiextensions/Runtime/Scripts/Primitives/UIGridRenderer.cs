@@ -4,7 +4,7 @@
 
 namespace UnityEngine.UI.Extensions
 {
-    [AddComponentMenu("UI/Extensions/Primitives/UIGridRenderer")]
+	[AddComponentMenu("UI/Extensions/Primitives/UIGridRenderer")]
 	public class UIGridRenderer : UILineRenderer
 	{
 		[SerializeField]
@@ -15,12 +15,9 @@ namespace UnityEngine.UI.Extensions
 		/// <summary>
 		/// Number of columns in the Grid
 		/// </summary>
-        public int GridColumns
+		public int GridColumns
 		{
-			get
-			{
-				return m_GridColumns;
-			}
+			get => m_GridColumns;
 
 			set
 			{
@@ -34,12 +31,9 @@ namespace UnityEngine.UI.Extensions
 		/// <summary>
 		/// Number of rows in the grid.
 		/// </summary>
-        public int GridRows
+		public int GridRows
 		{
-			get
-			{
-				return m_GridRows;
-			}
+			get => m_GridRows;
 
 			set
 			{
@@ -55,7 +49,7 @@ namespace UnityEngine.UI.Extensions
 			relativeSize = true;
 
 			int ArraySize = (GridRows * 3) + 1;
-			if(GridRows % 2 == 0)
+			if (GridRows % 2 == 0)
 				++ArraySize; // needs one more line
 
 			ArraySize += (GridColumns * 3) + 1;
@@ -63,11 +57,11 @@ namespace UnityEngine.UI.Extensions
 			m_points = new Vector2[ArraySize];
 
 			int Index = 0;
-			for(int i = 0; i < GridRows; ++i)
+			for (int i = 0; i < GridRows; ++i)
 			{
 				float xFrom = 1;
 				float xTo = 0;
-				if(i % 2 == 0)
+				if (i % 2 == 0)
 				{
 					// reach left instead
 					xFrom = 0;
@@ -86,7 +80,7 @@ namespace UnityEngine.UI.Extensions
 				++Index;
 			}
 
-			if(GridRows % 2 == 0)
+			if (GridRows % 2 == 0)
 			{
 				// two lines to get to 0, 1
 				m_points[Index].x = 1;
@@ -99,11 +93,11 @@ namespace UnityEngine.UI.Extensions
 			++Index;
 
 			// line is now at 0,1, so we can draw the columns
-			for(int i = 0; i < GridColumns; ++i)
+			for (int i = 0; i < GridColumns; ++i)
 			{
 				float yFrom = 1;
 				float yTo = 0;
-				if(i % 2 == 0)
+				if (i % 2 == 0)
 				{
 					// reach up instead
 					yFrom = 0;
@@ -122,7 +116,7 @@ namespace UnityEngine.UI.Extensions
 				++Index;
 			}
 
-			if(GridColumns % 2 == 0)
+			if (GridColumns % 2 == 0)
 			{
 				// one more line to get to 1, 1
 				m_points[Index].x = 1;
