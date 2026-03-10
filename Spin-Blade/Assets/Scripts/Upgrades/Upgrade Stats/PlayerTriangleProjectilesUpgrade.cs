@@ -1,7 +1,6 @@
 using UnityEngine;
 
-public class PlayerTriangleProjectilesUpgrade : MonoBehaviour, IUpgrade
-{
+public class PlayerTriangleProjectilesUpgrade : MonoBehaviour, IUpgrade {
 	[Header("Unlocks")]
 	public bool unlockShootingTriangles;
 	public bool rangedAutofire;
@@ -13,8 +12,7 @@ public class PlayerTriangleProjectilesUpgrade : MonoBehaviour, IUpgrade
 	public float triangleSpeedIncrease;
 	public float triangleFireRateIncrease;
 
-	public void ApplyUpgrade()
-	{
+	public void ApplyUpgrade() {
 		PlayerHealthAndDamage playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealthAndDamage>();
 
 		if (unlockShootingTriangles)

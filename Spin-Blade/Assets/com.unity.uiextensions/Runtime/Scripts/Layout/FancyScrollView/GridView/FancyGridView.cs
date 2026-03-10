@@ -6,8 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine.UI.Extensions.EasingCore;
 
-namespace UnityEngine.UI.Extensions
-{
+namespace UnityEngine.UI.Extensions {
 	/// <summary>
 	/// グリッドレイアウトのスクロールビューを実装するための抽象基底クラス.
 	/// 無限スクロールおよびスナップには対応していません.
@@ -17,8 +16,7 @@ namespace UnityEngine.UI.Extensions
 	/// <typeparam name="TItemData">アイテムのデータ型.</typeparam>
 	/// <typeparam name="TContext"><see cref="FancyScrollView{TItemData, TContext}.Context"/> の型.</typeparam>
 	public abstract class FancyGridView<TItemData, TContext> : FancyScrollRect<TItemData[], TContext>
-		where TContext : class, IFancyGridViewContext, new()
-	{
+		where TContext : class, IFancyGridViewContext, new() {
 		/// <summary>
 		/// デフォルトのセルグループクラス.
 		/// </summary>
@@ -61,8 +59,7 @@ namespace UnityEngine.UI.Extensions
 		GameObject cellGroupTemplate;
 
 		/// <inheritdoc/>
-		protected override void Initialize()
-		{
+		protected override void Initialize() {
 			base.Initialize();
 
 			Debug.Assert(startAxisCellCount > 0);
@@ -104,8 +101,7 @@ namespace UnityEngine.UI.Extensions
 		/// <param name="cellTemplate">セルのテンプレート.</param>
 		/// <typeparam name="TGroup">セルグループの型.</typeparam>
 		protected virtual void Setup<TGroup>(FancyCell<TItemData, TContext> cellTemplate)
-			where TGroup : FancyCell<TItemData[], TContext>
-		{
+			where TGroup : FancyCell<TItemData[], TContext> {
 			Context.CellTemplate = cellTemplate.gameObject;
 
 			cellGroupTemplate = new GameObject("Group").AddComponent<TGroup>().gameObject;
@@ -117,8 +113,7 @@ namespace UnityEngine.UI.Extensions
 		/// 渡されたアイテム一覧に基づいて表示内容を更新します.
 		/// </summary>
 		/// <param name="items">アイテム一覧.</param>
-		public virtual void UpdateContents(IList<TItemData> items)
-		{
+		public virtual void UpdateContents(IList<TItemData> items) {
 			DataCount = items.Count;
 
 			var itemGroups = items
@@ -137,8 +132,7 @@ namespace UnityEngine.UI.Extensions
 		/// </summary>
 		/// <param name="itemIndex">アイテムのインデックス.</param>
 		/// <param name="alignment">ビューポート内におけるセル位置の基準. 0f(先頭) ~ 1f(末尾).</param>
-		protected override void JumpTo(int itemIndex, float alignment = 0.5f)
-		{
+		protected override void JumpTo(int itemIndex, float alignment = 0.5f) {
 			var groupIndex = itemIndex / startAxisCellCount;
 			base.JumpTo(groupIndex, alignment);
 		}
@@ -150,8 +144,7 @@ namespace UnityEngine.UI.Extensions
 		/// <param name="duration">移動にかける秒数.</param>
 		/// <param name="alignment">ビューポート内におけるセル位置の基準. 0f(先頭) ~ 1f(末尾).</param>
 		/// <param name="onComplete">移動が完了した際に呼び出されるコールバック.</param>
-		protected override void ScrollTo(int itemIndex, float duration, float alignment = 0.5f, Action onComplete = null)
-		{
+		protected override void ScrollTo(int itemIndex, float duration, float alignment = 0.5f, Action onComplete = null) {
 			var groupIndex = itemIndex / startAxisCellCount;
 			base.ScrollTo(groupIndex, duration, alignment, onComplete);
 		}
@@ -164,8 +157,7 @@ namespace UnityEngine.UI.Extensions
 		/// <param name="easing">移動に使用するイージング.</param>
 		/// <param name="alignment">ビューポート内におけるセル位置の基準. 0f(先頭) ~ 1f(末尾).</param>
 		/// <param name="onComplete">移動が完了した際に呼び出されるコールバック.</param>
-		protected override void ScrollTo(int itemIndex, float duration, Ease easing, float alignment = 0.5f, Action onComplete = null)
-		{
+		protected override void ScrollTo(int itemIndex, float duration, Ease easing, float alignment = 0.5f, Action onComplete = null) {
 			var groupIndex = itemIndex / startAxisCellCount;
 			base.ScrollTo(groupIndex, duration, easing, alignment, onComplete);
 		}

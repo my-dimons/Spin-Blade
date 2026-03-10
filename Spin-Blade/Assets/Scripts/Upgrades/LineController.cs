@@ -1,29 +1,25 @@
 using UnityEngine;
 using UnityEngine.UI.Extensions;
 
-public class LineController : MonoBehaviour
-{
+public class LineController : MonoBehaviour {
 	private UILineRenderer uiLineRenderer;
 	private RectTransform parentRect;
 
 	// The world-space points to connect
 	public Transform[] points;
 
-	private void Awake()
-	{
+	private void Awake() {
 		uiLineRenderer = GetComponent<UILineRenderer>();
 		parentRect = uiLineRenderer.rectTransform.parent as RectTransform;
 	}
 
-	private void Update()
-	{
+	private void Update() {
 		if (points == null || points.Length == 0)
 			return;
 
 		Vector2[] localPoints = new Vector2[points.Length];
 
-		for (int i = 0; i < points.Length; i++)
-		{
+		for (int i = 0; i < points.Length; i++) {
 			RectTransformUtility.ScreenPointToLocalPointInRectangle(
 				parentRect,
 				RectTransformUtility.WorldToScreenPoint(null, points[i].position),

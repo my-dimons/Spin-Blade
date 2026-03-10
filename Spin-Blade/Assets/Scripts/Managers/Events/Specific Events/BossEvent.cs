@@ -1,8 +1,7 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "BossEvent", menuName = "ScriptableObjects/Events/BossEvent")]
-public class BossEvent : Event
-{
+public class BossEvent : Event {
 	public Enemy[] bosses;
 
 	[Space(10)]
@@ -11,28 +10,23 @@ public class BossEvent : Event
 	public string eventName = "BossEvent";
 	public string eventPopup = "Boss Incoming!";
 
-	public override void ApplyEvent()
-	{
+	public override void ApplyEvent() {
 		Event(GetRandomBoss());
 	}
 
-	public override bool IsEnabled()
-	{
+	public override bool IsEnabled() {
 		return enabled;
 	}
 
-	public override string GetEventName()
-	{
+	public override string GetEventName() {
 		return eventName;
 	}
 
-	public override string GetEventPopupTextString()
-	{
+	public override string GetEventPopupTextString() {
 		return eventPopup;
 	}
 
-	void Event(Enemy boss)
-	{
+	void Event(Enemy boss) {
 		EventManager eventManager = EventManager.Instance;
 		EnemyManager enemyManager = EnemyManager.Instance;
 
@@ -43,8 +37,7 @@ public class BossEvent : Event
 		eventManager.eventHappening = false;
 	}
 
-	private Enemy GetRandomBoss()
-	{
+	private Enemy GetRandomBoss() {
 		int enemyInt = Random.Range(0, bosses.Length);
 		Enemy enemy = bosses[enemyInt];
 

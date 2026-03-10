@@ -1,7 +1,6 @@
 using UnityEngine;
 
-public class PlayerMiniSaw : MonoBehaviour
-{
+public class PlayerMiniSaw : MonoBehaviour {
 	[Header("Orbit Settings")]
 	public Vector3 orbitPoint = Vector3.zero;
 	public float orbitRadius = 5f;
@@ -16,16 +15,14 @@ public class PlayerMiniSaw : MonoBehaviour
 
 	PlayerHealthAndDamage playerHealth;
 
-	private void Start()
-	{
+	private void Start() {
 		// pick a random starting angle
 		float startAngle = Random.Range(0f, 360f) * Mathf.Deg2Rad;
 		Vector3 offset = new Vector3(Mathf.Cos(startAngle), Mathf.Sin(startAngle), 0) * orbitRadius;
 		transform.position = orbitPoint + offset;
 
 		// maybe reverse direction randomly
-		if (Random.value > 0.5f)
-		{
+		if (Random.value > 0.5f) {
 			ReverseHexagonDirection();
 		}
 
@@ -34,14 +31,12 @@ public class PlayerMiniSaw : MonoBehaviour
 		IncreaseSpeed(playerHealth.miniSawBaseSpeed);
 	}
 
-	private void Update()
-	{
+	private void Update() {
 		// spin sprite
 		sprite.transform.Rotate(0, 0, spriteSpinSpeed * Time.deltaTime);
 	}
 
-	private void FixedUpdate()
-	{
+	private void FixedUpdate() {
 		// Update angle
 		orbitAngle += speed * direction * Time.deltaTime;
 
@@ -53,21 +48,18 @@ public class PlayerMiniSaw : MonoBehaviour
 		transform.position = new Vector3(x, y, transform.position.z);
 	}
 
-	public void IncreaseSpeed(float amount)
-	{
+	public void IncreaseSpeed(float amount) {
 		speed += amount;
 		float variance = speed / 5f;
 		actualRotationSpeed = speed + Random.Range(-variance, variance);
 	}
 
-	public void ReverseHexagonDirection()
-	{
+	public void ReverseHexagonDirection() {
 		Debug.Log("Reversing Saw Direction");
 		direction *= -1;
 	}
 
-	private void OnDrawGizmos()
-	{
+	private void OnDrawGizmos() {
 		Gizmos.color = Color.yellow; // Circle color
 		Gizmos.DrawWireSphere(orbitPoint, orbitRadius); // Draw orbit circle
 	}

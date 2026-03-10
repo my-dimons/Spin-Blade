@@ -5,25 +5,21 @@
 
 using System.Collections.Generic;
 
-namespace UnityEngine.UI.Extensions
-{
+namespace UnityEngine.UI.Extensions {
 	[AddComponentMenu("UI/Extensions/Menu Manager")]
 	[DisallowMultipleComponent]
-	public class MenuManager : MonoBehaviour
-	{
+	public class MenuManager : MonoBehaviour {
 		[SerializeField]
 		private Menu[] menuScreens;
 
-		public Menu[] MenuScreens
-		{
+		public Menu[] MenuScreens {
 			get => menuScreens; set => menuScreens = value;
 		}
 
 		[SerializeField]
 		private int startScreen = 0;
 
-		public int StartScreen
-		{
+		public int StartScreen {
 			get => startScreen; set => startScreen = value;
 		}
 
@@ -31,48 +27,37 @@ namespace UnityEngine.UI.Extensions
 
 		public static MenuManager Instance { get; set; }
 
-		private void Start()
-		{
+		private void Start() {
 			Instance = this;
-			if (MenuScreens.Length > 0 + StartScreen)
-			{
+			if (MenuScreens.Length > 0 + StartScreen) {
 				var startMenu = CreateInstance(MenuScreens[StartScreen].name);
 				OpenMenu(startMenu.GetMenu());
-			}
-			else
-			{
+			} else {
 				Debug.LogError("Not enough Menu Screens configured");
 			}
 		}
 
-		private void OnDestroy()
-		{
+		private void OnDestroy() {
 			Instance = null;
 		}
 
-		public GameObject CreateInstance(string MenuName)
-		{
+		public GameObject CreateInstance(string MenuName) {
 			var prefab = GetPrefab(MenuName);
 
 			return Instantiate(prefab, transform);
 		}
 
-		public void CreateInstance(string MenuName, out GameObject menuInstance)
-		{
+		public void CreateInstance(string MenuName, out GameObject menuInstance) {
 			var prefab = GetPrefab(MenuName);
 
 			menuInstance = Instantiate(prefab, transform);
 		}
 
-		public void OpenMenu(Menu menuInstance)
-		{
+		public void OpenMenu(Menu menuInstance) {
 			// De-activate top menu
-			if (menuStack.Count > 0)
-			{
-				if (menuInstance.DisableMenusUnderneath)
-				{
-					foreach (var menu in menuStack)
-					{
+			if (menuStack.Count > 0) {
+				if (menuInstance.DisableMenusUnderneath) {
+					foreach (var menu in menuStack) {
 						menu.gameObject.SetActive(false);
 
 						if (menu.DisableMenusUnderneath)
@@ -81,12 +66,10 @@ namespace UnityEngine.UI.Extensions
 				}
 
 				Canvas topCanvas = menuInstance.GetComponent<Canvas>();
-				if (topCanvas != null)
-				{
+				if (topCanvas != null) {
 					Canvas previousCanvas = menuStack.Peek().GetComponent<Canvas>();
 
-					if (previousCanvas != null)
-					{
+					if (previousCanvas != null) {
 						topCanvas.sortingOrder = previousCanvas.sortingOrder + 1;
 					}
 				}
@@ -96,28 +79,22 @@ namespace UnityEngine.UI.Extensions
 			menuStack.Push(menuInstance);
 		}
 
-		private GameObject GetPrefab(string PrefabName)
-		{
-			for (int i = 0; i < MenuScreens.Length; i++)
-			{
-				if (MenuScreens[i].name == PrefabName)
-				{
+		private GameObject GetPrefab(string PrefabName) {
+			for (int i = 0; i < MenuScreens.Length; i++) {
+				if (MenuScreens[i].name == PrefabName) {
 					return MenuScreens[i].gameObject;
 				}
 			}
 			throw new MissingReferenceException("Prefab not found for " + PrefabName);
 		}
 
-		public void CloseMenu(Menu menu)
-		{
-			if (menuStack.Count == 0)
-			{
+		public void CloseMenu(Menu menu) {
+			if (menuStack.Count == 0) {
 				Debug.LogErrorFormat(menu, "{0} cannot be closed because menu stack is empty", menu.GetType());
 				return;
 			}
 
-			if (menuStack.Peek() != menu)
-			{
+			if (menuStack.Peek() != menu) {
 				Debug.LogErrorFormat(menu, "{0} cannot be closed because it is not on top of stack", menu.GetType());
 				return;
 			}
@@ -125,8 +102,7 @@ namespace UnityEngine.UI.Extensions
 			CloseTopMenu();
 		}
 
-		public void CloseTopMenu()
-		{
+		public void CloseTopMenu() {
 			var menuInstance = menuStack.Pop();
 
 			if (menuInstance.DestroyWhenClosed)
@@ -136,8 +112,7 @@ namespace UnityEngine.UI.Extensions
 
 			// Re-activate top menu
 			// If a re-activated menu is an overlay we need to activate the menu under it
-			foreach (var menu in menuStack)
-			{
+			foreach (var menu in menuStack) {
 				menu.gameObject.SetActive(true);
 
 				if (menu.DisableMenusUnderneath)
@@ -145,20 +120,16 @@ namespace UnityEngine.UI.Extensions
 			}
 		}
 
-		private void Update()
-		{
+		private void Update() {
 			// On Android the back button is sent as Esc
-			if (UIExtensionsInputManager.GetKeyDown(KeyCode.Escape) && menuStack.Count > 0)
-			{
+			if (UIExtensionsInputManager.GetKeyDown(KeyCode.Escape) && menuStack.Count > 0) {
 				menuStack.Peek().OnBackPressed();
 			}
 		}
 	}
 
-	public static class MenuExtensions
-	{
-		public static Menu GetMenu(this GameObject go)
-		{
+	public static class MenuExtensions {
+		public static Menu GetMenu(this GameObject go) {
 			return go.GetComponent<Menu>();
 		}
 	}

@@ -25,14 +25,11 @@ THE SOFTWARE.
 using UnityEditor;
 #endif
 
-namespace UnityEngine.UI.Extensions
-{
+namespace UnityEngine.UI.Extensions {
 
-	public class TextPicRenameEditor : EditorWindow
-	{
+	public class TextPicRenameEditor : EditorWindow {
 		[MenuItem("Window/UI/Extensions/TextPic Rename Icons and Text")]
-		protected static void ShowTextPicRenameEditor()
-		{
+		protected static void ShowTextPicRenameEditor() {
 			var wnd = GetWindow<TextPicRenameEditor>();
 			wnd.titleContent.text = "Rename Icon List";
 			wnd.Show();
@@ -47,22 +44,17 @@ namespace UnityEngine.UI.Extensions
 		private string originalText;
 		private string replacementText;
 
-		public void Rename(GameObject o)
-		{
+		public void Rename(GameObject o) {
 #if UNITY_EDITOR
 			Debug.Log("Changing icons and text for " + o.name);
 
 
 			TextPic[] children = o.GetComponentsInChildren<TextPic>(true);
-			for (int i = 0; i < children.Length; i++)
-			{
-				if (children[i] != null)
-				{
-					for (int j = 0; j < children[i].inspectorIconList.Length; j++)
-					{
+			for (int i = 0; i < children.Length; i++) {
+				if (children[i] != null) {
+					for (int j = 0; j < children[i].inspectorIconList.Length; j++) {
 						if (!string.IsNullOrEmpty(originalText)
-						&& children[i].inspectorIconList[j].name.Contains(originalText))
-						{
+						&& children[i].inspectorIconList[j].name.Contains(originalText)) {
 							children[i].text.Replace(originalText, replacementText);
 							children[i].inspectorIconList[j].name = children[i].inspectorIconList[j].name.Replace(originalText, replacementText);
 							Debug.Log("Renamed icon for " + children[i].inspectorIconList[j].name);
@@ -71,8 +63,7 @@ namespace UnityEngine.UI.Extensions
 						if (!string.IsNullOrEmpty(prefix)
 						&& !string.IsNullOrEmpty(suffix)
 						&& !children[i].inspectorIconList[j].name.StartsWith(prefix)
-						&& !children[i].inspectorIconList[j].name.EndsWith(suffix))
-						{
+						&& !children[i].inspectorIconList[j].name.EndsWith(suffix)) {
 							children[i].text.Replace(children[i].inspectorIconList[j].name, prefix + children[i].inspectorIconList[j].name + suffix);
 							children[i].inspectorIconList[j].name = prefix + children[i].inspectorIconList[j].name + suffix;
 							Debug.Log("Renamed icon for " + children[i].inspectorIconList[j].name);
@@ -86,23 +77,20 @@ namespace UnityEngine.UI.Extensions
 #endif
 		}
 
-		public void OnGUI()
-		{
+		public void OnGUI() {
 			GUILayout.Label("Select a GameObject to rename TextPic icons and text", EditorStyles.boldLabel);
 			EditorGUILayout.Separator();
 			GUILayout.Label("GameObject", EditorStyles.boldLabel);
 
 			EditorGUI.BeginChangeCheck();
 
-			if (Selection.activeGameObject != null)
-			{
+			if (Selection.activeGameObject != null) {
 				o = Selection.activeGameObject;
 			}
 			EditorGUILayout.ObjectField(o, typeof(GameObject), true);
 			EditorGUI.EndChangeCheck();
 
-			if (o != null)
-			{
+			if (o != null) {
 
 				EditorGUILayout.BeginHorizontal();
 
@@ -153,8 +141,7 @@ namespace UnityEngine.UI.Extensions
 				EditorGUILayout.Separator();
 
 				EditorGUILayout.BeginHorizontal();
-				if (GUILayout.Button("Rename Icons and Text"))
-				{
+				if (GUILayout.Button("Rename Icons and Text")) {
 #if UNITY_EDITOR
 					Rename(o);
 #endif

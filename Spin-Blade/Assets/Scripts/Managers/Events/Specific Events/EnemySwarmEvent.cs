@@ -2,8 +2,7 @@ using System.Collections;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "EnemySwarmEvent", menuName = "ScriptableObjects/Events/EnemySwarmEvent")]
-public class EnemySwarmEvent : Event
-{
+public class EnemySwarmEvent : Event {
 	public float enemyAmount;
 	public float enemySpawnSpeed;
 
@@ -13,28 +12,23 @@ public class EnemySwarmEvent : Event
 	public string eventName = "EnemySwarmEvent";
 	public string eventPopup = "Enemy Swarm Incoming!";
 
-	public override void ApplyEvent()
-	{
+	public override void ApplyEvent() {
 		EventManager.Instance.StartCoroutine(Event(CalculateEnemySwarmAmount(enemyAmount), enemySpawnSpeed));
 	}
 
-	public override bool IsEnabled()
-	{
+	public override bool IsEnabled() {
 		return enabled;
 	}
 
-	public override string GetEventName()
-	{
+	public override string GetEventName() {
 		return eventName;
 	}
 
-	public override string GetEventPopupTextString()
-	{
+	public override string GetEventPopupTextString() {
 		return eventPopup;
 	}
 
-	IEnumerator Event(float enemyAmount, float spawnDelay)
-	{
+	IEnumerator Event(float enemyAmount, float spawnDelay) {
 		EventManager eventManager = EventManager.Instance;
 		EnemyManager enemyManager = EnemyManager.Instance;
 
@@ -44,8 +38,7 @@ public class EnemySwarmEvent : Event
 		enemyAmount = Mathf.Round(enemyAmount);
 
 		// Spawn a large number of enemies in a short time
-		for (int i = 0; i < enemyAmount; i++)
-		{
+		for (int i = 0; i < enemyAmount; i++) {
 			enemyManager.SpawnEnemy(enemyManager.GetRandomSpawnableEnemy());
 			yield return new WaitForSeconds(enemySpawnSpeed); // Short delay between spawns
 		}
@@ -53,8 +46,7 @@ public class EnemySwarmEvent : Event
 		eventManager.eventHappening = false;
 	}
 
-	private float CalculateEnemySwarmAmount(float amount)
-	{
+	private float CalculateEnemySwarmAmount(float amount) {
 		return amount;
 	}
 }

@@ -1,7 +1,6 @@
 using UnityEngine;
 
-public class PlayerMinesUpgrade : MonoBehaviour, IUpgrade
-{
+public class PlayerMinesUpgrade : MonoBehaviour, IUpgrade {
 	[Header("Stats")]
 	public float mineExplosionRadiusIncrease;
 	public float mineDamageMultiplierIncrease;
@@ -13,8 +12,7 @@ public class PlayerMinesUpgrade : MonoBehaviour, IUpgrade
 	public bool unlockMines;
 	public bool explodingMines;
 
-	public void ApplyUpgrade()
-	{
+	public void ApplyUpgrade() {
 		PlayerHealthAndDamage playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealthAndDamage>();
 
 		if (!playerHealth.mines)

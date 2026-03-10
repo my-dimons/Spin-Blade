@@ -4,11 +4,9 @@
 
 using System.Collections.Generic;
 
-namespace UnityEngine.UI.Extensions
-{
+namespace UnityEngine.UI.Extensions {
 	[AddComponentMenu("UI/Extensions/Primitives/UILineTextureRenderer")]
-	public class UILineTextureRenderer : UIPrimitiveBase
-	{
+	public class UILineTextureRenderer : UIPrimitiveBase {
 		[SerializeField]
 		Rect m_UVRect = new Rect(0f, 0f, 1f, 1f);
 		[SerializeField]
@@ -22,11 +20,9 @@ namespace UnityEngine.UI.Extensions
 		/// <summary>
 		/// UV rectangle used by the texture.
 		/// </summary>
-		public Rect uvRect
-		{
+		public Rect uvRect {
 			get => m_UVRect;
-			set
-			{
+			set {
 				if (m_UVRect == value)
 					return;
 				m_UVRect = value;
@@ -37,11 +33,9 @@ namespace UnityEngine.UI.Extensions
 		/// <summary>
 		/// Points to be drawn in the line.
 		/// </summary>
-		public Vector2[] Points
-		{
+		public Vector2[] Points {
 			get => m_points;
-			set
-			{
+			set {
 				if (m_points == value)
 					return;
 				m_points = value;
@@ -49,8 +43,7 @@ namespace UnityEngine.UI.Extensions
 			}
 		}
 
-		protected override void OnPopulateMesh(VertexHelper vh)
-		{
+		protected override void OnPopulateMesh(VertexHelper vh) {
 			// requires sets of quads
 			if (m_points == null || m_points.Length < 2)
 				m_points = new[] { new Vector2(0, 0), new Vector2(1, 1) };
@@ -61,8 +54,7 @@ namespace UnityEngine.UI.Extensions
 			var offsetY = -rectTransform.pivot.y * rectTransform.rect.height;
 
 			// don't want to scale based on the size of the rect, so this is switchable now
-			if (!relativeSize)
-			{
+			if (!relativeSize) {
 				sizeX = 1;
 				sizeY = 1;
 			}
@@ -74,8 +66,7 @@ namespace UnityEngine.UI.Extensions
 			pointList.Add(capPoint);
 
 			// should bail before the last point to add another cap point
-			for (int i = 1; i < m_points.Length - 1; i++)
-			{
+			for (int i = 1; i < m_points.Length - 1; i++) {
 				pointList.Add(m_points[i]);
 			}
 			capPoint = m_points[m_points.Length - 1] - (m_points[m_points.Length - 1] - m_points[m_points.Length - 2]).normalized * capSize;
@@ -83,8 +74,7 @@ namespace UnityEngine.UI.Extensions
 			pointList.Add(m_points[m_points.Length - 1]);
 
 			var Tempm_points = pointList.ToArray();
-			if (UseMargins)
-			{
+			if (UseMargins) {
 				sizeX -= Margin.x;
 				sizeY -= Margin.y;
 				offsetX += Margin.x / 2f;
@@ -96,8 +86,7 @@ namespace UnityEngine.UI.Extensions
 			Vector2 prevV1 = Vector2.zero;
 			Vector2 prevV2 = Vector2.zero;
 
-			for (int i = 1; i < Tempm_points.Length; i++)
-			{
+			for (int i = 1; i < Tempm_points.Length; i++) {
 				var prev = Tempm_points[i - 1];
 				var cur = Tempm_points[i];
 				prev = new Vector2(prev.x * sizeX + offsetX, prev.y * sizeY + offsetY);
@@ -142,8 +131,7 @@ namespace UnityEngine.UI.Extensions
 			}
 		}
 
-		public Vector3 RotatePointAroundPivot(Vector3 point, Vector3 pivot, Vector3 angles)
-		{
+		public Vector3 RotatePointAroundPivot(Vector3 point, Vector3 pivot, Vector3 angles) {
 			Vector3 dir = point - pivot; // get point direction relative to pivot
 			dir = Quaternion.Euler(angles) * dir; // rotate it
 			point = dir + pivot; // calculate rotated point

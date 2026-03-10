@@ -8,13 +8,11 @@ using System.Collections.Generic;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
-namespace UnityEngine.UI.Extensions
-{
+namespace UnityEngine.UI.Extensions {
 	[ExecuteInEditMode]
 	[RequireComponent(typeof(ScrollRect))]
 	[AddComponentMenu("UI/Extensions/ContentSnapScrollHorizontal")]
-	public class ContentScrollSnapHorizontal : MonoBehaviour, IBeginDragHandler, IEndDragHandler
-	{
+	public class ContentScrollSnapHorizontal : MonoBehaviour, IBeginDragHandler, IEndDragHandler {
 
 		[Serializable]
 		public class StartMovementEvent : UnityEvent { }
@@ -43,32 +41,28 @@ namespace UnityEngine.UI.Extensions
 		[SerializeField]
 		[Tooltip("Event is triggered whenever the scroll rect starts to move, even when triggered programmatically")]
 		private StartMovementEvent m_StartMovementEvent = new StartMovementEvent();
-		public StartMovementEvent MovementStarted
-		{
+		public StartMovementEvent MovementStarted {
 			get => m_StartMovementEvent; set => m_StartMovementEvent = value;
 		}
 
 		[SerializeField]
 		[Tooltip("Event is triggered whenever the closest item to the center of the scrollrect changes")]
 		private CurrentItemChangeEvent m_CurrentItemChangeEvent = new CurrentItemChangeEvent();
-		public CurrentItemChangeEvent CurrentItemChanged
-		{
+		public CurrentItemChangeEvent CurrentItemChanged {
 			get => m_CurrentItemChangeEvent; set => m_CurrentItemChangeEvent = value;
 		}
 
 		[SerializeField]
 		[Tooltip("Event is triggered when the ContentSnapScroll decides which item it is going to snap to. Returns the index of the closest position.")]
 		private FoundItemToSnapToEvent m_FoundItemToSnapToEvent = new FoundItemToSnapToEvent();
-		public FoundItemToSnapToEvent ItemFoundToSnap
-		{
+		public FoundItemToSnapToEvent ItemFoundToSnap {
 			get => m_FoundItemToSnapToEvent; set => m_FoundItemToSnapToEvent = value;
 		}
 
 		[SerializeField]
 		[Tooltip("Event is triggered when we finally settle on an element. Returns the index of the item's position.")]
 		private SnappedToItemEvent m_SnappedToItemEvent = new SnappedToItemEvent();
-		public SnappedToItemEvent ItemSnappedTo
-		{
+		public SnappedToItemEvent ItemSnappedTo {
 			get => m_SnappedToItemEvent; set => m_SnappedToItemEvent = value;
 		}
 
@@ -113,8 +107,7 @@ namespace UnityEngine.UI.Extensions
 		#endregion
 
 		#region Setup
-		private void Awake()
-		{
+		private void Awake() {
 			scrollRect = GetComponent<ScrollRect>();
 			scrollRectTransform = (RectTransform)scrollRect.transform;
 			contentTransform = scrollRect.content;
@@ -125,8 +118,7 @@ namespace UnityEngine.UI.Extensions
 			if (prevButton)
 				prevButton.GetComponent<Button>().onClick.AddListener(() => { PreviousItem(); });
 
-			if (IsScrollRectAvailable)
-			{
+			if (IsScrollRectAvailable) {
 				SetupDrivenTransforms();
 				SetupSnapScroll();
 				scrollRect.horizontalNormalizedPosition = 0;
@@ -135,26 +127,19 @@ namespace UnityEngine.UI.Extensions
 			}
 		}
 
-		public void SetNewItems(ref List<Transform> newItems)
-		{
-			if (scrollRect && contentTransform)
-			{
-				for (int i = scrollRect.content.childCount - 1; i >= 0; i--)
-				{
+		public void SetNewItems(ref List<Transform> newItems) {
+			if (scrollRect && contentTransform) {
+				for (int i = scrollRect.content.childCount - 1; i >= 0; i--) {
 					Transform child = contentTransform.GetChild(i);
 					child.SetParent(null);
 					GameObject.DestroyImmediate(child.gameObject);
 				}
 
-				foreach (Transform item in newItems)
-				{
+				foreach (Transform item in newItems) {
 					GameObject newItem = item.gameObject;
-					if (newItem.IsPrefab())
-					{
+					if (newItem.IsPrefab()) {
 						newItem = Instantiate(item.gameObject, contentTransform);
-					}
-					else
-					{
+					} else {
 						newItem.transform.SetParent(contentTransform);
 					}
 				}
@@ -167,33 +152,27 @@ namespace UnityEngine.UI.Extensions
 			}
 		}
 
-		private bool IsScrollRectAvailable
-		{
-			get
-			{
+		private bool IsScrollRectAvailable {
+			get {
 				if (scrollRect &&
 					contentTransform &&
-					contentTransform.childCount > 0)
-				{
+					contentTransform.childCount > 0) {
 					return true;
 				}
 				return false;
 			}
 		}
 
-		private void OnDisable()
-		{
+		private void OnDisable() {
 			tracker.Clear();
 		}
 
-		private void SetupDrivenTransforms()
-		{
+		private void SetupDrivenTransforms() {
 			tracker = new DrivenRectTransformTracker();
 			tracker.Clear();
 
 			//So that we can calculate everything correctly
-			foreach (RectTransform child in contentTransform)
-			{
+			foreach (RectTransform child in contentTransform) {
 				tracker.Add(this, child, DrivenTransformProperties.Anchors);
 
 				child.anchorMax = new Vector2(0, 1);
@@ -201,29 +180,22 @@ namespace UnityEngine.UI.Extensions
 			}
 		}
 
-		private void SetupSnapScroll()
-		{
-			if (ContentIsHorizonalLayoutGroup)
-			{
+		private void SetupSnapScroll() {
+			if (ContentIsHorizonalLayoutGroup) {
 				//because you can't get the anchored positions of UI elements
 				//when they are in a layout group (as far as I could tell)
 				SetupWithHorizontalLayoutGroup();
-			}
-			else
-			{
+			} else {
 				SetupWithCalculatedSpacing();
 			}
 		}
 
-		private void SetupWithHorizontalLayoutGroup()
-		{
+		private void SetupWithHorizontalLayoutGroup() {
 			HorizontalLayoutGroup horizLayoutGroup = contentTransform.GetComponent<HorizontalLayoutGroup>();
 			float childTotalWidths = 0;
 			int activeChildren = 0;
-			for (int i = 0; i < contentTransform.childCount; i++)
-			{
-				if (!ignoreInactiveItems || contentTransform.GetChild(i).gameObject.activeInHierarchy)
-				{
+			for (int i = 0; i < contentTransform.childCount; i++) {
+				if (!ignoreInactiveItems || contentTransform.GetChild(i).gameObject.activeInHierarchy) {
 					childTotalWidths += ((RectTransform)contentTransform.GetChild(i)).sizeDelta.x;
 					activeChildren++;
 				}
@@ -242,10 +214,8 @@ namespace UnityEngine.UI.Extensions
 			totalScrollableWidth = totalWidth - widthOfScrollRect;
 			float checkedChildrenTotalWidths = horizLayoutGroup.padding.left;
 			int activeChildrenBeforeSelf = 0;
-			for (int i = 0; i < contentTransform.childCount; i++)
-			{
-				if (!ignoreInactiveItems || contentTransform.GetChild(i).gameObject.activeInHierarchy)
-				{
+			for (int i = 0; i < contentTransform.childCount; i++) {
+				if (!ignoreInactiveItems || contentTransform.GetChild(i).gameObject.activeInHierarchy) {
 					float widthOfSelf = ((RectTransform)contentTransform.GetChild(i)).sizeDelta.x;
 					float offset = checkedChildrenTotalWidths + (horizLayoutGroup.spacing * activeChildrenBeforeSelf) + ((widthOfSelf - widthOfScrollRect) / 2);
 					scrollRect.horizontalNormalizedPosition = offset / totalScrollableWidth;
@@ -257,20 +227,15 @@ namespace UnityEngine.UI.Extensions
 			}
 		}
 
-		private void SetupWithCalculatedSpacing()
-		{
+		private void SetupWithCalculatedSpacing() {
 			//we need them in order from left to right for pagination & buttons & our scrollRectWidth
 			List<RectTransform> childrenFromLeftToRight = new List<RectTransform>();
-			for (int i = 0; i < contentTransform.childCount; i++)
-			{
-				if (!ignoreInactiveItems || contentTransform.GetChild(i).gameObject.activeInHierarchy)
-				{
+			for (int i = 0; i < contentTransform.childCount; i++) {
+				if (!ignoreInactiveItems || contentTransform.GetChild(i).gameObject.activeInHierarchy) {
 					RectTransform childBeingSorted = ((RectTransform)contentTransform.GetChild(i));
 					int insertIndex = childrenFromLeftToRight.Count;
-					for (int j = 0; j < childrenFromLeftToRight.Count; j++)
-					{
-						if (DstFromTopLeftOfTransformToTopLeftOfParent(childBeingSorted).x < DstFromTopLeftOfTransformToTopLeftOfParent(childrenFromLeftToRight[j]).x)
-						{
+					for (int j = 0; j < childrenFromLeftToRight.Count; j++) {
+						if (DstFromTopLeftOfTransformToTopLeftOfParent(childBeingSorted).x < DstFromTopLeftOfTransformToTopLeftOfParent(childrenFromLeftToRight[j]).x) {
 							insertIndex = j;
 							break;
 						}
@@ -290,8 +255,7 @@ namespace UnityEngine.UI.Extensions
 			contentPositions = new List<Vector3>();
 			float widthOfScrollRect = scrollRectTransform.sizeDelta.x;
 			totalScrollableWidth = totalWidth - widthOfScrollRect;
-			for (int i = 0; i < childrenFromLeftToRight.Count; i++)
-			{
+			for (int i = 0; i < childrenFromLeftToRight.Count; i++) {
 				float offset = DstFromTopLeftOfTransformToTopLeftOfParent(childrenFromLeftToRight[i]).x + ((childrenFromLeftToRight[i].sizeDelta.x - widthOfScrollRect) / 2);
 				scrollRect.horizontalNormalizedPosition = offset / totalScrollableWidth;
 				contentPositions.Add(contentTransform.localPosition);
@@ -305,58 +269,44 @@ namespace UnityEngine.UI.Extensions
 		/// *Note the index is based on a zero-starting index.
 		/// </summary>
 		/// <param name="info">All of the info about how you want it to move</param>
-		public void GoTo(MoveInfo info)
-		{
-			if (!Moving && info.index != ClosestItemIndex)
-			{
+		public void GoTo(MoveInfo info) {
+			if (!Moving && info.index != ClosestItemIndex) {
 				MovementStarted.Invoke();
 			}
 
-			if (info.indexType == MoveInfo.IndexType.childIndex)
-			{
+			if (info.indexType == MoveInfo.IndexType.childIndex) {
 				mLerpTime = info.duration;
 				GoToChild(info.index, info.jump);
-			}
-			else if (info.indexType == MoveInfo.IndexType.positionIndex)
-			{
+			} else if (info.indexType == MoveInfo.IndexType.positionIndex) {
 				mLerpTime = info.duration;
 				GoToContentPos(info.index, info.jump);
 			}
 		}
 
-		private void GoToChild(int index, bool jump)
-		{
+		private void GoToChild(int index, bool jump) {
 			int clampedIndex = Mathf.Clamp(index, 0, contentPositions.Count - 1); //contentPositions amount == the amount of available children
 
 			if (ContentIsHorizonalLayoutGroup) //the contentPositions are in child order
 			{
 				lerpTarget = contentPositions[clampedIndex];
-				if (jump)
-				{
+				if (jump) {
 					contentTransform.localPosition = lerpTarget;
-				}
-				else
-				{
+				} else {
 					StopMovement();
 					StartCoroutine("LerpToContent");
 				}
-			}
-			else //the contentPositions are in order from left -> right;
-			{
+			} else //the contentPositions are in order from left -> right;
+			  {
 				int availableChildIndex = 0; //an available child is one we can snap to
 				Vector3 previousContentTransformPos = contentTransform.localPosition;
-				for (int i = 0; i < contentTransform.childCount; i++)
-				{
-					if (!ignoreInactiveItems || contentTransform.GetChild(i).gameObject.activeInHierarchy)
-					{
-						if (availableChildIndex == clampedIndex)
-						{
+				for (int i = 0; i < contentTransform.childCount; i++) {
+					if (!ignoreInactiveItems || contentTransform.GetChild(i).gameObject.activeInHierarchy) {
+						if (availableChildIndex == clampedIndex) {
 							RectTransform startChild = (RectTransform)contentTransform.GetChild(i);
 							float offset = DstFromTopLeftOfTransformToTopLeftOfParent(startChild).x + ((startChild.sizeDelta.x - scrollRectTransform.sizeDelta.x) / 2);
 							scrollRect.horizontalNormalizedPosition = offset / totalScrollableWidth;
 							lerpTarget = contentTransform.localPosition;
-							if (!jump)
-							{
+							if (!jump) {
 								contentTransform.localPosition = previousContentTransformPos;
 								StopMovement();
 								StartCoroutine("LerpToContent");
@@ -369,20 +319,16 @@ namespace UnityEngine.UI.Extensions
 			}
 		}
 
-		private void GoToContentPos(int index, bool jump)
-		{
+		private void GoToContentPos(int index, bool jump) {
 			int clampedIndex = Mathf.Clamp(index, 0, contentPositions.Count - 1); //contentPositions amount == the amount of available children
 
 			//the content positions are all in order from left -> right
 			//which is what we want so there's no need to check
 
 			lerpTarget = contentPositions[clampedIndex];
-			if (jump)
-			{
+			if (jump) {
 				contentTransform.localPosition = lerpTarget;
-			}
-			else
-			{
+			} else {
 				StopMovement();
 				StartCoroutine("LerpToContent");
 			}
@@ -392,15 +338,11 @@ namespace UnityEngine.UI.Extensions
 		/// Function for going to the next item
 		/// *Note the next item is the item to the right of the current item, this is not based on child order
 		/// </summary>
-		public void NextItem()
-		{
+		public void NextItem() {
 			int index;
-			if (Sliding)
-			{
+			if (Sliding) {
 				index = ClosestItemIndex + 1;
-			}
-			else
-			{
+			} else {
 				index = LerpTargetIndex + 1;
 			}
 			MoveInfo info = new MoveInfo(MoveInfo.IndexType.positionIndex, index, jumpToItem, lerpTime);
@@ -411,15 +353,11 @@ namespace UnityEngine.UI.Extensions
 		/// Function for going to the previous item
 		/// *Note the next item is the item to the left of the current item, this is not based on child order
 		/// </summary>
-		public void PreviousItem()
-		{
+		public void PreviousItem() {
 			int index;
-			if (Sliding)
-			{
+			if (Sliding) {
 				index = ClosestItemIndex - 1;
-			}
-			else
-			{
+			} else {
 				index = LerpTargetIndex - 1;
 			}
 			MoveInfo info = new MoveInfo(MoveInfo.IndexType.positionIndex, index, jumpToItem, lerpTime);
@@ -429,8 +367,7 @@ namespace UnityEngine.UI.Extensions
 		/// <summary>
 		/// Function for recalculating the size of the content & the snap positions, such as when you remove or add a child
 		/// </summary>
-		public void UpdateLayout()
-		{
+		public void UpdateLayout() {
 			SetupDrivenTransforms();
 			SetupSnapScroll();
 		}
@@ -439,8 +376,7 @@ namespace UnityEngine.UI.Extensions
 		/// Recalculates the size of the content & snap positions, and moves to a new item afterwards.
 		/// </summary>
 		/// <param name="info">All of the info about how you want it to move</param>
-		public void UpdateLayoutAndMoveTo(MoveInfo info)
-		{
+		public void UpdateLayoutAndMoveTo(MoveInfo info) {
 			SetupDrivenTransforms();
 			SetupSnapScroll();
 			GoTo(info);
@@ -448,39 +384,30 @@ namespace UnityEngine.UI.Extensions
 		#endregion
 
 		#region Behind the Scenes Movement stuff
-		public void OnBeginDrag(PointerEventData ped)
-		{
-			if (contentPositions.Count < 2)
-			{
+		public void OnBeginDrag(PointerEventData ped) {
+			if (contentPositions.Count < 2) {
 				return;
 			}
 
 			StopMovement();
-			if (!Moving)
-			{
+			if (!Moving) {
 				MovementStarted.Invoke();
 			}
 		}
 
-		public void OnEndDrag(PointerEventData ped)
-		{
-			if (contentPositions.Count <= 1)
-			{
+		public void OnEndDrag(PointerEventData ped) {
+			if (contentPositions.Count <= 1) {
 				return;
 			}
 
-			if (IsScrollRectAvailable)
-			{
+			if (IsScrollRectAvailable) {
 				StartCoroutine("SlideAndLerp");
 			}
 		}
 
-		private void Update()
-		{
-			if (IsScrollRectAvailable)
-			{
-				if (_closestItem != ClosestItemIndex)
-				{
+		private void Update() {
+			if (IsScrollRectAvailable) {
+				if (_closestItem != ClosestItemIndex) {
 					CurrentItemChanged.Invoke(ClosestItemIndex);
 					ChangePaginationInfo(ClosestItemIndex);
 					_closestItem = ClosestItemIndex;
@@ -488,19 +415,16 @@ namespace UnityEngine.UI.Extensions
 			}
 		}
 
-		private IEnumerator SlideAndLerp()
-		{
+		private IEnumerator SlideAndLerp() {
 			mSliding = true;
-			while (Mathf.Abs(scrollRect.velocity.x) > snappingVelocityThreshold)
-			{
+			while (Mathf.Abs(scrollRect.velocity.x) > snappingVelocityThreshold) {
 				yield return null;
 			}
 
 			lerpTarget = FindClosestFrom(contentTransform.localPosition);
 			ItemFoundToSnap.Invoke(LerpTargetIndex);
 
-			while (Vector3.Distance(contentTransform.localPosition, lerpTarget) > 1)
-			{
+			while (Vector3.Distance(contentTransform.localPosition, lerpTarget) > 1) {
 				contentTransform.localPosition = Vector3.Lerp(scrollRect.content.localPosition, lerpTarget, 7.5f * Time.deltaTime);
 				yield return null;
 			}
@@ -510,14 +434,12 @@ namespace UnityEngine.UI.Extensions
 			ItemSnappedTo.Invoke(LerpTargetIndex);
 		}
 
-		private IEnumerator LerpToContent()
-		{
+		private IEnumerator LerpToContent() {
 			ItemFoundToSnap.Invoke(LerpTargetIndex);
 			mLerping = true;
 			Vector3 originalContentPos = contentTransform.localPosition;
 			float elapsedTime = 0;
-			while (elapsedTime < mLerpTime)
-			{
+			while (elapsedTime < mLerpTime) {
 				elapsedTime += Time.deltaTime;
 				contentTransform.localPosition = Vector3.Lerp(originalContentPos, lerpTarget, (elapsedTime / mLerpTime));
 				yield return null;
@@ -527,37 +449,30 @@ namespace UnityEngine.UI.Extensions
 		}
 		#endregion
 
-		private void StopMovement()
-		{
+		private void StopMovement() {
 			scrollRect.velocity = Vector2.zero;
 			StopCoroutine("SlideAndLerp");
 			StopCoroutine("LerpToContent");
 		}
 
-		private void ChangePaginationInfo(int targetScreen)
-		{
+		private void ChangePaginationInfo(int targetScreen) {
 			if (pagination)
-				for (int i = 0; i < pagination.transform.childCount; i++)
-				{
+				for (int i = 0; i < pagination.transform.childCount; i++) {
 					pagination.transform.GetChild(i).GetComponent<Toggle>().isOn = (targetScreen == i);
 				}
 		}
 
-		private Vector2 DstFromTopLeftOfTransformToTopLeftOfParent(RectTransform rt)
-		{
+		private Vector2 DstFromTopLeftOfTransformToTopLeftOfParent(RectTransform rt) {
 			//gets rid of any pivot weirdness
 			return new Vector2(rt.anchoredPosition.x - (rt.sizeDelta.x * rt.pivot.x), rt.anchoredPosition.y + (rt.sizeDelta.y * (1 - rt.pivot.y)));
 		}
 
-		private Vector3 FindClosestFrom(Vector3 start)
-		{
+		private Vector3 FindClosestFrom(Vector3 start) {
 			Vector3 closest = Vector3.zero;
 			float distance = Mathf.Infinity;
 
-			foreach (Vector3 position in contentPositions)
-			{
-				if (Vector3.Distance(start, position) < distance)
-				{
+			foreach (Vector3 position in contentPositions) {
+				if (Vector3.Distance(start, position) < distance) {
 					distance = Vector3.Distance(start, position);
 					closest = position;
 				}
@@ -566,8 +481,7 @@ namespace UnityEngine.UI.Extensions
 		}
 
 		[System.Serializable]
-		public struct MoveInfo
-		{
+		public struct MoveInfo {
 			public enum IndexType { childIndex, positionIndex }
 			[Tooltip("Child Index means the Index corresponds to the content item at that index in the hierarchy.\n" +
 				"Position Index means the Index corresponds to the content item in that snap position.\n" +
@@ -585,8 +499,7 @@ namespace UnityEngine.UI.Extensions
 			/// </summary>
 			/// <param name="_indexType">Whether you want to get the child at the index or the snap position at the index</param>
 			/// <param name="_index">Where you want it to jump</param>
-			public MoveInfo(IndexType _indexType, int _index)
-			{
+			public MoveInfo(IndexType _indexType, int _index) {
 				indexType = _indexType;
 				index = _index;
 				jump = true;
@@ -600,8 +513,7 @@ namespace UnityEngine.UI.Extensions
 			/// <param name="_index">Where you want it to jump</param>
 			/// <param name="_jump">Whether you want it to jump or lerp to the index</param>
 			/// <param name="_duration">How long it takes to lerp to the index</param>
-			public MoveInfo(IndexType _indexType, int _index, bool _jump, float _duration)
-			{
+			public MoveInfo(IndexType _indexType, int _index, bool _jump, float _duration) {
 				indexType = _indexType;
 				index = _index;
 				jump = _jump;

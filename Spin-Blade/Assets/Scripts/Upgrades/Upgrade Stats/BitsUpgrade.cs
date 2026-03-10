@@ -1,13 +1,11 @@
 using UnityEngine;
 
-public class BitsUpgrade : MonoBehaviour, IUpgrade
-{
+public class BitsUpgrade : MonoBehaviour, IUpgrade {
 	public bool unlockBits;
 	public float bitsMultiplierIncrease;
 	public float giveBits;
 
-	public void ApplyUpgrade()
-	{
+	public void ApplyUpgrade() {
 		MoneyManager moneyManager = MoneyManager.Instance;
 
 		if (!moneyManager.bitsUnlocked)

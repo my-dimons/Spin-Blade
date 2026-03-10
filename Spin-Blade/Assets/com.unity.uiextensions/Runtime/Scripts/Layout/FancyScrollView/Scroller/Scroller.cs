@@ -5,13 +5,11 @@ using System;
 using UnityEngine.EventSystems;
 using UnityEngine.UI.Extensions.EasingCore;
 
-namespace UnityEngine.UI.Extensions
-{
+namespace UnityEngine.UI.Extensions {
 	/// <summary>
 	/// スクロール位置の制御を行うコンポーネント.
 	/// </summary>
-	public class Scroller : UIBehaviour, IPointerUpHandler, IPointerDownHandler, IBeginDragHandler, IEndDragHandler, IDragHandler, IScrollHandler
-	{
+	public class Scroller : UIBehaviour, IPointerUpHandler, IPointerDownHandler, IBeginDragHandler, IEndDragHandler, IDragHandler, IScrollHandler {
 		[SerializeField] RectTransform viewport = default;
 
 		/// <summary>
@@ -33,8 +31,7 @@ namespace UnityEngine.UI.Extensions
 		/// <summary>
 		/// コンテンツがスクロール範囲を越えて移動するときに使用する挙動.
 		/// </summary>
-		public MovementType MovementType
-		{
+		public MovementType MovementType {
 			get => movementType;
 			set => movementType = value;
 		}
@@ -44,8 +41,7 @@ namespace UnityEngine.UI.Extensions
 		/// <summary>
 		/// コンテンツがスクロール範囲を越えて移動するときに使用する弾力性の量.
 		/// </summary>
-		public float Elasticity
-		{
+		public float Elasticity {
 			get => elasticity;
 			set => elasticity = value;
 		}
@@ -55,8 +51,7 @@ namespace UnityEngine.UI.Extensions
 		/// <summary>
 		/// <see cref="ViewportSize"/> の端から端まで Drag したときのスクロール位置の変化量.
 		/// </summary>
-		public float ScrollSensitivity
-		{
+		public float ScrollSensitivity {
 			get => scrollSensitivity;
 			set => scrollSensitivity = value;
 		}
@@ -66,8 +61,7 @@ namespace UnityEngine.UI.Extensions
 		/// <summary>
 		/// 慣性を使用するかどうか. <c>true</c> を指定すると慣性が有効に, <c>false</c> を指定すると慣性が無効になります.
 		/// </summary>
-		public bool Inertia
-		{
+		public bool Inertia {
 			get => inertia;
 			set => inertia = value;
 		}
@@ -77,15 +71,13 @@ namespace UnityEngine.UI.Extensions
 		/// <summary>
 		/// スクロールの減速率. <see cref="Inertia"/> が <c>true</c> の場合のみ有効です.
 		/// </summary>
-		public float DecelerationRate
-		{
+		public float DecelerationRate {
 			get => decelerationRate;
 			set => decelerationRate = value;
 		}
 
 		[SerializeField]
-		Snap snap = new Snap
-		{
+		Snap snap = new Snap {
 			Enable = true,
 			VelocityThreshold = 0.5f,
 			Duration = 0.3f,
@@ -98,8 +90,7 @@ namespace UnityEngine.UI.Extensions
 		/// <remarks>
 		/// スナップを有効にすると, 慣性でスクロールが止まる直前に最寄りのセルへ移動します.
 		/// </remarks>
-		public bool SnapEnabled
-		{
+		public bool SnapEnabled {
 			get => snap.Enable;
 			set => snap.Enable = value;
 		}
@@ -109,8 +100,7 @@ namespace UnityEngine.UI.Extensions
 		/// <summary>
 		/// Drag 入力を受付けるかどうか.
 		/// </summary>
-		public bool Draggable
-		{
+		public bool Draggable {
 			get => draggable;
 			set => draggable = value;
 		}
@@ -126,11 +116,9 @@ namespace UnityEngine.UI.Extensions
 		/// 現在のスクロール位置.
 		/// </summary>
 		/// <value></value>
-		public float Position
-		{
+		public float Position {
 			get => currentPosition;
-			set
-			{
+			set {
 				autoScrollState.Reset();
 				velocity = 0f;
 				dragging = false;
@@ -157,8 +145,7 @@ namespace UnityEngine.UI.Extensions
 		float velocity;
 
 		[Serializable]
-		class Snap
-		{
+		class Snap {
 			public bool Enable;
 			public float VelocityThreshold;
 			public float Duration;
@@ -167,8 +154,7 @@ namespace UnityEngine.UI.Extensions
 
 		static readonly EasingFunction DefaultEasingFunction = Easing.Get(Ease.OutCubic);
 
-		class AutoScrollState
-		{
+		class AutoScrollState {
 			public bool Enable;
 			public bool Elastic;
 			public float Duration;
@@ -178,8 +164,7 @@ namespace UnityEngine.UI.Extensions
 
 			public Action OnComplete;
 
-			public void Reset()
-			{
+			public void Reset() {
 				Enable = false;
 				Elastic = false;
 				Duration = 0f;
@@ -189,19 +174,16 @@ namespace UnityEngine.UI.Extensions
 				OnComplete = null;
 			}
 
-			public void Complete()
-			{
+			public void Complete() {
 				OnComplete?.Invoke();
 				Reset();
 			}
 		}
 
-		protected override void Start()
-		{
+		protected override void Start() {
 			base.Start();
 
-			if (scrollbar)
-			{
+			if (scrollbar) {
 				scrollbar.onValueChanged.AddListener(x => UpdatePosition(x * (totalCount - 1f), false));
 			}
 		}
@@ -210,8 +192,7 @@ namespace UnityEngine.UI.Extensions
 		/// スクロール位置が変化したときのコールバックを設定します.
 		/// </summary>
 		/// <param name="callback">スクロール位置が変化したときのコールバック.</param>
-		public void OnValueChanged(Action<float> callback)
-		{
+		public void OnValueChanged(Action<float> callback) {
 			onValueChanged = callback;
 		}
 
@@ -219,8 +200,7 @@ namespace UnityEngine.UI.Extensions
 		/// 選択位置が変化したときのコールバックを設定します.
 		/// </summary>
 		/// <param name="callback">選択位置が変化したときのコールバック.</param>
-		public void OnSelectionChanged(Action<int> callback)
-		{
+		public void OnSelectionChanged(Action<int> callback) {
 			onSelectionChanged = callback;
 		}
 
@@ -231,8 +211,7 @@ namespace UnityEngine.UI.Extensions
 		/// <paramref name="totalCount"/> を元に最大スクロール位置を計算します.
 		/// </remarks>
 		/// <param name="totalCount">アイテムの総数.</param>
-		public void SetTotalCount(int totalCount)
-		{
+		public void SetTotalCount(int totalCount) {
 			this.totalCount = totalCount;
 		}
 
@@ -242,8 +221,7 @@ namespace UnityEngine.UI.Extensions
 		/// <param name="position">スクロール位置. <c>0f</c> ~ <c>totalCount - 1f</c> の範囲.</param>
 		/// <param name="duration">移動にかける秒数.</param>
 		/// <param name="onComplete">移動が完了した際に呼び出されるコールバック.</param>
-		public void ScrollTo(float position, float duration, Action onComplete = null)
-		{
+		public void ScrollTo(float position, float duration, Action onComplete = null) {
 			ScrollTo(position, duration, Ease.OutCubic, onComplete);
 		}
 
@@ -254,8 +232,7 @@ namespace UnityEngine.UI.Extensions
 		/// <param name="duration">移動にかける秒数.</param>
 		/// <param name="easing">移動に使用するイージング.</param>
 		/// <param name="onComplete">移動が完了した際に呼び出されるコールバック.</param>
-		public void ScrollTo(float position, float duration, Ease easing, Action onComplete = null)
-		{
+		public void ScrollTo(float position, float duration, Ease easing, Action onComplete = null) {
 			ScrollTo(position, duration, Easing.Get(easing), onComplete);
 		}
 
@@ -266,10 +243,8 @@ namespace UnityEngine.UI.Extensions
 		/// <param name="duration">移動にかける秒数.</param>
 		/// <param name="easingFunction">移動に使用するイージング関数.</param>
 		/// <param name="onComplete">移動が完了した際に呼び出されるコールバック.</param>
-		public void ScrollTo(float position, float duration, EasingFunction easingFunction, Action onComplete = null)
-		{
-			if (duration <= 0f)
-			{
+		public void ScrollTo(float position, float duration, EasingFunction easingFunction, Action onComplete = null) {
+			if (duration <= 0f) {
 				Position = CircularPosition(position, totalCount);
 				onComplete?.Invoke();
 				return;
@@ -293,10 +268,8 @@ namespace UnityEngine.UI.Extensions
 		/// 指定したインデックスの位置までジャンプします.
 		/// </summary>
 		/// <param name="index">アイテムのインデックス.</param>
-		public void JumpTo(int index)
-		{
-			if (index < 0 || index > totalCount - 1)
-			{
+		public void JumpTo(int index) {
+			if (index < 0 || index > totalCount - 1) {
 				throw new ArgumentOutOfRangeException(nameof(index));
 			}
 
@@ -311,8 +284,7 @@ namespace UnityEngine.UI.Extensions
 		/// <param name="sourceIndex">移動元のインデックス.</param>
 		/// <param name="destIndex">移動先のインデックス.</param>
 		/// <returns></returns>
-		public MovementDirection GetMovementDirection(int sourceIndex, int destIndex)
-		{
+		public MovementDirection GetMovementDirection(int sourceIndex, int destIndex) {
 			var movementAmount = CalculateMovementAmount(sourceIndex, destIndex);
 			return scrollDirection == ScrollDirection.Horizontal
 				? movementAmount > 0
@@ -324,10 +296,8 @@ namespace UnityEngine.UI.Extensions
 		}
 
 		/// <inheritdoc/>
-		void IPointerDownHandler.OnPointerDown(PointerEventData eventData)
-		{
-			if (!draggable || eventData.button != PointerEventData.InputButton.Left)
-			{
+		void IPointerDownHandler.OnPointerDown(PointerEventData eventData) {
+			if (!draggable || eventData.button != PointerEventData.InputButton.Left) {
 				return;
 			}
 
@@ -337,15 +307,12 @@ namespace UnityEngine.UI.Extensions
 		}
 
 		/// <inheritdoc/>
-		void IPointerUpHandler.OnPointerUp(PointerEventData eventData)
-		{
-			if (!draggable || eventData.button != PointerEventData.InputButton.Left)
-			{
+		void IPointerUpHandler.OnPointerUp(PointerEventData eventData) {
+			if (!draggable || eventData.button != PointerEventData.InputButton.Left) {
 				return;
 			}
 
-			if (hold && snap.Enable)
-			{
+			if (hold && snap.Enable) {
 				UpdateSelection(Mathf.RoundToInt(CircularPosition(currentPosition, totalCount)));
 				ScrollTo(Mathf.RoundToInt(currentPosition), snap.Duration, snap.Easing);
 			}
@@ -354,10 +321,8 @@ namespace UnityEngine.UI.Extensions
 		}
 
 		/// <inheritdoc/>
-		void IScrollHandler.OnScroll(PointerEventData eventData)
-		{
-			if (!draggable)
-			{
+		void IScrollHandler.OnScroll(PointerEventData eventData) {
+			if (!draggable) {
 				return;
 			}
 
@@ -373,19 +338,16 @@ namespace UnityEngine.UI.Extensions
 						? delta.x
 						: delta.y;
 
-			if (eventData.IsScrolling())
-			{
+			if (eventData.IsScrolling()) {
 				scrolling = true;
 			}
 
 			var position = currentPosition + scrollDelta / ViewportSize * scrollSensitivity;
-			if (movementType == MovementType.Clamped)
-			{
+			if (movementType == MovementType.Clamped) {
 				position += CalculateOffset(position);
 			}
 
-			if (autoScrollState.Enable)
-			{
+			if (autoScrollState.Enable) {
 				autoScrollState.Reset();
 			}
 
@@ -393,10 +355,8 @@ namespace UnityEngine.UI.Extensions
 		}
 
 		/// <inheritdoc/>
-		void IBeginDragHandler.OnBeginDrag(PointerEventData eventData)
-		{
-			if (!draggable || eventData.button != PointerEventData.InputButton.Left)
-			{
+		void IBeginDragHandler.OnBeginDrag(PointerEventData eventData) {
+			if (!draggable || eventData.button != PointerEventData.InputButton.Left) {
 				return;
 			}
 
@@ -413,10 +373,8 @@ namespace UnityEngine.UI.Extensions
 		}
 
 		/// <inheritdoc/>
-		void IDragHandler.OnDrag(PointerEventData eventData)
-		{
-			if (!draggable || eventData.button != PointerEventData.InputButton.Left || !dragging)
-			{
+		void IDragHandler.OnDrag(PointerEventData eventData) {
+			if (!draggable || eventData.button != PointerEventData.InputButton.Left || !dragging) {
 				return;
 			}
 
@@ -424,8 +382,7 @@ namespace UnityEngine.UI.Extensions
 				viewport,
 				eventData.position,
 				eventData.pressEventCamera,
-				out var dragPointerPosition))
-			{
+				out var dragPointerPosition)) {
 				return;
 			}
 
@@ -438,10 +395,8 @@ namespace UnityEngine.UI.Extensions
 			var offset = CalculateOffset(position);
 			position += offset;
 
-			if (movementType == MovementType.Elastic)
-			{
-				if (offset != 0f)
-				{
+			if (movementType == MovementType.Elastic) {
+				if (offset != 0f) {
 					position -= RubberDelta(offset, scrollSensitivity);
 				}
 			}
@@ -450,134 +405,105 @@ namespace UnityEngine.UI.Extensions
 		}
 
 		/// <inheritdoc/>
-		void IEndDragHandler.OnEndDrag(PointerEventData eventData)
-		{
-			if (!draggable || eventData.button != PointerEventData.InputButton.Left)
-			{
+		void IEndDragHandler.OnEndDrag(PointerEventData eventData) {
+			if (!draggable || eventData.button != PointerEventData.InputButton.Left) {
 				return;
 			}
 
 			dragging = false;
 		}
 
-		float CalculateOffset(float position)
-		{
-			if (movementType == MovementType.Unrestricted)
-			{
+		float CalculateOffset(float position) {
+			if (movementType == MovementType.Unrestricted) {
 				return 0f;
 			}
 
-			if (position < 0f)
-			{
+			if (position < 0f) {
 				return -position;
 			}
 
-			if (position > totalCount - 1)
-			{
+			if (position > totalCount - 1) {
 				return totalCount - 1 - position;
 			}
 
 			return 0f;
 		}
 
-		void UpdatePosition(float position, bool updateScrollbar = true)
-		{
+		void UpdatePosition(float position, bool updateScrollbar = true) {
 			onValueChanged?.Invoke(currentPosition = position);
 
-			if (scrollbar && updateScrollbar)
-			{
+			if (scrollbar && updateScrollbar) {
 				scrollbar.value = Mathf.Clamp01(position / Mathf.Max(totalCount - 1f, 1e-4f));
 			}
 		}
 
-		void UpdateSelection(int index)
-		{
+		void UpdateSelection(int index) {
 			onSelectionChanged?.Invoke(index);
 		}
 
-		float RubberDelta(float overStretching, float viewSize)
-		{
+		float RubberDelta(float overStretching, float viewSize) {
 			return (1 - 1 / (Mathf.Abs(overStretching) * 0.55f / viewSize + 1)) * viewSize * Mathf.Sign(overStretching);
 		}
 
-		void Update()
-		{
+		void Update() {
 			var deltaTime = Time.unscaledDeltaTime;
 			var offset = CalculateOffset(currentPosition);
 
-			if (autoScrollState.Enable)
-			{
+			if (autoScrollState.Enable) {
 				var position = 0f;
 
-				if (autoScrollState.Elastic)
-				{
+				if (autoScrollState.Elastic) {
 					position = Mathf.SmoothDamp(currentPosition, currentPosition + offset, ref velocity,
 						elasticity, Mathf.Infinity, deltaTime);
 
-					if (Mathf.Abs(velocity) < 0.01f)
-					{
+					if (Mathf.Abs(velocity) < 0.01f) {
 						position = Mathf.Clamp(Mathf.RoundToInt(position), 0, totalCount - 1);
 						velocity = 0f;
 						autoScrollState.Complete();
 					}
-				}
-				else
-				{
+				} else {
 					var alpha = Mathf.Clamp01((Time.unscaledTime - autoScrollState.StartTime) /
 											   Mathf.Max(autoScrollState.Duration, float.Epsilon));
 					position = Mathf.LerpUnclamped(scrollStartPosition, autoScrollState.EndPosition,
 						autoScrollState.EasingFunction(alpha));
 
-					if (Mathf.Approximately(alpha, 1f))
-					{
+					if (Mathf.Approximately(alpha, 1f)) {
 						autoScrollState.Complete();
 					}
 				}
 
 				UpdatePosition(position);
-			}
-			else if (!(dragging || scrolling) && (!Mathf.Approximately(offset, 0f) || !Mathf.Approximately(velocity, 0f)))
-			{
+			} else if (!(dragging || scrolling) && (!Mathf.Approximately(offset, 0f) || !Mathf.Approximately(velocity, 0f))) {
 				var position = currentPosition;
 
-				if (movementType == MovementType.Elastic && !Mathf.Approximately(offset, 0f))
-				{
+				if (movementType == MovementType.Elastic && !Mathf.Approximately(offset, 0f)) {
 					autoScrollState.Reset();
 					autoScrollState.Enable = true;
 					autoScrollState.Elastic = true;
 
 					UpdateSelection(Mathf.Clamp(Mathf.RoundToInt(position), 0, totalCount - 1));
-				}
-				else if (inertia)
-				{
+				} else if (inertia) {
 					velocity *= Mathf.Pow(decelerationRate, deltaTime);
 
-					if (Mathf.Abs(velocity) < 0.001f)
-					{
+					if (Mathf.Abs(velocity) < 0.001f) {
 						velocity = 0f;
 					}
 
 					position += velocity * deltaTime;
 
-					if (snap.Enable && Mathf.Abs(velocity) < snap.VelocityThreshold)
-					{
+					if (snap.Enable && Mathf.Abs(velocity) < snap.VelocityThreshold) {
 						ScrollTo(Mathf.RoundToInt(currentPosition), snap.Duration, snap.Easing);
 					}
-				}
-				else
-				{
+				} else {
 					velocity = 0f;
 				}
 
-				if (!Mathf.Approximately(velocity, 0f))
-				{
-					if (movementType == MovementType.Clamped)
-					{
+				if (!Mathf.Approximately(velocity, 0f)) {
+					if (movementType == MovementType.Clamped) {
 						offset = CalculateOffset(position);
 						position += offset;
 
-						if (Mathf.Approximately(position, 0f) || Mathf.Approximately(position, totalCount - 1f))
-						{
+						if (Mathf.Approximately(position, 0f) || Mathf.Approximately(position, totalCount - 1f)) {
 							velocity = 0f;
 							UpdateSelection(Mathf.RoundToInt(position));
 						}
@@ -587,8 +513,7 @@ namespace UnityEngine.UI.Extensions
 				}
 			}
 
-			if (!autoScrollState.Enable && (dragging || scrolling) && inertia)
-			{
+			if (!autoScrollState.Enable && (dragging || scrolling) && inertia) {
 				var newVelocity = (currentPosition - prevPosition) / deltaTime;
 				velocity = Mathf.Lerp(velocity, newVelocity, deltaTime * 10f);
 			}
@@ -597,25 +522,21 @@ namespace UnityEngine.UI.Extensions
 			scrolling = false;
 		}
 
-		float CalculateMovementAmount(float sourcePosition, float destPosition)
-		{
-			if (movementType != MovementType.Unrestricted)
-			{
+		float CalculateMovementAmount(float sourcePosition, float destPosition) {
+			if (movementType != MovementType.Unrestricted) {
 				return Mathf.Clamp(destPosition, 0, totalCount - 1) - sourcePosition;
 			}
 
 			var amount = CircularPosition(destPosition, totalCount) - CircularPosition(sourcePosition, totalCount);
 
-			if (Mathf.Abs(amount) > totalCount * 0.5f)
-			{
+			if (Mathf.Abs(amount) > totalCount * 0.5f) {
 				amount = Mathf.Sign(-amount) * (totalCount - Mathf.Abs(amount));
 			}
 
 			return amount;
 		}
 
-		float CircularPosition(float p, int size)
-		{
+		float CircularPosition(float p, int size) {
 			return size < 1 ? 0 : p < 0 ? size - 1 + (p + 1) % size : p % size;
 		}
 	}

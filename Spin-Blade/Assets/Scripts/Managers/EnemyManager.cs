@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyManager : MonoBehaviour
-{
+public class EnemyManager : MonoBehaviour {
 	public List<Enemy> enemies;
 	public GameObject enemyParent;
 
@@ -18,40 +17,33 @@ public class EnemyManager : MonoBehaviour
 
 	public static EnemyManager Instance { get; private set; }
 
-	private void Awake()
-	{
+	private void Awake() {
 		if (Instance == null) Instance = this; else Destroy(gameObject);
 	}
 
-	private void Start()
-	{
+	private void Start() {
 		difficulty *= DifficultyVariables.Instance.difficulty;
 
 		StartCoroutine(SpawnEnemyLoop());
 	}
 
-	IEnumerator SpawnEnemyLoop()
-	{
-		while (true)
-		{
+	IEnumerator SpawnEnemyLoop() {
+		while (true) {
 			SpawnRandomSpawnableEnemy();
 
 			yield return new WaitForSeconds(CalculateEnemySpawnRate(enemySpawnTimeSeconds));
 		}
 	}
 
-	float CalculateEnemySpawnRate(float spawnRate)
-	{
+	float CalculateEnemySpawnRate(float spawnRate) {
 		return spawnRate / difficulty;
 	}
 
-	public void SpawnRandomSpawnableEnemy()
-	{
+	public void SpawnRandomSpawnableEnemy() {
 		SpawnEnemy(GetRandomSpawnableEnemy());
 	}
 
-	public void SpawnEnemy(Enemy enemyPrefab)
-	{
+	public void SpawnEnemy(Enemy enemyPrefab) {
 		// Get a random angle (in radians)
 		float angle = Random.Range(0f, Mathf.PI * 2f);
 
@@ -61,12 +53,9 @@ public class EnemyManager : MonoBehaviour
 			transform.position.y + Mathf.Sin(angle) * enemySpawningRadius
 		);
 
-		if (enemyPrefab == null)
-		{
+		if (enemyPrefab == null) {
 			enemyPrefab = GetRandomSpawnableEnemy();
-		}
-		else
-		{
+		} else {
 			GameObject enemy = Instantiate(enemyPrefab.gameObject, spawnPos, Quaternion.identity);
 
 			enemy.transform.parent = enemyParent.transform;
@@ -74,23 +63,19 @@ public class EnemyManager : MonoBehaviour
 		}
 	}
 
-	public Enemy GetRandomSpawnableEnemy()
-	{
+	public Enemy GetRandomSpawnableEnemy() {
 		List<Enemy> spawnableEnemies = new();
-		foreach (Enemy enemy in enemies)
-		{
+		foreach (Enemy enemy in enemies) {
 			Enemy enemyScript = enemy.GetComponent<Enemy>();
 			float randomNum = Random.Range(0f, 1f);
 
 			bool canSpawnEnemy = enemy != null && randomNum <= enemyScript.spawnRate;
-			if (canSpawnEnemy)
-			{
+			if (canSpawnEnemy) {
 				spawnableEnemies.Add(enemy);
 			}
 		}
 
-		if (spawnableEnemies.Count <= 0)
-		{
+		if (spawnableEnemies.Count <= 0) {
 			Debug.LogWarning("No enemies available to spawn");
 			return null;
 		}
@@ -98,15 +83,13 @@ public class EnemyManager : MonoBehaviour
 		return spawnableEnemies[Random.Range(0, spawnableEnemies.Count)];
 	}
 
-	private void OnDrawGizmos()
-	{
+	private void OnDrawGizmos() {
 		// Enemy spawning circle
 		Gizmos.color = Color.red; // Circle color
 		Gizmos.DrawWireSphere(transform.position, enemySpawningRadius); // Draw the wireframe circle
 	}
 
-	public void IncreaseDifficulty(float increase)
-	{
+	public void IncreaseDifficulty(float increase) {
 		difficulty += increase;
 	}
 }

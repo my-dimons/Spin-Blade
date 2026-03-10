@@ -9,13 +9,11 @@
 using System.Collections.Generic;
 using UnityEngine.EventSystems;
 
-namespace UnityEngine.UI.Extensions
-{
+namespace UnityEngine.UI.Extensions {
 	public enum NavigationMode { Auto = 0, Manual = 1 };
 	[RequireComponent(typeof(EventSystem))]
 	[AddComponentMenu("Event/Extensions/Tab Navigation Helper")]
-	public class TabNavigationHelper : MonoBehaviour
-	{
+	public class TabNavigationHelper : MonoBehaviour {
 		private EventSystem _system;
 		private Selectable startingObject;
 		private Selectable lastObject;
@@ -30,38 +28,30 @@ namespace UnityEngine.UI.Extensions
 		public bool CircularNavigation;
 
 
-		void Start()
-		{
+		void Start() {
 			_system = GetComponent<EventSystem>();
-			if (_system == null)
-			{
+			if (_system == null) {
 				Debug.LogError("Needs to be attached to the Event System component in the scene");
 			}
-			if (NavigationMode == NavigationMode.Manual && NavigationPath.Length > 0)
-			{
+			if (NavigationMode == NavigationMode.Manual && NavigationPath.Length > 0) {
 				startingObject = NavigationPath[0].gameObject.GetComponent<Selectable>();
 			}
-			if (startingObject == null && CircularNavigation)
-			{
+			if (startingObject == null && CircularNavigation) {
 				SelectDefaultObject(out startingObject);
 			}
 		}
 
-		public void Update()
-		{
+		public void Update() {
 			Selectable next = null;
-			if (lastObject == null && _system.currentSelectedGameObject != null)
-			{
+			if (lastObject == null && _system.currentSelectedGameObject != null) {
 				var startingPoint = _system.currentSelectedGameObject.GetComponent<Selectable>();
 				var selectableItems = new Stack<Selectable>();
 				selectableItems.Push(startingPoint);
 
 				//Find the last selectable object
 				next = startingPoint.FindSelectableOnDown();
-				while (next != null)
-				{
-					if (selectableItems.Contains(next))
-					{
+				while (next != null) {
+					if (selectableItems.Contains(next)) {
 						lastObject = selectableItems.Pop();
 						selectableItems.Clear();
 						break;
@@ -72,92 +62,64 @@ namespace UnityEngine.UI.Extensions
 				}
 			}
 
-			if (UIExtensionsInputManager.GetKeyDown(KeyCode.Tab) && UIExtensionsInputManager.GetKey(KeyCode.LeftShift))
-			{
-				if (NavigationMode == NavigationMode.Manual && NavigationPath.Length > 0)
-				{
-					for (var i = NavigationPath.Length - 1; i >= 0; i--)
-					{
+			if (UIExtensionsInputManager.GetKeyDown(KeyCode.Tab) && UIExtensionsInputManager.GetKey(KeyCode.LeftShift)) {
+				if (NavigationMode == NavigationMode.Manual && NavigationPath.Length > 0) {
+					for (var i = NavigationPath.Length - 1; i >= 0; i--) {
 						if (_system.currentSelectedGameObject != NavigationPath[i].gameObject) continue;
 
 						next = i == 0 ? NavigationPath[NavigationPath.Length - 1] : NavigationPath[i - 1];
 
 						break;
 					}
-				}
-				else
-				{
-					if (_system.currentSelectedGameObject != null)
-					{
+				} else {
+					if (_system.currentSelectedGameObject != null) {
 						next = _system.currentSelectedGameObject.GetComponent<Selectable>().FindSelectableOnUp();
-						if (next == null && CircularNavigation)
-						{
+						if (next == null && CircularNavigation) {
 							next = lastObject;
 						}
-					}
-					else
-					{
+					} else {
 						SelectDefaultObject(out next);
 					}
 				}
-			}
-			else if (UIExtensionsInputManager.GetKeyDown(KeyCode.Tab))
-			{
-				if (NavigationMode == NavigationMode.Manual && NavigationPath.Length > 0)
-				{
-					for (var i = 0; i < NavigationPath.Length; i++)
-					{
+			} else if (UIExtensionsInputManager.GetKeyDown(KeyCode.Tab)) {
+				if (NavigationMode == NavigationMode.Manual && NavigationPath.Length > 0) {
+					for (var i = 0; i < NavigationPath.Length; i++) {
 						if (_system.currentSelectedGameObject != NavigationPath[i].gameObject) continue;
 
 						next = i == (NavigationPath.Length - 1) ? NavigationPath[0] : NavigationPath[i + 1];
 
 						break;
 					}
-				}
-				else
-				{
-					if (_system.currentSelectedGameObject != null)
-					{
+				} else {
+					if (_system.currentSelectedGameObject != null) {
 						next = _system.currentSelectedGameObject.GetComponent<Selectable>().FindSelectableOnDown();
-						if (next == null && CircularNavigation)
-						{
+						if (next == null && CircularNavigation) {
 							next = startingObject;
 						}
-					}
-					else
-					{
+					} else {
 						SelectDefaultObject(out next);
 					}
 				}
-			}
-			else if (_system.currentSelectedGameObject == null)
-			{
+			} else if (_system.currentSelectedGameObject == null) {
 				SelectDefaultObject(out next);
 			}
 
-			if (CircularNavigation && startingObject == null)
-			{
+			if (CircularNavigation && startingObject == null) {
 				startingObject = next;
 			}
 			selectGameObject(next);
 		}
 
-		private void SelectDefaultObject(out Selectable next)
-		{
-			if (_system.firstSelectedGameObject)
-			{
+		private void SelectDefaultObject(out Selectable next) {
+			if (_system.firstSelectedGameObject) {
 				next = _system.firstSelectedGameObject.GetComponent<Selectable>();
-			}
-			else
-			{
+			} else {
 				next = null;
 			}
 		}
 
-		private void selectGameObject(Selectable selectable)
-		{
-			if (selectable != null)
-			{
+		private void selectGameObject(Selectable selectable) {
+			if (selectable != null) {
 				InputField inputfield = selectable.GetComponent<InputField>();
 				if (inputfield != null) inputfield.OnPointerClick(new PointerEventData(_system));  //if it's an input field, also set the text caret
 

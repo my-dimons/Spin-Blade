@@ -1,12 +1,10 @@
 ﻿/// Credit ömer faruk sayılır
 /// Sourced from - https://bitbucket.org/snippets/Lordinarius/nrn4L
 
-namespace UnityEngine.UI.Extensions
-{
+namespace UnityEngine.UI.Extensions {
 	[ExecuteInEditMode, RequireComponent(typeof(Image))]
 	[AddComponentMenu("UI/Effects/Extensions/Shining Effect")]
-	public class ShineEffector : MonoBehaviour
-	{
+	public class ShineEffector : MonoBehaviour {
 
 		public ShineEffect effector;
 		[SerializeField, HideInInspector]
@@ -14,11 +12,9 @@ namespace UnityEngine.UI.Extensions
 		[Range(-1, 1)]
 		public float yOffset = -1;
 
-		public float YOffset
-		{
+		public float YOffset {
 			get => yOffset;
-			set
-			{
+			set {
 				ChangeVal(value);
 				yOffset = value;
 			}
@@ -27,10 +23,8 @@ namespace UnityEngine.UI.Extensions
 		[Range(0.1f, 1)]
 		public float width = 0.5f;
 		RectTransform effectorRect;
-		void OnEnable()
-		{
-			if (effector == null)
-			{
+		void OnEnable() {
+			if (effector == null) {
 				GameObject effectorobj = new GameObject("effector");
 
 				effectRoot = new GameObject("ShineEffect");
@@ -64,17 +58,13 @@ namespace UnityEngine.UI.Extensions
 			}
 		}
 
-		void OnValidate()
-		{
+		void OnValidate() {
 			effector.Yoffset = yOffset;
 			effector.Width = width;
 
-			if (yOffset <= -1 || yOffset >= 1)
-			{
+			if (yOffset <= -1 || yOffset >= 1) {
 				effectRoot.SetActive(false);
-			}
-			else if (!effectRoot.activeSelf)
-			{
+			} else if (!effectRoot.activeSelf) {
 				effectRoot.SetActive(true);
 			}
 			{
@@ -82,27 +72,19 @@ namespace UnityEngine.UI.Extensions
 			}
 		}
 
-		void ChangeVal(float value)
-		{
+		void ChangeVal(float value) {
 			effector.Yoffset = value;
-			if (value <= -1 || value >= 1)
-			{
+			if (value <= -1 || value >= 1) {
 				effectRoot.SetActive(false);
-			}
-			else if (!effectRoot.activeSelf)
-			{
+			} else if (!effectRoot.activeSelf) {
 				effectRoot.SetActive(true);
 			}
 		}
 
-		void OnDestroy()
-		{
-			if (!Application.isPlaying)
-			{
+		void OnDestroy() {
+			if (!Application.isPlaying) {
 				DestroyImmediate(effectRoot);
-			}
-			else
-			{
+			} else {
 				Destroy(effectRoot);
 			}
 		}

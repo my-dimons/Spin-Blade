@@ -3,10 +3,8 @@
 /// Sourced from - https://github.com/ryanslikesocool/Unity-Card-UI
 /// </summary>
 
-namespace UnityEngine.UI.Extensions
-{
-	public class CardExpanding2D : MonoBehaviour
-	{
+namespace UnityEngine.UI.Extensions {
+	public class CardExpanding2D : MonoBehaviour {
 
 		[SerializeField]
 		private float lerpSpeed = 8f;
@@ -33,8 +31,7 @@ namespace UnityEngine.UI.Extensions
 		///I wouldn't recommend changing animationActive's value here unless you want the card to start as a page.
 		private int animationActive = -1;
 
-		void Start()
-		{
+		void Start() {
 			rectTrans = GetComponent<RectTransform>();
 
 			///Setting up the button's starting color and page position.
@@ -51,24 +48,20 @@ namespace UnityEngine.UI.Extensions
 			pageMax = new Vector2(pageCenter.x + pageSize.x * 0.5f, pageCenter.y + pageSize.y * 0.5f);
 		}
 
-		void Update()
-		{
+		void Update() {
 			///When animationActive == 1, the card is expanding into a page.
-			if (animationActive == 1)
-			{
+			if (animationActive == 1) {
 				rectTrans.offsetMin = Vector2.Lerp(rectTrans.offsetMin, pageMin, Time.deltaTime * lerpSpeed);
 				rectTrans.offsetMax = Vector2.Lerp(rectTrans.offsetMax, pageMax, Time.deltaTime * lerpSpeed);
 
-				if (rectTrans.offsetMin.x < pageMin.x * 0.995f && rectTrans.offsetMin.y < pageMin.y * 0.995f && rectTrans.offsetMax.x > pageMax.x * 0.995f && rectTrans.offsetMax.y > pageMax.y * 0.995f)
-				{
+				if (rectTrans.offsetMin.x < pageMin.x * 0.995f && rectTrans.offsetMin.y < pageMin.y * 0.995f && rectTrans.offsetMax.x > pageMax.x * 0.995f && rectTrans.offsetMax.y > pageMax.y * 0.995f) {
 					rectTrans.offsetMin = pageMin;
 					rectTrans.offsetMax = pageMax;
 
 					///Changes the button color so it's visible in the page view.
 					buttonRect.GetComponent<Image>().color = Color32.Lerp(buttonRect.GetComponent<Image>().color, new Color32(228, 0, 0, 191), Time.deltaTime * lerpSpeed);
 
-					if (Mathf.Abs(buttonRect.GetComponent<Image>().color.a - 191) < 2)
-					{
+					if (Mathf.Abs(buttonRect.GetComponent<Image>().color.a - 191) < 2) {
 						buttonRect.GetComponent<Image>().color = new Color32(228, 0, 0, 191);
 
 						animationActive = 0;
@@ -76,16 +69,13 @@ namespace UnityEngine.UI.Extensions
 					}
 				}
 				///When animationActive == -1, the page is shrinking into a card.
-			}
-			else if (animationActive == -1)
-			{
+			} else if (animationActive == -1) {
 				buttonRect.GetComponent<Image>().color = Color32.Lerp(buttonRect.GetComponent<Image>().color, new Color32(228, 0, 0, 0), Time.deltaTime * lerpSpeed * 1.25f);
 
 				rectTrans.offsetMin = Vector2.Lerp(rectTrans.offsetMin, cardMin, Time.deltaTime * lerpSpeed);
 				rectTrans.offsetMax = Vector2.Lerp(rectTrans.offsetMax, cardMax, Time.deltaTime * lerpSpeed);
 
-				if (rectTrans.offsetMin.x > cardMin.x * 1.005f && rectTrans.offsetMin.y > cardMin.y * 1.005f && rectTrans.offsetMax.x < cardMax.x * 1.005f && rectTrans.offsetMax.y < cardMax.y * 1.005f)
-				{
+				if (rectTrans.offsetMin.x > cardMin.x * 1.005f && rectTrans.offsetMin.y > cardMin.y * 1.005f && rectTrans.offsetMax.x < cardMax.x * 1.005f && rectTrans.offsetMax.y < cardMax.y * 1.005f) {
 					rectTrans.offsetMin = cardMin;
 					rectTrans.offsetMax = cardMax;
 
@@ -99,20 +89,16 @@ namespace UnityEngine.UI.Extensions
 			}
 		}
 
-		public void ToggleCard()
-		{
+		public void ToggleCard() {
 			CardStack2D.canUseHorizontalAxis = false;
-			if (animationActive != 1)
-			{
+			if (animationActive != 1) {
 				animationActive = 1;
 				cardCenter = transform.localPosition;
 
 				///Makes the button the right size in page view.
 				buttonRect.offsetMin = closeButtonMin;
 				buttonRect.offsetMax = closeButtonMax;
-			}
-			else if (animationActive != -1)
-			{
+			} else if (animationActive != -1) {
 				animationActive = -1;
 			}
 		}

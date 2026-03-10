@@ -6,12 +6,10 @@
 using UnityEditor;
 using UnityEditor.UI;
 
-namespace UnityEngine.UI.Extensions
-{
+namespace UnityEngine.UI.Extensions {
 	[CustomEditor(typeof(RangeSlider), true)]
 	[CanEditMultipleObjects]
-	public class RangeSliderEditor : SelectableEditor
-	{
+	public class RangeSliderEditor : SelectableEditor {
 		SerializedProperty m_Direction;
 		SerializedProperty m_LowHandleRect;
 		SerializedProperty m_HighHandleRect;
@@ -31,8 +29,7 @@ namespace UnityEngine.UI.Extensions
 		SerializedProperty m_OnValueChanged;
 
 
-		protected override void OnEnable()
-		{
+		protected override void OnEnable() {
 			base.OnEnable();
 			m_LowHandleRect = serializedObject.FindProperty("m_LowHandleRect");
 			m_HighHandleRect = serializedObject.FindProperty("m_HighHandleRect");
@@ -51,8 +48,7 @@ namespace UnityEngine.UI.Extensions
 			m_OnValueChanged = serializedObject.FindProperty("m_OnValueChanged");
 		}
 
-		public override void OnInspectorGUI()
-		{
+		public override void OnInspectorGUI() {
 			base.OnInspectorGUI();
 			EditorGUILayout.Space();
 
@@ -65,15 +61,12 @@ namespace UnityEngine.UI.Extensions
 			EditorGUILayout.PropertyField(m_HighHandleRect);
 			EditorGUILayout.PropertyField(m_FillRect);
 
-			if (m_LowHandleRect.objectReferenceValue != null && m_HighHandleRect.objectReferenceValue != null)
-			{
+			if (m_LowHandleRect.objectReferenceValue != null && m_HighHandleRect.objectReferenceValue != null) {
 				EditorGUI.BeginChangeCheck();
 				EditorGUILayout.PropertyField(m_Direction);
-				if (EditorGUI.EndChangeCheck())
-				{
+				if (EditorGUI.EndChangeCheck()) {
 					RangeSlider.Direction direction = (RangeSlider.Direction)m_Direction.enumValueIndex;
-					foreach (var obj in serializedObject.targetObjects)
-					{
+					foreach (var obj in serializedObject.targetObjects) {
 						RangeSlider rangeSlider = obj as RangeSlider;
 						rangeSlider.SetDirection(direction, true);
 					}
@@ -121,9 +114,7 @@ namespace UnityEngine.UI.Extensions
 
 				EditorGUILayout.Space();
 				EditorGUILayout.PropertyField(m_OnValueChanged);
-			}
-			else
-			{
+			} else {
 				EditorGUILayout.HelpBox("Specify a RectTransform for the RangeSlider fill or the RangeSlider handles or both. Each must have a parent RectTransform that it can slide within.", MessageType.Info);
 			}
 

@@ -1,22 +1,16 @@
 ﻿/// Credit Simon (simonDarksideJ) Jackson
 /// Sourced from - My head
-namespace UnityEngine.UI.Extensions
-{
-	public static class UIExtensionMethods
-	{
-		public static Canvas GetParentCanvas(this RectTransform rt)
-		{
+namespace UnityEngine.UI.Extensions {
+	public static class UIExtensionMethods {
+		public static Canvas GetParentCanvas(this RectTransform rt) {
 			RectTransform parent = rt;
 			Canvas parentCanvas = rt.GetComponent<Canvas>();
 
 			int SearchIndex = 0;
-			while (parentCanvas == null || SearchIndex > 50)
-			{
+			while (parentCanvas == null || SearchIndex > 50) {
 				parentCanvas = rt.GetComponentInParent<Canvas>();
-				if (parentCanvas == null)
-				{
-					if (parent.parent == null)
-					{
+				if (parentCanvas == null) {
+					if (parent.parent == null) {
 						return null;
 					}
 					parent = parent.parent.GetComponent<RectTransform>();
@@ -26,27 +20,19 @@ namespace UnityEngine.UI.Extensions
 			return parentCanvas;
 		}
 
-		public static Vector2 TransformInputBasedOnCanvasType(this Vector2 input, Canvas canvas)
-		{
-			if (canvas.renderMode == RenderMode.ScreenSpaceOverlay)
-			{
+		public static Vector2 TransformInputBasedOnCanvasType(this Vector2 input, Canvas canvas) {
+			if (canvas.renderMode == RenderMode.ScreenSpaceOverlay) {
 				return canvas.GetEventCamera().ScreenToWorldPoint(input);
-			}
-			else
-			{
+			} else {
 				return input;
 			}
 		}
 
-		public static Vector3 TransformInputBasedOnCanvasType(this Vector2 input, RectTransform rt)
-		{
+		public static Vector3 TransformInputBasedOnCanvasType(this Vector2 input, RectTransform rt) {
 			var canvas = rt.GetParentCanvas();
-			if (input == Vector2.zero || canvas.renderMode == RenderMode.ScreenSpaceOverlay)
-			{
+			if (input == Vector2.zero || canvas.renderMode == RenderMode.ScreenSpaceOverlay) {
 				return input;
-			}
-			else
-			{
+			} else {
 				// Needs work :S
 				Vector2 movePos;
 
@@ -60,8 +46,7 @@ namespace UnityEngine.UI.Extensions
 			}
 		}
 
-		public static Camera GetEventCamera(this Canvas input)
-		{
+		public static Camera GetEventCamera(this Canvas input) {
 			return input.worldCamera == null ? Camera.main : input.worldCamera;
 
 		}

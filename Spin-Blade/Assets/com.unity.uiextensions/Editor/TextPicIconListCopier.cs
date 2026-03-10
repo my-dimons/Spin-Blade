@@ -26,14 +26,11 @@ using UnityEditor;
 #endif
 using System.Collections.Generic;
 
-namespace UnityEngine.UI.Extensions
-{
+namespace UnityEngine.UI.Extensions {
 
-	public class TextPicIconListCopier : EditorWindow
-	{
+	public class TextPicIconListCopier : EditorWindow {
 		[MenuItem("Window/UI/Extensions/TextPic Copy Icon Lists")]
-		protected static void ShowTextPicIconListCopier()
-		{
+		protected static void ShowTextPicIconListCopier() {
 			var wnd = GetWindow<TextPicIconListCopier>();
 			wnd.titleContent.text = "Copy Icons in TextPic";
 			wnd.Show();
@@ -42,36 +39,26 @@ namespace UnityEngine.UI.Extensions
 		private List<TextPic> textPicList = new List<TextPic>();
 
 #if UNITY_EDITOR
-		void OnSelectionChange()
-		{
-			if (Selection.objects.Length > 1)
-			{
+		void OnSelectionChange() {
+			if (Selection.objects.Length > 1) {
 				Debug.Log("Length? " + Selection.objects.Length);
 				textPicList.Clear();
 
-				foreach (Object o in Selection.objects)
-				{
-					if (o is GameObject)
-					{
+				foreach (Object o in Selection.objects) {
+					if (o is GameObject) {
 						TextPic tp = ((GameObject)o).GetComponent<TextPic>();
-						if (tp != null)
-						{
+						if (tp != null) {
 							textPicList.Add(tp);
 						}
 					}
 				}
-			}
-			else if (Selection.activeObject is GameObject)
-			{
+			} else if (Selection.activeObject is GameObject) {
 				textPicList.Clear();
 				TextPic tp = ((GameObject)Selection.activeObject).GetComponent<TextPic>();
-				if (tp != null)
-				{
+				if (tp != null) {
 					textPicList.Add(tp);
 				}
-			}
-			else
-			{
+			} else {
 				textPicList.Clear();
 			}
 
@@ -83,13 +70,10 @@ namespace UnityEngine.UI.Extensions
 
 		private TextPic textPic;
 
-		public void Copy()
-		{
+		public void Copy() {
 #if UNITY_EDITOR
-			foreach (TextPic tp in textPicList)
-			{
-				if (tp != null)
-				{
+			foreach (TextPic tp in textPicList) {
+				if (tp != null) {
 					tp.inspectorIconList = new TextPic.IconName[textPic.inspectorIconList.Length];
 					textPic.inspectorIconList.CopyTo(tp.inspectorIconList, 0);
 
@@ -101,8 +85,7 @@ namespace UnityEngine.UI.Extensions
 #endif
 		}
 
-		public void OnGUI()
-		{
+		public void OnGUI() {
 			GUILayout.Label("TextPic to copy icons", EditorStyles.boldLabel);
 			EditorGUILayout.Separator();
 			GUILayout.Label("TextPic", EditorStyles.boldLabel);
@@ -112,28 +95,22 @@ namespace UnityEngine.UI.Extensions
 			textPic = EditorGUILayout.ObjectField(textPic, typeof(TextPic), true) as TextPic;
 			EditorGUI.EndChangeCheck();
 
-			if (textPicList.Count > 0)
-			{
-				if (textPicList.Count == 1)
-				{
+			if (textPicList.Count > 0) {
+				if (textPicList.Count == 1) {
 					textPicList[0] = ((TextPic)EditorGUILayout.ObjectField(
 						textPicList[0],
 						typeof(TextPic),
 						true,
 						GUILayout.Width(columnWidth))
 						);
-				}
-				else
-				{
+				} else {
 					GUILayout.Label("Multiple TextPic: " + textPicList.Count, GUILayout.Width(columnWidth));
 				}
 
-				if (textPic != null)
-				{
+				if (textPic != null) {
 
 					EditorGUILayout.BeginHorizontal();
-					if (GUILayout.Button("Copy Icons"))
-					{
+					if (GUILayout.Button("Copy Icons")) {
 #if UNITY_EDITOR
 						Copy();
 #endif
@@ -143,9 +120,7 @@ namespace UnityEngine.UI.Extensions
 
 					EditorGUILayout.Separator();
 				}
-			}
-			else
-			{
+			} else {
 				GUILayout.Label("Please select objects that have a TextPic component", EditorStyles.boldLabel);
 			}
 		}

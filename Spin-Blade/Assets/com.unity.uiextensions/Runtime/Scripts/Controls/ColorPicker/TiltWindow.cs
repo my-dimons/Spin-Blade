@@ -3,10 +3,8 @@
 
 using UnityEngine.EventSystems;
 
-namespace UnityEngine.UI.Extensions
-{
-	public class TiltWindow : MonoBehaviour, IDragHandler
-	{
+namespace UnityEngine.UI.Extensions {
+	public class TiltWindow : MonoBehaviour, IDragHandler {
 		public Vector2 range = new Vector2(5f, 3f);
 
 		private Transform mTrans;
@@ -15,14 +13,12 @@ namespace UnityEngine.UI.Extensions
 		private Vector2 m_screenPos;
 
 
-		void Start()
-		{
+		void Start() {
 			mTrans = transform;
 			mStart = mTrans.localRotation;
 		}
 
-		void Update()
-		{
+		void Update() {
 			Vector3 pos = m_screenPos;
 
 			float halfWidth = Screen.width * 0.5f;
@@ -35,8 +31,7 @@ namespace UnityEngine.UI.Extensions
 		}
 
 
-		public void OnDrag(PointerEventData eventData)
-		{
+		public void OnDrag(PointerEventData eventData) {
 			m_screenPos = eventData.position;
 		}
 	}

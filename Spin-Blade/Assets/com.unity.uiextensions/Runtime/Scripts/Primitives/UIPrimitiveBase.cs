@@ -1,18 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace UnityEngine.UI.Extensions
-{
-	public enum ResolutionMode
-	{
+namespace UnityEngine.UI.Extensions {
+	public enum ResolutionMode {
 		None,
 		PerSegment,
 		PerLine
 	}
 
 	[RequireComponent(typeof(CanvasRenderer))]
-	public class UIPrimitiveBase : MaskableGraphic, ILayoutElement, ICanvasRaycastFilter
-	{
+	public class UIPrimitiveBase : MaskableGraphic, ILayoutElement, ICanvasRaycastFilter {
 		static protected Material s_ETC1DefaultUI = null;
 		List<Vector2> outputList = new List<Vector2>();
 
@@ -41,8 +38,7 @@ namespace UnityEngine.UI.Extensions
 		private bool m_useNativeSize;
 		public bool UseNativeSize { get => m_useNativeSize; set { m_useNativeSize = value; SetAllDirty(); } }
 
-		protected UIPrimitiveBase()
-		{
+		protected UIPrimitiveBase() {
 			useLegacyMeshGeneration = false;
 		}
 
@@ -50,10 +46,8 @@ namespace UnityEngine.UI.Extensions
 		/// Default material used to draw everything if no explicit material was specified.
 		/// </summary>
 
-		static public Material defaultETC1GraphicMaterial
-		{
-			get
-			{
+		static public Material defaultETC1GraphicMaterial {
+			get {
 				if (s_ETC1DefaultUI == null)
 					s_ETC1DefaultUI = Canvas.GetETC1SupportedCanvasMaterial();
 				return s_ETC1DefaultUI;
@@ -63,14 +57,10 @@ namespace UnityEngine.UI.Extensions
 		/// <summary>
 		/// Image's texture comes from the UnityEngine.Image.
 		/// </summary>
-		public override Texture mainTexture
-		{
-			get
-			{
-				if (activeSprite == null)
-				{
-					if (material != null && material.mainTexture != null)
-					{
+		public override Texture mainTexture {
+			get {
+				if (activeSprite == null) {
+					if (material != null && material.mainTexture != null) {
 						return material.mainTexture;
 					}
 					return s_WhiteTexture;
@@ -84,12 +74,9 @@ namespace UnityEngine.UI.Extensions
 		/// Whether the Image has a border to work with.
 		/// </summary>
 
-		public bool hasBorder
-		{
-			get
-			{
-				if (activeSprite != null)
-				{
+		public bool hasBorder {
+			get {
+				if (activeSprite != null) {
 					Vector4 v = activeSprite.border;
 					return v.sqrMagnitude > 0f;
 				}
@@ -97,10 +84,8 @@ namespace UnityEngine.UI.Extensions
 			}
 		}
 
-		public float pixelsPerUnit
-		{
-			get
-			{
+		public float pixelsPerUnit {
+			get {
 				float spritePixelsPerUnit = 100;
 				if (activeSprite)
 					spritePixelsPerUnit = activeSprite.pixelsPerUnit;
@@ -113,10 +98,8 @@ namespace UnityEngine.UI.Extensions
 			}
 		}
 
-		public override Material material
-		{
-			get
-			{
+		public override Material material {
+			get {
 				if (m_Material != null)
 					return m_Material;
 
@@ -130,11 +113,9 @@ namespace UnityEngine.UI.Extensions
 		}
 
 
-		protected UIVertex[] SetVbo(Vector2[] vertices, Vector2[] uvs)
-		{
+		protected UIVertex[] SetVbo(Vector2[] vertices, Vector2[] uvs) {
 			UIVertex[] vbo = new UIVertex[4];
-			for (int i = 0; i < vertices.Length; i++)
-			{
+			for (int i = 0; i < vertices.Length; i++) {
 				var vert = UIVertex.simpleVert;
 				vert.color = color;
 				vert.position = vertices[i];
@@ -144,35 +125,29 @@ namespace UnityEngine.UI.Extensions
 			return vbo;
 		}
 
-		protected Vector2[] IncreaseResolution(Vector2[] input)
-		{
+		protected Vector2[] IncreaseResolution(Vector2[] input) {
 			return IncreaseResolution(new List<Vector2>(input)).ToArray();
 		}
 
-		protected List<Vector2> IncreaseResolution(List<Vector2> input)
-		{
+		protected List<Vector2> IncreaseResolution(List<Vector2> input) {
 			outputList.Clear();
 
-			switch (ImproveResolution)
-			{
+			switch (ImproveResolution) {
 				case ResolutionMode.PerLine:
 					float totalDistance = 0, increments = 0;
-					for (int i = 0; i < input.Count - 1; i++)
-					{
+					for (int i = 0; i < input.Count - 1; i++) {
 						totalDistance += Vector2.Distance(input[i], input[i + 1]);
 					}
 					ResolutionToNativeSize(totalDistance);
 					increments = totalDistance / m_Resolution;
 					var incrementCount = 0;
-					for (int i = 0; i < input.Count - 1; i++)
-					{
+					for (int i = 0; i < input.Count - 1; i++) {
 						var p1 = input[i];
 						outputList.Add(p1);
 						var p2 = input[i + 1];
 						var segmentDistance = Vector2.Distance(p1, p2) / increments;
 						var incrementTime = 1f / segmentDistance;
-						for (int j = 0; j < segmentDistance; j++)
-						{
+						for (int j = 0; j < segmentDistance; j++) {
 							outputList.Add(Vector2.Lerp(p1, (Vector2)p2, j * incrementTime));
 							incrementCount++;
 						}
@@ -180,15 +155,13 @@ namespace UnityEngine.UI.Extensions
 					}
 					break;
 				case ResolutionMode.PerSegment:
-					for (int i = 0; i < input.Count - 1; i++)
-					{
+					for (int i = 0; i < input.Count - 1; i++) {
 						var p1 = input[i];
 						outputList.Add(p1);
 						var p2 = input[i + 1];
 						ResolutionToNativeSize(Vector2.Distance(p1, p2));
 						increments = 1f / m_Resolution;
-						for (Single j = 1; j < m_Resolution; j++)
-						{
+						for (Single j = 1; j < m_Resolution; j++) {
 							outputList.Add(Vector2.Lerp(p1, (Vector2)p2, increments * j));
 						}
 						outputList.Add(p2);
@@ -210,10 +183,8 @@ namespace UnityEngine.UI.Extensions
 
 		public virtual float minWidth => 0;
 
-		public virtual float preferredWidth
-		{
-			get
-			{
+		public virtual float preferredWidth {
+			get {
 				if (overrideSprite == null)
 					return 0;
 				return overrideSprite.rect.size.x / pixelsPerUnit;
@@ -224,10 +195,8 @@ namespace UnityEngine.UI.Extensions
 
 		public virtual float minHeight => 0;
 
-		public virtual float preferredHeight
-		{
-			get
-			{
+		public virtual float preferredHeight {
+			get {
 				if (overrideSprite == null)
 					return 0;
 				return overrideSprite.rect.size.y / pixelsPerUnit;
@@ -241,8 +210,7 @@ namespace UnityEngine.UI.Extensions
 		#endregion
 
 		#region ICanvasRaycastFilter Interface
-		public virtual bool IsRaycastLocationValid(Vector2 screenPoint, Camera eventCamera)
-		{
+		public virtual bool IsRaycastLocationValid(Vector2 screenPoint, Camera eventCamera) {
 			// add test for line check
 			if (m_EventAlphaThreshold >= 1)
 				return true;
@@ -272,12 +240,9 @@ namespace UnityEngine.UI.Extensions
 			float x = Mathf.Lerp(spriteRect.x, spriteRect.xMax, normalized.x) / sprite.texture.width;
 			float y = Mathf.Lerp(spriteRect.y, spriteRect.yMax, normalized.y) / sprite.texture.height;
 
-			try
-			{
+			try {
 				return sprite.texture.GetPixelBilinear(x, y).a >= m_EventAlphaThreshold;
-			}
-			catch (UnityException e)
-			{
+			} catch (UnityException e) {
 				Debug.LogError("Using clickAlphaThreshold lower than 1 on Image whose sprite texture cannot be read. " + e.Message + " Also make sure to disable sprite packing for this sprite.", this);
 				return true;
 			}
@@ -290,8 +255,7 @@ namespace UnityEngine.UI.Extensions
 		/// <param name="local"></param>
 		/// <param name="rect"></param>
 		/// <returns></returns>
-		private Vector2 MapCoordinate(Vector2 local, Rect rect)
-		{
+		private Vector2 MapCoordinate(Vector2 local, Rect rect) {
 			Rect spriteRect = sprite.rect;
 			//if (type == Type.Simple || type == Type.Filled)
 			return new Vector2(local.x * rect.width, local.y * rect.height);
@@ -328,15 +292,12 @@ namespace UnityEngine.UI.Extensions
 			//return local;
 		}
 
-		Vector4 GetAdjustedBorders(Vector4 border, Rect rect)
-		{
-			for (int axis = 0; axis <= 1; axis++)
-			{
+		Vector4 GetAdjustedBorders(Vector4 border, Rect rect) {
+			for (int axis = 0; axis <= 1; axis++) {
 				// If the rect is smaller than the combined borders, then there's not room for the borders at their normal size.
 				// In order to avoid artefact's with overlapping borders, we scale the borders down to fit.
 				float combinedBorders = border[axis] + border[axis + 2];
-				if (rect.size[axis] < combinedBorders && combinedBorders != 0)
-				{
+				if (rect.size[axis] < combinedBorders && combinedBorders != 0) {
 					float borderScaleRatio = rect.size[axis] / combinedBorders;
 					border[axis] *= borderScaleRatio;
 					border[axis + 2] *= borderScaleRatio;
@@ -348,8 +309,7 @@ namespace UnityEngine.UI.Extensions
 		#endregion
 
 		#region onEnable
-		protected override void OnEnable()
-		{
+		protected override void OnEnable() {
 			base.OnEnable();
 			SetAllDirty();
 		}

@@ -3,8 +3,7 @@ using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(SpriteRenderer))]
-public class DamageFlash : MonoBehaviour
-{
+public class DamageFlash : MonoBehaviour {
 	#region Datamembers
 
 	#region Editor Settings
@@ -38,8 +37,7 @@ public class DamageFlash : MonoBehaviour
 
 	#region Unity Callbacks
 
-	void Start()
-	{
+	void Start() {
 		ogColor = GetComponent<SpriteRenderer>().color;
 		// Get the SpriteRenderer to be used,
 		// alternatively you could set it from the inspector.
@@ -56,14 +54,12 @@ public class DamageFlash : MonoBehaviour
 
 	#endregion
 
-	public void Flash(Color color = default)
-	{
+	public void Flash(Color color = default) {
 		Debug.Log("Flashing");
 		if (color == default) color = Color.white;
 
 		// If the flashRoutine is not null, then it is currently running.
-		if (flashRoutine != null)
-		{
+		if (flashRoutine != null) {
 			// In this case, we should stop it first.
 			// Multiple FlashRoutines the same time would cause bugs.
 			GetComponent<SpriteRenderer>().color = ogColor;
@@ -74,8 +70,7 @@ public class DamageFlash : MonoBehaviour
 		flashRoutine = StartCoroutine(FlashRoutine(color));
 	}
 
-	private IEnumerator FlashRoutine(Color color)
-	{
+	private IEnumerator FlashRoutine(Color color) {
 		// Swap to the flashMaterial.
 		spriteRenderer.material = flashMaterial;
 

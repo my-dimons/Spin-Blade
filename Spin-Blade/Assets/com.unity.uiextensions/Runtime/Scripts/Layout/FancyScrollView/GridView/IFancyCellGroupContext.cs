@@ -3,13 +3,11 @@
 
 using System;
 
-namespace UnityEngine.UI.Extensions
-{
+namespace UnityEngine.UI.Extensions {
 	/// <summary>
 	/// <see cref="FancyCellGroup{TItemData, TContext}"/> のコンテキストインターフェース.
 	/// </summary>
-	public interface IFancyCellGroupContext
-	{
+	public interface IFancyCellGroupContext {
 		GameObject CellTemplate { get; set; }
 		Func<int> GetGroupCount { get; set; }
 	}

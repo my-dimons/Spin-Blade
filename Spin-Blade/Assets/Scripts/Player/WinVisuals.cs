@@ -1,8 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class WinVisuals : MonoBehaviour
-{
+public class WinVisuals : MonoBehaviour {
 	private SpriteRenderer spriteRenderer;
 	private Image imageRenderer;
 	private ParticleSystem winParticleSystem;
@@ -10,20 +9,17 @@ public class WinVisuals : MonoBehaviour
 	public Sprite[] fragmentSprites = new Sprite[4];
 
 	// Start is called once before the first execution of Update after the MonoBehaviour is created
-	void Start()
-	{
+	void Start() {
 		spriteRenderer = GetComponent<SpriteRenderer>();
 		imageRenderer = GetComponent<Image>();
 		winParticleSystem = GetComponent<ParticleSystem>();
 	}
 
-	private void Update()
-	{
+	private void Update() {
 		ShowFragments();
 	}
 
-	private void ShowFragments()
-	{
+	private void ShowFragments() {
 		Sprite winSprite = fragmentSprites[WinManager.winFragements];
 
 		if (spriteRenderer != null && spriteRenderer.sprite != winSprite)

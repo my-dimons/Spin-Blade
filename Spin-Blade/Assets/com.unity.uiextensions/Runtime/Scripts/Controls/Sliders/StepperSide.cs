@@ -3,8 +3,7 @@
 
 using UnityEngine.EventSystems;
 
-namespace UnityEngine.UI.Extensions
-{
+namespace UnityEngine.UI.Extensions {
 
 	[RequireComponent(typeof(Selectable))]
 	public class StepperSide :
@@ -13,8 +12,7 @@ namespace UnityEngine.UI.Extensions
 		ISubmitHandler,
 		IPointerEnterHandler, IPointerExitHandler,
 		IPointerDownHandler, IPointerUpHandler,
-		ISelectHandler, IDeselectHandler
-	{
+		ISelectHandler, IDeselectHandler {
 		Selectable button => GetComponent<Selectable>();
 
 		Stepper stepper => GetComponentInParent<Stepper>();
@@ -23,11 +21,9 @@ namespace UnityEngine.UI.Extensions
 
 		internal Sprite cutSprite;
 
-		protected StepperSide()
-		{ }
+		protected StepperSide() { }
 
-		public virtual void OnPointerClick(PointerEventData eventData)
-		{
+		public virtual void OnPointerClick(PointerEventData eventData) {
 			if (eventData.button != PointerEventData.InputButton.Left)
 				return;
 
@@ -35,59 +31,47 @@ namespace UnityEngine.UI.Extensions
 			AdjustSprite(false);
 		}
 
-		public virtual void OnSubmit(BaseEventData eventData)
-		{
+		public virtual void OnSubmit(BaseEventData eventData) {
 			Press();
 			AdjustSprite(true);
 		}
 
-		public virtual void OnPointerEnter(PointerEventData eventData)
-		{
+		public virtual void OnPointerEnter(PointerEventData eventData) {
 			AdjustSprite(false);
 		}
 
-		public virtual void OnPointerExit(PointerEventData eventData)
-		{
+		public virtual void OnPointerExit(PointerEventData eventData) {
 			AdjustSprite(true);
 		}
 
-		public virtual void OnPointerDown(PointerEventData eventData)
-		{
+		public virtual void OnPointerDown(PointerEventData eventData) {
 			AdjustSprite(false);
 		}
 
-		public virtual void OnPointerUp(PointerEventData eventData)
-		{
+		public virtual void OnPointerUp(PointerEventData eventData) {
 			AdjustSprite(false);
 		}
 
-		public virtual void OnSelect(BaseEventData eventData)
-		{
+		public virtual void OnSelect(BaseEventData eventData) {
 			AdjustSprite(false);
 		}
 
-		public virtual void OnDeselect(BaseEventData eventData)
-		{
+		public virtual void OnDeselect(BaseEventData eventData) {
 			AdjustSprite(true);
 		}
 
-		private void Press()
-		{
+		private void Press() {
 			if (!button.IsActive() || !button.IsInteractable())
 				return;
 
-			if (leftmost)
-			{
+			if (leftmost) {
 				stepper.StepDown();
-			}
-			else
-			{
+			} else {
 				stepper.StepUp();
 			}
 		}
 
-		private void AdjustSprite(bool restore)
-		{
+		private void AdjustSprite(bool restore) {
 			var image = button.image;
 			if (!image || image.overrideSprite == cutSprite)
 				return;

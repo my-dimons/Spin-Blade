@@ -4,10 +4,8 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public static class Utils
-{
-	public static void SpawnFloatingText(GameObject textPrefab, Vector3 position, string textValue, float upwardForce = 3f, float sidewaysMax = 0.3f, float torqueForce = 5f, float lifetime = 0.8f, float fadeDuration = 0.4f, Color color = default)
-	{
+public static class Utils {
+	public static void SpawnFloatingText(GameObject textPrefab, Vector3 position, string textValue, float upwardForce = 3f, float sidewaysMax = 0.3f, float torqueForce = 5f, float lifetime = 0.8f, float fadeDuration = 0.4f, Color color = default) {
 		if (textPrefab == null) return;
 
 		// Spawn prefab
@@ -15,19 +13,15 @@ public static class Utils
 
 		// Get text component
 		TextMeshPro tmp = textInstance.GetComponentInChildren<TextMeshPro>();
-		if (tmp != null)
-		{
+		if (tmp != null) {
 			tmp.text = textValue;
 			tmp.color = color;
-		}
-		else
-		{
+		} else {
 			Debug.LogWarning("Prefab does not contain a TextMeshPro component!");
 		}
 
 		// Add subtle sideways + upward force
-		if (textInstance.TryGetComponent<Rigidbody2D>(out var rb))
-		{
+		if (textInstance.TryGetComponent<Rigidbody2D>(out var rb)) {
 			float randomX = UnityEngine.Random.Range(-sidewaysMax, sidewaysMax); // much smaller sideways drift
 			Vector2 direction = new Vector2(randomX, 1f).normalized;
 
@@ -41,18 +35,15 @@ public static class Utils
 	}
 
 	// Fades text opacity and destroys the object
-	private static IEnumerator FadeAndDestroyText(TextMeshPro tmp, GameObject obj, float lifetime, float fadeDuration)
-	{
+	private static IEnumerator FadeAndDestroyText(TextMeshPro tmp, GameObject obj, float lifetime, float fadeDuration) {
 		// Wait before starting fade
 		yield return new WaitForSeconds(lifetime - fadeDuration);
 
-		if (tmp != null)
-		{
+		if (tmp != null) {
 			Color startColor = tmp.color;
 			float elapsed = 0f;
 
-			while (elapsed < fadeDuration)
-			{
+			while (elapsed < fadeDuration) {
 				float t = elapsed / fadeDuration;
 				tmp.color = new Color(startColor.r, startColor.g, startColor.b, Mathf.Lerp(1f, 0f, t));
 				elapsed += Time.deltaTime;
@@ -68,8 +59,7 @@ public static class Utils
 	/// </summary>
 	/// <param name="hex">The colors hex, make sure to add a #</param>
 	/// <returns>The color deriverd from the string hex</returns>
-	public static Color ColorFromHex(string hex)
-	{
+	public static Color ColorFromHex(string hex) {
 		ColorUtility.TryParseHtmlString(hex, out var color);
 		return color;
 	}
@@ -84,8 +74,7 @@ public static class Utils
 	/// 1 = full black, -1 = full white.
 	/// </param>
 	/// <returns>The adjusted color, with original alpha preserved.</returns>
-	public static Color AdjustColorBrightness(Color color, float amount)
-	{
+	public static Color AdjustColorBrightness(Color color, float amount) {
 		// Clamp amount to -1 -> 1 range
 		amount = Mathf.Clamp(amount, -1f, 1f);
 
@@ -105,8 +94,7 @@ public static class Utils
 	/// -1 = fully desaturated (gray), 0 = no change, 1 = maximum saturation boost.
 	/// </param>
 	/// <returns>The color with adjusted saturation, alpha preserved.</returns>
-	public static Color AdjustColorSaturation(Color color, float amount)
-	{
+	public static Color AdjustColorSaturation(Color color, float amount) {
 		// Clamp amount to -1..1
 		amount = Mathf.Clamp(amount, -1f, 1f);
 
@@ -114,28 +102,22 @@ public static class Utils
 		float gray = color.r * 0.299f + color.g * 0.587f + color.b * 0.114f;
 		Color grayscale = new(gray, gray, gray, color.a);
 
-		if (amount < 0f)
-		{
+		if (amount < 0f) {
 			// Desaturate towards grayscale
 			return Color.Lerp(color, grayscale, -amount);
-		}
-		else if (amount > 0f)
-		{
+		} else if (amount > 0f) {
 			// Saturate: push colors away from grayscale
 			// Simple formula: newColor = color + (color - gray) * amount
 			float r = Mathf.Clamp01(color.r + (color.r - gray) * amount);
 			float g = Mathf.Clamp01(color.g + (color.g - gray) * amount);
 			float b = Mathf.Clamp01(color.b + (color.b - gray) * amount);
 			return new Color(r, g, b, color.a);
-		}
-		else
-		{
+		} else {
 			return color; // No change
 		}
 	}
 
-	public static IEnumerator FadeObject(GameObject obj, float start = 0, float end = 1, float duration = 0.25f)
-	{
+	public static IEnumerator FadeObject(GameObject obj, float start = 0, float end = 1, float duration = 0.25f) {
 		if (obj == null) yield break;
 
 		// Try to get components that can change opacity
@@ -145,24 +127,18 @@ public static class Utils
 
 		float elapsed = 0f;
 
-		while (elapsed < duration)
-		{
+		while (elapsed < duration) {
 			float t = elapsed / duration;
 			float alpha = Mathf.Lerp(start, end, t);
 
 			// Apply alpha
-			if (canvasGroup != null)
-			{
+			if (canvasGroup != null) {
 				canvasGroup.alpha = alpha;
-			}
-			else if (image != null)
-			{
+			} else if (image != null) {
 				Color c = image.color;
 				c.a = alpha;
 				image.color = c;
-			}
-			else if (spriteRenderer != null)
-			{
+			} else if (spriteRenderer != null) {
 				Color c = spriteRenderer.color;
 				c.a = alpha;
 				spriteRenderer.color = c;
@@ -173,35 +149,27 @@ public static class Utils
 		}
 
 		// Ensure final value
-		if (canvasGroup != null)
-		{
+		if (canvasGroup != null) {
 			canvasGroup.alpha = end;
-		}
-		else if (image != null)
-		{
+		} else if (image != null) {
 			Color c = image.color;
 			c.a = end;
 			image.color = c;
-		}
-		else if (spriteRenderer != null)
-		{
+		} else if (spriteRenderer != null) {
 			Color c = spriteRenderer.color;
 			c.a = end;
 			spriteRenderer.color = c;
 		}
 	}
 
-	public static IEnumerator EnableObjectDelay(GameObject obj, bool enable, float time)
-	{
+	public static IEnumerator EnableObjectDelay(GameObject obj, bool enable, float time) {
 		yield return new WaitForSecondsRealtime(time);
 		obj.SetActive(enable);
 	}
-	public static IEnumerator AnimateValue(float start, float end, float duration, AnimationCurve curve, Action<float> onValueChanged, bool useRealtime = false)
-	{
+	public static IEnumerator AnimateValue(float start, float end, float duration, AnimationCurve curve, Action<float> onValueChanged, bool useRealtime = false) {
 		float elapsed = 0f;
 
-		while (elapsed < duration)
-		{
+		while (elapsed < duration) {
 			// Choose between game time and real time
 			elapsed += useRealtime ? Time.unscaledDeltaTime : Time.deltaTime;
 
@@ -225,10 +193,8 @@ public static class Utils
 	}
 
 	// Creates a runner for coroutines (if one doesn't already exist)
-	private static MonoBehaviour GetRunner()
-	{
-		if (_runner == null)
-		{
+	private static MonoBehaviour GetRunner() {
+		if (_runner == null) {
 			GameObject runnerGO = new("TextUtilityRunner");
 			UnityEngine.Object.DontDestroyOnLoad(runnerGO);
 			_runner = runnerGO.AddComponent<CoroutineRunner>();

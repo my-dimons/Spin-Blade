@@ -1,8 +1,7 @@
 ﻿/// Credit setchi (https://github.com/setchi)
 /// Sourced from - https://github.com/setchi/FancyScrollView
 
-namespace UnityEngine.UI.Extensions
-{
+namespace UnityEngine.UI.Extensions {
 	/// <summary>
 	/// <see cref="FancyScrollRect{TItemData, TContext}"/> のセルを実装するための抽象基底クラス.
 	/// <see cref="FancyCell{TItemData, TContext}.Context"/> が不要な場合は
@@ -11,11 +10,9 @@ namespace UnityEngine.UI.Extensions
 	/// <typeparam name="TItemData">アイテムのデータ型.</typeparam>
 	/// <typeparam name="TContext"><see cref="FancyCell{TItemData, TContext}.Context"/> の型.</typeparam>
 	public abstract class FancyScrollRectCell<TItemData, TContext> : FancyCell<TItemData, TContext>
-		where TContext : class, IFancyScrollRectContext, new()
-	{
+		where TContext : class, IFancyScrollRectContext, new() {
 		/// <inheritdoc/>
-		public override void UpdatePosition(float position)
-		{
+		public override void UpdatePosition(float position) {
 			var (scrollSize, reuseMargin) = Context.CalculateScrollSize();
 
 			var normalizedPosition = (Mathf.Lerp(0f, scrollSize, position) - reuseMargin) / (scrollSize - reuseMargin * 2f);
@@ -35,8 +32,7 @@ namespace UnityEngine.UI.Extensions
 		///  <c>0.0</c> ~ <c>1.0</c> の範囲を超えた値が渡されることがあります.
 		/// </param>
 		/// <param name="localPosition">ローカル位置.</param>
-		protected virtual void UpdatePosition(float normalizedPosition, float localPosition)
-		{
+		protected virtual void UpdatePosition(float normalizedPosition, float localPosition) {
 			transform.localPosition = Context.ScrollDirection == ScrollDirection.Horizontal
 				? new Vector2(-localPosition, 0)
 				: new Vector2(0, localPosition);
@@ -48,11 +44,9 @@ namespace UnityEngine.UI.Extensions
 	/// </summary>
 	/// <typeparam name="TItemData">アイテムのデータ型.</typeparam>
 	/// <seealso cref="FancyScrollRectCell{TItemData, TContext}"/>
-	public abstract class FancyScrollRectCell<TItemData> : FancyScrollRectCell<TItemData, FancyScrollRectContext>
-	{
+	public abstract class FancyScrollRectCell<TItemData> : FancyScrollRectCell<TItemData, FancyScrollRectContext> {
 		/// <inheritdoc/>
-		public sealed override void SetContext(FancyScrollRectContext context)
-		{
+		public sealed override void SetContext(FancyScrollRectContext context) {
 			base.SetContext(context);
 		}
 	}

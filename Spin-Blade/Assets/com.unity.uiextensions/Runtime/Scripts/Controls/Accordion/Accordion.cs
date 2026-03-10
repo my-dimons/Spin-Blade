@@ -2,18 +2,15 @@
 ///Sourced from - http://forum.unity3d.com/threads/accordion-type-layout.271818/
 
 
-namespace UnityEngine.UI.Extensions
-{
+namespace UnityEngine.UI.Extensions {
 	[RequireComponent(typeof(HorizontalOrVerticalLayoutGroup), typeof(ContentSizeFitter), typeof(ToggleGroup))]
 	[AddComponentMenu("UI/Extensions/Accordion/Accordion Group")]
-	public class Accordion : MonoBehaviour
-	{
+	public class Accordion : MonoBehaviour {
 		private bool m_expandVertical = true;
 		[HideInInspector]
 		public bool ExpandVerticval => m_expandVertical;
 
-		public enum Transition
-		{
+		public enum Transition {
 			Instant,
 			Tween
 		}
@@ -25,8 +22,7 @@ namespace UnityEngine.UI.Extensions
 		/// Gets or sets the transition.
 		/// </summary>
 		/// <value>The transition.</value>
-		public Transition transition
-		{
+		public Transition transition {
 			get => this.m_Transition; set => this.m_Transition = value;
 		}
 
@@ -34,23 +30,19 @@ namespace UnityEngine.UI.Extensions
 		/// Gets or sets the duration of the transition.
 		/// </summary>
 		/// <value>The duration of the transition.</value>
-		public float transitionDuration
-		{
+		public float transitionDuration {
 			get => this.m_TransitionDuration; set => this.m_TransitionDuration = value;
 		}
 
-		private void Awake()
-		{
+		private void Awake() {
 			m_expandVertical = GetComponent<HorizontalLayoutGroup>() ? false : true;
 			var group = GetComponent<ToggleGroup>();
 		}
 
 #if UNITY_EDITOR
 
-		private void OnValidate()
-		{
-			if (!GetComponent<HorizontalLayoutGroup>() && !GetComponent<VerticalLayoutGroup>())
-			{
+		private void OnValidate() {
+			if (!GetComponent<HorizontalLayoutGroup>() && !GetComponent<VerticalLayoutGroup>()) {
 				Debug.LogError("Accordion requires either a Horizontal or Vertical Layout group to place children");
 			}
 		}

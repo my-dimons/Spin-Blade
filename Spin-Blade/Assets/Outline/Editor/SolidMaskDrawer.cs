@@ -2,13 +2,10 @@ using UnityEditor;
 using UnityEngine;
 
 //  OutlineFx © NullTale - https://x.com/NullTale/
-namespace OutlineFx.Editor
-{
+namespace OutlineFx.Editor {
 	[CustomPropertyDrawer(typeof(OutlineFxFeature.SolidMask))]
-	public class SolidMaskDrawer : PropertyDrawer
-	{
-		public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
-		{
+	public class SolidMaskDrawer : PropertyDrawer {
+		public override float GetPropertyHeight(SerializedProperty property, GUIContent label) {
 			var lines = 3;
 
 			if (property.isExpanded == false)
@@ -17,8 +14,7 @@ namespace OutlineFx.Editor
 			return lines * EditorGUIUtility.singleLineHeight;
 		}
 
-		public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
-		{
+		public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
 			var enabled = property.FindPropertyRelative(nameof(OutlineFxFeature.SolidMask._enabled));
 			var pattern = property.FindPropertyRelative(nameof(OutlineFxFeature.SolidMask._pattern));
 			var scale = property.FindPropertyRelative(nameof(OutlineFxFeature.SolidMask._scale));
@@ -31,16 +27,14 @@ namespace OutlineFx.Editor
 			if (property.isExpanded == false)
 				return;
 			EditorGUI.indentLevel++;
-			using (new EditorGUI.DisabledGroupScope(!enabled.boolValue))
-			{
+			using (new EditorGUI.DisabledGroupScope(!enabled.boolValue)) {
 				EditorGUI.PropertyField(_fieldRect(line++), scale, true);
 				EditorGUI.PropertyField(_fieldRect(line++), velocity, true);
 			}
 			EditorGUI.indentLevel--;
 
 			// -----------------------------------------------------------------------
-			Rect _fieldRect(int line)
-			{
+			Rect _fieldRect(int line) {
 				return new Rect(position.x, position.y + line * EditorGUIUtility.singleLineHeight, position.width, EditorGUIUtility.singleLineHeight);
 			}
 		}

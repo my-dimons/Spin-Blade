@@ -8,8 +8,7 @@ using System.Text.RegularExpressions;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
-namespace UnityEngine.UI.Extensions
-{
+namespace UnityEngine.UI.Extensions {
 	// Image according to the label inside the name attribute to load, read from the Resources directory. The size of the image is controlled by the size property.
 
 	// Use: Add Icon name and sprite to the icons list
@@ -25,8 +24,7 @@ namespace UnityEngine.UI.Extensions
 	{
 		// Icon entry to replace text with
 		[Serializable]
-		public struct IconName
-		{
+		public struct IconName {
 			public string name;
 			public Sprite sprite;
 			public Vector2 offset;
@@ -55,8 +53,7 @@ namespace UnityEngine.UI.Extensions
 		/// <summary>
 		/// Hyperlink Click Event
 		/// </summary>
-		public HrefClickEvent onHrefClick
-		{
+		public HrefClickEvent onHrefClick {
 			get => m_OnHrefClick; set => m_OnHrefClick = value;
 		}
 
@@ -105,8 +102,7 @@ namespace UnityEngine.UI.Extensions
 		// Used for custom selection as a variable for other scripts
 		private bool selected = false;
 
-		public bool Selected
-		{
+		public bool Selected {
 			get => selected; set => selected = value;
 		}
 
@@ -120,8 +116,7 @@ namespace UnityEngine.UI.Extensions
 		/// Hyperlinks Info
 		/// </summary>
 		[Serializable]
-		public class HrefInfo
-		{
+		public class HrefInfo {
 			public int startIndex;
 
 			public int endIndex;
@@ -201,14 +196,12 @@ namespace UnityEngine.UI.Extensions
 
 		/// METHODS ///
 
-		public void ResetIconList()
-		{
+		public void ResetIconList() {
 			Reset_m_HrefInfos();
 			base.Start();
 		}
 
-		protected void UpdateQuadImage()
-		{
+		protected void UpdateQuadImage() {
 #if UNITY_EDITOR && !UNITY_2018_3_OR_NEWER
             if (UnityEditor.PrefabUtility.GetPrefabType(this) == UnityEditor.PrefabType.Prefab) {
                 return;
@@ -218,19 +211,15 @@ namespace UnityEngine.UI.Extensions
 
 			matches = s_Regex.Matches(m_OutputText);
 
-			if (matches != null && matches.Count > 0)
-			{
-				for (int i = 0; i < matches.Count; i++)
-				{
+			if (matches != null && matches.Count > 0) {
+				for (int i = 0; i < matches.Count; i++) {
 					m_ImagesPool.RemoveAll(image => image == null);
 
-					if (m_ImagesPool.Count == 0)
-					{
+					if (m_ImagesPool.Count == 0) {
 						GetComponentsInChildren<Image>(true, m_ImagesPool);
 					}
 
-					if (matches.Count > m_ImagesPool.Count)
-					{
+					if (matches.Count > m_ImagesPool.Count) {
 						DefaultControls.Resources resources = new DefaultControls.Resources();
 						GameObject go = DefaultControls.CreateImage(resources);
 
@@ -238,8 +227,7 @@ namespace UnityEngine.UI.Extensions
 
 						RectTransform rt = go.transform as RectTransform;
 
-						if (rt)
-						{
+						if (rt) {
 							rt.SetParent(rectTransform);
 							rt.anchoredPosition3D = Vector3.zero;
 							rt.localRotation = Quaternion.identity;
@@ -255,14 +243,10 @@ namespace UnityEngine.UI.Extensions
 
 					Vector2 imgoffset = Vector2.zero;
 
-					if (img.sprite == null || img.sprite.name != spriteName)
-					{
-						if (inspectorIconList != null && inspectorIconList.Length > 0)
-						{
-							for (int s = 0; s < inspectorIconList.Length; s++)
-							{
-								if (inspectorIconList[s].name == spriteName)
-								{
+					if (img.sprite == null || img.sprite.name != spriteName) {
+						if (inspectorIconList != null && inspectorIconList.Length > 0) {
+							for (int s = 0; s < inspectorIconList.Length; s++) {
+								if (inspectorIconList[s].name == spriteName) {
 									img.sprite = inspectorIconList[s].sprite;
 									img.preserveAspect = true;
 									img.rectTransform.sizeDelta = new Vector2(fontSize * ImageScalingFactor * inspectorIconList[s].scale.x,
@@ -277,21 +261,15 @@ namespace UnityEngine.UI.Extensions
 
 					img.enabled = true;
 
-					if (positions.Count > 0 && i < positions.Count)
-					{
+					if (positions.Count > 0 && i < positions.Count) {
 						img.rectTransform.anchoredPosition = positions[i] += imgoffset;
 					}
 				}
-			}
-			else
-			{
+			} else {
 				// If there are no matches, remove the images from the pool
-				for (int i = m_ImagesPool.Count - 1; i > 0; i--)
-				{
-					if (m_ImagesPool[i])
-					{
-						if (!culled_ImagesPool.Contains(m_ImagesPool[i].gameObject))
-						{
+				for (int i = m_ImagesPool.Count - 1; i > 0; i--) {
+					if (m_ImagesPool[i]) {
+						if (!culled_ImagesPool.Contains(m_ImagesPool[i].gameObject)) {
 							culled_ImagesPool.Add(m_ImagesPool[i].gameObject);
 							m_ImagesPool.Remove(m_ImagesPool[i]);
 						}
@@ -300,14 +278,10 @@ namespace UnityEngine.UI.Extensions
 			}
 
 			// Remove any images that are not being used
-			for (int i = m_ImagesPool.Count - 1; i >= matches.Count; i--)
-			{
-				if (i >= 0 && m_ImagesPool.Count > 0)
-				{
-					if (m_ImagesPool[i])
-					{
-						if (!culled_ImagesPool.Contains(m_ImagesPool[i].gameObject))
-						{
+			for (int i = m_ImagesPool.Count - 1; i >= matches.Count; i--) {
+				if (i >= 0 && m_ImagesPool.Count > 0) {
+					if (m_ImagesPool[i]) {
+						if (!culled_ImagesPool.Contains(m_ImagesPool[i].gameObject)) {
 							culled_ImagesPool.Add(m_ImagesPool[i].gameObject);
 							m_ImagesPool.Remove(m_ImagesPool[i]);
 						}
@@ -316,15 +290,13 @@ namespace UnityEngine.UI.Extensions
 			}
 
 			// Clear the images when it is safe to do so
-			if (culled_ImagesPool.Count > 0)
-			{
+			if (culled_ImagesPool.Count > 0) {
 				clearImages = true;
 			}
 		}
 
 		// Reseting m_HrefInfos array if there is any change in text
-		void Reset_m_HrefInfos()
-		{
+		void Reset_m_HrefInfos() {
 			previousText = text;
 
 			m_HrefInfos.Clear();
@@ -336,20 +308,16 @@ namespace UnityEngine.UI.Extensions
 		/// Finally, the output text hyperlinks get parsed
 		/// </summary>
 		/// <returns></returns>
-		protected string GetOutputText()
-		{
+		protected string GetOutputText() {
 			s_TextBuilder.Length = 0;
 
 			indexText = 0;
 
 			fixedString = this.text;
 
-			if (inspectorIconList != null && inspectorIconList.Length > 0)
-			{
-				for (int i = 0; i < inspectorIconList.Length; i++)
-				{
-					if (!string.IsNullOrEmpty(inspectorIconList[i].name))
-					{
+			if (inspectorIconList != null && inspectorIconList.Length > 0) {
+				for (int i = 0; i < inspectorIconList.Length; i++) {
+					if (!string.IsNullOrEmpty(inspectorIconList[i].name)) {
 						fixedString = fixedString.Replace(inspectorIconList[i].name,
 														"<quad name=" + inspectorIconList[i].name + " size=" + fontSize + " width=1 />");
 					}
@@ -360,19 +328,15 @@ namespace UnityEngine.UI.Extensions
 
 			href_matches = s_HrefRegex.Matches(fixedString);
 
-			if (href_matches != null && href_matches.Count > 0)
-			{
-				for (int i = 0; i < href_matches.Count; i++)
-				{
+			if (href_matches != null && href_matches.Count > 0) {
+				for (int i = 0; i < href_matches.Count; i++) {
 					s_TextBuilder.Append(fixedString.Substring(indexText, href_matches[i].Index - indexText));
 					s_TextBuilder.Append("<color=" + hyperlinkColor + ">");  // Hyperlink color
 
 					var group = href_matches[i].Groups[1];
 
-					if (isCreating_m_HrefInfos)
-					{
-						HrefInfo hrefInfo = new HrefInfo
-						{
+					if (isCreating_m_HrefInfos) {
+						HrefInfo hrefInfo = new HrefInfo {
 							// Hyperlinks in text starting index
 							startIndex = (usesNewRendering ? s_TextBuilder.Length : s_TextBuilder.Length * 4),
 							endIndex = (usesNewRendering ? (s_TextBuilder.Length + href_matches[i].Groups[2].Length - 1) : (s_TextBuilder.Length + href_matches[i].Groups[2].Length - 1) * 4 + 3),
@@ -380,11 +344,8 @@ namespace UnityEngine.UI.Extensions
 						};
 
 						m_HrefInfos.Add(hrefInfo);
-					}
-					else
-					{
-						if (count <= m_HrefInfos.Count - 1)
-						{
+					} else {
+						if (count <= m_HrefInfos.Count - 1) {
 							// Hyperlinks in text starting index
 							m_HrefInfos[count].startIndex = (usesNewRendering ? s_TextBuilder.Length : s_TextBuilder.Length * 4);
 							m_HrefInfos[count].endIndex = (usesNewRendering ? (s_TextBuilder.Length + href_matches[i].Groups[2].Length - 1) : (s_TextBuilder.Length + href_matches[i].Groups[2].Length - 1) * 4 + 3);
@@ -417,36 +378,29 @@ namespace UnityEngine.UI.Extensions
 
 			indexes.Clear();
 
-			for (int r = 0; r < matches.Count; r++)
-			{
+			for (int r = 0; r < matches.Count; r++) {
 				indexes.Add(matches[r].Index);
 			}
 #endif
 
 
-			if (matches != null && matches.Count > 0)
-			{
-				for (int i = 0; i < matches.Count; i++)
-				{
+			if (matches != null && matches.Count > 0) {
+				for (int i = 0; i < matches.Count; i++) {
 					picIndex = matches[i].Index;
 
 #if UNITY_2019_1_OR_NEWER
-					if (usesNewRendering)
-					{
+					if (usesNewRendering) {
 						charactersRemoved = 0;
 
 						removeCharacters = remove_Regex.Matches(m_OutputText);
 
-						for (int r = 0; r < removeCharacters.Count; r++)
-						{
-							if (removeCharacters[r].Index < picIndex && !indexes.Contains(removeCharacters[r].Index))
-							{
+						for (int r = 0; r < removeCharacters.Count; r++) {
+							if (removeCharacters[r].Index < picIndex && !indexes.Contains(removeCharacters[r].Index)) {
 								charactersRemoved += removeCharacters[r].Length;
 							}
 						}
 
-						for (int r = 0; r < i; r++)
-						{
+						for (int r = 0; r < i; r++) {
 							charactersRemoved += (matches[r].Length - 1);
 						}
 
@@ -461,34 +415,24 @@ namespace UnityEngine.UI.Extensions
 			}
 
 #if UNITY_2019_1_OR_NEWER
-			if (usesNewRendering)
-			{
-				if (m_HrefInfos != null && m_HrefInfos.Count > 0)
-				{
-					for (int i = 0; i < m_HrefInfos.Count; i++)
-					{
+			if (usesNewRendering) {
+				if (m_HrefInfos != null && m_HrefInfos.Count > 0) {
+					for (int i = 0; i < m_HrefInfos.Count; i++) {
 						startCharactersRemoved = 0;
 						endCharactersRemoved = 0;
 
 						removeCharacters = remove_Regex.Matches(m_OutputText);
 
-						for (int r = 0; r < removeCharacters.Count; r++)
-						{
-							if (removeCharacters[r].Index < m_HrefInfos[i].startIndex && !indexes.Contains(removeCharacters[r].Index))
-							{
+						for (int r = 0; r < removeCharacters.Count; r++) {
+							if (removeCharacters[r].Index < m_HrefInfos[i].startIndex && !indexes.Contains(removeCharacters[r].Index)) {
 								startCharactersRemoved += removeCharacters[r].Length;
-							}
-							else if (removeCharacters[r].Index < m_HrefInfos[i].startIndex && indexes.Contains(removeCharacters[r].Index))
-							{
+							} else if (removeCharacters[r].Index < m_HrefInfos[i].startIndex && indexes.Contains(removeCharacters[r].Index)) {
 								startCharactersRemoved += removeCharacters[r].Length - 1;
 							}
 
-							if (removeCharacters[r].Index < m_HrefInfos[i].endIndex && !indexes.Contains(removeCharacters[r].Index))
-							{
+							if (removeCharacters[r].Index < m_HrefInfos[i].endIndex && !indexes.Contains(removeCharacters[r].Index)) {
 								endCharactersRemoved += removeCharacters[r].Length;
-							}
-							else if (removeCharacters[r].Index < m_HrefInfos[i].endIndex && indexes.Contains(removeCharacters[r].Index))
-							{
+							} else if (removeCharacters[r].Index < m_HrefInfos[i].endIndex && indexes.Contains(removeCharacters[r].Index)) {
 								endCharactersRemoved += removeCharacters[r].Length - 1;
 							}
 						}
@@ -509,8 +453,7 @@ namespace UnityEngine.UI.Extensions
 		}
 
 		// Process href links to open them as a url, can override this function for custom functionality
-		public virtual void OnHrefClick(string hrefName)
-		{
+		public virtual void OnHrefClick(string hrefName) {
 			Application.OpenURL(hrefName);
 
 			// Debug.Log(hrefName);
@@ -519,8 +462,7 @@ namespace UnityEngine.UI.Extensions
 
 		/// UNITY METHODS ///
 
-		protected override void OnPopulateMesh(VertexHelper toFill)
-		{
+		protected override void OnPopulateMesh(VertexHelper toFill) {
 #if UNITY_2022_1_OR_NEWER
 			originalText = text;
 			text = GetOutputText();
@@ -541,12 +483,10 @@ namespace UnityEngine.UI.Extensions
 
 			vert = new UIVertex();
 
-			for (int i = 0; i < m_ImagesVertexIndex.Count; i++)
-			{
+			for (int i = 0; i < m_ImagesVertexIndex.Count; i++) {
 				int endIndex = m_ImagesVertexIndex[i];
 
-				if (endIndex < toFill.currentVertCount)
-				{
+				if (endIndex < toFill.currentVertCount) {
 					toFill.PopulateUIVertex(ref vert, endIndex);
 
 					positions.Add(new Vector2((vert.position.x + fontSize / 2), (vert.position.y + fontSize / 2)) + imageOffset);
@@ -556,8 +496,7 @@ namespace UnityEngine.UI.Extensions
 
 					Vector3 pos = vert.position;
 
-					for (int j = endIndex, m = endIndex - 3; j > m; j--)
-					{
+					for (int j = endIndex, m = endIndex - 3; j > m; j--) {
 						toFill.PopulateUIVertex(ref vert, endIndex);
 						vert.position = pos;
 						toFill.SetUIVertex(vert, j);
@@ -566,12 +505,10 @@ namespace UnityEngine.UI.Extensions
 			}
 
 			// Hyperlinks surround processing box
-			for (int h = 0; h < m_HrefInfos.Count; h++)
-			{
+			for (int h = 0; h < m_HrefInfos.Count; h++) {
 				m_HrefInfos[h].boxes.Clear();
 
-				if (m_HrefInfos[h].startIndex >= toFill.currentVertCount)
-				{
+				if (m_HrefInfos[h].startIndex >= toFill.currentVertCount) {
 					continue;
 				}
 
@@ -582,10 +519,8 @@ namespace UnityEngine.UI.Extensions
 
 				Bounds bounds = new Bounds(pos, Vector3.zero);
 
-				for (int i = m_HrefInfos[h].startIndex, m = m_HrefInfos[h].endIndex; i < m; i++)
-				{
-					if (i >= toFill.currentVertCount)
-					{
+				for (int i = m_HrefInfos[h].startIndex, m = m_HrefInfos[h].endIndex; i < m; i++) {
+					if (i >= toFill.currentVertCount) {
 						break;
 					}
 
@@ -594,13 +529,10 @@ namespace UnityEngine.UI.Extensions
 					pos = vert.position;
 
 					// Wrap re-add surround frame
-					if (pos.x < bounds.min.x)
-					{
+					if (pos.x < bounds.min.x) {
 						m_HrefInfos[h].boxes.Add(new Rect(bounds.min, bounds.size));
 						bounds = new Bounds(pos, Vector3.zero);
-					}
-					else
-					{
+					} else {
 						bounds.Encapsulate(pos); // Extended enclosed box
 					}
 				}
@@ -620,17 +552,13 @@ namespace UnityEngine.UI.Extensions
 		/// Click event is detected whether to click a hyperlink text
 		/// </summary>
 		/// <param name="eventData"></param>
-		public void OnPointerClick(PointerEventData eventData)
-		{
+		public void OnPointerClick(PointerEventData eventData) {
 			RectTransformUtility.ScreenPointToLocalPointInRectangle(
 				rectTransform, eventData.position, eventData.pressEventCamera, out lp);
 
-			for (int h = 0; h < m_HrefInfos.Count; h++)
-			{
-				for (int i = 0; i < m_HrefInfos[h].boxes.Count; ++i)
-				{
-					if (m_HrefInfos[h].boxes[i].Contains(lp))
-					{
+			for (int h = 0; h < m_HrefInfos.Count; h++) {
+				for (int i = 0; i < m_HrefInfos[h].boxes.Count; ++i) {
+					if (m_HrefInfos[h].boxes[i].Contains(lp)) {
 						m_OnHrefClick.Invoke(m_HrefInfos[h].name);
 						return;
 					}
@@ -638,72 +566,54 @@ namespace UnityEngine.UI.Extensions
 			}
 		}
 
-		public void OnPointerEnter(PointerEventData eventData)
-		{
+		public void OnPointerEnter(PointerEventData eventData) {
 			//do your stuff when highlighted
 			selected = true;
 
-			if (m_ImagesPool.Count >= 1)
-			{
-				for (int i = 0; i < m_ImagesPool.Count; i++)
-				{
-					if (button != null && button.isActiveAndEnabled)
-					{
+			if (m_ImagesPool.Count >= 1) {
+				for (int i = 0; i < m_ImagesPool.Count; i++) {
+					if (button != null && button.isActiveAndEnabled) {
 						m_ImagesPool[i].color = button.colors.highlightedColor;
 					}
 				}
 			}
 		}
 
-		public void OnPointerExit(PointerEventData eventData)
-		{
+		public void OnPointerExit(PointerEventData eventData) {
 			//do your stuff when highlighted
 			selected = false;
 
-			if (m_ImagesPool.Count >= 1)
-			{
-				for (int i = 0; i < m_ImagesPool.Count; i++)
-				{
-					if (button != null && button.isActiveAndEnabled)
-					{
+			if (m_ImagesPool.Count >= 1) {
+				for (int i = 0; i < m_ImagesPool.Count; i++) {
+					if (button != null && button.isActiveAndEnabled) {
 						m_ImagesPool[i].color = button.colors.normalColor;
-					}
-					else
-					{
+					} else {
 						m_ImagesPool[i].color = color;
 					}
 				}
 			}
 		}
 
-		public void OnSelect(BaseEventData eventData)
-		{
+		public void OnSelect(BaseEventData eventData) {
 			//do your stuff when selected
 			selected = true;
 
-			if (m_ImagesPool.Count >= 1)
-			{
-				for (int i = 0; i < m_ImagesPool.Count; i++)
-				{
-					if (button != null && button.isActiveAndEnabled)
-					{
+			if (m_ImagesPool.Count >= 1) {
+				for (int i = 0; i < m_ImagesPool.Count; i++) {
+					if (button != null && button.isActiveAndEnabled) {
 						m_ImagesPool[i].color = button.colors.highlightedColor;
 					}
 				}
 			}
 		}
 
-		public void OnDeselect(BaseEventData eventData)
-		{
+		public void OnDeselect(BaseEventData eventData) {
 			//do your stuff when selected
 			selected = false;
 
-			if (m_ImagesPool.Count >= 1)
-			{
-				for (int i = 0; i < m_ImagesPool.Count; i++)
-				{
-					if (button != null && button.isActiveAndEnabled)
-					{
+			if (m_ImagesPool.Count >= 1) {
+				for (int i = 0; i < m_ImagesPool.Count; i++) {
+					if (button != null && button.isActiveAndEnabled) {
 						m_ImagesPool[i].color = button.colors.normalColor;
 					}
 				}
@@ -711,8 +621,7 @@ namespace UnityEngine.UI.Extensions
 		}
 
 
-		public override void SetVerticesDirty()
-		{
+		public override void SetVerticesDirty() {
 			base.SetVerticesDirty();
 
 			// Update the quad images
@@ -720,19 +629,15 @@ namespace UnityEngine.UI.Extensions
 		}
 
 #if UNITY_EDITOR
-		protected override void OnValidate()
-		{
+		protected override void OnValidate() {
 			base.OnValidate();
 
 			// Update the quad images
 			updateQuad = true;
 
-			if (inspectorIconList != null)
-			{
-				for (int i = 0; i < inspectorIconList.Length; i++)
-				{
-					if (inspectorIconList[i].scale == Vector2.zero)
-					{
+			if (inspectorIconList != null) {
+				for (int i = 0; i < inspectorIconList.Length; i++) {
+					if (inspectorIconList[i].scale == Vector2.zero) {
 						inspectorIconList[i].scale = Vector2.one;
 					}
 				}
@@ -740,30 +645,22 @@ namespace UnityEngine.UI.Extensions
 		}
 #endif
 
-		protected override void OnEnable()
-		{
+		protected override void OnEnable() {
 #if UNITY_2019_1_OR_NEWER
 			// Here is the hack to see if Unity is using the new rendering system for text
 			usesNewRendering = false;
 
-			if (Application.unityVersion.StartsWith("2019.1."))
-			{
-				if (!Char.IsDigit(Application.unityVersion[8]))
-				{
+			if (Application.unityVersion.StartsWith("2019.1.")) {
+				if (!Char.IsDigit(Application.unityVersion[8])) {
 					int number = Convert.ToInt32(Application.unityVersion[7].ToString());
 
-					if (number > 4)
-					{
+					if (number > 4) {
 						usesNewRendering = true;
 					}
-				}
-				else
-				{
+				} else {
 					usesNewRendering = true;
 				}
-			}
-			else
-			{
+			} else {
 				usesNewRendering = true;
 			}
 #endif
@@ -775,12 +672,9 @@ namespace UnityEngine.UI.Extensions
 			alignByGeometry = true;
 #endif
 			// Enable images on TextPic disable
-			if (m_ImagesPool.Count >= 1)
-			{
-				for (int i = 0; i < m_ImagesPool.Count; i++)
-				{
-					if (m_ImagesPool[i] != null)
-					{
+			if (m_ImagesPool.Count >= 1) {
+				for (int i = 0; i < m_ImagesPool.Count; i++) {
+					if (m_ImagesPool[i] != null) {
 						m_ImagesPool[i].enabled = true;
 					}
 				}
@@ -792,17 +686,13 @@ namespace UnityEngine.UI.Extensions
 			this.onHrefClick.AddListener(OnHrefClick);
 		}
 
-		protected override void OnDisable()
-		{
+		protected override void OnDisable() {
 			base.OnDisable();
 
 			// Disable images on TextPic disable
-			if (m_ImagesPool.Count >= 1)
-			{
-				for (int i = 0; i < m_ImagesPool.Count; i++)
-				{
-					if (m_ImagesPool[i] != null)
-					{
+			if (m_ImagesPool.Count >= 1) {
+				for (int i = 0; i < m_ImagesPool.Count; i++) {
+					if (m_ImagesPool[i] != null) {
 						m_ImagesPool[i].enabled = false;
 					}
 				}
@@ -811,17 +701,14 @@ namespace UnityEngine.UI.Extensions
 			this.onHrefClick.RemoveListener(OnHrefClick);
 		}
 
-		new void Start()
-		{
+		new void Start() {
 			button = GetComponent<Button>();
 			ResetIconList();
 		}
 
-		void LateUpdate()
-		{
+		void LateUpdate() {
 			// Reset the hrefs if text is changed
-			if (previousText != text)
-			{
+			if (previousText != text) {
 				Reset_m_HrefInfos();
 
 				// Update the quad on text change
@@ -829,20 +716,16 @@ namespace UnityEngine.UI.Extensions
 			}
 
 			// Need to lock to remove images properly
-			lock (thisLock)
-			{
+			lock (thisLock) {
 				// Can only update the images when it is not in a rebuild, this prevents the error
-				if (updateQuad)
-				{
+				if (updateQuad) {
 					UpdateQuadImage();
 					updateQuad = false;
 				}
 
 				// Destroy any images that are not in use
-				if (clearImages)
-				{
-					for (int i = 0; i < culled_ImagesPool.Count; i++)
-					{
+				if (clearImages) {
+					for (int i = 0; i < culled_ImagesPool.Count; i++) {
 						DestroyImmediate(culled_ImagesPool[i]);
 					}
 

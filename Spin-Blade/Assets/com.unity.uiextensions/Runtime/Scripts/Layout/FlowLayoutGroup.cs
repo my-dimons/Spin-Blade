@@ -7,14 +7,12 @@
 
 using System.Collections.Generic;
 
-namespace UnityEngine.UI.Extensions
-{
+namespace UnityEngine.UI.Extensions {
 	/// <summary>
 	/// Layout Group controller that arranges children in bars, fitting as many on a line until total size exceeds parent bounds
 	/// </summary>
 	[AddComponentMenu("Layout/Extensions/Flow Layout Group")]
-	public class FlowLayoutGroup : LayoutGroup
-	{
+	public class FlowLayoutGroup : LayoutGroup {
 		public enum Axis { Horizontal = 0, Vertical = 1 }
 
 		private float _layoutHeight;
@@ -32,39 +30,29 @@ namespace UnityEngine.UI.Extensions
 
 		public Axis StartAxis { get => m_StartAxis; set => SetProperty(ref m_StartAxis, value); }
 
-		public override void CalculateLayoutInputHorizontal()
-		{
-			if (StartAxis == Axis.Horizontal)
-			{
+		public override void CalculateLayoutInputHorizontal() {
+			if (StartAxis == Axis.Horizontal) {
 				base.CalculateLayoutInputHorizontal();
 				var minWidth = GetGreatestMinimumChildWidth() + padding.left + padding.right;
 				SetLayoutInputForAxis(minWidth, -1, -1, 0);
-			}
-			else
-			{
+			} else {
 				_layoutWidth = SetLayout(0, true);
 			}
 
 		}
 
-		public override void SetLayoutHorizontal()
-		{
+		public override void SetLayoutHorizontal() {
 			SetLayout(0, false);
 		}
 
-		public override void SetLayoutVertical()
-		{
+		public override void SetLayoutVertical() {
 			SetLayout(1, false);
 		}
 
-		public override void CalculateLayoutInputVertical()
-		{
-			if (StartAxis == Axis.Horizontal)
-			{
+		public override void CalculateLayoutInputVertical() {
+			if (StartAxis == Axis.Horizontal) {
 				_layoutHeight = SetLayout(1, true);
-			}
-			else
-			{
+			} else {
 				base.CalculateLayoutInputHorizontal();
 				var minHeight = GetGreatestMinimumChildHeigth() + padding.bottom + padding.top;
 				SetLayoutInputForAxis(minHeight, -1, -1, 1);
@@ -90,8 +78,7 @@ namespace UnityEngine.UI.Extensions
 		/// <param name="width">Width to calculate the layout with</param>
 		/// <param name="axis">0 for horizontal axis, 1 for vertical</param>
 		/// <param name="layoutInput">If true, sets the layout input for the axis. If false, sets child position for axis</param>
-		public float SetLayout(int axis, bool layoutInput)
-		{
+		public float SetLayout(int axis, bool layoutInput) {
 			//container height and width
 			var groupHeight = rectTransform.rect.height;
 			var groupWidth = rectTransform.rect.width;
@@ -102,34 +89,25 @@ namespace UnityEngine.UI.Extensions
 			float counterOffset = 0;
 			float groupSize = 0;
 			float workingSize = 0;
-			if (StartAxis == Axis.Horizontal)
-			{
+			if (StartAxis == Axis.Horizontal) {
 				groupSize = groupHeight;
 				workingSize = groupWidth - padding.left - padding.right;
-				if (IsLowerAlign)
-				{
+				if (IsLowerAlign) {
 					offset = (float)padding.bottom;
 					counterOffset = (float)padding.top;
-				}
-				else
-				{
+				} else {
 					offset = (float)padding.top;
 					counterOffset = (float)padding.bottom;
 				}
 				spacingBetweenBars = SpacingY;
 				spacingBetweenElements = SpacingX;
-			}
-			else if (StartAxis == Axis.Vertical)
-			{
+			} else if (StartAxis == Axis.Vertical) {
 				groupSize = groupWidth;
 				workingSize = groupHeight - padding.top - padding.bottom;
-				if (IsRightAlign)
-				{
+				if (IsRightAlign) {
 					offset = (float)padding.right;
 					counterOffset = (float)padding.left;
-				}
-				else
-				{
+				} else {
 					offset = (float)padding.left;
 					counterOffset = (float)padding.right;
 				}
@@ -140,28 +118,22 @@ namespace UnityEngine.UI.Extensions
 			var currentBarSize = 0f;
 			var currentBarSpace = 0f;
 
-			for (var i = 0; i < rectChildren.Count; i++)
-			{
+			for (var i = 0; i < rectChildren.Count; i++) {
 				int index = i;
 				var child = rectChildren[index];
 				float childSize = 0;
 				float childOtherSize = 0;
 				//get height and width of elements.
-				if (StartAxis == Axis.Horizontal)
-				{
-					if (invertOrder)
-					{
+				if (StartAxis == Axis.Horizontal) {
+					if (invertOrder) {
 						index = IsLowerAlign ? rectChildren.Count - 1 - i : i;
 					}
 					child = rectChildren[index];
 					childSize = LayoutUtility.GetPreferredSize(child, 0);
 					childSize = Mathf.Min(childSize, workingSize);
 					childOtherSize = LayoutUtility.GetPreferredSize(child, 1);
-				}
-				else if (StartAxis == Axis.Vertical)
-				{
-					if (invertOrder)
-					{
+				} else if (StartAxis == Axis.Vertical) {
+					if (invertOrder) {
 						index = IsRightAlign ? rectChildren.Count - 1 - i : i;
 					}
 					child = rectChildren[index];
@@ -172,20 +144,15 @@ namespace UnityEngine.UI.Extensions
 
 				// If adding this element would exceed the bounds of the container,
 				// go to a new bar after processing the current bar
-				if (currentBarSize + childSize > workingSize)
-				{
+				if (currentBarSize + childSize > workingSize) {
 					currentBarSize -= spacingBetweenElements;
 
 					// Process current bar elements positioning
-					if (!layoutInput)
-					{
-						if (StartAxis == Axis.Horizontal)
-						{
+					if (!layoutInput) {
+						if (StartAxis == Axis.Horizontal) {
 							float newOffset = CalculateRowVerticalOffset(groupSize, offset, currentBarSpace);
 							LayoutRow(_itemList, currentBarSize, currentBarSpace, workingSize, padding.left, newOffset, axis);
-						}
-						else if (StartAxis == Axis.Vertical)
-						{
+						} else if (StartAxis == Axis.Vertical) {
 							float newOffset = CalculateColHorizontalOffset(groupSize, offset, currentBarSpace);
 							LayoutCol(_itemList, currentBarSpace, currentBarSize, workingSize, newOffset, padding.top, axis);
 						}
@@ -212,16 +179,12 @@ namespace UnityEngine.UI.Extensions
 			}
 
 			// Layout the final bar
-			if (!layoutInput)
-			{
-				if (StartAxis == Axis.Horizontal)
-				{
+			if (!layoutInput) {
+				if (StartAxis == Axis.Horizontal) {
 					float newOffset = CalculateRowVerticalOffset(groupHeight, offset, currentBarSpace);
 					currentBarSize -= spacingBetweenElements;
 					LayoutRow(_itemList, currentBarSize, currentBarSpace, workingSize, padding.left, newOffset, axis);
-				}
-				else if (StartAxis == Axis.Vertical)
-				{
+				} else if (StartAxis == Axis.Vertical) {
 					float newOffset = CalculateColHorizontalOffset(groupWidth, offset, currentBarSpace);
 					currentBarSize -= spacingBetweenElements;
 					LayoutCol(_itemList, currentBarSpace, currentBarSize, workingSize, newOffset, padding.top, axis);
@@ -234,77 +197,56 @@ namespace UnityEngine.UI.Extensions
 			offset += currentBarSpace;
 			offset += counterOffset;
 
-			if (layoutInput)
-			{
+			if (layoutInput) {
 				SetLayoutInputForAxis(offset, offset, -1, axis);
 			}
 			return offset;
 		}
 
-		private float CalculateRowVerticalOffset(float groupHeight, float yOffset, float currentRowHeight)
-		{
-			if (IsLowerAlign)
-			{
+		private float CalculateRowVerticalOffset(float groupHeight, float yOffset, float currentRowHeight) {
+			if (IsLowerAlign) {
 				return groupHeight - yOffset - currentRowHeight;
-			}
-			else if (IsMiddleAlign)
-			{
+			} else if (IsMiddleAlign) {
 				return groupHeight * 0.5f - _layoutHeight * 0.5f + yOffset;
 			}
 			return yOffset;
 		}
 
-		private float CalculateColHorizontalOffset(float groupWidth, float xOffset, float currentColWidth)
-		{
-			if (IsRightAlign)
-			{
+		private float CalculateColHorizontalOffset(float groupWidth, float xOffset, float currentColWidth) {
+			if (IsRightAlign) {
 				return groupWidth - xOffset - currentColWidth;
-			}
-			else if (IsCenterAlign)
-			{
+			} else if (IsCenterAlign) {
 				return groupWidth * 0.5f - _layoutWidth * 0.5f + xOffset;
 			}
 			return xOffset;
 		}
 
-		protected void LayoutRow(IList<RectTransform> contents, float rowWidth, float rowHeight, float maxWidth, float xOffset, float yOffset, int axis)
-		{
+		protected void LayoutRow(IList<RectTransform> contents, float rowWidth, float rowHeight, float maxWidth, float xOffset, float yOffset, int axis) {
 			var xPos = xOffset;
 
-			if (!ChildForceExpandWidth && IsCenterAlign)
-			{
+			if (!ChildForceExpandWidth && IsCenterAlign) {
 				xPos += (maxWidth - rowWidth) * 0.5f;
-			}
-			else if (!ChildForceExpandWidth && IsRightAlign)
-			{
+			} else if (!ChildForceExpandWidth && IsRightAlign) {
 				xPos += (maxWidth - rowWidth);
 			}
 
 			var extraWidth = 0f;
 			var extraSpacing = 0f;
 
-			if (ChildForceExpandWidth)
-			{
+			if (ChildForceExpandWidth) {
 				extraWidth = (maxWidth - rowWidth) / contents.Count;
-			}
-			else if (ExpandHorizontalSpacing)
-			{
+			} else if (ExpandHorizontalSpacing) {
 				extraSpacing = (maxWidth - rowWidth) / (contents.Count - 1);
-				if (contents.Count > 1)
-				{
-					if (IsCenterAlign)
-					{
+				if (contents.Count > 1) {
+					if (IsCenterAlign) {
 						xPos -= extraSpacing * 0.5f * (contents.Count - 1);
-					}
-					else if (IsRightAlign)
-					{
+					} else if (IsRightAlign) {
 						xPos -= extraSpacing * (contents.Count - 1);
 					}
 				}
 			}
 
-			for (var j = 0; j < contents.Count; j++)
-			{
+			for (var j = 0; j < contents.Count; j++) {
 				var index = IsLowerAlign ? contents.Count - 1 - j : j;
 
 				var rowChild = contents[index];
@@ -312,83 +254,62 @@ namespace UnityEngine.UI.Extensions
 				var rowChildWidth = LayoutUtility.GetPreferredSize(rowChild, 0) + extraWidth;
 				var rowChildHeight = LayoutUtility.GetPreferredSize(rowChild, 1);
 
-				if (ChildForceExpandHeight)
-				{
+				if (ChildForceExpandHeight) {
 					rowChildHeight = rowHeight;
 				}
 
 				rowChildWidth = Mathf.Min(rowChildWidth, maxWidth);
 				var yPos = yOffset;
 
-				if (IsMiddleAlign)
-				{
+				if (IsMiddleAlign) {
 					yPos += (rowHeight - rowChildHeight) * 0.5f;
-				}
-				else if (IsLowerAlign)
-				{
+				} else if (IsLowerAlign) {
 					yPos += (rowHeight - rowChildHeight);
 				}
 
-				if (ExpandHorizontalSpacing && j > 0)
-				{
+				if (ExpandHorizontalSpacing && j > 0) {
 					xPos += extraSpacing;
 				}
 
-				if (axis == 0)
-				{
+				if (axis == 0) {
 					SetChildAlongAxis(rowChild, 0, xPos, rowChildWidth);
-				}
-				else
-				{
+				} else {
 					SetChildAlongAxis(rowChild, 1, yPos, rowChildHeight);
 				}
 
 				// Don't do horizontal spacing for the last one
-				if (j < contents.Count - 1)
-				{
+				if (j < contents.Count - 1) {
 					xPos += rowChildWidth + SpacingX;
 				}
 			}
 		}
 
-		protected void LayoutCol(IList<RectTransform> contents, float colWidth, float colHeight, float maxHeight, float xOffset, float yOffset, int axis)
-		{
+		protected void LayoutCol(IList<RectTransform> contents, float colWidth, float colHeight, float maxHeight, float xOffset, float yOffset, int axis) {
 			var yPos = yOffset;
 
-			if (!ChildForceExpandHeight && IsMiddleAlign)
-			{
+			if (!ChildForceExpandHeight && IsMiddleAlign) {
 				yPos += (maxHeight - colHeight) * 0.5f;
-			}
-			else if (!ChildForceExpandHeight && IsLowerAlign)
-			{
+			} else if (!ChildForceExpandHeight && IsLowerAlign) {
 				yPos += (maxHeight - colHeight);
 			}
 
 			var extraHeight = 0f;
 			var extraSpacing = 0f;
 
-			if (ChildForceExpandHeight)
-			{
+			if (ChildForceExpandHeight) {
 				extraHeight = (maxHeight - colHeight) / contents.Count;
-			}
-			else if (ExpandHorizontalSpacing)
-			{
+			} else if (ExpandHorizontalSpacing) {
 				extraSpacing = (maxHeight - colHeight) / (contents.Count - 1);
-				if (contents.Count > 1)
-				{
-					if (IsMiddleAlign)
-					{
+				if (contents.Count > 1) {
+					if (IsMiddleAlign) {
 						yPos -= extraSpacing * 0.5f * (contents.Count - 1);
-					}
-					else if (IsLowerAlign)
-					{
+					} else if (IsLowerAlign) {
 						yPos -= extraSpacing * (contents.Count - 1);
 					}
 				}
 			}
 
-			for (var j = 0; j < contents.Count; j++)
-			{
+			for (var j = 0; j < contents.Count; j++) {
 				var index = IsRightAlign ? contents.Count - 1 - j : j;
 
 				var rowChild = contents[index];
@@ -396,8 +317,7 @@ namespace UnityEngine.UI.Extensions
 				var rowChildWidth = LayoutUtility.GetPreferredSize(rowChild, 0);
 				var rowChildHeight = LayoutUtility.GetPreferredSize(rowChild, 1) + extraHeight;
 
-				if (ChildForceExpandWidth)
-				{
+				if (ChildForceExpandWidth) {
 					rowChildWidth = colWidth;
 				}
 
@@ -405,61 +325,48 @@ namespace UnityEngine.UI.Extensions
 
 				var xPos = xOffset;
 
-				if (IsCenterAlign)
-				{
+				if (IsCenterAlign) {
 					xPos += (colWidth - rowChildWidth) * 0.5f;
-				}
-				else if (IsRightAlign)
-				{
+				} else if (IsRightAlign) {
 					xPos += (colWidth - rowChildWidth);
 				}
 
-				if (ExpandHorizontalSpacing && j > 0)
-				{
+				if (ExpandHorizontalSpacing && j > 0) {
 					yPos += extraSpacing;
 				}
 
-				if (axis == 0)
-				{
+				if (axis == 0) {
 					SetChildAlongAxis(rowChild, 0, xPos, rowChildWidth);
-				}
-				else
-				{
+				} else {
 					SetChildAlongAxis(rowChild, 1, yPos, rowChildHeight);
 				}
 
 				// Don't do vertical spacing for the last one
-				if (j < contents.Count - 1)
-				{
+				if (j < contents.Count - 1) {
 					yPos += rowChildHeight + SpacingY;
 				}
 			}
 		}
 
-		public float GetGreatestMinimumChildWidth()
-		{
+		public float GetGreatestMinimumChildWidth() {
 			var max = 0f;
-			for (var i = 0; i < rectChildren.Count; i++)
-			{
+			for (var i = 0; i < rectChildren.Count; i++) {
 				var w = LayoutUtility.GetMinWidth(rectChildren[i]);
 				max = Mathf.Max(w, max);
 			}
 			return max;
 		}
 
-		public float GetGreatestMinimumChildHeigth()
-		{
+		public float GetGreatestMinimumChildHeigth() {
 			var max = 0f;
-			for (var i = 0; i < rectChildren.Count; i++)
-			{
+			for (var i = 0; i < rectChildren.Count; i++) {
 				var w = LayoutUtility.GetMinHeight(rectChildren[i]);
 				max = Mathf.Max(w, max);
 			}
 			return max;
 		}
 
-		protected override void OnDisable()
-		{
+		protected override void OnDisable() {
 			m_Tracker.Clear();
 			LayoutRebuilder.MarkLayoutForRebuild(rectTransform);
 		}

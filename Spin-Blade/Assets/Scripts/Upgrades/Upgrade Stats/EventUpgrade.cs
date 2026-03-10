@@ -1,11 +1,9 @@
 using UnityEngine;
 
-public class EventUpgrade : MonoBehaviour, IUpgrade
-{
+public class EventUpgrade : MonoBehaviour, IUpgrade {
 	public bool enableEvents;
 
-	public void ApplyUpgrade()
-	{
+	public void ApplyUpgrade() {
 		EventManager eventManager = EventManager.Instance;
 
 		if (!eventManager.enableEvents)

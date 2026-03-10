@@ -2,11 +2,9 @@
 ///Sourced from - http://forum.unity3d.com/threads/color-picker.267043/
 using System.Collections.Generic;
 
-namespace UnityEngine.UI.Extensions.ColorPicker
-{
+namespace UnityEngine.UI.Extensions.ColorPicker {
 	[ExecuteInEditMode]
-	public class ColorPickerControl : MonoBehaviour
-	{
+	public class ColorPickerControl : MonoBehaviour {
 		private float _hue = 0;
 		private float _saturation = 0;
 		private float _brightness = 0;
@@ -35,8 +33,7 @@ namespace UnityEngine.UI.Extensions.ColorPicker
 		[SerializeField]
 		GameObject alphaSlider = null;
 
-		public void SetHSVSlidersOn(bool value)
-		{
+		public void SetHSVSlidersOn(bool value) {
 			hsvSlidersOn = value;
 
 			foreach (var item in hsvSliders)
@@ -46,8 +43,7 @@ namespace UnityEngine.UI.Extensions.ColorPicker
 				alphaSlider.SetActive(hsvSlidersOn || rgbSlidersOn);
 		}
 
-		public void SetRGBSlidersOn(bool value)
-		{
+		public void SetRGBSlidersOn(bool value) {
 			rgbSlidersOn = value;
 			foreach (var item in rgbSliders)
 				item.SetActive(value);
@@ -57,19 +53,16 @@ namespace UnityEngine.UI.Extensions.ColorPicker
 		}
 
 
-		void Update()
-		{
+		void Update() {
 #if UNITY_EDITOR
 			SetHSVSlidersOn(hsvSlidersOn);
 			SetRGBSlidersOn(rgbSlidersOn);
 #endif
 		}
 
-		public Color CurrentColor
-		{
+		public Color CurrentColor {
 			get => new Color(_red, _green, _blue, _alpha);
-			set
-			{
+			set {
 				if (CurrentColor == value)
 					return;
 
@@ -84,16 +77,13 @@ namespace UnityEngine.UI.Extensions.ColorPicker
 			}
 		}
 
-		private void Start()
-		{
+		private void Start() {
 			SendChangedEvent();
 		}
 
-		public float H
-		{
+		public float H {
 			get => _hue;
-			set
-			{
+			set {
 				if (_hue == value)
 					return;
 
@@ -105,11 +95,9 @@ namespace UnityEngine.UI.Extensions.ColorPicker
 			}
 		}
 
-		public float S
-		{
+		public float S {
 			get => _saturation;
-			set
-			{
+			set {
 				if (_saturation == value)
 					return;
 
@@ -121,11 +109,9 @@ namespace UnityEngine.UI.Extensions.ColorPicker
 			}
 		}
 
-		public float V
-		{
+		public float V {
 			get => _brightness;
-			set
-			{
+			set {
 				if (_brightness == value)
 					return;
 
@@ -137,11 +123,9 @@ namespace UnityEngine.UI.Extensions.ColorPicker
 			}
 		}
 
-		public float R
-		{
+		public float R {
 			get => _red;
-			set
-			{
+			set {
 				if (_red == value)
 					return;
 
@@ -153,11 +137,9 @@ namespace UnityEngine.UI.Extensions.ColorPicker
 			}
 		}
 
-		public float G
-		{
+		public float G {
 			get => _green;
-			set
-			{
+			set {
 				if (_green == value)
 					return;
 
@@ -169,11 +151,9 @@ namespace UnityEngine.UI.Extensions.ColorPicker
 			}
 		}
 
-		public float B
-		{
+		public float B {
 			get => _blue;
-			set
-			{
+			set {
 				if (_blue == value)
 					return;
 
@@ -185,11 +165,9 @@ namespace UnityEngine.UI.Extensions.ColorPicker
 			}
 		}
 
-		private float A
-		{
+		private float A {
 			get => _alpha;
-			set
-			{
+			set {
 				if (_alpha == value)
 					return;
 
@@ -199,8 +177,7 @@ namespace UnityEngine.UI.Extensions.ColorPicker
 			}
 		}
 
-		private void RGBChanged()
-		{
+		private void RGBChanged() {
 			HsvColor color = HSVUtil.ConvertRgbToHsv(CurrentColor);
 
 			_hue = color.NormalizedH;
@@ -208,8 +185,7 @@ namespace UnityEngine.UI.Extensions.ColorPicker
 			_brightness = color.NormalizedV;
 		}
 
-		private void HSVChanged()
-		{
+		private void HSVChanged() {
 			Color color = HSVUtil.ConvertHsvToRgb(_hue * 360, _saturation, _brightness, _alpha);
 
 			_red = color.r;
@@ -217,16 +193,13 @@ namespace UnityEngine.UI.Extensions.ColorPicker
 			_blue = color.b;
 		}
 
-		private void SendChangedEvent()
-		{
+		private void SendChangedEvent() {
 			onValueChanged.Invoke(CurrentColor);
 			onHSVChanged.Invoke(_hue, _saturation, _brightness);
 		}
 
-		public void AssignColor(ColorValues type, float value)
-		{
-			switch (type)
-			{
+		public void AssignColor(ColorValues type, float value) {
+			switch (type) {
 				case ColorValues.R:
 					R = value;
 					break;
@@ -253,10 +226,8 @@ namespace UnityEngine.UI.Extensions.ColorPicker
 			}
 		}
 
-		public float GetValue(ColorValues type)
-		{
-			switch (type)
-			{
+		public float GetValue(ColorValues type) {
+			switch (type) {
 				case ColorValues.R:
 					return R;
 				case ColorValues.G:

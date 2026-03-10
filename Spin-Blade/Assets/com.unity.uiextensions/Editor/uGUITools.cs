@@ -2,23 +2,18 @@
 /// Sourced from - http://forum.unity3d.com/threads/scripts-useful-4-6-scripts-collection.264161/ (uGUITools link)
 
 using UnityEditor;
-namespace UnityEngine.UI.Extensions
-{
-	public static class uGUITools
-	{
+namespace UnityEngine.UI.Extensions {
+	public static class uGUITools {
 		[MenuItem("Tools/UnityUIExtensions/Anchors to Corners %[")]
-		static void AnchorsToCorners()
-		{
-			if (Selection.transforms == null || Selection.transforms.Length == 0)
-			{
+		static void AnchorsToCorners() {
+			if (Selection.transforms == null || Selection.transforms.Length == 0) {
 				return;
 			}
 			Undo.IncrementCurrentGroup();
 			Undo.SetCurrentGroupName("AnchorsToCorners");
 			var undoGroup = Undo.GetCurrentGroup();
 
-			foreach (Transform transform in Selection.transforms)
-			{
+			foreach (Transform transform in Selection.transforms) {
 				RectTransform t = transform as RectTransform;
 				Undo.RecordObject(t, "AnchorsToCorners");
 				RectTransform pt = Selection.activeTransform.parent as RectTransform;
@@ -38,18 +33,15 @@ namespace UnityEngine.UI.Extensions
 		}
 
 		[MenuItem("Tools/UnityUIExtensions/Corners to Anchors %]")]
-		static void CornersToAnchors()
-		{
-			if (Selection.transforms == null || Selection.transforms.Length == 0)
-			{
+		static void CornersToAnchors() {
+			if (Selection.transforms == null || Selection.transforms.Length == 0) {
 				return;
 			}
 			Undo.IncrementCurrentGroup();
 			Undo.SetCurrentGroupName("CornersToAnchors");
 			var undoGroup = Undo.GetCurrentGroup();
 
-			foreach (Transform transform in Selection.transforms)
-			{
+			foreach (Transform transform in Selection.transforms) {
 				RectTransform t = transform as RectTransform;
 				Undo.RecordObject(t, "CornersToAnchors");
 
@@ -61,28 +53,23 @@ namespace UnityEngine.UI.Extensions
 		}
 
 		[MenuItem("Tools/UnityUIExtensions/Mirror Horizontally Around Anchors %;")]
-		static void MirrorHorizontallyAnchors()
-		{
+		static void MirrorHorizontallyAnchors() {
 			MirrorHorizontally(false);
 		}
 
 		[MenuItem("Tools/UnityUIExtensions/Mirror Horizontally Around Parent Center %:")]
-		static void MirrorHorizontallyParent()
-		{
+		static void MirrorHorizontallyParent() {
 			MirrorHorizontally(true);
 		}
 
-		static void MirrorHorizontally(bool mirrorAnchors)
-		{
-			foreach (Transform transform in Selection.transforms)
-			{
+		static void MirrorHorizontally(bool mirrorAnchors) {
+			foreach (Transform transform in Selection.transforms) {
 				RectTransform t = transform as RectTransform;
 				RectTransform pt = Selection.activeTransform.parent as RectTransform;
 
 				if (t == null || pt == null) return;
 
-				if (mirrorAnchors)
-				{
+				if (mirrorAnchors) {
 					Vector2 oldAnchorMin = t.anchorMin;
 					t.anchorMin = new Vector2(1 - t.anchorMax.x, t.anchorMin.y);
 					t.anchorMax = new Vector2(1 - oldAnchorMin.x, t.anchorMax.y);
@@ -97,28 +84,23 @@ namespace UnityEngine.UI.Extensions
 		}
 
 		[MenuItem("Tools/UnityUIExtensions/Mirror Vertically Around Anchors %'")]
-		static void MirrorVerticallyAnchors()
-		{
+		static void MirrorVerticallyAnchors() {
 			MirrorVertically(false);
 		}
 
 		[MenuItem("Tools/UnityUIExtensions/Mirror Vertically Around Parent Center %\"")]
-		static void MirrorVerticallyParent()
-		{
+		static void MirrorVerticallyParent() {
 			MirrorVertically(true);
 		}
 
-		static void MirrorVertically(bool mirrorAnchors)
-		{
-			foreach (Transform transform in Selection.transforms)
-			{
+		static void MirrorVertically(bool mirrorAnchors) {
+			foreach (Transform transform in Selection.transforms) {
 				RectTransform t = transform as RectTransform;
 				RectTransform pt = Selection.activeTransform.parent as RectTransform;
 
 				if (t == null || pt == null) return;
 
-				if (mirrorAnchors)
-				{
+				if (mirrorAnchors) {
 					Vector2 oldAnchorMin = t.anchorMin;
 					t.anchorMin = new Vector2(t.anchorMin.x, 1 - t.anchorMax.y);
 					t.anchorMax = new Vector2(t.anchorMax.x, 1 - oldAnchorMin.y);

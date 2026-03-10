@@ -7,14 +7,12 @@ using System.Collections.Generic;
 using UnityEditor;
 #endif
 
-namespace UnityEngine.UI.Extensions
-{
+namespace UnityEngine.UI.Extensions {
 	[RequireComponent(typeof(RectTransform))]
 	[RequireComponent(typeof(Graphic))]
 	[DisallowMultipleComponent]
 	[AddComponentMenu("UI/Effects/Extensions/Curly UI Graphic")]
-	public class CUIGraphic : BaseMeshEffect
-	{
+	public class CUIGraphic : BaseMeshEffect {
 		// Describing the properties that are shared by all objects of this class
 		#region Nature
 
@@ -74,13 +72,11 @@ namespace UnityEngine.UI.Extensions
 
 #if UNITY_EDITOR
 
-		public CUIBezierCurve[] EDITOR_RefCurves
-		{
+		public CUIBezierCurve[] EDITOR_RefCurves {
 			set => refCurves = value;
 		}
 
-		public Vector3_Array2D[] EDITOR_RefCurvesControlRatioPoints
-		{
+		public Vector3_Array2D[] EDITOR_RefCurvesControlRatioPoints {
 			set => refCurvesControlRatioPoints = value;
 		}
 
@@ -97,13 +93,11 @@ namespace UnityEngine.UI.Extensions
 
 		#region Action
 
-		protected void solveDoubleEquationWithVector(float _x_1, float _y_1, float _x_2, float _y_2, Vector3 _constant_1, Vector3 _contant_2, out Vector3 _x, out Vector3 _y)
-		{
+		protected void solveDoubleEquationWithVector(float _x_1, float _y_1, float _x_2, float _y_2, Vector3 _constant_1, Vector3 _contant_2, out Vector3 _x, out Vector3 _y) {
 			Vector3 f;
 			float g;
 
-			if (Mathf.Abs(_x_1) > Mathf.Abs(_x_2))
-			{
+			if (Mathf.Abs(_x_1) > Mathf.Abs(_x_2)) {
 				f = _constant_1 * _x_2 / _x_1;
 				g = _y_1 * _x_2 / _x_1;
 				_y = (_contant_2 - f) / (_y_2 - g);
@@ -111,9 +105,7 @@ namespace UnityEngine.UI.Extensions
 					_x = (f - g * _y) / _x_2;
 				else
 					_x = (_constant_1 - _y_1 * _y) / _x_1;
-			}
-			else
-			{
+			} else {
 				f = _contant_2 * _x_1 / _x_2;
 				g = _y_2 * _x_1 / _x_2;
 				_x = (_constant_1 - f) / (_y_1 - g);
@@ -125,8 +117,7 @@ namespace UnityEngine.UI.Extensions
 		}
 
 
-		protected UIVertex uiVertexLerp(UIVertex _a, UIVertex _b, float _time)
-		{
+		protected UIVertex uiVertexLerp(UIVertex _a, UIVertex _b, float _time) {
 			UIVertex tmpUIVertex = new UIVertex();
 
 			tmpUIVertex.position = Vector3.Lerp(_a.position, _b.position, _time);
@@ -142,15 +133,13 @@ namespace UnityEngine.UI.Extensions
 		/// <summary>
 		/// Bilinear Interpolation
 		/// </summary>
-		protected UIVertex uiVertexBerp(UIVertex v_bottomLeft, UIVertex v_topLeft, UIVertex v_topRight, UIVertex v_bottomRight, float _xTime, float _yTime)
-		{
+		protected UIVertex uiVertexBerp(UIVertex v_bottomLeft, UIVertex v_topLeft, UIVertex v_topRight, UIVertex v_bottomRight, float _xTime, float _yTime) {
 			UIVertex topX = uiVertexLerp(v_topLeft, v_topRight, _xTime);
 			UIVertex bottomX = uiVertexLerp(v_bottomLeft, v_bottomRight, _xTime);
 			return uiVertexLerp(bottomX, topX, _yTime);
 		}
 
-		protected void tessellateQuad(List<UIVertex> _quads, int _thisQuadIdx)
-		{
+		protected void tessellateQuad(List<UIVertex> _quads, int _thisQuadIdx) {
 			UIVertex v_bottomLeft = _quads[_thisQuadIdx];
 			UIVertex v_topLeft = _quads[_thisQuadIdx + 1];
 			UIVertex v_topRight = _quads[_thisQuadIdx + 2];
@@ -163,10 +152,8 @@ namespace UnityEngine.UI.Extensions
 
 			int quadIdx = 0;
 
-			for (int x = 0; x < widthQuadEdgeNum; x++)
-			{
-				for (int y = 0; y < heightQuadEdgeNum; y++, quadIdx++)
-				{
+			for (int x = 0; x < widthQuadEdgeNum; x++) {
+				for (int y = 0; y < heightQuadEdgeNum; y++, quadIdx++) {
 					_quads.Add(new UIVertex());
 					_quads.Add(new UIVertex());
 					_quads.Add(new UIVertex());
@@ -186,10 +173,8 @@ namespace UnityEngine.UI.Extensions
 			}
 		}
 
-		protected void tessellateGraphic(List<UIVertex> _verts)
-		{
-			for (int v = 0; v < _verts.Count; v += 6)
-			{
+		protected void tessellateGraphic(List<UIVertex> _verts) {
+			for (int v = 0; v < _verts.Count; v += 6) {
 				reuse_quads.Add(_verts[v]); // bottom left
 				reuse_quads.Add(_verts[v + 1]); // top left
 				reuse_quads.Add(_verts[v + 2]); // top right
@@ -199,8 +184,7 @@ namespace UnityEngine.UI.Extensions
 			}
 
 			int oriQuadNum = reuse_quads.Count / 4;
-			for (int q = 0; q < oriQuadNum; q++)
-			{
+			for (int q = 0; q < oriQuadNum; q++) {
 				tessellateQuad(reuse_quads, q * 4);
 			}
 
@@ -210,8 +194,7 @@ namespace UnityEngine.UI.Extensions
 			_verts.Clear();
 
 			// process new quads and turn them into triangles
-			for (int q = 0; q < reuse_quads.Count; q += 4)
-			{
+			for (int q = 0; q < reuse_quads.Count; q += 4) {
 				_verts.Add(reuse_quads[q]);
 				_verts.Add(reuse_quads[q + 1]);
 				_verts.Add(reuse_quads[q + 2]);
@@ -228,34 +211,28 @@ namespace UnityEngine.UI.Extensions
 		// Events are for handling reoccurring function calls that react to the changes of the environment.
 		#region Events
 
-		protected override void OnRectTransformDimensionsChange()
-		{
-			if (isLockWithRatio)
-			{
+		protected override void OnRectTransformDimensionsChange() {
+			if (isLockWithRatio) {
 				UpdateCurveControlPointPositions();
 			}
 		}
 
 		public void Refresh() { Invoke(nameof(Refreshx), 0.3f); }
 
-		private void Refreshx()
-		{
+		private void Refreshx() {
 			ReportSet();
 
 			// we use local position as the true value. Ratio position follows it, so it should be updated when refresh
 
-			for (int c = 0; c < refCurves.Length; c++)
-			{
+			for (int c = 0; c < refCurves.Length; c++) {
 
 				CUIBezierCurve curve = refCurves[c];
 
-				if (curve.ControlPoints != null)
-				{
+				if (curve.ControlPoints != null) {
 
 					Vector3[] controlPoints = curve.ControlPoints;
 
-					for (int p = 0; p < CUIBezierCurve.CubicBezierCurvePtNum; p++)
-					{
+					for (int p = 0; p < CUIBezierCurve.CubicBezierCurvePtNum; p++) {
 
 #if UNITY_EDITOR
 						Undo.RecordObject(this, "Move Point");
@@ -273,8 +250,7 @@ namespace UnityEngine.UI.Extensions
 
 			//uiText.SetAllDirty();
 			// need this to refresh the UI text, SetAllDirty does not seem to work for all cases
-			if (uiGraphic != null)
-			{
+			if (uiGraphic != null) {
 				uiGraphic.enabled = false;
 				uiGraphic.enabled = true;
 			}
@@ -285,14 +261,12 @@ namespace UnityEngine.UI.Extensions
 		// Methods that change the behaviour of the object.
 		#region Flash-Phase
 
-		protected override void Awake()
-		{
+		protected override void Awake() {
 			base.Awake();
 			OnRectTransformDimensionsChange();
 
 		}
-		protected override void OnEnable()
-		{
+		protected override void OnEnable() {
 			base.OnEnable();
 			OnRectTransformDimensionsChange();
 
@@ -305,8 +279,7 @@ namespace UnityEngine.UI.Extensions
 		/// <summary>
 		/// Check, prepare and set everything needed. 
 		/// </summary>
-		public virtual void ReportSet()
-		{
+		public virtual void ReportSet() {
 
 			if (rectTrans == null)
 				rectTrans = GetComponent<RectTransform>();
@@ -316,40 +289,31 @@ namespace UnityEngine.UI.Extensions
 
 			bool isCurvesReady = true;
 
-			for (int c = 0; c < 2; c++)
-			{
+			for (int c = 0; c < 2; c++) {
 				isCurvesReady = isCurvesReady & refCurves[c] != null;
 			}
 
 			isCurvesReady = isCurvesReady & refCurves.Length == 2;
 
-			if (!isCurvesReady)
-			{
+			if (!isCurvesReady) {
 				CUIBezierCurve[] curves = refCurves;
 
-				for (int c = 0; c < 2; c++)
-				{
-					if (refCurves[c] == null)
-					{
+				for (int c = 0; c < 2; c++) {
+					if (refCurves[c] == null) {
 						GameObject go = new GameObject();
 						go.transform.SetParent(transform);
 						go.transform.localPosition = Vector3.zero;
 						go.transform.localEulerAngles = Vector3.zero;
 
-						if (c == 0)
-						{
+						if (c == 0) {
 							go.name = "BottomRefCurve";
-						}
-						else
-						{
+						} else {
 							go.name = "TopRefCurve";
 						}
 
 						curves[c] = go.AddComponent<CUIBezierCurve>();
 
-					}
-					else
-					{
+					} else {
 						curves[c] = refCurves[c];
 					}
 					curves[c].ReportSet();
@@ -358,12 +322,10 @@ namespace UnityEngine.UI.Extensions
 				refCurves = curves;
 			}
 
-			if (refCurvesControlRatioPoints == null)
-			{
+			if (refCurvesControlRatioPoints == null) {
 				refCurvesControlRatioPoints = new Vector3_Array2D[refCurves.Length];
 
-				for (int c = 0; c < refCurves.Length; c++)
-				{
+				for (int c = 0; c < refCurves.Length; c++) {
 					{
 						refCurvesControlRatioPoints[c].array = new Vector3[refCurves[c].ControlPoints.Length];
 					}
@@ -373,30 +335,22 @@ namespace UnityEngine.UI.Extensions
 				Refresh();
 			}
 
-			for (int c = 0; c < 2; c++)
-			{
+			for (int c = 0; c < 2; c++) {
 				refCurves[c].OnRefresh = Refresh;
 			}
 		}
 
-		public void FixTextToRectTrans()
-		{
-			for (int c = 0; c < refCurves.Length; c++)
-			{
+		public void FixTextToRectTrans() {
+			for (int c = 0; c < refCurves.Length; c++) {
 				CUIBezierCurve curve = refCurves[c];
 
-				for (int p = 0; p < CUIBezierCurve.CubicBezierCurvePtNum; p++)
-				{
-					if (curve.ControlPoints != null)
-					{
+				for (int p = 0; p < CUIBezierCurve.CubicBezierCurvePtNum; p++) {
+					if (curve.ControlPoints != null) {
 						Vector3[] controlPoints = curve.ControlPoints;
 
-						if (c == 0)
-						{
+						if (c == 0) {
 							controlPoints[p].y = -rectTrans.rect.height * rectTrans.pivot.y;
-						}
-						else
-						{
+						} else {
 							controlPoints[p].y = rectTrans.rect.height - rectTrans.rect.height * rectTrans.pivot.y;
 						}
 
@@ -409,8 +363,7 @@ namespace UnityEngine.UI.Extensions
 			}
 		}
 
-		public void ReferenceCUIForBCurves()
-		{
+		public void ReferenceCUIForBCurves() {
 			// compute the position ratio of this rect transform in perspective of reference rect transform
 
 			Vector3 posDeltaBetweenBottomLeftCorner = rectTrans.localPosition;// Difference between pivot
@@ -429,8 +382,7 @@ namespace UnityEngine.UI.Extensions
 			refCurves[1].ControlPoints[3] = refCUIGraphic.GetBCurveSandwichSpacePoint(topRightPosRatio.x, topRightPosRatio.y) - rectTrans.localPosition;
 
 			// use two sample points from the reference curves to find the second and third controls points for this curves
-			for (int c = 0; c < refCurves.Length; c++)
-			{
+			for (int c = 0; c < refCurves.Length; c++) {
 				CUIBezierCurve curve = refCurves[c];
 
 				float yTime = c == 0 ? bottomLeftPosRatio.y : topRightPosRatio.y;
@@ -463,22 +415,19 @@ namespace UnityEngine.UI.Extensions
 			// use tangent and start and end time to derive control point 2 and 3
 		}
 
-		public override void ModifyMesh(Mesh _mesh)
-		{
+		public override void ModifyMesh(Mesh _mesh) {
 
 			if (!IsActive())
 				return;
 
-			using (VertexHelper vh = new VertexHelper(_mesh))
-			{
+			using (VertexHelper vh = new VertexHelper(_mesh)) {
 				ModifyMesh(vh);
 				vh.FillMesh(_mesh);
 			}
 
 		}
 
-		public override void ModifyMesh(VertexHelper _vh)
-		{
+		public override void ModifyMesh(VertexHelper _vh) {
 
 			if (!IsActive())
 				return;
@@ -492,20 +441,17 @@ namespace UnityEngine.UI.Extensions
 			_vh.AddUIVertexTriangleStream(vertexList);
 		}
 
-		protected virtual void modifyVertices(List<UIVertex> _verts)
-		{
+		protected virtual void modifyVertices(List<UIVertex> _verts) {
 			if (!IsActive())
 				return;
 
 			tessellateGraphic(_verts);
 
-			if (!isCurved)
-			{
+			if (!isCurved) {
 				return;
 			}
 
-			for (int index = 0; index < _verts.Count; index++)
-			{
+			for (int index = 0; index < _verts.Count; index++) {
 				var uiVertex = _verts[index];
 
 				// finding the horizontal ratio position (0.0 - 1.0) of a vertex
@@ -523,20 +469,17 @@ namespace UnityEngine.UI.Extensions
 			}
 		}
 
-		public void UpdateCurveControlPointPositions()
-		{
+		public void UpdateCurveControlPointPositions() {
 			ReportSet();
 
-			for (int c = 0; c < refCurves.Length; c++)
-			{
+			for (int c = 0; c < refCurves.Length; c++) {
 				CUIBezierCurve curve = refCurves[c];
 
 #if UNITY_EDITOR
 				Undo.RecordObject(curve, "Move Rect");
 #endif
 
-				for (int p = 0; p < refCurves[c].ControlPoints.Length; p++)
-				{
+				for (int p = 0; p < refCurves[c].ControlPoints.Length; p++) {
 
 					Vector3 newPt = refCurvesControlRatioPoints[c][p];
 
@@ -554,14 +497,12 @@ namespace UnityEngine.UI.Extensions
 		// Methods that serves other objects 
 		#region Services
 
-		public Vector3 GetBCurveSandwichSpacePoint(float _xTime, float _yTime)
-		{
+		public Vector3 GetBCurveSandwichSpacePoint(float _xTime, float _yTime) {
 			//return Vector3.Lerp(refCurves[0].GetPoint(_xTime), refCurves[1].GetPoint(_xTime), _yTime);
 			return refCurves[0].GetPoint(_xTime) * (1 - _yTime) + refCurves[1].GetPoint(_xTime) * _yTime; // use a custom made lerp so that the value is not clamped between 0 and 1
 		}
 
-		public Vector3 GetBCurveSandwichSpaceTangent(float _xTime, float _yTime)
-		{
+		public Vector3 GetBCurveSandwichSpaceTangent(float _xTime, float _yTime) {
 			return refCurves[0].GetTangent(_xTime) * (1 - _yTime) + refCurves[1].GetTangent(_xTime) * _yTime;
 		}
 

@@ -4,28 +4,23 @@
 
 using System.Collections.Generic;
 
-namespace UnityEngine.UI.Extensions
-{
+namespace UnityEngine.UI.Extensions {
 	[AddComponentMenu("UI/Extensions/Primitives/UILineRendererList")]
 	[RequireComponent(typeof(RectTransform))]
-	public class UILineRendererList : UIPrimitiveBase
-	{
-		private enum SegmentType
-		{
+	public class UILineRendererList : UIPrimitiveBase {
+		private enum SegmentType {
 			Start,
 			Middle,
 			End,
 			Full,
 		}
 
-		public enum JoinType
-		{
+		public enum JoinType {
 			Bevel,
 			Miter
 		}
 
-		public enum BezierType
-		{
+		public enum BezierType {
 			None,
 			Quick,
 			Basic,
@@ -59,26 +54,22 @@ namespace UnityEngine.UI.Extensions
 		[SerializeField, Tooltip("Resolution of the Bezier curve, different to line Resolution")]
 		internal int bezierSegmentsPerCurve = 10;
 
-		public float LineThickness
-		{
+		public float LineThickness {
 			get => lineThickness;
 			set { lineThickness = value; SetAllDirty(); }
 		}
 
-		public bool RelativeSize
-		{
+		public bool RelativeSize {
 			get => relativeSize;
 			set { relativeSize = value; SetAllDirty(); }
 		}
 
-		public bool LineList
-		{
+		public bool LineList {
 			get => lineList;
 			set { lineList = value; SetAllDirty(); }
 		}
 
-		public bool LineCaps
-		{
+		public bool LineCaps {
 			get => lineCaps;
 			set { lineCaps = value; SetAllDirty(); }
 		}
@@ -89,8 +80,7 @@ namespace UnityEngine.UI.Extensions
 		[Tooltip("Bezier method to apply to line, see docs for options\nCan't be used in conjunction with Resolution as Bezier already changes the resolution")]
 		public BezierType BezierMode = BezierType.None;
 
-		public int BezierSegmentsPerCurve
-		{
+		public int BezierSegmentsPerCurve {
 			get => bezierSegmentsPerCurve; set => bezierSegmentsPerCurve = value;
 		}
 
@@ -101,12 +91,10 @@ namespace UnityEngine.UI.Extensions
 		/// Points to be drawn in the line.
 		/// </summary>
 		/// <remarks>Don't add points to the list directly, use the add / remove functions</remarks>
-		public List<Vector2> Points
-		{
+		public List<Vector2> Points {
 			get => m_points;
 
-			set
-			{
+			set {
 				if (m_points == value)
 					return;
 				m_points = value;
@@ -114,36 +102,30 @@ namespace UnityEngine.UI.Extensions
 			}
 		}
 
-		public void AddPoint(Vector2 pointToAdd)
-		{
+		public void AddPoint(Vector2 pointToAdd) {
 			m_points.Add(pointToAdd);
 			SetAllDirty();
 		}
 
-		public void RemovePoint(Vector2 pointToRemove)
-		{
+		public void RemovePoint(Vector2 pointToRemove) {
 			m_points.Remove(pointToRemove);
 			SetAllDirty();
 		}
 
-		public void ClearPoints()
-		{
+		public void ClearPoints() {
 			m_points.Clear();
 			SetAllDirty();
 		}
 
-		private void PopulateMesh(VertexHelper vh, List<Vector2> pointsToDraw)
-		{
+		private void PopulateMesh(VertexHelper vh, List<Vector2> pointsToDraw) {
 			//If Bezier is desired, pick the implementation
-			if (BezierMode != BezierType.None && BezierMode != BezierType.Catenary && pointsToDraw.Count > 3)
-			{
+			if (BezierMode != BezierType.None && BezierMode != BezierType.Catenary && pointsToDraw.Count > 3) {
 				BezierPath bezierPath = new BezierPath();
 
 				bezierPath.SetControlPoints(pointsToDraw);
 				bezierPath.SegmentsPerCurve = bezierSegmentsPerCurve;
 				List<Vector2> drawingPoints;
-				switch (BezierMode)
-				{
+				switch (BezierMode) {
 					case BezierType.Basic:
 						drawingPoints = bezierPath.GetDrawingPoints0();
 						break;
@@ -157,8 +139,7 @@ namespace UnityEngine.UI.Extensions
 
 				pointsToDraw = drawingPoints;
 			}
-			if (BezierMode == BezierType.Catenary && pointsToDraw.Count == 2)
-			{
+			if (BezierMode == BezierType.Catenary && pointsToDraw.Count == 2) {
 				CableCurve cable = new CableCurve(pointsToDraw);
 				cable.slack = Resolution;
 				cable.steps = BezierSegmentsPerCurve;
@@ -166,8 +147,7 @@ namespace UnityEngine.UI.Extensions
 				pointsToDraw.AddRange(cable.Points());
 			}
 
-			if (ImproveResolution != ResolutionMode.None)
-			{
+			if (ImproveResolution != ResolutionMode.None) {
 				pointsToDraw = IncreaseResolution(pointsToDraw);
 			}
 
@@ -179,58 +159,47 @@ namespace UnityEngine.UI.Extensions
 
 			// Generate the quads that make up the wide line
 			var segments = new List<UIVertex[]>();
-			if (lineList)
-			{
-				for (var i = 1; i < pointsToDraw.Count; i += 2)
-				{
+			if (lineList) {
+				for (var i = 1; i < pointsToDraw.Count; i += 2) {
 					var start = pointsToDraw[i - 1];
 					var end = pointsToDraw[i];
 					start = new Vector2(start.x * sizeX + offsetX, start.y * sizeY + offsetY);
 					end = new Vector2(end.x * sizeX + offsetX, end.y * sizeY + offsetY);
 
-					if (lineCaps)
-					{
+					if (lineCaps) {
 						segments.Add(CreateLineCap(start, end, SegmentType.Start));
 					}
 
 					//segments.Add(CreateLineSegment(start, end, SegmentType.Full));
 					segments.Add(CreateLineSegment(start, end, SegmentType.Middle));
 
-					if (lineCaps)
-					{
+					if (lineCaps) {
 						segments.Add(CreateLineCap(start, end, SegmentType.End));
 					}
 				}
-			}
-			else
-			{
-				for (var i = 1; i < pointsToDraw.Count; i++)
-				{
+			} else {
+				for (var i = 1; i < pointsToDraw.Count; i++) {
 					var start = pointsToDraw[i - 1];
 					var end = pointsToDraw[i];
 					start = new Vector2(start.x * sizeX + offsetX, start.y * sizeY + offsetY);
 					end = new Vector2(end.x * sizeX + offsetX, end.y * sizeY + offsetY);
 
-					if (lineCaps && i == 1)
-					{
+					if (lineCaps && i == 1) {
 						segments.Add(CreateLineCap(start, end, SegmentType.Start));
 					}
 
 					segments.Add(CreateLineSegment(start, end, SegmentType.Middle));
 					//segments.Add(CreateLineSegment(start, end, SegmentType.Full));
 
-					if (lineCaps && i == pointsToDraw.Count - 1)
-					{
+					if (lineCaps && i == pointsToDraw.Count - 1) {
 						segments.Add(CreateLineCap(start, end, SegmentType.End));
 					}
 				}
 			}
 
 			// Add the line segments to the vertex helper, creating any joins as needed
-			for (var i = 0; i < segments.Count; i++)
-			{
-				if (!lineList && i < segments.Count - 1)
-				{
+			for (var i = 0; i < segments.Count; i++) {
+				if (!lineList && i < segments.Count - 1) {
 					var vec1 = segments[i][1].position - segments[i][2].position;
 					var vec2 = segments[i + 1][2].position - segments[i + 1][1].position;
 					var angle = Vector2.Angle(vec1, vec2) * Mathf.Deg2Rad;
@@ -244,33 +213,24 @@ namespace UnityEngine.UI.Extensions
 					var miterPointB = segments[i][3].position + vec1.normalized * miterDistance * sign;
 
 					var joinType = LineJoins;
-					if (joinType == JoinType.Miter)
-					{
+					if (joinType == JoinType.Miter) {
 						// Make sure we can make a miter join without too many artifacts.
-						if (miterDistance < vec1.magnitude / 2 && miterDistance < vec2.magnitude / 2 && angle > MIN_MITER_JOIN)
-						{
+						if (miterDistance < vec1.magnitude / 2 && miterDistance < vec2.magnitude / 2 && angle > MIN_MITER_JOIN) {
 							segments[i][2].position = miterPointA;
 							segments[i][3].position = miterPointB;
 							segments[i + 1][0].position = miterPointB;
 							segments[i + 1][1].position = miterPointA;
-						}
-						else
-						{
+						} else {
 							joinType = JoinType.Bevel;
 						}
 					}
 
-					if (joinType == JoinType.Bevel)
-					{
-						if (miterDistance < vec1.magnitude / 2 && miterDistance < vec2.magnitude / 2 && angle > MIN_BEVEL_NICE_JOIN)
-						{
-							if (sign < 0)
-							{
+					if (joinType == JoinType.Bevel) {
+						if (miterDistance < vec1.magnitude / 2 && miterDistance < vec2.magnitude / 2 && angle > MIN_BEVEL_NICE_JOIN) {
+							if (sign < 0) {
 								segments[i][2].position = miterPointA;
 								segments[i + 1][1].position = miterPointA;
-							}
-							else
-							{
+							} else {
 								segments[i][3].position = miterPointB;
 								segments[i + 1][0].position = miterPointB;
 							}
@@ -283,8 +243,7 @@ namespace UnityEngine.UI.Extensions
 
 				vh.AddUIVertexQuad(segments[i]);
 			}
-			if (vh.currentVertCount > 64000)
-			{
+			if (vh.currentVertCount > 64000) {
 				Debug.LogError("Max Verticies size is 64000, current mesh verticies count is [" + vh.currentVertCount + "] - Cannot Draw");
 				vh.Clear();
 				return;
@@ -292,10 +251,8 @@ namespace UnityEngine.UI.Extensions
 
 		}
 
-		protected override void OnPopulateMesh(VertexHelper vh)
-		{
-			if (m_points != null && m_points.Count > 0)
-			{
+		protected override void OnPopulateMesh(VertexHelper vh) {
+			if (m_points != null && m_points.Count > 0) {
 				GeneratedUVs();
 				vh.Clear();
 
@@ -304,15 +261,11 @@ namespace UnityEngine.UI.Extensions
 			}
 		}
 
-		private UIVertex[] CreateLineCap(Vector2 start, Vector2 end, SegmentType type)
-		{
-			if (type == SegmentType.Start)
-			{
+		private UIVertex[] CreateLineCap(Vector2 start, Vector2 end, SegmentType type) {
+			if (type == SegmentType.Start) {
 				var capStart = start - ((end - start).normalized * lineThickness / 2);
 				return CreateLineSegment(capStart, start, SegmentType.Start);
-			}
-			else if (type == SegmentType.End)
-			{
+			} else if (type == SegmentType.End) {
 				var capEnd = end + ((end - start).normalized * lineThickness / 2);
 				return CreateLineSegment(end, capEnd, SegmentType.End);
 			}
@@ -321,8 +274,7 @@ namespace UnityEngine.UI.Extensions
 			return null;
 		}
 
-		private UIVertex[] CreateLineSegment(Vector2 start, Vector2 end, SegmentType type)
-		{
+		private UIVertex[] CreateLineSegment(Vector2 start, Vector2 end, SegmentType type) {
 			Vector2 offset = new Vector2((start.y - end.y), end.x - start.x).normalized * lineThickness / 2;
 
 			var v1 = start - offset;
@@ -330,8 +282,7 @@ namespace UnityEngine.UI.Extensions
 			var v3 = end + offset;
 			var v4 = end - offset;
 			//Return the VDO with the correct uvs
-			switch (type)
-			{
+			switch (type) {
 				case SegmentType.Start:
 					return SetVbo(new[] { v1, v2, v3, v4 }, startUvs);
 				case SegmentType.End:
@@ -343,10 +294,8 @@ namespace UnityEngine.UI.Extensions
 			}
 		}
 
-		protected override void GeneratedUVs()
-		{
-			if (activeSprite != null)
-			{
+		protected override void GeneratedUVs() {
+			if (activeSprite != null) {
 				var outer = Sprites.DataUtility.GetOuterUV(activeSprite);
 				var inner = Sprites.DataUtility.GetInnerUV(activeSprite);
 				UV_TOP_LEFT = new Vector2(outer.x, outer.y);
@@ -357,9 +306,7 @@ namespace UnityEngine.UI.Extensions
 				UV_BOTTOM_CENTER_RIGHT = new Vector2(inner.z, inner.w);
 				UV_TOP_RIGHT = new Vector2(outer.z, outer.y);
 				UV_BOTTOM_RIGHT = new Vector2(outer.z, outer.w);
-			}
-			else
-			{
+			} else {
 				UV_TOP_LEFT = Vector2.zero;
 				UV_BOTTOM_LEFT = new Vector2(0, 1);
 				UV_TOP_CENTER_LEFT = new Vector2(0.5f, 0);
@@ -377,10 +324,8 @@ namespace UnityEngine.UI.Extensions
 			fullUvs = new[] { UV_TOP_LEFT, UV_BOTTOM_LEFT, UV_BOTTOM_RIGHT, UV_TOP_RIGHT };
 		}
 
-		protected override void ResolutionToNativeSize(float distance)
-		{
-			if (UseNativeSize)
-			{
+		protected override void ResolutionToNativeSize(float distance) {
+			if (UseNativeSize) {
 				m_Resolution = distance / (activeSprite.rect.width / pixelsPerUnit);
 				lineThickness = activeSprite.rect.height / pixelsPerUnit;
 			}

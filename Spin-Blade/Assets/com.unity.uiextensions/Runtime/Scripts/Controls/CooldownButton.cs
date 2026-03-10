@@ -4,11 +4,9 @@
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
-namespace UnityEngine.UI.Extensions
-{
+namespace UnityEngine.UI.Extensions {
 	[AddComponentMenu("UI/Extensions/Cooldown Button")]
-	public class CooldownButton : MonoBehaviour, IPointerDownHandler, ISubmitHandler
-	{
+	public class CooldownButton : MonoBehaviour, IPointerDownHandler, ISubmitHandler {
 		#region Sub-Classes
 		[System.Serializable]
 		public class CooldownButtonEvent : UnityEvent<GameObject> { }
@@ -43,25 +41,21 @@ namespace UnityEngine.UI.Extensions
 
 		#region Public Properties
 
-		public float CooldownTimeout
-		{
+		public float CooldownTimeout {
 			get => cooldownTimeout; set => cooldownTimeout = value;
 		}
 
-		public float CooldownSpeed
-		{
+		public float CooldownSpeed {
 			get => cooldownSpeed; set => cooldownSpeed = value;
 		}
 
 		public bool CooldownInEffect => cooldownInEffect;
 
-		public bool CooldownActive
-		{
+		public bool CooldownActive {
 			get => cooldownActive; set => cooldownActive = value;
 		}
 
-		public float CooldownTimeElapsed
-		{
+		public float CooldownTimeElapsed {
 			get => cooldownTimeElapsed; set => cooldownTimeElapsed = value;
 		}
 
@@ -85,18 +79,13 @@ namespace UnityEngine.UI.Extensions
 		#region Update
 
 		// Update is called once per frame
-		void Update()
-		{
-			if (CooldownActive)
-			{
+		void Update() {
+			if (CooldownActive) {
 				cooldownTimeRemaining -= Time.deltaTime * cooldownSpeed;
 				cooldownTimeElapsed = CooldownTimeout - CooldownTimeRemaining;
-				if (cooldownTimeRemaining < 0)
-				{
+				if (cooldownTimeRemaining < 0) {
 					StopCooldown();
-				}
-				else
-				{
+				} else {
 					cooldownPercentRemaining = (int)(100 * cooldownTimeRemaining * CooldownTimeout / 100);
 					cooldownPercentComplete = (int)((CooldownTimeout - cooldownTimeRemaining) / CooldownTimeout * 100);
 				}
@@ -108,10 +97,8 @@ namespace UnityEngine.UI.Extensions
 		/// <summary>
 		/// Pause Cooldown without resetting values, allows Restarting of cooldown
 		/// </summary>
-		public void PauseCooldown()
-		{
-			if (CooldownInEffect)
-			{
+		public void PauseCooldown() {
+			if (CooldownInEffect) {
 				CooldownActive = false;
 			}
 		}
@@ -119,10 +106,8 @@ namespace UnityEngine.UI.Extensions
 		/// <summary>
 		/// Restart a paused cooldown
 		/// </summary>
-		public void RestartCooldown()
-		{
-			if (CooldownInEffect)
-			{
+		public void RestartCooldown() {
+			if (CooldownInEffect) {
 				CooldownActive = true;
 			}
 		}
@@ -130,8 +115,7 @@ namespace UnityEngine.UI.Extensions
 		/// <summary>
 		/// Start a cooldown from outside
 		/// </summary>
-		public void StartCooldown()
-		{
+		public void StartCooldown() {
 			BaseEventData emptySource = new BaseEventData(EventSystem.current);
 			buttonSource = emptySource;
 			OnCooldownStart.Invoke(emptySource.selectedObject);
@@ -142,8 +126,7 @@ namespace UnityEngine.UI.Extensions
 		/// <summary>
 		/// Stop a running Cooldown and reset all values
 		/// </summary>
-		public void StopCooldown()
-		{
+		public void StopCooldown() {
 			cooldownTimeElapsed = CooldownTimeout;
 			cooldownTimeRemaining = 0;
 			cooldownPercentRemaining = 0;
@@ -155,37 +138,31 @@ namespace UnityEngine.UI.Extensions
 		/// <summary>
 		/// Stop a running Cooldown and retain current values
 		/// </summary>
-		public void CancelCooldown()
-		{
+		public void CancelCooldown() {
 			cooldownActive = cooldownInEffect = false;
 		}
 		#endregion
 
 		#region IPointerDownHandler
-		void IPointerDownHandler.OnPointerDown(PointerEventData eventData)
-		{
+		void IPointerDownHandler.OnPointerDown(PointerEventData eventData) {
 			HandleButtonClick(eventData);
 		}
 		#endregion
 
 		#region ISubmitHandler
-		public void OnSubmit(BaseEventData eventData)
-		{
+		public void OnSubmit(BaseEventData eventData) {
 			HandleButtonClick(eventData);
 		}
 		#endregion ISubmitHandler
 
 		#region Private Methods
-		public void HandleButtonClick(BaseEventData eventData)
-		{
+		public void HandleButtonClick(BaseEventData eventData) {
 			buttonSource = eventData;
 
-			if (CooldownInEffect)
-			{
+			if (CooldownInEffect) {
 				OnButtonClickDuringCooldown?.Invoke(buttonSource.selectedObject);
 			}
-			if (!CooldownInEffect)
-			{
+			if (!CooldownInEffect) {
 				OnCooldownStart?.Invoke(buttonSource.selectedObject);
 				cooldownTimeRemaining = cooldownTimeout;
 				cooldownActive = cooldownInEffect = true;

@@ -1,4 +1,3 @@
-public interface IUpgrade
-{
+public interface IUpgrade {
 	public void ApplyUpgrade();
 }

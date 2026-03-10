@@ -1,25 +1,21 @@
 ﻿///Credit Martin Nerurkar // www.martin.nerurkar.de // www.sharkbombs.com
 ///Sourced from - http://www.sharkbombs.com/2015/02/10/tooltips-with-the-new-unity-ui-ugui/
 
-namespace UnityEngine.UI.Extensions
-{
+namespace UnityEngine.UI.Extensions {
 	[AddComponentMenu("UI/Extensions/Bound Tooltip/Bound Tooltip Item")]
-	public class BoundTooltipItem : MonoBehaviour
-	{
+	public class BoundTooltipItem : MonoBehaviour {
 		public bool IsActive => gameObject.activeSelf;
 
 		public UnityEngine.UI.Text TooltipText;
 		public Vector3 ToolTipOffset;
 
-		void Awake()
-		{
+		void Awake() {
 			instance = this;
 			if (!TooltipText) TooltipText = GetComponentInChildren<Text>();
 			HideTooltip();
 		}
 
-		public void ShowTooltip(string text, Vector3 pos)
-		{
+		public void ShowTooltip(string text, Vector3 pos) {
 			if (TooltipText.text != text)
 				TooltipText.text = text;
 
@@ -28,19 +24,15 @@ namespace UnityEngine.UI.Extensions
 			gameObject.SetActive(true);
 		}
 
-		public void HideTooltip()
-		{
+		public void HideTooltip() {
 			gameObject.SetActive(false);
 		}
 
 		// Standard Singleton Access
 		private static BoundTooltipItem instance;
-		public static BoundTooltipItem Instance
-		{
-			get
-			{
-				if (instance == null)
-				{
+		public static BoundTooltipItem Instance {
+			get {
+				if (instance == null) {
 #if UNITY_2023_1_OR_NEWER
 					instance = GameObject.FindFirstObjectByType<BoundTooltipItem>();
 #else

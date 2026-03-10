@@ -20,12 +20,10 @@
 //IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
 //WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
-namespace UnityEngine.UI.Extensions
-{
+namespace UnityEngine.UI.Extensions {
 	[RequireComponent(typeof(RectTransform))]
 	[AddComponentMenu("UI/Extensions/Tooltip/Tooltip")]
-	public class ToolTip : MonoBehaviour
-	{
+	public class ToolTip : MonoBehaviour {
 		//text of the tooltip
 #if UNITY_2022_1_OR_NEWER
 		private TMPro.TMP_Text _text;
@@ -58,12 +56,9 @@ namespace UnityEngine.UI.Extensions
 
 		private Camera _guiCamera;
 
-		public Camera GuiCamera
-		{
-			get
-			{
-				if (!_guiCamera)
-				{
+		public Camera GuiCamera {
+			get {
+				if (!_guiCamera) {
 					_guiCamera = Camera.main;
 				}
 
@@ -88,12 +83,9 @@ namespace UnityEngine.UI.Extensions
 		// Standard Singleton Access
 		private static ToolTip instance;
 
-		public static ToolTip Instance
-		{
-			get
-			{
-				if (instance == null)
-				{
+		public static ToolTip Instance {
+			get {
+				if (instance == null) {
 #if UNITY_2023_1_OR_NEWER
 					instance = FindFirstObjectByType<ToolTip>();
 #else
@@ -105,18 +97,15 @@ namespace UnityEngine.UI.Extensions
 		}
 
 
-		void Reset()
-		{
+		void Reset() {
 			canvas = GetComponentInParent<Canvas>();
 			canvas = canvas.rootCanvas;
 		}
 
 		// Use this for initialization
-		public void Awake()
-		{
+		public void Awake() {
 			instance = this;
-			if (!canvas)
-			{
+			if (!canvas) {
 				canvas = GetComponentInParent<Canvas>();
 				canvas = canvas.rootCanvas;
 			}
@@ -138,24 +127,19 @@ namespace UnityEngine.UI.Extensions
 			this.gameObject.SetActive(false);
 		}
 
-		public void SetTooltip(string ttext)
-		{
+		public void SetTooltip(string ttext) {
 			SetTooltip(ttext, transform.position);
 		}
 
 		//Call this function externally to set the text of the template and activate the tooltip
-		public void SetTooltip(string ttext, Vector3 basePos, bool refreshCanvasesBeforeGetSize = false)
-		{
+		public void SetTooltip(string ttext, Vector3 basePos, bool refreshCanvasesBeforeGetSize = false) {
 
 			baseTooltipPos = basePos;
 
 			//set the text
-			if (_text)
-			{
+			if (_text) {
 				_text.text = ttext;
-			}
-			else
-			{
+			} else {
 				Debug.LogWarning("[ToolTip] Couldn't set tooltip text, tooltip has no child Text component");
 			}
 
@@ -164,17 +148,14 @@ namespace UnityEngine.UI.Extensions
 		}
 
 		//call this function on mouse exit to deactivate the template
-		public void HideTooltip()
-		{
+		public void HideTooltip() {
 			gameObject.SetActive(false);
 			_inside = false;
 		}
 
 		// Update is called once per frame
-		void Update()
-		{
-			if (_inside)
-			{
+		void Update() {
+			if (_inside) {
 				ContextualTooltipUpdate();
 			}
 		}
@@ -184,14 +165,11 @@ namespace UnityEngine.UI.Extensions
 		/// Can prevent the tooltip from being visibly misplaced for one frame when being resized.
 		/// Only runs if tooltipTriggersCanForceCanvasUpdate is true
 		/// </summary>
-		public void RefreshTooltipSize()
-		{
-			if (tooltipTriggersCanForceCanvasUpdate)
-			{
+		public void RefreshTooltipSize() {
+			if (tooltipTriggersCanForceCanvasUpdate) {
 				Canvas.ForceUpdateCanvases();
 
-				if (_layoutGroup)
-				{
+				if (_layoutGroup) {
 					_layoutGroup.enabled = false;
 					_layoutGroup.enabled = true;
 				}
@@ -204,10 +182,8 @@ namespace UnityEngine.UI.Extensions
 		/// Runs the appropriate tooltip placement method, according to the parent canvas's render mode
 		/// </summary>
 		/// <param name="refreshCanvasesBeforeGettingSize"></param>
-		public void ContextualTooltipUpdate(bool refreshCanvasesBeforeGettingSize = false)
-		{
-			switch (guiMode)
-			{
+		public void ContextualTooltipUpdate(bool refreshCanvasesBeforeGettingSize = false) {
+			switch (guiMode) {
 				case RenderMode.ScreenSpaceCamera:
 					OnScreenSpaceCamera(refreshCanvasesBeforeGettingSize);
 					break;
@@ -218,8 +194,7 @@ namespace UnityEngine.UI.Extensions
 		}
 
 		//main tooltip edge of screen guard and movement - camera
-		public void OnScreenSpaceCamera(bool refreshCanvasesBeforeGettingSize = false)
-		{
+		public void OnScreenSpaceCamera(bool refreshCanvasesBeforeGettingSize = false) {
 			shiftingVector.x = xShift;
 			shiftingVector.y = YShift;
 
@@ -244,15 +219,13 @@ namespace UnityEngine.UI.Extensions
 
 			//check for right edge of screen
 			borderTest = (adjustedNewTTPos.x + width / 2);
-			if (borderTest > screenUpperRight.x)
-			{
+			if (borderTest > screenUpperRight.x) {
 				shifterForBorders.x = borderTest - screenUpperRight.x;
 				adjustedNewTTPos.x -= shifterForBorders.x;
 			}
 			//check for left edge of screen
 			borderTest = (adjustedNewTTPos.x - width / 2);
-			if (borderTest < screenLowerLeft.x)
-			{
+			if (borderTest < screenLowerLeft.x) {
 				shifterForBorders.x = screenLowerLeft.x - borderTest;
 				adjustedNewTTPos.x += shifterForBorders.x;
 			}
@@ -261,16 +234,14 @@ namespace UnityEngine.UI.Extensions
 
 			//check for lower edge of the screen
 			borderTest = (adjustedNewTTPos.y - height / 2);
-			if (borderTest < screenLowerLeft.y)
-			{
+			if (borderTest < screenLowerLeft.y) {
 				shifterForBorders.y = screenLowerLeft.y - borderTest;
 				adjustedNewTTPos.y += shifterForBorders.y;
 			}
 
 			//check for upper edge of the screen
 			borderTest = (adjustedNewTTPos.y + height / 2);
-			if (borderTest > screenUpperRight.y)
-			{
+			if (borderTest > screenUpperRight.y) {
 				shifterForBorders.y = borderTest - screenUpperRight.y;
 				adjustedNewTTPos.y -= shifterForBorders.y;
 			}
@@ -288,8 +259,7 @@ namespace UnityEngine.UI.Extensions
 
 
 		//main tooltip edge of screen guard and movement - overlay
-		public void OnScreenSpaceOverlay(bool refreshCanvasesBeforeGettingSize = false)
-		{
+		public void OnScreenSpaceOverlay(bool refreshCanvasesBeforeGettingSize = false) {
 			shiftingVector.x = xShift;
 			shiftingVector.y = YShift;
 			newTTPos = (baseTooltipPos - shiftingVector) / canvas.scaleFactor;
@@ -309,15 +279,13 @@ namespace UnityEngine.UI.Extensions
 
 			//check for right edge of screen
 			borderTest = (newTTPos.x + width / 2);
-			if (borderTest > screenUpperRight.x)
-			{
+			if (borderTest > screenUpperRight.x) {
 				shifterForBorders.x = borderTest - screenUpperRight.x;
 				adjustedNewTTPos.x -= shifterForBorders.x;
 			}
 			//check for left edge of screen
 			borderTest = (adjustedNewTTPos.x - width / 2);
-			if (borderTest < screenLowerLeft.x)
-			{
+			if (borderTest < screenLowerLeft.x) {
 				shifterForBorders.x = screenLowerLeft.x - borderTest;
 				adjustedNewTTPos.x += shifterForBorders.x;
 			}
@@ -326,16 +294,14 @@ namespace UnityEngine.UI.Extensions
 
 			//check for lower edge of the screen
 			borderTest = (adjustedNewTTPos.y - height / 2);
-			if (borderTest < screenLowerLeft.y)
-			{
+			if (borderTest < screenLowerLeft.y) {
 				shifterForBorders.y = screenLowerLeft.y - borderTest;
 				adjustedNewTTPos.y += shifterForBorders.y;
 			}
 
 			//check for upper edge of the screen
 			borderTest = (adjustedNewTTPos.y + height / 2);
-			if (borderTest > screenUpperRight.y)
-			{
+			if (borderTest > screenUpperRight.y) {
 				shifterForBorders.y = borderTest - screenUpperRight.y;
 				adjustedNewTTPos.y -= shifterForBorders.y;
 			}

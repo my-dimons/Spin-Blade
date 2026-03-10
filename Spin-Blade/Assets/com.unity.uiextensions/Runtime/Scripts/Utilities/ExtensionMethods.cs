@@ -1,23 +1,17 @@
 ﻿using System;
 
-namespace UnityEngine.UI.Extensions
-{
-	public static class ExtensionMethods
-	{
-		public static T GetOrAddComponent<T>(this GameObject child) where T : Component
-		{
+namespace UnityEngine.UI.Extensions {
+	public static class ExtensionMethods {
+		public static T GetOrAddComponent<T>(this GameObject child) where T : Component {
 			T result = child.GetComponent<T>();
-			if (result == null)
-			{
+			if (result == null) {
 				result = child.AddComponent<T>();
 			}
 			return result;
 		}
 
-		public static bool IsPrefab(this GameObject gameObject)
-		{
-			if (gameObject == null)
-			{
+		public static bool IsPrefab(this GameObject gameObject) {
+			if (gameObject == null) {
 				throw new ArgumentNullException(nameof(gameObject));
 			}
 
@@ -38,14 +32,11 @@ namespace UnityEngine.UI.Extensions
 		/// <param name="min">Minimum value</param>
 		/// <param name="max">Maximum value</param>
 		/// <returns></returns>
-		public static T Clamp<T>(this T value, T min, T max) where T : IComparable<T>
-		{
-			if (value.CompareTo(min) < 0)
-			{
+		public static T Clamp<T>(this T value, T min, T max) where T : IComparable<T> {
+			if (value.CompareTo(min) < 0) {
 				value = min;
 			}
-			if (value.CompareTo(max) > 0)
-			{
+			if (value.CompareTo(max) > 0) {
 				value = max;
 			}
 

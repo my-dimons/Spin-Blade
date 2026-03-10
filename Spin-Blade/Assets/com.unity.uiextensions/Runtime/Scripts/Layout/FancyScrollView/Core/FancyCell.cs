@@ -1,8 +1,7 @@
 ﻿/// Credit setchi (https://github.com/setchi)
 /// Sourced from - https://github.com/setchi/FancyScrollView
 
-namespace UnityEngine.UI.Extensions
-{
+namespace UnityEngine.UI.Extensions {
 	/// <summary>
 	/// <see cref="FancyScrollView{TItemData, TContext}"/> のセルを実装するための抽象基底クラス.
 	/// <see cref="FancyCell{TItemData, TContext}.Context"/> が不要な場合は
@@ -10,8 +9,7 @@ namespace UnityEngine.UI.Extensions
 	/// </summary>
 	/// <typeparam name="TItemData">アイテムのデータ型.</typeparam>
 	/// <typeparam name="TContext"><see cref="Context"/> の型.</typeparam>
-	public abstract class FancyCell<TItemData, TContext> : MonoBehaviour where TContext : class, new()
-	{
+	public abstract class FancyCell<TItemData, TContext> : MonoBehaviour where TContext : class, new() {
 		/// <summary>
 		/// このセルで表示しているデータのインデックス.
 		/// </summary>
@@ -32,8 +30,7 @@ namespace UnityEngine.UI.Extensions
 		/// <see cref="Context"/> をセットします.
 		/// </summary>
 		/// <param name="context">コンテキスト.</param>
-		public virtual void SetContext(TContext context)
-		{
+		public virtual void SetContext(TContext context) {
 			Context = context;
 		}
 
@@ -46,8 +43,7 @@ namespace UnityEngine.UI.Extensions
 		/// このセルの可視状態を設定します.
 		/// </summary>
 		/// <param name="visible">可視状態なら <c>true</c>, 非可視状態なら <c>false</c>.</param>
-		public virtual void SetVisible(bool visible)
-		{
+		public virtual void SetVisible(bool visible) {
 			gameObject.SetActive(visible);
 		}
 
@@ -69,11 +65,9 @@ namespace UnityEngine.UI.Extensions
 	/// </summary>
 	/// <typeparam name="TItemData">アイテムのデータ型.</typeparam>
 	/// <seealso cref="FancyCell{TItemData, TContext}"/>
-	public abstract class FancyCell<TItemData> : FancyCell<TItemData, NullContext>
-	{
+	public abstract class FancyCell<TItemData> : FancyCell<TItemData, NullContext> {
 		/// <inheritdoc/>
-		public sealed override void SetContext(NullContext context)
-		{
+		public sealed override void SetContext(NullContext context) {
 			base.SetContext(context);
 		}
 	}

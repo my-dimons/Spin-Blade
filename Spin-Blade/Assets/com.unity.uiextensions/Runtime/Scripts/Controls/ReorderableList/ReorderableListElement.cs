@@ -6,11 +6,9 @@ using System;
 using System.Collections.Generic;
 using UnityEngine.EventSystems;
 
-namespace UnityEngine.UI.Extensions
-{
+namespace UnityEngine.UI.Extensions {
 	[RequireComponent(typeof(RectTransform), typeof(LayoutElement))]
-	public class ReorderableListElement : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
-	{
+	public class ReorderableListElement : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler {
 		[Tooltip("Can this element be dragged?")]
 		[SerializeField]
 		private bool isGrabbable = true;
@@ -23,11 +21,9 @@ namespace UnityEngine.UI.Extensions
 		[SerializeField]
 		private bool isDroppableInSpace = false;
 
-		public bool IsTransferable
-		{
+		public bool IsTransferable {
 			get => isTransferable;
-			set
-			{
+			set {
 				_canvasGroup = gameObject.GetOrAddComponent<CanvasGroup>();
 				_canvasGroup.blocksRaycasts = value;
 				isTransferable = value;
@@ -59,8 +55,7 @@ namespace UnityEngine.UI.Extensions
 
 
 		#region IBeginDragHandler Members
-		public void OnBeginDrag(PointerEventData eventData)
-		{
+		public void OnBeginDrag(PointerEventData eventData) {
 			if (!_canvasGroup) { _canvasGroup = gameObject.GetOrAddComponent<CanvasGroup>(); }
 			_canvasGroup.blocksRaycasts = false;
 			isValid = true;
@@ -68,23 +63,19 @@ namespace UnityEngine.UI.Extensions
 				return;
 
 			//Can't drag, return...
-			if (!_reorderableList.IsDraggable || !this.isGrabbable)
-			{
+			if (!_reorderableList.IsDraggable || !this.isGrabbable) {
 				_draggingObject = null;
 				return;
 			}
 
 			//If not CloneDraggedObject just set draggingObject to this gameobject
-			if (_reorderableList.CloneDraggedObject == false)
-			{
+			if (_reorderableList.CloneDraggedObject == false) {
 				_draggingObject = _rect;
 				_fromIndex = _rect.GetSiblingIndex();
 				_displacedFromIndex = -1;
 				//Send OnElementRemoved Event
-				if (_reorderableList.OnElementRemoved != null)
-				{
-					_reorderableList.OnElementRemoved.Invoke(new ReorderableList.ReorderableListEventStruct
-					{
+				if (_reorderableList.OnElementRemoved != null) {
+					_reorderableList.OnElementRemoved.Invoke(new ReorderableList.ReorderableListEventStruct {
 						DroppedObject = _draggingObject.gameObject,
 						IsAClone = _reorderableList.CloneDraggedObject,
 						SourceObject = _reorderableList.CloneDraggedObject ? gameObject : _draggingObject.gameObject,
@@ -92,14 +83,11 @@ namespace UnityEngine.UI.Extensions
 						FromIndex = _fromIndex,
 					});
 				}
-				if (isValid == false)
-				{
+				if (isValid == false) {
 					_draggingObject = null;
 					return;
 				}
-			}
-			else
-			{
+			} else {
 				//Else Duplicate
 				GameObject clone = (GameObject)Instantiate(gameObject);
 				_draggingObject = clone.GetComponent<RectTransform>();
@@ -119,10 +107,8 @@ namespace UnityEngine.UI.Extensions
 			RefreshSizes();
 
 			//Send OnElementGrabbed Event
-			if (_reorderableList.OnElementGrabbed != null)
-			{
-				_reorderableList.OnElementGrabbed.Invoke(new ReorderableList.ReorderableListEventStruct
-				{
+			if (_reorderableList.OnElementGrabbed != null) {
+				_reorderableList.OnElementGrabbed.Invoke(new ReorderableList.ReorderableListEventStruct {
 					DroppedObject = _draggingObject.gameObject,
 					IsAClone = _reorderableList.CloneDraggedObject,
 					SourceObject = _reorderableList.CloneDraggedObject ? gameObject : _draggingObject.gameObject,
@@ -130,8 +116,7 @@ namespace UnityEngine.UI.Extensions
 					FromIndex = _fromIndex,
 				});
 
-				if (!isValid)
-				{
+				if (!isValid) {
 					CancelDrag();
 					return;
 				}
@@ -142,12 +127,10 @@ namespace UnityEngine.UI.Extensions
 		#endregion
 
 		#region IDragHandler Members
-		public void OnDrag(PointerEventData eventData)
-		{
+		public void OnDrag(PointerEventData eventData) {
 			if (!_isDragging)
 				return;
-			if (!isValid)
-			{
+			if (!isValid) {
 				CancelDrag();
 				return;
 			}
@@ -162,11 +145,9 @@ namespace UnityEngine.UI.Extensions
 
 			//Check everything under the cursor to find a ReorderableList
 			EventSystem.current.RaycastAll(eventData, _raycastResults);
-			for (int i = 0; i < _raycastResults.Count; i++)
-			{
+			for (int i = 0; i < _raycastResults.Count; i++) {
 				_currentReorderableListRaycasted = _raycastResults[i].gameObject.GetComponent<ReorderableList>();
-				if (_currentReorderableListRaycasted != null)
-				{
+				if (_currentReorderableListRaycasted != null) {
 					break;
 				}
 			}
@@ -176,29 +157,24 @@ namespace UnityEngine.UI.Extensions
 				|| ((_fakeElement.parent == _currentReorderableListRaycasted.Content
 					? _currentReorderableListRaycasted.Content.childCount - 1
 					: _currentReorderableListRaycasted.Content.childCount) >= _currentReorderableListRaycasted.maxItems && !_currentReorderableListRaycasted.IsDisplacable)
-				|| _currentReorderableListRaycasted.maxItems <= 0)
-			{
+				|| _currentReorderableListRaycasted.maxItems <= 0) {
 				RefreshSizes();
 				_fakeElement.transform.SetParent(_reorderableList.DraggableArea, false);
 				// revert the displaced element when not hovering over its list
-				if (_displacedObject != null)
-				{
+				if (_displacedObject != null) {
 					revertDisplacedElement();
 				}
 			}
 			//Else find the best position on the list and put fake element on the right index 
-			else if (_currentReorderableListRaycasted == _reorderableList || IsTransferable)
-			{
-				if (_currentReorderableListRaycasted.Content.childCount < _currentReorderableListRaycasted.maxItems && _fakeElement.parent != _currentReorderableListRaycasted.Content)
-				{
+			else if (_currentReorderableListRaycasted == _reorderableList || IsTransferable) {
+				if (_currentReorderableListRaycasted.Content.childCount < _currentReorderableListRaycasted.maxItems && _fakeElement.parent != _currentReorderableListRaycasted.Content) {
 					_fakeElement.SetParent(_currentReorderableListRaycasted.Content, false);
 				}
 
 				float minDistance = float.PositiveInfinity;
 				int targetIndex = 0;
 				float dist = 0;
-				for (int j = 0; j < _currentReorderableListRaycasted.Content.childCount; j++)
-				{
+				for (int j = 0; j < _currentReorderableListRaycasted.Content.childCount; j++) {
 					var c = _currentReorderableListRaycasted.Content.GetChild(j).GetComponent<RectTransform>();
 
 					if (_currentReorderableListRaycasted.ContentLayout is VerticalLayoutGroup)
@@ -208,26 +184,20 @@ namespace UnityEngine.UI.Extensions
 					else if (_currentReorderableListRaycasted.ContentLayout is GridLayoutGroup)
 						dist = (Mathf.Abs(c.position.x - worldPoint.x) + Mathf.Abs(c.position.y - worldPoint.y));
 
-					if (dist < minDistance)
-					{
+					if (dist < minDistance) {
 						minDistance = dist;
 						targetIndex = j;
 					}
 				}
 				if ((_currentReorderableListRaycasted != _oldReorderableListRaycasted || targetIndex != _displacedFromIndex)
-					&& _currentReorderableListRaycasted.Content.childCount == _currentReorderableListRaycasted.maxItems)
-				{
+					&& _currentReorderableListRaycasted.Content.childCount == _currentReorderableListRaycasted.maxItems) {
 					Transform toDisplace = _currentReorderableListRaycasted.Content.GetChild(targetIndex);
-					if (_displacedObject != null)
-					{
+					if (_displacedObject != null) {
 						revertDisplacedElement();
-						if (_currentReorderableListRaycasted.Content.childCount > _currentReorderableListRaycasted.maxItems)
-						{
+						if (_currentReorderableListRaycasted.Content.childCount > _currentReorderableListRaycasted.maxItems) {
 							displaceElement(targetIndex, toDisplace);
 						}
-					}
-					else if (_fakeElement.parent != _currentReorderableListRaycasted.Content)
-					{
+					} else if (_fakeElement.parent != _currentReorderableListRaycasted.Content) {
 						_fakeElement.SetParent(_currentReorderableListRaycasted.Content, false);
 						displaceElement(targetIndex, toDisplace);
 					}
@@ -241,16 +211,14 @@ namespace UnityEngine.UI.Extensions
 		#endregion
 
 		#region Displacement
-		private void displaceElement(int targetIndex, Transform displaced)
-		{
+		private void displaceElement(int targetIndex, Transform displaced) {
 			_displacedFromIndex = targetIndex;
 			_displacedObjectOriginList = _currentReorderableListRaycasted;
 			_displacedObject = displaced.GetComponent<RectTransform>();
 			_displacedObjectLE = _displacedObject.GetComponent<LayoutElement>();
 			_displacedObjectOriginalSize = _displacedObject.rect.size;
 
-			var args = new ReorderableList.ReorderableListEventStruct
-			{
+			var args = new ReorderableList.ReorderableListEventStruct {
 				DroppedObject = _displacedObject.gameObject,
 				FromList = _currentReorderableListRaycasted,
 				FromIndex = targetIndex,
@@ -261,8 +229,7 @@ namespace UnityEngine.UI.Extensions
 				? _reorderableList.Content.childCount - 1
 				: _reorderableList.Content.childCount;
 
-			if (_reorderableList.IsDropable && c < _reorderableList.maxItems && _displacedObject.GetComponent<ReorderableListElement>().IsTransferable)
-			{
+			if (_reorderableList.IsDropable && c < _reorderableList.maxItems && _displacedObject.GetComponent<ReorderableListElement>().IsTransferable) {
 				_displacedObjectLE.preferredWidth = _draggingObjectOriginalSize.x;
 				_displacedObjectLE.preferredHeight = _draggingObjectOriginalSize.y;
 				_displacedObject.SetParent(_reorderableList.Content, false);
@@ -276,15 +243,11 @@ namespace UnityEngine.UI.Extensions
 				args.ToIndex = _fromIndex;
 				_reorderableList.OnElementDisplacedTo.Invoke(args);
 				_reorderableList.OnElementAdded.Invoke(args);
-			}
-			else if (_displacedObject.GetComponent<ReorderableListElement>().isDroppableInSpace)
-			{
+			} else if (_displacedObject.GetComponent<ReorderableListElement>().isDroppableInSpace) {
 				_displacedObject.SetParent(_currentReorderableListRaycasted.DraggableArea, true);
 				_currentReorderableListRaycasted.Refresh();
 				_displacedObject.position += new Vector3(_draggingObjectOriginalSize.x / 2, _draggingObjectOriginalSize.y / 2, 0);
-			}
-			else
-			{
+			} else {
 				_displacedObject.SetParent(null, true);
 				_displacedObjectOriginList.Refresh();
 				_displacedObject.gameObject.SetActive(false);
@@ -293,16 +256,13 @@ namespace UnityEngine.UI.Extensions
 			_reorderableList.OnElementRemoved.Invoke(args);
 		}
 
-		private void revertDisplacedElement()
-		{
-			var args = new ReorderableList.ReorderableListEventStruct
-			{
+		private void revertDisplacedElement() {
+			var args = new ReorderableList.ReorderableListEventStruct {
 				DroppedObject = _displacedObject.gameObject,
 				FromList = _displacedObjectOriginList,
 				FromIndex = _displacedFromIndex,
 			};
-			if (_displacedObject.parent != null)
-			{
+			if (_displacedObject.parent != null) {
 				args.ToList = _reorderableList;
 				args.ToIndex = _fromIndex;
 			}
@@ -318,8 +278,7 @@ namespace UnityEngine.UI.Extensions
 			_reorderableList.Refresh();
 			_displacedObjectOriginList.Refresh();
 
-			if (args.ToList != null)
-			{
+			if (args.ToList != null) {
 				_reorderableList.OnElementDisplacedToReturned.Invoke(args);
 				_reorderableList.OnElementRemoved.Invoke(args);
 			}
@@ -333,10 +292,8 @@ namespace UnityEngine.UI.Extensions
 
 		}
 
-		public void finishDisplacingElement()
-		{
-			if (_displacedObject.parent == null)
-			{
+		public void finishDisplacingElement() {
+			if (_displacedObject.parent == null) {
 				Destroy(_displacedObject.gameObject);
 			}
 			_displacedFromIndex = -1;
@@ -347,18 +304,14 @@ namespace UnityEngine.UI.Extensions
 		#endregion
 
 		#region IEndDragHandler Members
-		public void OnEndDrag(PointerEventData eventData)
-		{
+		public void OnEndDrag(PointerEventData eventData) {
 			_isDragging = false;
 
-			if (_draggingObject != null)
-			{
+			if (_draggingObject != null) {
 				//If we have a ReorderableList that is dropable
 				//Put the dragged object into the content and at the right index
-				if (_currentReorderableListRaycasted != null && _fakeElement.parent == _currentReorderableListRaycasted.Content)
-				{
-					var args = new ReorderableList.ReorderableListEventStruct
-					{
+				if (_currentReorderableListRaycasted != null && _fakeElement.parent == _currentReorderableListRaycasted.Content) {
+					var args = new ReorderableList.ReorderableListEventStruct {
 						DroppedObject = _draggingObject.gameObject,
 						IsAClone = _reorderableList.CloneDraggedObject,
 						SourceObject = _reorderableList.CloneDraggedObject ? gameObject : _draggingObject.gameObject,
@@ -369,13 +322,11 @@ namespace UnityEngine.UI.Extensions
 					};
 
 					//Send OnelementDropped Event
-					if (_reorderableList && _reorderableList.OnElementDropped != null)
-					{
+					if (_reorderableList && _reorderableList.OnElementDropped != null) {
 						_reorderableList.OnElementDropped.Invoke(args);
 					}
 
-					if (!isValid || (!IsTransferable && _currentReorderableListRaycasted != _reorderableList))
-					{
+					if (!isValid || (!IsTransferable && _currentReorderableListRaycasted != _reorderableList)) {
 						CancelDrag();
 						return;
 					}
@@ -386,8 +337,7 @@ namespace UnityEngine.UI.Extensions
 					_draggingObject.SetSiblingIndex(_fakeElement.GetSiblingIndex());
 
 					//If the item is transferable, it can be dragged out again
-					if (IsTransferable)
-					{
+					if (IsTransferable) {
 						var cg = _draggingObject.GetComponent<CanvasGroup>();
 						cg.blocksRaycasts = true;
 					}
@@ -397,22 +347,16 @@ namespace UnityEngine.UI.Extensions
 
 					_reorderableList.OnElementAdded.Invoke(args);
 
-					if (_displacedObject != null)
-					{
+					if (_displacedObject != null) {
 						finishDisplacingElement();
 					}
 
 					if (!isValid)
 						throw new Exception("It's too late to cancel the Transfer! Do so in OnElementDropped!");
-				}
-
-				else
-				{
+				} else {
 					//We don't have an ReorderableList
-					if (this.isDroppableInSpace)
-					{
-						_reorderableList.OnElementDropped.Invoke(new ReorderableList.ReorderableListEventStruct
-						{
+					if (this.isDroppableInSpace) {
+						_reorderableList.OnElementDropped.Invoke(new ReorderableList.ReorderableListEventStruct {
 							DroppedObject = _draggingObject.gameObject,
 							IsAClone = _reorderableList.CloneDraggedObject,
 							SourceObject =
@@ -420,24 +364,19 @@ namespace UnityEngine.UI.Extensions
 							FromList = _reorderableList,
 							FromIndex = _fromIndex
 						});
-					}
-					else
-					{
+					} else {
 						CancelDrag();
 					}
 
 					//If there is no more room for the element in the target list, notify it (OnElementDroppedWithMaxItems event) 
-					if (_currentReorderableListRaycasted != null)
-					{
+					if (_currentReorderableListRaycasted != null) {
 						if ((_currentReorderableListRaycasted.Content.childCount >=
 							 _currentReorderableListRaycasted.maxItems &&
 							 !_currentReorderableListRaycasted.IsDisplacable)
-							|| _currentReorderableListRaycasted.maxItems <= 0)
-						{
+							|| _currentReorderableListRaycasted.maxItems <= 0) {
 							GameObject o = _draggingObject.gameObject;
 							_reorderableList.OnElementDroppedWithMaxItems.Invoke(
-								new ReorderableList.ReorderableListEventStruct
-								{
+								new ReorderableList.ReorderableListEventStruct {
 									DroppedObject = o,
 									IsAClone = _reorderableList.CloneDraggedObject,
 									SourceObject = _reorderableList.CloneDraggedObject ? gameObject : o,
@@ -452,8 +391,7 @@ namespace UnityEngine.UI.Extensions
 			}
 
 			//Delete fake element
-			if (_fakeElement != null)
-			{
+			if (_fakeElement != null) {
 				Destroy(_fakeElement.gameObject);
 				_fakeElement = null;
 			}
@@ -461,25 +399,21 @@ namespace UnityEngine.UI.Extensions
 		}
 		#endregion
 
-		private void CancelDrag()
-		{
+		private void CancelDrag() {
 			_isDragging = false;
 			//If it's a clone, delete it
-			if (_reorderableList.CloneDraggedObject)
-			{
+			if (_reorderableList.CloneDraggedObject) {
 				Destroy(_draggingObject.gameObject);
 			}
 			//Else replace the draggedObject to his first place
-			else
-			{
+			else {
 				RefreshSizes();
 				_draggingObject.SetParent(_reorderableList.Content, false);
 				_draggingObject.rotation = _reorderableList.Content.transform.rotation;
 				_draggingObject.SetSiblingIndex(_fromIndex);
 
 
-				var args = new ReorderableList.ReorderableListEventStruct
-				{
+				var args = new ReorderableList.ReorderableListEventStruct {
 					DroppedObject = _draggingObject.gameObject,
 					IsAClone = _reorderableList.CloneDraggedObject,
 					SourceObject = _reorderableList.CloneDraggedObject ? gameObject : _draggingObject.gameObject,
@@ -499,30 +433,25 @@ namespace UnityEngine.UI.Extensions
 			}
 
 			//Delete fake element
-			if (_fakeElement != null)
-			{
+			if (_fakeElement != null) {
 				Destroy(_fakeElement.gameObject);
 				_fakeElement = null;
 			}
-			if (_displacedObject != null)
-			{
+			if (_displacedObject != null) {
 				revertDisplacedElement();
 			}
 			_canvasGroup.blocksRaycasts = true;
 		}
 
-		private void RefreshSizes()
-		{
+		private void RefreshSizes() {
 			Vector2 size = _draggingObjectOriginalSize;
 
 			if (_currentReorderableListRaycasted != null
 				&& _currentReorderableListRaycasted.IsDropable
 				&& _currentReorderableListRaycasted.Content.childCount > 0
-				&& _currentReorderableListRaycasted.EqualizeSizesOnDrag)
-			{
+				&& _currentReorderableListRaycasted.EqualizeSizesOnDrag) {
 				var firstChild = _currentReorderableListRaycasted.Content.GetChild(0);
-				if (firstChild != null)
-				{
+				if (firstChild != null) {
 					size = firstChild.GetComponent<RectTransform>().rect.size;
 				}
 			}
@@ -533,8 +462,7 @@ namespace UnityEngine.UI.Extensions
 			_fakeElement.GetComponent<RectTransform>().sizeDelta = size;
 		}
 
-		public void Init(ReorderableList reorderableList)
-		{
+		public void Init(ReorderableList reorderableList) {
 			_reorderableList = reorderableList;
 			_rect = GetComponent<RectTransform>();
 			_canvasGroup = gameObject.GetOrAddComponent<CanvasGroup>();

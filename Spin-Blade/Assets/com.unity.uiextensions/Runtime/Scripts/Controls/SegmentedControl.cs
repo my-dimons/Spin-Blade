@@ -6,13 +6,11 @@ using System.Collections;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
-namespace UnityEngine.UI.Extensions
-{
+namespace UnityEngine.UI.Extensions {
 	// Segmented control, like a group of buttons
 	[AddComponentMenu("UI/Extensions/Segmented Control/Segmented Control")]
 	[RequireComponent(typeof(RectTransform))]
-	public class SegmentedControl : UIBehaviour
-	{
+	public class SegmentedControl : UIBehaviour {
 		private Selectable[] m_segments;
 		[SerializeField]
 		[Tooltip("A GameObject with an Image to use as a separator between segments. Size of the RectTransform will determine the size of the separator used.\nNote, make sure to disable the separator GO so that it does not affect the scene")]
@@ -31,12 +29,9 @@ namespace UnityEngine.UI.Extensions
 
 		internal Selectable selectedSegment;
 
-		protected float SeparatorWidth
-		{
-			get
-			{
-				if (m_separatorWidth == 0 && separator)
-				{
+		protected float SeparatorWidth {
+			get {
+				if (m_separatorWidth == 0 && separator) {
 					m_separatorWidth = separator.rectTransform.rect.width;
 					var image = separator.GetComponent<Image>();
 					if (image)
@@ -49,12 +44,9 @@ namespace UnityEngine.UI.Extensions
 		[Serializable]
 		public class SegmentSelectedEvent : UnityEvent<int> { }
 
-		public Selectable[] segments
-		{
-			get
-			{
-				if (m_segments == null || m_segments.Length == 0)
-				{
+		public Selectable[] segments {
+			get {
+				if (m_segments == null || m_segments.Length == 0) {
 					m_segments = GetChildSegments();
 				}
 				return m_segments;
@@ -65,66 +57,54 @@ namespace UnityEngine.UI.Extensions
 
 		public bool allowSwitchingOff { get => m_allowSwitchingOff; set => m_allowSwitchingOff = value; }
 
-		public int selectedSegmentIndex
-		{
+		public int selectedSegmentIndex {
 			get => Array.IndexOf(segments, selectedSegment);
-			set
-			{
+			set {
 				value = Math.Max(value, -1);
 				value = Math.Min(value, segments.Length - 1);
 
-				if (m_selectedSegmentIndex == value)
-				{
+				if (m_selectedSegmentIndex == value) {
 					return;
 				}
 
 				m_selectedSegmentIndex = value;
 
-				if (selectedSegment)
-				{
+				if (selectedSegment) {
 					var segment = selectedSegment.GetComponent<Segment>();
-					if (segment)
-					{
+					if (segment) {
 						segment.selected = false;
 					}
 					selectedSegment = null;
 				}
 
-				if (value != -1)
-				{
+				if (value != -1) {
 					selectedSegment = segments[value];
 					var segment = selectedSegment.GetComponent<Segment>();
-					if (segment)
-					{
+					if (segment) {
 						segment.selected = true;
 					}
 				}
 			}
 		}
 
-		public SegmentSelectedEvent onValueChanged
-		{
+		public SegmentSelectedEvent onValueChanged {
 			get => m_onValueChanged; set => m_onValueChanged = value;
 		}
 
-		protected SegmentedControl()
-		{ }
+		protected SegmentedControl() { }
 
-		protected override void Start()
-		{
+		protected override void Start() {
 			base.Start();
 
 			if (isActiveAndEnabled)
 				StartCoroutine(DelayedInit());
 		}
 
-		protected override void OnEnable()
-		{
+		protected override void OnEnable() {
 			StartCoroutine(DelayedInit());
 		}
 
-		IEnumerator DelayedInit()
-		{
+		IEnumerator DelayedInit() {
 			yield return null;
 
 			LayoutSegments();
@@ -134,33 +114,27 @@ namespace UnityEngine.UI.Extensions
 		}
 
 #if UNITY_EDITOR
-		protected override void OnValidate()
-		{
+		protected override void OnValidate() {
 			base.OnValidate();
 
 			if (isActiveAndEnabled)
 				StartCoroutine(DelayedInit());
 
-			if (m_selectedSegmentIndex > transform.childCount)
-			{
+			if (m_selectedSegmentIndex > transform.childCount) {
 				selectedSegmentIndex = transform.childCount - 1;
 			}
 		}
 #endif
 
-		private Selectable[] GetChildSegments()
-		{
+		private Selectable[] GetChildSegments() {
 			var buttons = GetComponentsInChildren<Selectable>();
-			if (buttons.Length < 2)
-			{
+			if (buttons.Length < 2) {
 				throw new InvalidOperationException("A segmented control must have at least two Button children");
 			}
 
-			for (int i = 0; i < buttons.Length; i++)
-			{
+			for (int i = 0; i < buttons.Length; i++) {
 				var segment = buttons[i].GetComponent<Segment>();
-				if (segment != null)
-				{
+				if (segment != null) {
 					segment.index = i;
 					segment.segmentedControl = this;
 				}
@@ -169,38 +143,32 @@ namespace UnityEngine.UI.Extensions
 			return buttons;
 		}
 
-		private void RecreateSprites()
-		{
-			for (int i = 0; i < segments.Length; i++)
-			{
+		private void RecreateSprites() {
+			for (int i = 0; i < segments.Length; i++) {
 				if (segments[i].image == null)
 					continue;
 
 				var sprite = CutSprite(segments[i].image.sprite, i == 0, i == segments.Length - 1);
 				var segment = segments[i].GetComponent<Segment>();
-				if (segment)
-				{
+				if (segment) {
 					segment.cutSprite = sprite;
 				}
 				segments[i].image.overrideSprite = sprite;
 			}
 		}
 
-		static internal Sprite CutSprite(Sprite sprite, bool leftmost, bool rightmost)
-		{
+		static internal Sprite CutSprite(Sprite sprite, bool leftmost, bool rightmost) {
 			if (sprite.border.x == 0 || sprite.border.z == 0)
 				return sprite;
 
 			var rect = sprite.rect;
 			var border = sprite.border;
 
-			if (!leftmost)
-			{
+			if (!leftmost) {
 				rect.xMin = border.x;
 				border.x = 0;
 			}
-			if (!rightmost)
-			{
+			if (!rightmost) {
 				rect.xMax = border.z;
 				border.z = 0;
 			}
@@ -208,15 +176,13 @@ namespace UnityEngine.UI.Extensions
 			return Sprite.Create(sprite.texture, rect, sprite.pivot, sprite.pixelsPerUnit, 0, SpriteMeshType.FullRect, border);
 		}
 
-		public void LayoutSegments()
-		{
+		public void LayoutSegments() {
 			RecreateSprites();
 
 			RectTransform transform = this.transform as RectTransform;
 			float width = (transform.rect.width / segments.Length) - (SeparatorWidth * (segments.Length - 1));
 
-			for (int i = 0; i < segments.Length; i++)
-			{
+			for (int i = 0; i < segments.Length; i++) {
 				float insetX = ((width + SeparatorWidth) * i);
 
 				var rectTransform = segments[i].GetComponent<RectTransform>();
@@ -225,8 +191,7 @@ namespace UnityEngine.UI.Extensions
 				rectTransform.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Left, insetX, width);
 				rectTransform.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Top, 0, transform.rect.height);
 
-				if (separator && i > 0)
-				{
+				if (separator && i > 0) {
 					var sepTransform = gameObject.transform.Find("Separator " + i);
 					Graphic sep = (sepTransform != null) ? sepTransform.GetComponent<Graphic>() : (GameObject.Instantiate(separator.gameObject) as GameObject).GetComponent<Graphic>();
 					sep.gameObject.name = "Separator " + i;

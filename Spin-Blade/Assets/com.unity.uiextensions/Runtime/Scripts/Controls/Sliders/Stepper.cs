@@ -6,13 +6,11 @@ using System.Collections;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
-namespace UnityEngine.UI.Extensions
-{
+namespace UnityEngine.UI.Extensions {
 	// Stepper control
 	[RequireComponent(typeof(RectTransform))]
 	[AddComponentMenu("UI/Extensions/Sliders/Stepper")]
-	public class Stepper : UIBehaviour
-	{
+	public class Stepper : UIBehaviour {
 		private Selectable[] _sides;
 		[SerializeField]
 		[Tooltip("The current step value of the control")]
@@ -34,12 +32,9 @@ namespace UnityEngine.UI.Extensions
 		private Graphic _separator;
 		private float _separatorWidth = 0;
 
-		private float separatorWidth
-		{
-			get
-			{
-				if (_separatorWidth == 0 && separator)
-				{
+		private float separatorWidth {
+			get {
+				if (_separatorWidth == 0 && separator) {
 					_separatorWidth = separator.rectTransform.rect.width;
 					var image = separator.GetComponent<Image>();
 					if (image)
@@ -56,12 +51,9 @@ namespace UnityEngine.UI.Extensions
 		[Serializable]
 		public class StepperValueChangedEvent : UnityEvent<int> { }
 
-		public Selectable[] sides
-		{
-			get
-			{
-				if (_sides == null || _sides.Length == 0)
-				{
+		public Selectable[] sides {
+			get {
+				if (_sides == null || _sides.Length == 0) {
 					_sides = GetSides();
 				}
 				return _sides;
@@ -80,58 +72,48 @@ namespace UnityEngine.UI.Extensions
 
 		public Graphic separator { get => _separator; set { _separator = value; _separatorWidth = 0; LayoutSides(sides); } }
 
-		public StepperValueChangedEvent onValueChanged
-		{
+		public StepperValueChangedEvent onValueChanged {
 			get => _onValueChanged; set => _onValueChanged = value;
 		}
 
-		protected Stepper()
-		{ }
+		protected Stepper() { }
 
 #if UNITY_EDITOR
-		protected override void OnValidate()
-		{
+		protected override void OnValidate() {
 			base.OnValidate();
 
 			RecreateSprites(sides);
 			if (separator)
 				LayoutSides();
 
-			if (!wrap)
-			{
+			if (!wrap) {
 				DisableAtExtremes(sides);
 			}
 		}
 #endif
 
-		protected override void Start()
-		{
+		protected override void Start() {
 			if (isActiveAndEnabled)
 				StartCoroutine(DelayedInit());
 		}
 
-		protected override void OnEnable()
-		{
+		protected override void OnEnable() {
 			StartCoroutine(DelayedInit());
 		}
 
-		IEnumerator DelayedInit()
-		{
+		IEnumerator DelayedInit() {
 			yield return null;
 
 			RecreateSprites(sides);
 		}
 
-		private Selectable[] GetSides()
-		{
+		private Selectable[] GetSides() {
 			var buttons = GetComponentsInChildren<Selectable>();
-			if (buttons.Length != 2)
-			{
+			if (buttons.Length != 2) {
 				throw new InvalidOperationException("A stepper must have two Button children");
 			}
 
-			if (!wrap)
-			{
+			if (!wrap) {
 				DisableAtExtremes(buttons);
 			}
 			LayoutSides(buttons);
@@ -139,27 +121,21 @@ namespace UnityEngine.UI.Extensions
 			return buttons;
 		}
 
-		public void StepUp()
-		{
+		public void StepUp() {
 			Step(step);
 		}
 
-		public void StepDown()
-		{
+		public void StepDown() {
 			Step(-step);
 		}
 
-		private void Step(int amount)
-		{
+		private void Step(int amount) {
 			value += amount;
 
-			if (wrap)
-			{
+			if (wrap) {
 				if (value > maximum) value = minimum;
 				if (value < minimum) value = maximum;
-			}
-			else
-			{
+			} else {
 				value = Math.Max(minimum, value);
 				value = Math.Min(maximum, value);
 
@@ -169,44 +145,36 @@ namespace UnityEngine.UI.Extensions
 			_onValueChanged.Invoke(value);
 		}
 
-		private void DisableAtExtremes(Selectable[] sides)
-		{
+		private void DisableAtExtremes(Selectable[] sides) {
 			sides[0].interactable = wrap || value > minimum;
 			sides[1].interactable = wrap || value < maximum;
 		}
 
-		private void RecreateSprites(Selectable[] sides)
-		{
-			for (int i = 0; i < 2; i++)
-			{
+		private void RecreateSprites(Selectable[] sides) {
+			for (int i = 0; i < 2; i++) {
 				if (sides[i].image == null)
 					continue;
 
 				var sprite = CutSprite(sides[i].image.sprite, i == 0);
 				var side = sides[i].GetComponent<StepperSide>();
-				if (side)
-				{
+				if (side) {
 					side.cutSprite = sprite;
 				}
 				sides[i].image.overrideSprite = sprite;
 			}
 		}
 
-		static internal Sprite CutSprite(Sprite sprite, bool leftmost)
-		{
+		static internal Sprite CutSprite(Sprite sprite, bool leftmost) {
 			if (sprite.border.x == 0 || sprite.border.z == 0)
 				return sprite;
 
 			var rect = sprite.rect;
 			var border = sprite.border;
 
-			if (leftmost)
-			{
+			if (leftmost) {
 				rect.xMax = border.z;
 				border.z = 0;
-			}
-			else
-			{
+			} else {
 				rect.xMin = border.x;
 				border.x = 0;
 			}
@@ -214,8 +182,7 @@ namespace UnityEngine.UI.Extensions
 			return Sprite.Create(sprite.texture, rect, sprite.pivot, sprite.pixelsPerUnit, 0, SpriteMeshType.FullRect, border);
 		}
 
-		public void LayoutSides(Selectable[] sides = null)
-		{
+		public void LayoutSides(Selectable[] sides = null) {
 			sides = sides ?? this.sides;
 
 			RecreateSprites(sides);
@@ -223,8 +190,7 @@ namespace UnityEngine.UI.Extensions
 			RectTransform transform = this.transform as RectTransform;
 			float width = (transform.rect.width / 2) - separatorWidth;
 
-			for (int i = 0; i < 2; i++)
-			{
+			for (int i = 0; i < 2; i++) {
 				float insetX = i == 0 ? 0 : width + separatorWidth;
 
 				var rectTransform = sides[i].GetComponent<RectTransform>();
@@ -236,8 +202,7 @@ namespace UnityEngine.UI.Extensions
 				// TODO: maybe adjust text position
 			}
 
-			if (separator)
-			{
+			if (separator) {
 				var sepTransform = gameObject.transform.Find("Separator");
 				Graphic sep = (sepTransform != null) ? sepTransform.GetComponent<Graphic>() : (GameObject.Instantiate(separator.gameObject) as GameObject).GetComponent<Graphic>();
 				sep.gameObject.name = "Separator";

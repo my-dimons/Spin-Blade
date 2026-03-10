@@ -4,16 +4,13 @@
 /// </summary>
 
 using System.Collections.Generic;
-namespace UnityEngine.UI.Extensions
-{
+namespace UnityEngine.UI.Extensions {
 
 	///Credit where credit is due
 	///https://wiki.unity3d.com/index.php?title=Triangulator  
 	[ExecuteInEditMode]
-	public class MeshCreator : MonoBehaviour
-	{
-		public void CreateMesh(List<Vector2> points)
-		{
+	public class MeshCreator : MonoBehaviour {
+		public void CreateMesh(List<Vector2> points) {
 			// Create Vector2 vertices
 			Vector2[] vertices2D = points.ToArray();
 
@@ -23,8 +20,7 @@ namespace UnityEngine.UI.Extensions
 
 			// Create the Vector3 vertices
 			Vector3[] vertices = new Vector3[vertices2D.Length];
-			for (int i = 0; i < vertices.Length; i++)
-			{
+			for (int i = 0; i < vertices.Length; i++) {
 				vertices[i] = new Vector3(vertices2D[i].x, vertices2D[i].y, 0);
 			}
 

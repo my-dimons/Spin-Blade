@@ -4,12 +4,10 @@
 using UnityEditor;
 using UnityEditor.AnimatedValues;
 
-namespace UnityEngine.UI.Extensions
-{
+namespace UnityEngine.UI.Extensions {
 	[CustomEditor(typeof(Scroller))]
 	[CanEditMultipleObjects]
-	public class ScrollerEditor : Editor
-	{
+	public class ScrollerEditor : Editor {
 		SerializedProperty viewport;
 		SerializedProperty scrollDirection;
 		SerializedProperty movementType;
@@ -24,8 +22,7 @@ namespace UnityEngine.UI.Extensions
 		AnimBool showElasticity;
 		AnimBool showInertiaRelatedValues;
 
-		void OnEnable()
-		{
+		void OnEnable() {
 			viewport = serializedObject.FindProperty("viewport");
 			scrollDirection = serializedObject.FindProperty("scrollDirection");
 			movementType = serializedObject.FindProperty("movementType");
@@ -42,32 +39,25 @@ namespace UnityEngine.UI.Extensions
 			SetAnimBools(true);
 		}
 
-		void OnDisable()
-		{
+		void OnDisable() {
 			showElasticity.valueChanged.RemoveListener(Repaint);
 			showInertiaRelatedValues.valueChanged.RemoveListener(Repaint);
 		}
 
-		void SetAnimBools(bool instant)
-		{
+		void SetAnimBools(bool instant) {
 			SetAnimBool(showElasticity, !movementType.hasMultipleDifferentValues && movementType.enumValueIndex == (int)MovementType.Elastic, instant);
 			SetAnimBool(showInertiaRelatedValues, !inertia.hasMultipleDifferentValues && inertia.boolValue, instant);
 		}
 
-		void SetAnimBool(AnimBool a, bool value, bool instant)
-		{
-			if (instant)
-			{
+		void SetAnimBool(AnimBool a, bool value, bool instant) {
+			if (instant) {
 				a.value = value;
-			}
-			else
-			{
+			} else {
 				a.target = value;
 			}
 		}
 
-		public override void OnInspectorGUI()
-		{
+		public override void OnInspectorGUI() {
 			SetAnimBools(false);
 
 			serializedObject.Update();
@@ -83,33 +73,25 @@ namespace UnityEngine.UI.Extensions
 			serializedObject.ApplyModifiedProperties();
 		}
 
-		void DrawMovementTypeRelatedValue()
-		{
-			using (var group = new EditorGUILayout.FadeGroupScope(showElasticity.faded))
-			{
-				if (!group.visible)
-				{
+		void DrawMovementTypeRelatedValue() {
+			using (var group = new EditorGUILayout.FadeGroupScope(showElasticity.faded)) {
+				if (!group.visible) {
 					return;
 				}
 
-				using (new EditorGUI.IndentLevelScope())
-				{
+				using (new EditorGUI.IndentLevelScope()) {
 					EditorGUILayout.PropertyField(elasticity);
 				}
 			}
 		}
 
-		void DrawInertiaRelatedValues()
-		{
-			using (var group = new EditorGUILayout.FadeGroupScope(showInertiaRelatedValues.faded))
-			{
-				if (!group.visible)
-				{
+		void DrawInertiaRelatedValues() {
+			using (var group = new EditorGUILayout.FadeGroupScope(showInertiaRelatedValues.faded)) {
+				if (!group.visible) {
 					return;
 				}
 
-				using (new EditorGUI.IndentLevelScope())
-				{
+				using (new EditorGUI.IndentLevelScope()) {
 					EditorGUILayout.PropertyField(decelerationRate);
 					EditorGUILayout.PropertyField(snap);
 				}

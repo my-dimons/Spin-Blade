@@ -2,11 +2,9 @@
 /// Sourced from - https://bitbucket.org/UnityUIExtensions/unity-ui-extensions/issues/117/uigridrenderer
 
 
-namespace UnityEngine.UI.Extensions
-{
+namespace UnityEngine.UI.Extensions {
 	[AddComponentMenu("UI/Extensions/Primitives/UIGridRenderer")]
-	public class UIGridRenderer : UILineRenderer
-	{
+	public class UIGridRenderer : UILineRenderer {
 		[SerializeField]
 		private int m_GridColumns = 10;
 		[SerializeField]
@@ -15,12 +13,10 @@ namespace UnityEngine.UI.Extensions
 		/// <summary>
 		/// Number of columns in the Grid
 		/// </summary>
-		public int GridColumns
-		{
+		public int GridColumns {
 			get => m_GridColumns;
 
-			set
-			{
+			set {
 				if (m_GridColumns == value)
 					return;
 				m_GridColumns = value;
@@ -31,12 +27,10 @@ namespace UnityEngine.UI.Extensions
 		/// <summary>
 		/// Number of rows in the grid.
 		/// </summary>
-		public int GridRows
-		{
+		public int GridRows {
 			get => m_GridRows;
 
-			set
-			{
+			set {
 				if (m_GridRows == value)
 					return;
 				m_GridRows = value;
@@ -44,8 +38,7 @@ namespace UnityEngine.UI.Extensions
 			}
 		}
 
-		protected override void OnPopulateMesh(VertexHelper vh)
-		{
+		protected override void OnPopulateMesh(VertexHelper vh) {
 			relativeSize = true;
 
 			int ArraySize = (GridRows * 3) + 1;
@@ -57,12 +50,10 @@ namespace UnityEngine.UI.Extensions
 			m_points = new Vector2[ArraySize];
 
 			int Index = 0;
-			for (int i = 0; i < GridRows; ++i)
-			{
+			for (int i = 0; i < GridRows; ++i) {
 				float xFrom = 1;
 				float xTo = 0;
-				if (i % 2 == 0)
-				{
+				if (i % 2 == 0) {
 					// reach left instead
 					xFrom = 0;
 					xTo = 1;
@@ -80,8 +71,7 @@ namespace UnityEngine.UI.Extensions
 				++Index;
 			}
 
-			if (GridRows % 2 == 0)
-			{
+			if (GridRows % 2 == 0) {
 				// two lines to get to 0, 1
 				m_points[Index].x = 1;
 				m_points[Index].y = 1;
@@ -93,12 +83,10 @@ namespace UnityEngine.UI.Extensions
 			++Index;
 
 			// line is now at 0,1, so we can draw the columns
-			for (int i = 0; i < GridColumns; ++i)
-			{
+			for (int i = 0; i < GridColumns; ++i) {
 				float yFrom = 1;
 				float yTo = 0;
-				if (i % 2 == 0)
-				{
+				if (i % 2 == 0) {
 					// reach up instead
 					yFrom = 0;
 					yTo = 1;
@@ -116,14 +104,11 @@ namespace UnityEngine.UI.Extensions
 				++Index;
 			}
 
-			if (GridColumns % 2 == 0)
-			{
+			if (GridColumns % 2 == 0) {
 				// one more line to get to 1, 1
 				m_points[Index].x = 1;
 				m_points[Index].y = 1;
-			}
-			else
-			{
+			} else {
 				// one more line to get to 1, 0
 				m_points[Index].x = 1;
 				m_points[Index].y = 0;

@@ -3,10 +3,8 @@
 
 using UnityEngine.Events;
 
-namespace UnityEngine.UI.Extensions.Tweens
-{
-	public struct FloatTween : ITweenValue
-	{
+namespace UnityEngine.UI.Extensions.Tweens {
+	public struct FloatTween : ITweenValue {
 		public class FloatTweenCallback : UnityEvent<float> { }
 		public class FloatFinishCallback : UnityEvent { }
 
@@ -21,8 +19,7 @@ namespace UnityEngine.UI.Extensions.Tweens
 		/// Gets or sets the starting float.
 		/// </summary>
 		/// <value>The start float.</value>
-		public float startFloat
-		{
+		public float startFloat {
 			get => m_StartFloat; set => m_StartFloat = value;
 		}
 
@@ -30,8 +27,7 @@ namespace UnityEngine.UI.Extensions.Tweens
 		/// Gets or sets the target float.
 		/// </summary>
 		/// <value>The target float.</value>
-		public float targetFloat
-		{
+		public float targetFloat {
 			get => m_TargetFloat; set => m_TargetFloat = value;
 		}
 
@@ -39,8 +35,7 @@ namespace UnityEngine.UI.Extensions.Tweens
 		/// Gets or sets the duration of the tween.
 		/// </summary>
 		/// <value>The duration.</value>
-		public float duration
-		{
+		public float duration {
 			get => m_Duration; set => m_Duration = value;
 		}
 
@@ -48,8 +43,7 @@ namespace UnityEngine.UI.Extensions.Tweens
 		/// Gets or sets a value indicating whether this <see cref="UnityEngine.UI.Tweens.ColorTween"/> should ignore time scale.
 		/// </summary>
 		/// <value><c>true</c> if ignore time scale; otherwise, <c>false</c>.</value>
-		public bool ignoreTimeScale
-		{
+		public bool ignoreTimeScale {
 			get => m_IgnoreTimeScale; set => m_IgnoreTimeScale = value;
 		}
 
@@ -57,8 +51,7 @@ namespace UnityEngine.UI.Extensions.Tweens
 		/// Tweens the float based on percentage.
 		/// </summary>
 		/// <param name="floatPercentage">Float percentage.</param>
-		public void TweenValue(float floatPercentage)
-		{
+		public void TweenValue(float floatPercentage) {
 			if (!ValidTarget())
 				return;
 
@@ -69,8 +62,7 @@ namespace UnityEngine.UI.Extensions.Tweens
 		/// Adds a on changed callback.
 		/// </summary>
 		/// <param name="callback">Callback.</param>
-		public void AddOnChangedCallback(UnityAction<float> callback)
-		{
+		public void AddOnChangedCallback(UnityAction<float> callback) {
 			if (m_Target == null)
 				m_Target = new FloatTweenCallback();
 
@@ -81,34 +73,29 @@ namespace UnityEngine.UI.Extensions.Tweens
 		/// Adds a on finish callback.
 		/// </summary>
 		/// <param name="callback">Callback.</param>
-		public void AddOnFinishCallback(UnityAction callback)
-		{
+		public void AddOnFinishCallback(UnityAction callback) {
 			if (m_Finish == null)
 				m_Finish = new FloatFinishCallback();
 
 			m_Finish.AddListener(callback);
 		}
 
-		public bool GetIgnoreTimescale()
-		{
+		public bool GetIgnoreTimescale() {
 			return m_IgnoreTimeScale;
 		}
 
-		public float GetDuration()
-		{
+		public float GetDuration() {
 			return m_Duration;
 		}
 
-		public bool ValidTarget()
-		{
+		public bool ValidTarget() {
 			return m_Target != null;
 		}
 
 		/// <summary>
 		/// Invokes the on finish callback.
 		/// </summary>
-		public void Finished()
-		{
+		public void Finished() {
 			if (m_Finish != null)
 				m_Finish.Invoke();
 		}

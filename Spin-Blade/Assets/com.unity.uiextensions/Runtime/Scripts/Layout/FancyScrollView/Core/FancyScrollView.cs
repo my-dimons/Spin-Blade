@@ -3,8 +3,7 @@
 
 using System.Collections.Generic;
 
-namespace UnityEngine.UI.Extensions
-{
+namespace UnityEngine.UI.Extensions {
 	/// <summary>
 	/// スクロールビューを実装するための抽象基底クラス.
 	/// 無限スクロールおよびスナップに対応しています.
@@ -13,8 +12,7 @@ namespace UnityEngine.UI.Extensions
 	/// </summary>
 	/// <typeparam name="TItemData">アイテムのデータ型.</typeparam>
 	/// <typeparam name="TContext"><see cref="Context"/> の型.</typeparam>
-	public abstract class FancyScrollView<TItemData, TContext> : MonoBehaviour where TContext : class, new()
-	{
+	public abstract class FancyScrollView<TItemData, TContext> : MonoBehaviour where TContext : class, new() {
 		/// <summary>
 		/// セル同士の間隔.
 		/// </summary>
@@ -82,8 +80,7 @@ namespace UnityEngine.UI.Extensions
 		/// 渡されたアイテム一覧に基づいて表示内容を更新します.
 		/// </summary>
 		/// <param name="itemsSource">アイテム一覧.</param>
-		protected virtual void UpdateContents(IList<TItemData> itemsSource)
-		{
+		protected virtual void UpdateContents(IList<TItemData> itemsSource) {
 			ItemsSource = itemsSource;
 			Refresh();
 		}
@@ -91,16 +88,14 @@ namespace UnityEngine.UI.Extensions
 		/// <summary>
 		/// セルのレイアウトを強制的に更新します.
 		/// </summary>
-		protected virtual void Relayout()
-		{
+		protected virtual void Relayout() {
 			UpdatePosition(currentPosition, false);
 		}
 
 		/// <summary>
 		/// セルのレイアウトと表示内容を強制的に更新します.
 		/// </summary>
-		protected virtual void Refresh()
-		{
+		protected virtual void Refresh() {
 			UpdatePosition(currentPosition, true);
 		}
 
@@ -108,15 +103,12 @@ namespace UnityEngine.UI.Extensions
 		/// スクロール位置を更新します.
 		/// </summary>
 		/// <param name="position">スクロール位置.</param>
-		protected virtual void UpdatePosition(float position)
-		{
+		protected virtual void UpdatePosition(float position) {
 			UpdatePosition(position, false);
 		}
 
-		void UpdatePosition(float position, bool forceRefresh)
-		{
-			if (!initialized)
-			{
+		void UpdatePosition(float position, bool forceRefresh) {
+			if (!initialized) {
 				Initialize();
 				initialized = true;
 			}
@@ -127,25 +119,21 @@ namespace UnityEngine.UI.Extensions
 			var firstIndex = Mathf.CeilToInt(p);
 			var firstPosition = (Mathf.Ceil(p) - p) * cellInterval;
 
-			if (firstPosition + pool.Count * cellInterval < 1f)
-			{
+			if (firstPosition + pool.Count * cellInterval < 1f) {
 				ResizePool(firstPosition);
 			}
 
 			UpdateCells(firstPosition, firstIndex, forceRefresh);
 		}
 
-		void ResizePool(float firstPosition)
-		{
+		void ResizePool(float firstPosition) {
 			Debug.Assert(CellPrefab != null);
 			Debug.Assert(cellContainer != null);
 
 			var addCount = Mathf.CeilToInt((1f - firstPosition) / cellInterval) - pool.Count;
-			for (var i = 0; i < addCount; i++)
-			{
+			for (var i = 0; i < addCount; i++) {
 				var cell = Instantiate(CellPrefab, cellContainer).GetComponent<FancyCell<TItemData, TContext>>();
-				if (cell == null)
-				{
+				if (cell == null) {
 					throw new MissingComponentException(string.Format(
 						"FancyCell<{0}, {1}> component not found in {2}.",
 						typeof(TItemData).FullName, typeof(TContext).FullName, CellPrefab.name));
@@ -158,27 +146,22 @@ namespace UnityEngine.UI.Extensions
 			}
 		}
 
-		void UpdateCells(float firstPosition, int firstIndex, bool forceRefresh)
-		{
-			for (var i = 0; i < pool.Count; i++)
-			{
+		void UpdateCells(float firstPosition, int firstIndex, bool forceRefresh) {
+			for (var i = 0; i < pool.Count; i++) {
 				var index = firstIndex + i;
 				var position = firstPosition + i * cellInterval;
 				var cell = pool[CircularIndex(index, pool.Count)];
 
-				if (loop)
-				{
+				if (loop) {
 					index = CircularIndex(index, ItemsSource.Count);
 				}
 
-				if (index < 0 || index >= ItemsSource.Count || position > 1f)
-				{
+				if (index < 0 || index >= ItemsSource.Count || position > 1f) {
 					cell.SetVisible(false);
 					continue;
 				}
 
-				if (forceRefresh || cell.Index != index || !cell.IsVisible)
-				{
+				if (forceRefresh || cell.Index != index || !cell.IsVisible) {
 					cell.Index = index;
 					cell.SetVisible(true);
 					cell.UpdateContent(ItemsSource[index]);
@@ -188,8 +171,7 @@ namespace UnityEngine.UI.Extensions
 			}
 		}
 
-		int CircularIndex(int i, int size)
-		{
+		int CircularIndex(int i, int size) {
 			return size < 1 ? 0 : i < 0 ? size - 1 + (i + 1) % size : i % size;
 		}
 
@@ -197,12 +179,10 @@ namespace UnityEngine.UI.Extensions
 		bool cachedLoop;
 		float cachedCellInterval, cachedScrollOffset;
 
-		void LateUpdate()
-		{
+		void LateUpdate() {
 			if (cachedLoop != loop ||
 				cachedCellInterval != cellInterval ||
-				cachedScrollOffset != scrollOffset)
-			{
+				cachedScrollOffset != scrollOffset) {
 				cachedLoop = loop;
 				cachedCellInterval = cellInterval;
 				cachedScrollOffset = scrollOffset;

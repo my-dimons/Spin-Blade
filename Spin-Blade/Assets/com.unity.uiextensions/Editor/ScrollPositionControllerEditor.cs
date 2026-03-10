@@ -6,13 +6,11 @@
 using System;
 using UnityEditor;
 
-namespace UnityEngine.UI.Extensions
-{
+namespace UnityEngine.UI.Extensions {
 	[Obsolete("ScrollPositionController has been replaced by the Scroller component", true)]
 	[CustomEditor(typeof(ScrollPositionController))]
 	[CanEditMultipleObjects]
-	public class ScrollPositionControllerEditor : Editor
-	{
+	public class ScrollPositionControllerEditor : Editor {
 		SerializedProperty viewport;
 		SerializedProperty directionOfRecognize;
 		SerializedProperty movementType;
@@ -26,8 +24,7 @@ namespace UnityEngine.UI.Extensions
 		SerializedProperty snapDuration;
 		SerializedProperty dataCount;
 
-		void OnEnable()
-		{
+		void OnEnable() {
 			viewport = serializedObject.FindProperty("viewport");
 			directionOfRecognize = serializedObject.FindProperty("directionOfRecognize");
 			movementType = serializedObject.FindProperty("movementType");
@@ -42,8 +39,7 @@ namespace UnityEngine.UI.Extensions
 			dataCount = serializedObject.FindProperty("dataCount");
 		}
 
-		public override void OnInspectorGUI()
-		{
+		public override void OnInspectorGUI() {
 			serializedObject.Update();
 			EditorGUILayout.PropertyField(viewport);
 			EditorGUILayout.PropertyField(directionOfRecognize);
@@ -56,28 +52,22 @@ namespace UnityEngine.UI.Extensions
 			serializedObject.ApplyModifiedProperties();
 		}
 
-		void DrawInertiaRelatedValues()
-		{
-			if (inertia.boolValue)
-			{
+		void DrawInertiaRelatedValues() {
+			if (inertia.boolValue) {
 				EditorGUILayout.PropertyField(decelerationRate);
 				EditorGUILayout.PropertyField(snap);
 
-				using (new EditorGUI.IndentLevelScope())
-				{
+				using (new EditorGUI.IndentLevelScope()) {
 					DrawSnapRelatedValues();
 				}
 			}
 		}
 
-		void DrawSnapRelatedValues()
-		{
-			if (snap.isExpanded)
-			{
+		void DrawSnapRelatedValues() {
+			if (snap.isExpanded) {
 				EditorGUILayout.PropertyField(snapEnable);
 
-				if (snapEnable.boolValue)
-				{
+				if (snapEnable.boolValue) {
 					EditorGUILayout.PropertyField(snapVelocityThreshold);
 					EditorGUILayout.PropertyField(snapDuration);
 				}

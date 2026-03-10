@@ -7,15 +7,13 @@
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
-namespace UnityEngine.UI.Extensions
-{
+namespace UnityEngine.UI.Extensions {
 	/// <summary>
 	/// UIButton
 	/// </summary>
 	[AddComponentMenu("UI/Extensions/UI Selectable Extension")]
 	[RequireComponent(typeof(Selectable))]
-	public class UISelectableExtension : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
-	{
+	public class UISelectableExtension : MonoBehaviour, IPointerDownHandler, IPointerUpHandler {
 		#region Sub-Classes
 		[System.Serializable]
 		public class UIButtonEvent : UnityEvent<PointerEventData.InputButton> { }
@@ -33,13 +31,11 @@ namespace UnityEngine.UI.Extensions
 		private bool _pressed;
 		private PointerEventData _heldEventData;
 
-		void IPointerDownHandler.OnPointerDown(PointerEventData eventData)
-		{
+		void IPointerDownHandler.OnPointerDown(PointerEventData eventData) {
 			//Can't set the state as it's too locked down.
 			//DoStateTransition(SelectionState.Pressed, false);
 
-			if (OnButtonPress != null)
-			{
+			if (OnButtonPress != null) {
 				OnButtonPress.Invoke(eventData.button);
 			}
 			_pressed = true;
@@ -47,25 +43,21 @@ namespace UnityEngine.UI.Extensions
 		}
 
 
-		void IPointerUpHandler.OnPointerUp(PointerEventData eventData)
-		{
+		void IPointerUpHandler.OnPointerUp(PointerEventData eventData) {
 			//DoStateTransition(SelectionState.Normal, false);
 
-			if (OnButtonRelease != null)
-			{
+			if (OnButtonRelease != null) {
 				OnButtonRelease.Invoke(eventData.button);
 			}
 			_pressed = false;
 			_heldEventData = null;
 		}
 
-		void Update()
-		{
+		void Update() {
 			if (!_pressed)
 				return;
 
-			if (OnButtonHeld != null)
-			{
+			if (OnButtonHeld != null) {
 				OnButtonHeld.Invoke(_heldEventData.button);
 			}
 		}
@@ -73,8 +65,7 @@ namespace UnityEngine.UI.Extensions
 		/// <summary>
 		/// Test method to verify a control has been clicked
 		/// </summary>
-		public void TestClicked()
-		{
+		public void TestClicked() {
 #if DEBUG || UNITY_EDITOR
 			Debug.Log("Control Clicked");
 #endif
@@ -83,8 +74,7 @@ namespace UnityEngine.UI.Extensions
 		/// <summary>
 		/// Test method to verify a control is pressed
 		/// </summary>
-		public void TestPressed()
-		{
+		public void TestPressed() {
 #if DEBUG || UNITY_EDITOR
 			Debug.Log("Control Pressed");
 #endif
@@ -93,8 +83,7 @@ namespace UnityEngine.UI.Extensions
 		/// <summary>
 		/// est method to verify if a control is released
 		/// </summary>
-		public void TestReleased()
-		{
+		public void TestReleased() {
 #if DEBUG || UNITY_EDITOR
 			Debug.Log("Control Released");
 #endif
@@ -103,16 +92,14 @@ namespace UnityEngine.UI.Extensions
 		/// <summary>
 		/// est method to verify if a control is being held
 		/// </summary>
-		public void TestHold()
-		{
+		public void TestHold() {
 #if DEBUG || UNITY_EDITOR
 			Debug.Log("Control Held");
 #endif
 		}
 
 		//Fixed UISelectableExtension inactive bug (if gameObject becomes inactive while button is held down it never goes back to _pressed = false)
-		void OnDisable()
-		{
+		void OnDisable() {
 			_pressed = false;
 		}
 	}

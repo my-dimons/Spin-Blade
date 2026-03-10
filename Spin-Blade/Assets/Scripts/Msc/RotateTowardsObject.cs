@@ -1,7 +1,6 @@
 using UnityEngine;
 
-public class RotateTowardsObject : MonoBehaviour
-{
+public class RotateTowardsObject : MonoBehaviour {
 	[Header("Target Settings")]
 	public Transform target;
 	Vector3 targetPosition;
@@ -9,8 +8,7 @@ public class RotateTowardsObject : MonoBehaviour
 	public float altRotationOffset = 0f;
 	public bool useAltRotationOffset = false;
 
-	void Update()
-	{
+	void Update() {
 		if (target == null) targetPosition = Vector3.zero;
 		else
 			targetPosition = target.position;

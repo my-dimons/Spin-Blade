@@ -5,13 +5,11 @@
 
 using System.Collections.Generic;
 
-namespace UnityEngine.UI.Extensions
-{
+namespace UnityEngine.UI.Extensions {
 	///The formula for a basic superellipse is
 	///Mathf.Pow(Mathf.Abs(x / a), n) + Mathf.Pow(Mathf.Abs(y / b), n) = 1
 	[ExecuteInEditMode]
-	public class SuperellipsePoints : MonoBehaviour
-	{
+	public class SuperellipsePoints : MonoBehaviour {
 		public float xLimits = 1f;
 		public float yLimits = 1f;
 		[Range(1f, 96f)]
@@ -32,8 +30,7 @@ namespace UnityEngine.UI.Extensions
 
 		private List<Vector2> pointList = new List<Vector2>();
 
-		void Start()
-		{
+		void Start() {
 			RecalculateSuperellipse();
 
 			GetComponent<MeshRenderer>().material = material;
@@ -45,10 +42,8 @@ namespace UnityEngine.UI.Extensions
 			lastLoD = levelOfDetail;
 		}
 
-		void Update()
-		{
-			if (lastXLim != xLimits || lastYLim != yLimits || lastSuper != superness || lastLoD != levelOfDetail)
-			{
+		void Update() {
+			if (lastXLim != xLimits || lastYLim != yLimits || lastSuper != superness || lastLoD != levelOfDetail) {
 				RecalculateSuperellipse();
 			}
 
@@ -59,14 +54,12 @@ namespace UnityEngine.UI.Extensions
 			lastLoD = levelOfDetail;
 		}
 
-		void RecalculateSuperellipse()
-		{
+		void RecalculateSuperellipse() {
 			pointList.Clear();
 
 			float realLoD = levelOfDetail * 4;
 
-			for (float i = 0; i < xLimits; i += 1 / realLoD)
-			{
+			for (float i = 0; i < xLimits; i += 1 / realLoD) {
 				float y = Superellipse(xLimits, yLimits, i, superness);
 				Vector2 tempVecTwo = new Vector2(i, y);
 				pointList.Add(tempVecTwo);
@@ -77,8 +70,7 @@ namespace UnityEngine.UI.Extensions
 			GetComponent<MeshCreator>().CreateMesh(pointList);
 		}
 
-		float Superellipse(float a, float b, float x, float n)
-		{
+		float Superellipse(float a, float b, float x, float n) {
 			float alpha = Mathf.Pow((x / a), n);
 			float beta = 1 - alpha;
 			float y = Mathf.Pow(beta, 1 / n) * b;

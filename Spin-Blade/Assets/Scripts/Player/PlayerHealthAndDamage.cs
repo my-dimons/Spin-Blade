@@ -5,8 +5,7 @@ using UnityEngine.UI;
 using UnityUtils.ScriptUtils.Audio;
 using UnityUtils.ScriptUtils.Objects;
 
-public class PlayerHealthAndDamage : MonoBehaviour
-{
+public class PlayerHealthAndDamage : MonoBehaviour {
 	[Header("-- Health --")]
 	public float maxHeath = 1; // mispelled but i'm keeping it
 	public float currentHealth;
@@ -115,51 +114,43 @@ public class PlayerHealthAndDamage : MonoBehaviour
 	public AudioClip fullHealthSound;
 	public AudioClip explodingCircleSound;
 
-	private void OnValidate()
-	{
+	private void OnValidate() {
 		currentHealth = maxHeath;
 	}
 
 	// Start is called once before the first execution of Update after the MonoBehaviour is created
-	void Start()
-	{
+	void Start() {
 		currentHealth = maxHeath;
 		baseSize = transform.localScale;
 	}
 
 	// Update is called once per frame
-	void Update()
-	{
+	void Update() {
 		transform.localScale = baseSize * sizeMultiplier;
 
 		// triangle timer
 		triangleFireTimer += Time.deltaTime;
-		if ((Input.GetKeyDown(KeyCode.Space) || autofireTriangles) && triangleFireTimer >= triangleFireRate && unlockedRangedTriangles)
-		{
+		if ((Input.GetKeyDown(KeyCode.Space) || autofireTriangles) && triangleFireTimer >= triangleFireRate && unlockedRangedTriangles) {
 			triangleFireTimer = 0f;
 			SpawnTriangle();
 		}
 
 		// exploding circle timer
-		if (explodingCircle)
-		{
+		if (explodingCircle) {
 			explodingCircleCooldownTimer += Time.deltaTime;
 			explodingCircleVisualCooldown.fillAmount = explodingCircleCooldownTimer / explodingCircleCooldown;
 
-			if (explodingCircleCooldownTimer >= explodingCircleCooldown)
-			{
+			if (explodingCircleCooldownTimer >= explodingCircleCooldown) {
 				explodingCircleCooldownTimer = 0f;
 				ExplodeCircle(Vector2.zero, damage * explodingCircleDamageMultiplier, explodingCircleVisualFinalSize, explodingCircleKnockback);
 			}
 		}
 
 		// mines
-		if (mines)
-		{
+		if (mines) {
 			minesCooldownTimer += Time.deltaTime;
 
-			if (minesCooldownTimer >= minesCooldown)
-			{
+			if (minesCooldownTimer >= minesCooldown) {
 				minesCooldownTimer = 0f;
 				SpawnMine();
 			}
@@ -170,8 +161,7 @@ public class PlayerHealthAndDamage : MonoBehaviour
 		currentHealth = Mathf.Clamp(currentHealth += regenAmount * Time.deltaTime, 0, maxHeath);
 
 		// full health ping
-		if (currentHealth >= maxHeath && oldHealth < maxHeath && oldHealth != oldMaxHealth)
-		{
+		if (currentHealth >= maxHeath && oldHealth < maxHeath && oldHealth != oldMaxHealth) {
 			SfxManager.PlaySfxAudioClip(fullHealthSound, 0.7f);
 			circleDamageFlash.Flash(circleFullHealFlashColor);
 		}
@@ -184,15 +174,13 @@ public class PlayerHealthAndDamage : MonoBehaviour
 		healthBar.fillAmount = currentHealth / maxHeath;
 
 		// death if health is 0
-		if (currentHealth <= 0 && !dead)
-		{
+		if (currentHealth <= 0 && !dead) {
 			Death();
 		}
 	}
 
 	[ContextMenu("Spawn Mini Sawblade")]
-	public void SpawnSaw()
-	{
+	public void SpawnSaw() {
 		GameObject saw = Instantiate(miniSawPrefab, Vector3.zero, Quaternion.identity);
 		saw.GetComponent<PlayerMiniSaw>().speed = miniSawBaseSpeed;
 		saw.GetComponent<Projectile>().damage = miniSawDamage;
@@ -202,8 +190,7 @@ public class PlayerHealthAndDamage : MonoBehaviour
 		// when a saw spawns it picks a random point along a circle to spawn
 	}
 
-	public void SpawnTriangle()
-	{
+	public void SpawnTriangle() {
 		GameObject triangle = Instantiate(trianglePrefab, transform.position, Quaternion.identity);
 		triangle.GetComponent<Projectile>().damage = triangleDamage;
 		triangle.GetComponent<Projectile>().speed = triangleSpeed;
@@ -214,17 +201,14 @@ public class PlayerHealthAndDamage : MonoBehaviour
 		triangle.GetComponent<TriangleProjectile>().Initialize(direction, homingTriangles, piercingTriangles);
 	}
 
-	public void ExplodeCircle(Vector2 spawnPos, float circleDamage, float finalSize, bool knockback)
-	{
+	public void ExplodeCircle(Vector2 spawnPos, float circleDamage, float finalSize, bool knockback) {
 		GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
 		GameObject[] mines = GameObject.FindGameObjectsWithTag("Mine");
 		// explode nearby mines, damage all enemies, and do knockback if unlocked
 
-		foreach (GameObject enemy in enemies)
-		{
+		foreach (GameObject enemy in enemies) {
 			// must be inside the final circle size to do damage
-			if (Vector2.Distance(spawnPos, enemy.transform.position) <= finalSize)
-			{
+			if (Vector2.Distance(spawnPos, enemy.transform.position) <= finalSize) {
 				if (!enemy.GetComponent<Enemy>().damageFromProjectiles) return;
 
 				if (knockback)
@@ -233,8 +217,7 @@ public class PlayerHealthAndDamage : MonoBehaviour
 					enemy.GetComponent<Enemy>().TakeDamage(enemy.transform, circleDamage, enemy.transform.position, 1, 0.8f, knockbackCurve, true); // do a little knockback to 'stun' the enemy
 			}
 		}
-		foreach (GameObject mine in mines)
-		{
+		foreach (GameObject mine in mines) {
 			if (Vector2.Distance(spawnPos, mine.transform.position) <= finalSize)
 				mine.GetComponent<PlayerMine>().Explode();
 		}
@@ -246,8 +229,7 @@ public class PlayerHealthAndDamage : MonoBehaviour
 		SfxManager.PlaySfxAudioClip(explodingCircleSound, 0.8f);
 
 
-		IEnumerator ExplodingCircleVisual()
-		{
+		IEnumerator ExplodingCircleVisual() {
 			GameObject circle = Instantiate(explodingCirclePrefab, spawnPos, Quaternion.identity);
 
 			Vector3 endScale = finalSize * Vector3.one / 2;
@@ -260,8 +242,7 @@ public class PlayerHealthAndDamage : MonoBehaviour
 		}
 	}
 
-	void SpawnMine()
-	{
+	void SpawnMine() {
 		// spawn a mine within the spawning enemy circle
 		Vector2 spawnPos = GetRandomPointInDonut(4.5f, GameObject.FindGameObjectWithTag("EnemyManager").GetComponent<EnemyManager>().enemySpawningRadius / minesRadiusDivisor);
 
@@ -286,8 +267,7 @@ public class PlayerHealthAndDamage : MonoBehaviour
 		mineScript.explode = explodingMines;
 		mineScript.explosionRadius = mineExplosionRadius;
 
-		Vector3 GetRandomPointInDonut(float innerRadius, float outerRadius)
-		{
+		Vector3 GetRandomPointInDonut(float innerRadius, float outerRadius) {
 			// Pick a random angle
 			float angle = Random.Range(0f, Mathf.PI * 2f);
 
@@ -302,8 +282,7 @@ public class PlayerHealthAndDamage : MonoBehaviour
 		}
 	}
 
-	private void OnDrawGizmos()
-	{
+	private void OnDrawGizmos() {
 		// mine spawning circles (make sure these are correct)
 		Gizmos.color = Color.blue;
 		Gizmos.DrawWireSphere(Vector2.zero, GameObject.FindGameObjectWithTag("EnemyManager").GetComponent<EnemyManager>().enemySpawningRadius / minesRadiusDivisor);
@@ -312,11 +291,9 @@ public class PlayerHealthAndDamage : MonoBehaviour
 		Gizmos.DrawWireSphere(Vector2.zero, 4.5f);
 	}
 
-	void Death()
-	{
+	void Death() {
 		// revive and kill all enemies
-		if (revives > 0)
-		{
+		if (revives > 0) {
 			currentHealth = maxHeath;
 			revives--;
 
@@ -332,8 +309,7 @@ public class PlayerHealthAndDamage : MonoBehaviour
 		deathScreen.SetActive(true);
 	}
 
-	public void TakeDamage(float damage, Color flashColor = default)
-	{
+	public void TakeDamage(float damage, Color flashColor = default) {
 		SfxManager.PlaySfxAudioClip(hitSound, 1f);
 		if (flashColor == default) flashColor = Color.white;
 		currentHealth -= damage;
@@ -342,22 +318,18 @@ public class PlayerHealthAndDamage : MonoBehaviour
 
 		Mathf.Clamp(currentHealth, 0, maxHeath);
 	}
-	public void Heal(float heal)
-	{
+	public void Heal(float heal) {
 		currentHealth += heal;
 		currentHealth = Mathf.Clamp(currentHealth, 0, maxHeath);
 	}
-	public void IncreaseMaxHealth(float amount)
-	{
+	public void IncreaseMaxHealth(float amount) {
 		maxHeath += amount;
 		currentHealth += amount;
 		Mathf.Clamp(currentHealth, 0, maxHeath);
 	}
 
-	private void OnTriggerEnter2D(Collider2D collision)
-	{
-		if (collision.CompareTag("Enemy"))
-		{
+	private void OnTriggerEnter2D(Collider2D collision) {
+		if (collision.CompareTag("Enemy")) {
 			Enemy enemyScript = collision.GetComponent<Enemy>();
 
 			Vector3 particlePos = collision.ClosestPoint(transform.position);
@@ -365,11 +337,9 @@ public class PlayerHealthAndDamage : MonoBehaviour
 		}
 	}
 
-	public void KillAllEnemies()
-	{
+	public void KillAllEnemies() {
 		GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-		foreach (GameObject enemy in enemies)
-		{
+		foreach (GameObject enemy in enemies) {
 			enemy.GetComponent<Enemy>().Death();
 		}
 	}

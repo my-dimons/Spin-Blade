@@ -4,15 +4,13 @@
 using System;
 using System.Collections.Generic;
 
-namespace UnityEngine.UI.Extensions
-{
+namespace UnityEngine.UI.Extensions {
 	/// <summary>
 	///  Extension to the UI class which creates a dropdown list
 	/// </summary>
 	[RequireComponent(typeof(RectTransform))]
 	[AddComponentMenu("UI/Extensions/ComboBox/Dropdown List")]
-	public class DropDownList : MonoBehaviour
-	{
+	public class DropDownList : MonoBehaviour {
 		public Color disabledTextColor;
 		public DropDownListItem SelectedItem { get; private set; } //outside world gets to get this, not set it
 
@@ -55,11 +53,9 @@ namespace UnityEngine.UI.Extensions
 
 		[SerializeField]
 		private float _scrollBarWidth = 20.0f;
-		public float ScrollBarWidth
-		{
+		public float ScrollBarWidth {
 			get => _scrollBarWidth;
-			set
-			{
+			set {
 				_scrollBarWidth = value;
 				RedrawPanel();
 			}
@@ -69,11 +65,9 @@ namespace UnityEngine.UI.Extensions
 
 		[SerializeField]
 		private int _itemsToDisplay;
-		public int ItemsToDisplay
-		{
+		public int ItemsToDisplay {
 			get => _itemsToDisplay;
-			set
-			{
+			set {
 				_itemsToDisplay = value;
 				RedrawPanel();
 			}
@@ -104,23 +98,19 @@ namespace UnityEngine.UI.Extensions
 		// fires when item changes between enabled and disabled;
 		public ControlDisabledEvent OnControlDisabled;
 
-		public void Start()
-		{
+		public void Start() {
 			Initialize();
-			if (shouldSelectItemOnStart && Items.Count > 0)
-			{
+			if (shouldSelectItemOnStart && Items.Count > 0) {
 				SelectItemIndex(SelectFirstItemOnStart ? 0 : selectItemIndexOnStart);
 			}
 			RedrawPanel();
 		}
 
-		private bool Initialize()
-		{
+		private bool Initialize() {
 			if (_initialized) return true;
 
 			bool success = true;
-			try
-			{
+			try {
 				_rectTransform = GetComponent<RectTransform>();
 				_mainButton = new DropDownListButton(_rectTransform.Find("MainButton").gameObject);
 
@@ -146,9 +136,7 @@ namespace UnityEngine.UI.Extensions
 
 				_itemTemplate = _rectTransform.Find("ItemTemplate").gameObject;
 				_itemTemplate.SetActive(false);
-			}
-			catch (System.NullReferenceException ex)
-			{
+			} catch (System.NullReferenceException ex) {
 				Debug.LogException(ex);
 				Debug.LogError("Something is setup incorrectly with the dropdownlist component causing a Null Reference Exception");
 				success = false;
@@ -164,8 +152,7 @@ namespace UnityEngine.UI.Extensions
 		/// Update the drop down selection to a specific index
 		/// </summary>
 		/// <param name="index"></param>
-		public void SelectItemIndex(int index)
-		{
+		public void SelectItemIndex(int index) {
 			ToggleDropdownPanel();
 			OnItemClicked(index);
 		}
@@ -178,26 +165,17 @@ namespace UnityEngine.UI.Extensions
 		/// NOTE, this will clear all existing items
 		/// </remarks>
 		/// <param name="list"></param>
-		public void RefreshItems(params object[] list)
-		{
+		public void RefreshItems(params object[] list) {
 			Items.Clear();
 			List<DropDownListItem> ddItems = new List<DropDownListItem>();
-			foreach (var obj in list)
-			{
-				if (obj is DropDownListItem)
-				{
+			foreach (var obj in list) {
+				if (obj is DropDownListItem) {
 					ddItems.Add((DropDownListItem)obj);
-				}
-				else if (obj is string)
-				{
+				} else if (obj is string) {
 					ddItems.Add(new DropDownListItem(caption: (string)obj));
-				}
-				else if (obj is Sprite)
-				{
+				} else if (obj is Sprite) {
 					ddItems.Add(new DropDownListItem(image: (Sprite)obj));
-				}
-				else
-				{
+				} else {
 					throw new System.Exception("Only ComboBoxItems, Strings, and Sprite types are allowed");
 				}
 			}
@@ -210,8 +188,7 @@ namespace UnityEngine.UI.Extensions
 		/// Adds an additional item to the drop down list (recommended)
 		/// </summary>
 		/// <param name="item">Item of type DropDownListItem</param>
-		public void AddItem(DropDownListItem item)
-		{
+		public void AddItem(DropDownListItem item) {
 			Items.Add(item);
 			RebuildPanel();
 			RedrawPanel();
@@ -221,8 +198,7 @@ namespace UnityEngine.UI.Extensions
 		/// Adds an additional drop down list item using a string name
 		/// </summary>
 		/// <param name="item">Item of type String</param>
-		public void AddItem(string item)
-		{
+		public void AddItem(string item) {
 			Items.Add(new DropDownListItem(caption: (string)item));
 			RebuildPanel();
 			RedrawPanel();
@@ -232,8 +208,7 @@ namespace UnityEngine.UI.Extensions
 		/// Adds an additional drop down list item using a sprite image
 		/// </summary>
 		/// <param name="item">Item of type UI Sprite</param>
-		public void AddItem(Sprite item)
-		{
+		public void AddItem(Sprite item) {
 			Items.Add(new DropDownListItem(image: (Sprite)item));
 			RebuildPanel();
 			RedrawPanel();
@@ -243,8 +218,7 @@ namespace UnityEngine.UI.Extensions
 		/// Removes an item from the drop down list (recommended)
 		/// </summary>
 		/// <param name="item">Item of type DropDownListItem</param>
-		public void RemoveItem(DropDownListItem item)
-		{
+		public void RemoveItem(DropDownListItem item) {
 			Items.Remove(item);
 			RebuildPanel();
 			RedrawPanel();
@@ -254,8 +228,7 @@ namespace UnityEngine.UI.Extensions
 		/// Removes an item from the drop down list item using a string name
 		/// </summary>
 		/// <param name="item">Item of type String</param>
-		public void RemoveItem(string item)
-		{
+		public void RemoveItem(string item) {
 			Items.Remove(new DropDownListItem(caption: (string)item));
 			RebuildPanel();
 			RedrawPanel();
@@ -265,23 +238,19 @@ namespace UnityEngine.UI.Extensions
 		/// Removes an item from the drop down list item using a sprite image
 		/// </summary>
 		/// <param name="item">Item of type UI Sprite</param>
-		public void RemoveItem(Sprite item)
-		{
+		public void RemoveItem(Sprite item) {
 			Items.Remove(new DropDownListItem(image: (Sprite)item));
 			RebuildPanel();
 			RedrawPanel();
 		}
 
-		public void ResetDropDown()
-		{
-			if (!_initialized)
-			{
+		public void ResetDropDown() {
+			if (!_initialized) {
 				return;
 			}
 
 			_mainButton.txt.text = _defaultMainButtonCaption;
-			for (int i = 0; i < _itemsPanelRT.childCount; i++)
-			{
+			for (int i = 0; i < _itemsPanelRT.childCount; i++) {
 				_panelItems[i].btnImg.color = _defaultNormalColor;
 			}
 
@@ -290,8 +259,7 @@ namespace UnityEngine.UI.Extensions
 			Initialize();
 		}
 
-		public void ResetItems()
-		{
+		public void ResetItems() {
 			Items.Clear();
 			RebuildPanel();
 			RedrawPanel();
@@ -300,18 +268,15 @@ namespace UnityEngine.UI.Extensions
 		/// <summary>
 		/// Rebuilds the contents of the panel in response to items being added.
 		/// </summary>
-		private void RebuildPanel()
-		{
+		private void RebuildPanel() {
 			if (Items.Count == 0) return;
 
-			if (!_initialized)
-			{
+			if (!_initialized) {
 				Start();
 			}
 
 			int indx = _panelItems.Count;
-			while (_panelItems.Count < Items.Count)
-			{
+			while (_panelItems.Count < Items.Count) {
 				GameObject newItem = Instantiate(_itemTemplate) as GameObject;
 				newItem.name = "Item " + indx;
 				newItem.transform.SetParent(_itemsPanelRT, false);
@@ -319,10 +284,8 @@ namespace UnityEngine.UI.Extensions
 				_panelItems.Add(new DropDownListButton(newItem));
 				indx++;
 			}
-			for (int i = 0; i < _panelItems.Count; i++)
-			{
-				if (i < Items.Count)
-				{
+			for (int i = 0; i < _panelItems.Count; i++) {
+				if (i < Items.Count) {
 					DropDownListItem item = Items[i];
 
 					_panelItems[i].txt.text = item.Caption;
@@ -335,8 +298,7 @@ namespace UnityEngine.UI.Extensions
 																					  : Color.white;
 					int ii = i; //have to copy the variable for use in anonymous function
 					_panelItems[i].btn.onClick.RemoveAllListeners();
-					_panelItems[i].btn.onClick.AddListener(() =>
-					{
+					_panelItems[i].btn.onClick.AddListener(() => {
 						OnItemClicked(ii);
 						if (item.OnSelect != null) item.OnSelect();
 					});
@@ -345,8 +307,7 @@ namespace UnityEngine.UI.Extensions
 			}
 		}
 
-		private void OnItemClicked(int indx)
-		{
+		private void OnItemClicked(int indx) {
 			//Debug.Log("item " + indx + " clicked");
 			if (indx != _selectedIndex && OnSelectionChanged != null) OnSelectionChanged.Invoke(indx);
 
@@ -355,44 +316,36 @@ namespace UnityEngine.UI.Extensions
 			UpdateSelected();
 		}
 
-		private void UpdateSelected()
-		{
+		private void UpdateSelected() {
 			SelectedItem = (_selectedIndex > -1 && _selectedIndex < Items.Count) ? Items[_selectedIndex] : null;
 			if (SelectedItem == null) return;
 
 			bool hasImage = SelectedItem.Image != null;
-			if (hasImage)
-			{
+			if (hasImage) {
 				_mainButton.img.sprite = SelectedItem.Image;
 				_mainButton.img.color = Color.white;
-			}
-			else
-			{
+			} else {
 				_mainButton.img.sprite = null;
 			}
 
 			_mainButton.txt.text = SelectedItem.Caption;
 
 			//update selected index color
-			if (OverrideHighlighted)
-			{
-				for (int i = 0; i < _itemsPanelRT.childCount; i++)
-				{
+			if (OverrideHighlighted) {
+				for (int i = 0; i < _itemsPanelRT.childCount; i++) {
 					_panelItems[i].btnImg.color = (_selectedIndex == i) ? _mainButton.btn.colors.highlightedColor : new Color(0, 0, 0, 0);
 				}
 			}
 		}
 
-		private void RedrawPanel()
-		{
+		private void RedrawPanel() {
 			float scrollbarWidth = _panelItems.Count > ItemsToDisplay ? _scrollBarWidth : 0f;//hide the scrollbar if there's not enough items
 			_scrollBarRT.gameObject.SetActive(_panelItems.Count > ItemsToDisplay);
 
 			float dropdownHeight = _itemsToDisplay > 0 ? _rectTransform.sizeDelta.y * Mathf.Min(_itemsToDisplay, _panelItems.Count) : _rectTransform.sizeDelta.y * _panelItems.Count;
 			dropdownHeight += dropdownOffset;
 
-			if (!_hasDrawnOnce || _rectTransform.sizeDelta != _mainButton.rectTransform.sizeDelta)
-			{
+			if (!_hasDrawnOnce || _rectTransform.sizeDelta != _mainButton.rectTransform.sizeDelta) {
 				_hasDrawnOnce = true;
 				_mainButton.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, _rectTransform.sizeDelta.x);
 				_mainButton.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, _rectTransform.sizeDelta.y);
@@ -435,18 +388,15 @@ namespace UnityEngine.UI.Extensions
 		/// </summary>
 		/// <param name="directClick">Retained for backwards compatibility only.</param>
 		[Obsolete("DirectClick Parameter is no longer required")]
-		public void ToggleDropdownPanel(bool directClick = false)
-		{
+		public void ToggleDropdownPanel(bool directClick = false) {
 			ToggleDropdownPanel();
 		}
 
 		/// <summary>
 		/// Toggle the drop down list if it is active
 		/// </summary>
-		public void ToggleDropdownPanel()
-		{
-			if (!isActive)
-			{
+		public void ToggleDropdownPanel() {
+			if (!isActive) {
 				return;
 			}
 
@@ -455,8 +405,7 @@ namespace UnityEngine.UI.Extensions
 			_isPanelActive = !_isPanelActive;
 			_overlayRT.gameObject.SetActive(_isPanelActive);
 
-			if (_isPanelActive)
-			{
+			if (_isPanelActive) {
 				transform.SetAsLastSibling();
 			}
 		}
@@ -464,10 +413,8 @@ namespace UnityEngine.UI.Extensions
 		/// <summary>
 		/// Hides the drop down panel if its visible at the moment
 		/// </summary>
-		public void HideDropDownPanel()
-		{
-			if (!_isPanelActive)
-			{
+		public void HideDropDownPanel() {
+			if (!_isPanelActive) {
 				return;
 			}
 
@@ -479,10 +426,8 @@ namespace UnityEngine.UI.Extensions
 		/// and takes care of the underlying button to follow the status.
 		/// </summary>
 		/// <param name="status"></param>
-		public void SetActive(bool status)
-		{
-			if (status == isActive)
-			{
+		public void SetActive(bool status) {
+			if (status == isActive) {
 				return;
 			}
 			isActive = status;

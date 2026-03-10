@@ -9,12 +9,10 @@ using System;
 using System.Collections;
 using UnityEngine.EventSystems;
 
-namespace UnityEngine.UI.Extensions
-{
+namespace UnityEngine.UI.Extensions {
 	[RequireComponent(typeof(ScrollRect))]
 	[AddComponentMenu("UI/Extensions/UIScrollToSelection")]
-	public class UIScrollToSelection : MonoBehaviour
-	{
+	public class UIScrollToSelection : MonoBehaviour {
 		#region MEMBERS
 
 		[Header("[ References ]")]
@@ -52,12 +50,10 @@ namespace UnityEngine.UI.Extensions
 		#region PROPERTIES
 
 		// REFERENCES
-		public RectTransform ViewRectTransform
-		{
+		public RectTransform ViewRectTransform {
 			get => viewportRectTransform; set => viewportRectTransform = value;
 		}
-		public ScrollRect TargetScrollRect
-		{
+		public ScrollRect TargetScrollRect {
 			get => targetScrollRect; set => targetScrollRect = value;
 		}
 
@@ -83,62 +79,51 @@ namespace UnityEngine.UI.Extensions
 
 		#region FUNCTIONS
 
-		protected void Awake()
-		{
+		protected void Awake() {
 			ValidateReferences();
 		}
 
-		protected void LateUpdate()
-		{
+		protected void LateUpdate() {
 			TryToScrollToSelection();
 		}
 
-		protected void Reset()
-		{
+		protected void Reset() {
 			TargetScrollRect = gameObject.GetComponentInParent<ScrollRect>() ?? gameObject.GetComponentInChildren<ScrollRect>();
 			ViewRectTransform = gameObject.GetComponent<RectTransform>();
 		}
 
-		private void ValidateReferences()
-		{
-			if (!targetScrollRect)
-			{
+		private void ValidateReferences() {
+			if (!targetScrollRect) {
 				targetScrollRect = GetComponent<ScrollRect>();
 			}
 
-			if (!targetScrollRect)
-			{
+			if (!targetScrollRect) {
 				Debug.LogError("[UIScrollToSelection] No ScrollRect found. Either attach this script to a ScrollRect or assign on in the 'Target Scroll Rect' property");
 				gameObject.SetActive(false);
 				return;
 			}
 
-			if (ViewRectTransform == null)
-			{
+			if (ViewRectTransform == null) {
 				ViewRectTransform = TargetScrollRect.GetComponent<RectTransform>();
 			}
 
-			if (TargetScrollRect != null)
-			{
+			if (TargetScrollRect != null) {
 				scrollRectContentTransform = TargetScrollRect.content;
 			}
 
-			if (EventSystem.current == null)
-			{
+			if (EventSystem.current == null) {
 				Debug.LogError("[UIScrollToSelection] Unity UI EventSystem not found. It is required to check current selected object.");
 				gameObject.SetActive(false);
 				return;
 			}
 		}
 
-		private void TryToScrollToSelection()
-		{
+		private void TryToScrollToSelection() {
 			// update references if selection changed
 			GameObject selection = EventSystem.current.currentSelectedGameObject;
 
 			if (selection == null || selection.activeInHierarchy == false || selection == lastCheckedSelection ||
-				selection.transform.IsChildOf(transform) == false)
-			{
+				selection.transform.IsChildOf(transform) == false) {
 				return;
 			}
 
@@ -152,11 +137,9 @@ namespace UnityEngine.UI.Extensions
 			lastCheckedSelection = selection;
 		}
 
-		private void ScrollToSelection(GameObject selection)
-		{
+		private void ScrollToSelection(GameObject selection) {
 			// initial check if we can scroll at all
-			if (selection == null)
-			{
+			if (selection == null) {
 				return;
 			}
 
@@ -177,24 +160,21 @@ namespace UnityEngine.UI.Extensions
 			// calculate final scroll speed
 			float finalScrollSpeed = ScrollSpeed;
 
-			if (Math.Abs(offsetToSelection.x) / Screen.width >= JumpOffsetThreshold || Math.Abs(offsetToSelection.y) / Screen.height >= JumpOffsetThreshold)
-			{
+			if (Math.Abs(offsetToSelection.x) / Screen.width >= JumpOffsetThreshold || Math.Abs(offsetToSelection.y) / Screen.height >= JumpOffsetThreshold) {
 				finalScrollSpeed = EndOfListJumpScrollSpeed;
 			}
 
 			// initiate animation coroutine
 			Vector2 targetPosition = (Vector2)scrollRectContentTransform.localPosition - offsetToSelection;
 
-			if (animationCoroutine != null)
-			{
+			if (animationCoroutine != null) {
 				StopCoroutine(animationCoroutine);
 			}
 
 			animationCoroutine = StartCoroutine(ScrollToPosition(targetPosition, finalScrollSpeed));
 		}
 
-		private IEnumerator ScrollToPosition(Vector2 targetPosition, float speed)
-		{
+		private IEnumerator ScrollToPosition(Vector2 targetPosition, float speed) {
 			Vector3 startPosition = scrollRectContentTransform.localPosition;
 
 			// cancel movement on axes not specified in ScrollAxes mask
@@ -206,8 +186,7 @@ namespace UnityEngine.UI.Extensions
 			float horizontalSpeed = (Screen.width / Screen.dpi) * speed;
 			float verticalSpeed = (Screen.height / Screen.dpi) * speed;
 
-			while (currentPosition2D != targetPosition && CheckIfScrollInterrupted() == false)
-			{
+			while (currentPosition2D != targetPosition && CheckIfScrollInterrupted() == false) {
 				currentPosition2D.x = MoveTowardsValue(currentPosition2D.x, targetPosition.x, horizontalSpeed, UsedScrollMethod);
 				currentPosition2D.y = MoveTowardsValue(currentPosition2D.y, targetPosition.y, verticalSpeed, UsedScrollMethod);
 
@@ -219,13 +198,11 @@ namespace UnityEngine.UI.Extensions
 			scrollRectContentTransform.localPosition = currentPosition2D;
 		}
 
-		private bool CheckIfScrollInterrupted()
-		{
+		private bool CheckIfScrollInterrupted() {
 			bool mouseButtonClicked = false;
 
 			// check mouse buttons
-			switch (CancelScrollMouseButtons)
-			{
+			switch (CancelScrollMouseButtons) {
 				case MouseButton.LEFT:
 					mouseButtonClicked |= Input.GetMouseButtonDown(0);
 					break;
@@ -237,16 +214,13 @@ namespace UnityEngine.UI.Extensions
 					break;
 			}
 
-			if (mouseButtonClicked == true)
-			{
+			if (mouseButtonClicked == true) {
 				return true;
 			}
 
 			// check keyboard buttons
-			for (int i = 0; i < CancelScrollKeys.Length; i++)
-			{
-				if (Input.GetKeyDown(CancelScrollKeys[i]) == true)
-				{
+			for (int i = 0; i < CancelScrollKeys.Length; i++) {
+				if (Input.GetKeyDown(CancelScrollKeys[i]) == true) {
 					return true;
 				}
 			}
@@ -254,10 +228,8 @@ namespace UnityEngine.UI.Extensions
 			return false;
 		}
 
-		private float MoveTowardsValue(float from, float to, float delta, ScrollMethod method)
-		{
-			switch (method)
-			{
+		private float MoveTowardsValue(float from, float to, float delta, ScrollMethod method) {
+			switch (method) {
 				case ScrollMethod.MOVE_TOWARDS:
 					return Mathf.MoveTowards(from, to, delta * Time.unscaledDeltaTime);
 				case ScrollMethod.LERP:
@@ -272,8 +244,7 @@ namespace UnityEngine.UI.Extensions
 		#region CLASS_ENUMS
 
 		[Flags]
-		public enum Axis
-		{
+		public enum Axis {
 			NONE = 0x00000000,
 			HORIZONTAL = 0x00000001,
 			VERTICAL = 0x00000010,
@@ -281,8 +252,7 @@ namespace UnityEngine.UI.Extensions
 		}
 
 		[Flags]
-		public enum MouseButton
-		{
+		public enum MouseButton {
 			NONE = 0x00000000,
 			LEFT = 0x00000001,
 			RIGHT = 0x00000010,
@@ -290,8 +260,7 @@ namespace UnityEngine.UI.Extensions
 			ANY = 0x00000111
 		}
 
-		public enum ScrollMethod
-		{
+		public enum ScrollMethod {
 			MOVE_TOWARDS,
 			LERP
 		}

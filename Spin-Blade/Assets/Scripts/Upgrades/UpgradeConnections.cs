@@ -3,8 +3,7 @@ using UnityEngine;
 using UnityEngine.UI.Extensions; // UILineRenderer namespace
 
 [RequireComponent(typeof(Upgrade))]
-public class UpgradeConnections : MonoBehaviour
-{
+public class UpgradeConnections : MonoBehaviour {
 	[Header("Line Settings")]
 	public Color connectorDisabledColor;
 	public Color connectorDisabledColorMaxed;
@@ -23,32 +22,27 @@ public class UpgradeConnections : MonoBehaviour
 	// change if changing parent name
 	private string parentName = "lines";
 
-	void Start()
-	{
+	void Start() {
 		Initialize();
 
 		CreateLines();
 	}
 
-	private void Initialize()
-	{
+	private void Initialize() {
 		if (upgrade == null)
 			upgrade = GetComponent<Upgrade>();
 		skillTreePrecursors = upgrade.skillTreePrecursors;
 	}
 
-	void Update()
-	{
+	void Update() {
 		if (skillTreePrecursors == null || skillTreePrecursors.Length == 0)
 			return;
 
 		UpdateConnecters();
 	}
 
-	private void UpdateConnecters()
-	{
-		for (int i = 0; i < skillTreePrecursors.Length; i++)
-		{
+	private void UpdateConnecters() {
+		for (int i = 0; i < skillTreePrecursors.Length; i++) {
 			// set connector color
 			UILineRenderer connectorRenderer = lineRenderers[i];
 			GameObject precursor = skillTreePrecursors[i];
@@ -59,8 +53,7 @@ public class UpgradeConnections : MonoBehaviour
 		}
 	}
 
-	private void UpdateConnectorPoints(GameObject precursor, UILineRenderer lineRenderer)
-	{
+	private void UpdateConnectorPoints(GameObject precursor, UILineRenderer lineRenderer) {
 		// Get RectTransforms for buyButtons of current and precursor
 		RectTransform startRect = upgrade.buyButton.GetComponent<RectTransform>();
 		RectTransform endRect = precursor.GetComponent<Upgrade>().buyButton.GetComponent<RectTransform>();
@@ -83,8 +76,7 @@ public class UpgradeConnections : MonoBehaviour
 		lineRenderer.Points = new Vector2[] { localStartPos, localEndPos };
 	}
 
-	private void UpdateConnecterColor(UILineRenderer connectorRenderer)
-	{
+	private void UpdateConnecterColor(UILineRenderer connectorRenderer) {
 		if (upgrade.canBeBought)
 			connectorRenderer.color = connectorEnabledColor;
 		else if (!upgrade.canBeBought && upgrade.precursorsMustBeMaxxed)
@@ -93,8 +85,7 @@ public class UpgradeConnections : MonoBehaviour
 			connectorRenderer.color = connectorDisabledColor;
 	}
 
-	void CreateLines()
-	{
+	void CreateLines() {
 		// Clear old lines
 		foreach (var lineObj in lineObjects)
 			DestroyImmediate(lineObj);
@@ -102,8 +93,7 @@ public class UpgradeConnections : MonoBehaviour
 		lineObjects.Clear();
 		lineRenderers.Clear();
 
-		foreach (var precursor in skillTreePrecursors)
-		{
+		foreach (var precursor in skillTreePrecursors) {
 			if (precursor == null) continue;
 
 			GameObject lineObj = Instantiate(linePrefab, transform.parent);
@@ -113,8 +103,7 @@ public class UpgradeConnections : MonoBehaviour
 			lineObj.transform.parent = upgrade.transform.parent.Find(parentName);
 
 			// check if lineObj has UILineRenderer component
-			if (!lineObj.TryGetComponent<UILineRenderer>(out var lr))
-			{
+			if (!lineObj.TryGetComponent<UILineRenderer>(out var lr)) {
 				Debug.LogError("Line prefab missing UILineRenderer component!");
 				Destroy(lineObj);
 				continue;
@@ -130,8 +119,7 @@ public class UpgradeConnections : MonoBehaviour
 		}
 	}
 
-	private void OnDrawGizmos()
-	{
+	private void OnDrawGizmos() {
 		float gizmoLineWidth = 0.3f;
 		if (upgrade == null)
 			upgrade = GetComponent<Upgrade>();
@@ -139,8 +127,7 @@ public class UpgradeConnections : MonoBehaviour
 		if (upgrade == null || upgrade.skillTreePrecursors == null)
 			return;
 
-		foreach (var precursor in upgrade.skillTreePrecursors)
-		{
+		foreach (var precursor in upgrade.skillTreePrecursors) {
 			if (precursor == null) continue;
 
 			Vector3 start = upgrade.buyButton.transform.position;
@@ -148,8 +135,7 @@ public class UpgradeConnections : MonoBehaviour
 			Vector3 dir = end - start;
 			float length = dir.magnitude;
 
-			if (length > 0.0001f)
-			{
+			if (length > 0.0001f) {
 				Vector3 mid = (start + end) / 2f;
 
 				// Build a rotation that points the cube's "up" (Y axis) along dir

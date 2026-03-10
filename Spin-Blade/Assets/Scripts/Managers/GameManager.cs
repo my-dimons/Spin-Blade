@@ -5,8 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityUtils.ScriptUtils.Audio;
 
-public class GameManager : MonoBehaviour
-{
+public class GameManager : MonoBehaviour {
 
 	public TextMeshProUGUI tutorialText;
 	[TextArea]
@@ -44,31 +43,26 @@ public class GameManager : MonoBehaviour
 	public float totalBitsGained;
 	float totalTimePlayed;
 
-	private void Start()
-	{
+	private void Start() {
 		difficultyVariables = DifficultyVariables.Instance;
 
 		if (tutorialText != null)
 			tutorialText.text = tutorialStrings[tutorialStage];
 	}
-	private void Update()
-	{
+	private void Update() {
 		totalTimePlayed += Time.deltaTime;
 
 		if (!tutorialFinished && tutorialText != null)
 			Tutorial();
 	}
 
-	private void Tutorial()
-	{
+	private void Tutorial() {
 		MoneyManager moneyManager = MoneyManager.Instance;
 		float money = moneyManager.money;
 
-		switch (tutorialStage)
-		{
+		switch (tutorialStage) {
 			case 0:
-				if (GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>().switchKey || moneyManager.toggleShopKey)
-				{
+				if (GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>().switchKey || moneyManager.toggleShopKey) {
 					if (moneyManager.toggleShopKey)
 						AdvanceTutorial(2);
 					else
@@ -119,64 +113,51 @@ public class GameManager : MonoBehaviour
 		ogMoney = MoneyManager.Instance.money;
 	}
 
-	void AdvanceTutorial(int amount = 1)
-	{
+	void AdvanceTutorial(int amount = 1) {
 		tutorialStage += amount;
 		tutorialText.text = tutorialStrings[tutorialStage];
 		advancedTutorialStage = false;
 	}
 
-	IEnumerator AdvanceTutorialLate(float duration)
-	{
+	IEnumerator AdvanceTutorialLate(float duration) {
 		advancedTutorialStage = true;
 		yield return new WaitForSecondsRealtime(duration);
 		AdvanceTutorial();
 	}
-	public void LoadMenu()
-	{
+	public void LoadMenu() {
 		SceneLoader.GetInstance().LoadSceneWithAnimation("Menu");
 		Time.timeScale = 1;
 	}
-	public void LoadGame(float difficulty = 1)
-	{
+	public void LoadGame(float difficulty = 1) {
 		float easyMoneyMultiplier = 1.5f;
 		float hardMoneyMultiplier = 0.7f;
 
 		SceneLoader.GetInstance().LoadSceneWithAnimation("Gameplay");
 
 		difficultyVariables.difficulty = difficulty;
-		if (difficulty < 1)
-		{
+		if (difficulty < 1) {
 			difficultyVariables.moneyMultiplier = easyMoneyMultiplier;
-		}
-		else if (difficulty > 1)
-		{
+		} else if (difficulty > 1) {
 			difficultyVariables.moneyMultiplier = hardMoneyMultiplier;
-		}
-		else
-		{
+		} else {
 			difficultyVariables.moneyMultiplier = 1;
 		}
 	}
 
-	public void RetryGame()
-	{
+	public void RetryGame() {
 		SceneLoader.GetInstance().LoadSceneWithAnimation("Gameplay");
 	}
 
-	public void LoadDifficulty()
-	{
+	public void LoadDifficulty() {
 		SceneLoader.GetInstance().LoadSceneWithAnimation("Difficulty Selector");
 	}
 
-	public void QuitGame()
-	{
+	public void QuitGame() {
 		Debug.Log("Quitting game...");
 		Application.Quit();
 	}
 
-	public IEnumerator WinScreen()
-	{
+	public IEnumerator WinScreen() {
 		winScreen.SetActive(true);
 
 		// time played
@@ -197,8 +178,7 @@ public class GameManager : MonoBehaviour
 	}
 
 	[ContextMenu("Win")]
-	public void Win()
-	{
+	public void Win() {
 		StartCoroutine(WinScreen());
 		SfxManager.PlaySfxAudioClip(winSfx, 1f);
 	}

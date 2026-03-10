@@ -7,8 +7,7 @@ using UnityEngine.UI;
 using UnityUtils.ScriptUtils.Audio;
 using UnityUtils.ScriptUtils.Particles;
 
-public class Upgrade : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
-{
+public class Upgrade : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
 	[Header("SFX")]
 	public AudioClip buySound;
 
@@ -98,8 +97,7 @@ public class Upgrade : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 	[Header("Background Color")]
 	public BackgroundPresetColors backgroundColorTintDropdown;
 	public Color backgroundTintColor;
-	public enum BackgroundPresetColors
-	{
+	public enum BackgroundPresetColors {
 		None,
 		Enemy,
 		Health,
@@ -114,28 +112,24 @@ public class Upgrade : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 	bool updateSkillTree = false;
 	MoneyManager moneyManager;
 
-	private void OnValidate()
-	{
+	private void OnValidate() {
 		UpdateStatText();
 	}
 
 	// Start is called once before the first execution of Update after the MonoBehaviour is created
-	void Start()
-	{
+	void Start() {
 		if (moneyManager == null)
 			moneyManager = MoneyManager.Instance;
 
 		canBeBought = false;
 
-		if (skillTreePrecursors == null)
-		{
+		if (skillTreePrecursors == null) {
 			canBeBought = true;
 		}
 
 
 		// bg color
-		switch (backgroundColorTintDropdown)
-		{
+		switch (backgroundColorTintDropdown) {
 			case BackgroundPresetColors.None: backgroundTintColor = Color.white; break;
 			case BackgroundPresetColors.Enemy: backgroundTintColor = Utils.ColorFromHex("#FFAEAE"); break;
 			case BackgroundPresetColors.Health: backgroundTintColor = Utils.ColorFromHex("#A4FFAC"); break;
@@ -143,39 +137,32 @@ public class Upgrade : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 			case BackgroundPresetColors.Damage: backgroundTintColor = Utils.ColorFromHex("#AED4FF"); break;
 		}
 
-		if (TryGetComponent<EnemyUpgrade>(out EnemyUpgrade enemyUpgrade))
-		{
+		if (TryGetComponent<EnemyUpgrade>(out EnemyUpgrade enemyUpgrade)) {
 			if (enemyUpgrade.addEnemy != null)
 				enemyPopup = true;
 		}
 
 		StartCoroutine(SkillTreeDelay());
-		IEnumerator SkillTreeDelay()
-		{
+		IEnumerator SkillTreeDelay() {
 			yield return new WaitForSecondsRealtime(0.1f);
 			updateSkillTree = true;
 		}
 	}
 
 	// Update is called once per frame
-	void Update()
-	{
+	void Update() {
 		if (updateSkillTree)
 			UpdateObjects();
 	}
 
-	private void UpdateObjects()
-	{
+	private void UpdateObjects() {
 		// update background tint
 		backgroundObject.GetComponent<Image>().color = backgroundTintColor;
 
 		// disable price when at max lvl (or locked, but not when unlockable)
-		if ((currentLevel >= maxLevel && maxLevel != 0) || locked && !unlockable)
-		{
+		if ((currentLevel >= maxLevel && maxLevel != 0) || locked && !unlockable) {
 			priceParentObject.SetActive(false);
-		}
-		else
-		{
+		} else {
 			priceParentObject.SetActive(true);
 		}
 
@@ -190,36 +177,28 @@ public class Upgrade : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 		EnemyPopup(); // (if enemy upg)
 	}
 
-	private void UpdateBuyableStatus()
-	{
-		if (!canBeBought)
-		{
+	private void UpdateBuyableStatus() {
+		if (!canBeBought) {
 			// check if all precursors are bought
 			List<GameObject> boughtPrecursors = new();
-			foreach (GameObject precursor in skillTreePrecursors)
-			{
+			foreach (GameObject precursor in skillTreePrecursors) {
 				Upgrade precursorUpgrade = precursor.GetComponent<Upgrade>();
 				if (precursorUpgrade.bought)
 					boughtPrecursors.Add(precursor);
 			}
-			if (boughtPrecursors.Count >= skillTreePrecursors.Length || (onlyNeedsOnePrecursor && boughtPrecursors.Count > 0))
-			{
-				if (precursorsMustBeMaxxed)
-				{
+			if (boughtPrecursors.Count >= skillTreePrecursors.Length || (onlyNeedsOnePrecursor && boughtPrecursors.Count > 0)) {
+				if (precursorsMustBeMaxxed) {
 					// check if all precursors are maxed
 					bool allMaxed = true;
-					foreach (GameObject precursor in skillTreePrecursors)
-					{
+					foreach (GameObject precursor in skillTreePrecursors) {
 						Upgrade precursorUpgrade = precursor.GetComponent<Upgrade>();
-						if (precursorUpgrade.currentLevel < precursorUpgrade.maxLevel)
-						{
+						if (precursorUpgrade.currentLevel < precursorUpgrade.maxLevel) {
 							allMaxed = false;
 							break;
 						}
 					}
 					canBeBought = allMaxed;
-				}
-				else
+				} else
 					canBeBought = true;
 			}
 		}
@@ -228,23 +207,18 @@ public class Upgrade : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 		Button button = buyButton.GetComponent<Button>();
 		if (moneyManager.HasEnoughMoney(price, priceCurrencyType) && canBeBought && (currentLevel < maxLevel || maxLevel == 0) && !locked)
 			button.interactable = true;
-		else if (moneyManager.HasEnoughMoney(unlockablePrice, unlockableCurrency) && locked && unlockable)
-		{
+		else if (moneyManager.HasEnoughMoney(unlockablePrice, unlockableCurrency) && locked && unlockable) {
 			button.interactable = true;
 			float lockObjOpactiy = 0.5f; // 0-1
 			lockObject.GetComponent<Image>().color = new(Color.white.r, Color.white.g, Color.white.b, lockObjOpactiy);
-		}
-		else
-		{
+		} else {
 			button.GetComponent<Button>().interactable = false;
 			lockObject.GetComponent<Image>().color = Color.white;
 		}
 	}
 
-	private void EnemyPopup()
-	{
-		if (enemyPopup)
-		{
+	private void EnemyPopup() {
+		if (enemyPopup) {
 			enemyPopupObject.SetActive(true);
 			EnemyUpgrade stats = GetComponent<EnemyUpgrade>();
 			Enemy enemy = stats.addEnemy;
@@ -252,8 +226,7 @@ public class Upgrade : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 			// -- seting stats --
 
 			// set value
-			switch (enemy.valueCurrencyType)
-			{
+			switch (enemy.valueCurrencyType) {
 				case MoneyManager.Currency.money:
 					enemyPopupValueIconBits.gameObject.SetActive(false);
 					enemyPopupValueIconMoney.gameObject.SetActive(true);
@@ -272,30 +245,21 @@ public class Upgrade : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
 			enemyPopupHealthText.text = enemy.maxHealth.ToString();
 			enemyPopupDamageText.text = enemy.damage.ToString();
-		}
-		else
-		{
+		} else {
 			enemyPopupObject.SetActive(false);
 		}
 	}
 
-	private void Locking()
-	{
+	private void Locking() {
 		// get every precursor, then get their postcursors, if *any* postcurosors have been bought, lock this obj
-		if (lockable)
-		{
-			foreach (GameObject precursor in skillTreePrecursors)
-			{
-				foreach (GameObject postcursor in precursor.GetComponent<Upgrade>().skillTreePostcursors)
-				{
+		if (lockable) {
+			foreach (GameObject precursor in skillTreePrecursors) {
+				foreach (GameObject postcursor in precursor.GetComponent<Upgrade>().skillTreePostcursors) {
 					Upgrade postcursorUpgrade = postcursor.GetComponent<Upgrade>();
-					if (postcursorUpgrade.bought && postcursor != this.gameObject && postcursorUpgrade.lockable)
-					{
+					if (postcursorUpgrade.bought && postcursor != this.gameObject && postcursorUpgrade.lockable) {
 						locked = true;
 						lockable = false;
-					}
-					else if (postcursor.GetComponent<Upgrade>().locked)
-					{
+					} else if (postcursor.GetComponent<Upgrade>().locked) {
 						lockable = false;
 					}
 				}
@@ -303,43 +267,33 @@ public class Upgrade : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 		}
 
 		// locking visual objects
-		if (lockable && !locked)
-		{
+		if (lockable && !locked) {
 			miniLockObject.SetActive(true);
 			lockObject.SetActive(false);
-		}
-		else if (locked)
-		{
+		} else if (locked) {
 			miniLockObject.SetActive(false);
 			lockObject.SetActive(true);
-		}
-		else
-		{
+		} else {
 			miniLockObject.SetActive(false);
 			lockObject.SetActive(false);
 		}
 	}
 
-	private void UpdateOutlineColor()
-	{
+	private void UpdateOutlineColor() {
 		Image outlineImage = outlineObject.GetComponent<Image>();
-		if ((canBeBought || bought) && !locked)
-		{
+		if ((canBeBought || bought) && !locked) {
 			if (currentLevel >= maxLevel && maxLevel != 0)
 				outlineImage.color = fullyBoughtOutlineColor;
 			else if (currentLevel > 0)
 				outlineImage.color = boughtOutlineColor;
 			else
 				outlineImage.color = canBeBoughtOutlineColor;
-		}
-		else
-		{
+		} else {
 			outlineImage.color = baseOutlineColor;
 		}
 	}
 
-	private void UpdateStatText()
-	{
+	private void UpdateStatText() {
 		// update upgrade name
 		name = "Upgrade - " + title.ToLower();
 
@@ -349,24 +303,18 @@ public class Upgrade : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 		descriptionObject.text = description;
 
 		// price
-		if (locked && unlockable)
-		{
+		if (locked && unlockable) {
 			priceObject.text = MoneyManager.GetMoneyString(unlockablePrice, unlockableCurrency);
 			priceObject.color = MoneyManager.GetCurrencyColor(unlockableCurrency);
-		}
-		else
-		{
+		} else {
 			priceObject.text = MoneyManager.GetMoneyString(price, priceCurrencyType);
 			priceObject.color = MoneyManager.GetCurrencyColor(priceCurrencyType);
 		}
 
 		// sprite opacity
-		if (bought)
-		{
+		if (bought) {
 			imageObject.color = new Color(imageObject.color.r, imageObject.color.g, imageObject.color.b, 1);
-		}
-		else
-		{
+		} else {
 			imageObject.color = new Color(imageObject.color.r, imageObject.color.g, imageObject.color.b, 0.4f);
 		}
 
@@ -377,8 +325,7 @@ public class Upgrade : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 			maxLevelObject.text = currentLevel.ToString() + "/" + maxLevel.ToString();
 	}
 
-	public void BuyUpgrade()
-	{
+	public void BuyUpgrade() {
 		// double check just in case
 		if (!moneyManager.HasEnoughMoney(price, priceCurrencyType) && !locked)
 			return;
@@ -387,20 +334,17 @@ public class Upgrade : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 		else if (locked && !unlockable)
 			return;
 
-		if (unlockable && locked)
-		{
+		if (unlockable && locked) {
 			locked = false;
 			moneyManager.AddCurrency(-unlockablePrice, unlockableCurrency);
-		}
-		else if (!locked)
+		} else if (!locked)
 			moneyManager.AddCurrency(-price, priceCurrencyType);
 
 		SfxManager.PlaySfxAudioClip(buySound, 0.8f);
 		Camera.main.GetComponent<CameraScript>().ScreenshakeFunction(0.1f);
 		ParticleSpawner.SpawnBurstParticle(buyParticlesPrefab, transform.position, parent: transform, color: MoneyManager.GetCurrencyColor(priceCurrencyType));
 
-		foreach (IUpgrade upgrade in GetComponents<IUpgrade>())
-		{
+		foreach (IUpgrade upgrade in GetComponents<IUpgrade>()) {
 			upgrade.ApplyUpgrade();
 		}
 
@@ -412,38 +356,31 @@ public class Upgrade : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 		price *= priceIncrease;
 	}
 
-	public void TogglePopup(bool enable)
-	{
-		if (enable)
-		{
+	public void TogglePopup(bool enable) {
+		if (enable) {
 			gameObject.transform.SetAsLastSibling(); // bring to front
 		}
 	}
 
 	//Detect if the Cursor starts to pass over the GameObject
-	public void OnPointerEnter(PointerEventData pointerEventData)
-	{
+	public void OnPointerEnter(PointerEventData pointerEventData) {
 		moneyManager.HoverOverUIShopElement(true);
 	}
 
 	//Detect when Cursor leaves the GameObject
-	public void OnPointerExit(PointerEventData pointerEventData)
-	{
+	public void OnPointerExit(PointerEventData pointerEventData) {
 		moneyManager.HoverOverUIShopElement(false);
 	}
 
-	private void DisablePopup()
-	{
+	private void DisablePopup() {
 		popupObject.SetActive(false);
 	}
 
-	private void OnEnable()
-	{
+	private void OnEnable() {
 		MoneyManager.Instance.OnShopOpen += DisablePopup;
 	}
 
-	private void OnDisable()
-	{
+	private void OnDisable() {
 		MoneyManager.Instance.OnShopOpen -= DisablePopup;
 	}
 }

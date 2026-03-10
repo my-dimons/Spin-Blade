@@ -1,8 +1,7 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "DifficultyIncreaseEvent", menuName = "ScriptableObjects/Events/DifficultyIncreaseEvent")]
-public class DifficultyIncreaseEvent : Event
-{
+public class DifficultyIncreaseEvent : Event {
 	public float difficultyIncreasePercent;
 
 	[Space(10)]
@@ -11,28 +10,23 @@ public class DifficultyIncreaseEvent : Event
 	public string eventName = "DifficultyIncreaseEvent";
 	public string eventPopup = "Difficulty Increase!";
 
-	public override void ApplyEvent()
-	{
+	public override void ApplyEvent() {
 		Event(difficultyIncreasePercent);
 	}
 
-	public override bool IsEnabled()
-	{
+	public override bool IsEnabled() {
 		return enabled;
 	}
 
-	public override string GetEventName()
-	{
+	public override string GetEventName() {
 		return eventName;
 	}
 
-	public override string GetEventPopupTextString()
-	{
+	public override string GetEventPopupTextString() {
 		return eventPopup;
 	}
 
-	void Event(float multiplier)
-	{
+	void Event(float multiplier) {
 		EventManager eventManager = EventManager.Instance;
 		EnemyManager enemyManager = EnemyManager.Instance;
 

@@ -1,11 +1,9 @@
 ﻿///Credit perchik
 ///Sourced from - http://forum.unity3d.com/threads/receive-onclick-event-and-pass-it-on-to-lower-ui-elements.293642/
 
-namespace UnityEngine.UI.Extensions
-{
+namespace UnityEngine.UI.Extensions {
 	[RequireComponent(typeof(RectTransform), typeof(Button))]
-	public class DropDownListButton
-	{
+	public class DropDownListButton {
 		public RectTransform rectTransform;
 		public Button btn;
 #if UNITY_2022_1_OR_NEWER
@@ -17,8 +15,7 @@ namespace UnityEngine.UI.Extensions
 		public Image img;
 		public GameObject gameobject;
 
-		public DropDownListButton(GameObject btnObj)
-		{
+		public DropDownListButton(GameObject btnObj) {
 			gameobject = btnObj;
 			rectTransform = btnObj.GetComponent<RectTransform>();
 			btnImg = btnObj.GetComponent<Image>();

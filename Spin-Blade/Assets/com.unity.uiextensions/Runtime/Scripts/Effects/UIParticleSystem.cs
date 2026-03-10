@@ -2,14 +2,12 @@
 /// Sourced from - http://forum.unity3d.com/threads/free-script-particle-systems-in-ui-screen-space-overlay.406862/
 /// Updated by Zarlang with a more robust implementation, including TextureSheet animation support
 
-namespace UnityEngine.UI.Extensions
-{
+namespace UnityEngine.UI.Extensions {
 #if UNITY_5_3_OR_NEWER
 	[ExecuteInEditMode]
 	[RequireComponent(typeof(CanvasRenderer), typeof(ParticleSystem))]
 	[AddComponentMenu("UI/Effects/Extensions/UIParticleSystem")]
-	public class UIParticleSystem : MaskableGraphic
-	{
+	public class UIParticleSystem : MaskableGraphic {
 		[Tooltip("Having this enabled run the system in LateUpdate rather than in Update making it faster but less precise (more clunky)")]
 		public bool fixedTime = true;
 
@@ -40,12 +38,9 @@ namespace UnityEngine.UI.Extensions
 
 		public override Texture mainTexture => currentTexture;
 
-		public ParticleSystem.Particle[] Particles
-		{
-			get
-			{
-				if (particles == null)
-				{
+		public ParticleSystem.Particle[] Particles {
+			get {
+				if (particles == null) {
 #if UNITY_5_5_OR_NEWER
 					particles = new ParticleSystem.Particle[pSystem.main.maxParticles];
 #else
@@ -56,26 +51,21 @@ namespace UnityEngine.UI.Extensions
 			}
 		}
 
-		protected bool Initialize()
-		{
+		protected bool Initialize() {
 			// initialize members
-			if (_transform == null)
-			{
+			if (_transform == null) {
 				_transform = transform;
 			}
-			if (pSystem == null)
-			{
+			if (pSystem == null) {
 				pSystem = GetComponent<ParticleSystem>();
 
-				if (pSystem == null)
-				{
+				if (pSystem == null) {
 					return false;
 				}
 
 #if UNITY_5_5_OR_NEWER
 				mainModule = pSystem.main;
-				if (pSystem.main.maxParticles > 14000)
-				{
+				if (pSystem.main.maxParticles > 14000) {
 					mainModule.maxParticles = 14000;
 				}
 #else
@@ -89,18 +79,15 @@ namespace UnityEngine.UI.Extensions
 				if (pRenderer != null)
 					pRenderer.enabled = false;
 
-				if (material == null)
-				{
+				if (material == null) {
 					var foundShader = ShaderLibrary.GetShaderInstance("UI Extensions/Particles/Additive");
-					if (foundShader)
-					{
+					if (foundShader) {
 						material = new Material(foundShader);
 					}
 				}
 
 				currentMaterial = material;
-				if (currentMaterial && currentMaterial.HasProperty("_MainTex"))
-				{
+				if (currentMaterial && currentMaterial.HasProperty("_MainTex")) {
 					currentTexture = currentMaterial.mainTexture;
 					if (currentTexture == null)
 						currentTexture = Texture2D.whiteTexture;
@@ -120,8 +107,7 @@ namespace UnityEngine.UI.Extensions
 			textureSheetAnimation = pSystem.textureSheetAnimation;
 			textureSheetAnimationFrames = 0;
 			textureSheetAnimationFrameSize = Vector2.zero;
-			if (textureSheetAnimation.enabled)
-			{
+			if (textureSheetAnimation.enabled) {
 				textureSheetAnimationFrames = textureSheetAnimation.numTilesX * textureSheetAnimation.numTilesY;
 				textureSheetAnimationFrameSize = new Vector2(1f / textureSheetAnimation.numTilesX, 1f / textureSheetAnimation.numTilesY);
 			}
@@ -129,23 +115,18 @@ namespace UnityEngine.UI.Extensions
 			return true;
 		}
 
-		protected override void Awake()
-		{
+		protected override void Awake() {
 			base.Awake();
-			if (!Initialize())
-			{
+			if (!Initialize()) {
 				enabled = false;
 			}
 		}
 
 
-		protected override void OnPopulateMesh(VertexHelper vh)
-		{
+		protected override void OnPopulateMesh(VertexHelper vh) {
 #if UNITY_EDITOR
-			if (!Application.isPlaying)
-			{
-				if (!Initialize())
-				{
+			if (!Application.isPlaying) {
+				if (!Initialize()) {
 					return;
 				}
 			}
@@ -153,13 +134,11 @@ namespace UnityEngine.UI.Extensions
 			// prepare vertices
 			vh.Clear();
 
-			if (!gameObject.activeInHierarchy)
-			{
+			if (!gameObject.activeInHierarchy) {
 				return;
 			}
 
-			if (!isInitialised && !pSystem.main.playOnAwake)
-			{
+			if (!isInitialised && !pSystem.main.playOnAwake) {
 				pSystem.Stop(false, ParticleSystemStopBehavior.StopEmittingAndClear);
 				isInitialised = true;
 			}
@@ -170,8 +149,7 @@ namespace UnityEngine.UI.Extensions
 			// iterate through current particles
 			int count = pSystem.GetParticles(Particles);
 
-			for (int i = 0; i < count; ++i)
-			{
+			for (int i = 0; i < count; ++i) {
 				ParticleSystem.Particle particle = Particles[i];
 
 				// get particle properties
@@ -194,21 +172,15 @@ namespace UnityEngine.UI.Extensions
 
 				// apply texture sheet animation
 				Vector4 particleUV = imageUV;
-				if (textureSheetAnimation.enabled)
-				{
+				if (textureSheetAnimation.enabled) {
 #if UNITY_5_5_OR_NEWER
 					float frameProgress = 1 - (particle.remainingLifetime / particle.startLifetime);
 
-					if (textureSheetAnimation.frameOverTime.curveMin != null)
-					{
+					if (textureSheetAnimation.frameOverTime.curveMin != null) {
 						frameProgress = textureSheetAnimation.frameOverTime.curveMin.Evaluate(1 - (particle.remainingLifetime / particle.startLifetime));
-					}
-					else if (textureSheetAnimation.frameOverTime.curve != null)
-					{
+					} else if (textureSheetAnimation.frameOverTime.curve != null) {
 						frameProgress = textureSheetAnimation.frameOverTime.curve.Evaluate(1 - (particle.remainingLifetime / particle.startLifetime));
-					}
-					else if (textureSheetAnimation.frameOverTime.constant > 0)
-					{
+					} else if (textureSheetAnimation.frameOverTime.constant > 0) {
 						frameProgress = textureSheetAnimation.frameOverTime.constant - (particle.remainingLifetime / particle.startLifetime);
 					}
 #else
@@ -218,8 +190,7 @@ namespace UnityEngine.UI.Extensions
 					frameProgress = Mathf.Repeat(frameProgress * textureSheetAnimation.cycleCount, 1);
 					int frame = 0;
 
-					switch (textureSheetAnimation.animation)
-					{
+					switch (textureSheetAnimation.animation) {
 
 						case ParticleSystemAnimationType.WholeSheet:
 							frame = Mathf.FloorToInt(frameProgress * textureSheetAnimationFrames);
@@ -278,21 +249,17 @@ namespace UnityEngine.UI.Extensions
 
 				float rotation = -particle.rotation * Mathf.Deg2Rad;
 				var lengthScale = pRenderer.lengthScale;
-				if (_useLengthScale)
-				{
+				if (_useLengthScale) {
 					// rotate towards velocity
 					var normalizedVelocity = particle.velocity.normalized;
 					rotation = Mathf.Atan2(normalizedVelocity.y, normalizedVelocity.x);
-				}
-				else
-				{
+				} else {
 					lengthScale = 1f;
 				}
 
 				float rotation90 = rotation + Mathf.PI / 2;
 
-				if (rotation == 0)
-				{
+				if (rotation == 0) {
 					// no rotation
 					corner1.x = position.x - size;
 					corner1.y = position.y - size * lengthScale;
@@ -311,11 +278,8 @@ namespace UnityEngine.UI.Extensions
 					temp.x = corner2.x;
 					temp.y = corner1.y;
 					_quad[3].position = temp;
-				}
-				else
-				{
-					if (use3dRotation)
-					{
+				} else {
+					if (use3dRotation) {
 						// get particle properties
 #if UNITY_5_5_OR_NEWER
 						Vector3 pos3d = (mainModule.simulationSpace == ParticleSystemSimulationSpace.Local ? particle.position : _transform.InverseTransformPoint(particle.position));
@@ -346,9 +310,7 @@ namespace UnityEngine.UI.Extensions
 						_quad[1].position = pos3d + particleRotation * verts[1];
 						_quad[2].position = pos3d + particleRotation * verts[2];
 						_quad[3].position = pos3d + particleRotation * verts[3];
-					}
-					else
-					{
+					} else {
 						// apply rotation
 						Vector2 right = new Vector2(Mathf.Cos(rotation), Mathf.Sin(rotation)) * size * lengthScale;
 						Vector2 up = new Vector2(Mathf.Cos(rotation90), Mathf.Sin(rotation90)) * size;
@@ -364,37 +326,28 @@ namespace UnityEngine.UI.Extensions
 			}
 		}
 
-		private void Update()
-		{
-			if (!fixedTime && Application.isPlaying)
-			{
+		private void Update() {
+			if (!fixedTime && Application.isPlaying) {
 				pSystem.Simulate(Time.unscaledDeltaTime, false, false, true);
 				SetAllDirty();
 
 				if ((currentMaterial != null && currentTexture != currentMaterial.mainTexture) ||
-					(material != null && currentMaterial != null && material.shader != currentMaterial.shader))
-				{
+					(material != null && currentMaterial != null && material.shader != currentMaterial.shader)) {
 					pSystem = null;
 					Initialize();
 				}
 			}
 		}
 
-		private void LateUpdate()
-		{
-			if (!Application.isPlaying)
-			{
+		private void LateUpdate() {
+			if (!Application.isPlaying) {
 				SetAllDirty();
-			}
-			else
-			{
-				if (fixedTime)
-				{
+			} else {
+				if (fixedTime) {
 					pSystem.Simulate(Time.unscaledDeltaTime, false, false, true);
 					SetAllDirty();
 					if ((currentMaterial != null && currentTexture != currentMaterial.mainTexture) ||
-						(material != null && currentMaterial != null && material.shader != currentMaterial.shader))
-					{
+						(material != null && currentMaterial != null && material.shader != currentMaterial.shader)) {
 						pSystem = null;
 						Initialize();
 					}
@@ -405,26 +358,22 @@ namespace UnityEngine.UI.Extensions
 			Initialize();
 		}
 
-		protected override void OnDestroy()
-		{
+		protected override void OnDestroy() {
 			currentMaterial = null;
 			currentTexture = null;
 			base.OnDestroy();
 		}
 
-		public void StartParticleEmission()
-		{
+		public void StartParticleEmission() {
 			pSystem.time = 0;
 			pSystem.Play();
 		}
 
-		public void StopParticleEmission()
-		{
+		public void StopParticleEmission() {
 			pSystem.Stop(false, ParticleSystemStopBehavior.StopEmittingAndClear);
 		}
 
-		public void PauseParticleEmission()
-		{
+		public void PauseParticleEmission() {
 			pSystem.Stop(false, ParticleSystemStopBehavior.StopEmitting);
 		}
 	}

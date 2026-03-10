@@ -5,12 +5,10 @@ using System;
 using UnityEditor;
 using UnityEditor.UI;
 
-namespace UnityEngine.UI.Extensions
-{
+namespace UnityEngine.UI.Extensions {
 	[CustomEditor(typeof(MinMaxSlider), true)]
 	[CanEditMultipleObjects]
-	public class MinMaxSliderEditor : SelectableEditor
-	{
+	public class MinMaxSliderEditor : SelectableEditor {
 		private SerializedProperty _customCamera;
 		private SerializedProperty _sliderBounds;
 		private SerializedProperty _minHandle;
@@ -29,8 +27,7 @@ namespace UnityEngine.UI.Extensions
 
 		private readonly GUIContent label = new GUIContent("Min Max Values");
 
-		protected override void OnEnable()
-		{
+		protected override void OnEnable() {
 			base.OnEnable();
 			_customCamera = serializedObject.FindProperty("customCamera");
 			_sliderBounds = serializedObject.FindProperty("sliderBounds");
@@ -48,8 +45,7 @@ namespace UnityEngine.UI.Extensions
 			_onValueChanged = serializedObject.FindProperty("onValueChanged");
 		}
 
-		public override void OnInspectorGUI()
-		{
+		public override void OnInspectorGUI() {
 			base.OnInspectorGUI();
 
 			serializedObject.Update();
@@ -85,14 +81,12 @@ namespace UnityEngine.UI.Extensions
 								   || !IsEqualFloat(minLimitOld, _minLimit.floatValue)
 								   || !IsEqualFloat(maxLimitOld, _maxLimit.floatValue);
 
-			if (anyValueChanged)
-			{
+			if (anyValueChanged) {
 				MinMaxSlider slider = (MinMaxSlider)target;
 
 				// force limits to ints if whole numbers.
 				// needed to do this here because it wouldn't set in component script for some reason
-				if (slider.wholeNumbers)
-				{
+				if (slider.wholeNumbers) {
 					_minLimit.floatValue = Mathf.RoundToInt(_minLimit.floatValue);
 					_maxLimit.floatValue = Mathf.RoundToInt(_maxLimit.floatValue);
 				}
@@ -113,8 +107,7 @@ namespace UnityEngine.UI.Extensions
 		/// <param name="a"></param>
 		/// <param name="b"></param>
 		/// <returns></returns>
-		private static bool IsEqualFloat(float a, float b)
-		{
+		private static bool IsEqualFloat(float a, float b) {
 			return Math.Abs(a - b) < 0.01f;
 		}
 	}

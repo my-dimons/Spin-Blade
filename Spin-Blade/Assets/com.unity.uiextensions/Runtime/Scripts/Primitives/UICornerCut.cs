@@ -16,11 +16,9 @@
 ///
 /// </summary>
 
-namespace UnityEngine.UI.Extensions
-{
+namespace UnityEngine.UI.Extensions {
 	[AddComponentMenu("UI/Extensions/Primitives/Cut Corners")]
-	public class UICornerCut : UIPrimitiveBase
-	{
+	public class UICornerCut : UIPrimitiveBase {
 		public Vector2 cornerSize = new Vector2(16, 16);
 
 		[Header("Corners to cut")]
@@ -47,58 +45,48 @@ namespace UnityEngine.UI.Extensions
 		[SerializeField]
 		private Color32 m_colorDown;
 
-		public bool CutUL
-		{
+		public bool CutUL {
 			get => m_cutUL;
 			set { m_cutUL = value; SetAllDirty(); }
 		}
 
-		public bool CutUR
-		{
+		public bool CutUR {
 			get => m_cutUR;
 			set { m_cutUR = value; SetAllDirty(); }
 		}
 
-		public bool CutLL
-		{
+		public bool CutLL {
 			get => m_cutLL;
 			set { m_cutLL = value; SetAllDirty(); }
 		}
 
-		public bool CutLR
-		{
+		public bool CutLR {
 			get => m_cutLR;
 			set { m_cutLR = value; SetAllDirty(); }
 		}
 
-		public bool MakeColumns
-		{
+		public bool MakeColumns {
 			get => m_makeColumns;
 			set { m_makeColumns = value; SetAllDirty(); }
 		}
 
-		public bool UseColorUp
-		{
+		public bool UseColorUp {
 			get => m_useColorUp; set => m_useColorUp = value;
 		}
 
-		public Color32 ColorUp
-		{
+		public Color32 ColorUp {
 			get => m_colorUp; set => m_colorUp = value;
 		}
 
-		public bool UseColorDown
-		{
+		public bool UseColorDown {
 			get => m_useColorDown; set => m_useColorDown = value;
 		}
 
-		public Color32 ColorDown
-		{
+		public Color32 ColorDown {
 			get => m_colorDown; set => m_colorDown = value;
 		}
 
-		protected override void OnPopulateMesh(VertexHelper vh)
-		{
+		protected override void OnPopulateMesh(VertexHelper vh) {
 			var rect = rectTransform.rect;
 			var rectNew = rect;
 
@@ -109,8 +97,7 @@ namespace UnityEngine.UI.Extensions
 			bool right = m_cutLR | m_cutUR;
 			bool any = up | down;
 
-			if (any && cornerSize.sqrMagnitude > 0)
-			{
+			if (any && cornerSize.sqrMagnitude > 0) {
 
 				//nibble off the sides
 				vh.Clear();
@@ -126,8 +113,7 @@ namespace UnityEngine.UI.Extensions
 				//add two squares to the main square
 				Vector2 ul, ur, ll, lr;
 
-				if (m_makeColumns)
-				{
+				if (m_makeColumns) {
 					ul = new Vector2(rect.xMin, m_cutUL ? rectNew.yMax : rect.yMax);
 					ur = new Vector2(rect.xMax, m_cutUR ? rectNew.yMax : rect.yMax);
 					ll = new Vector2(rect.xMin, m_cutLL ? rectNew.yMin : rect.yMin);
@@ -145,9 +131,7 @@ namespace UnityEngine.UI.Extensions
 							new Vector2(rectNew.xMax, rect.yMin),
 							new Vector2(rectNew.xMax, rect.yMax),
 							rect, m_useColorDown ? m_colorDown : color32, vh);
-				}
-				else
-				{
+				} else {
 					ul = new Vector2(m_cutUL ? rectNew.xMin : rect.xMin, rect.yMax);
 					ur = new Vector2(m_cutUR ? rectNew.xMax : rect.xMax, rect.yMax);
 					ll = new Vector2(m_cutLL ? rectNew.xMin : rect.xMin, rect.yMin);
@@ -175,8 +159,7 @@ namespace UnityEngine.UI.Extensions
 			}
 		}
 
-		private static void AddSquare(Rect rect, Rect rectUV, Color32 color32, VertexHelper vh)
-		{
+		private static void AddSquare(Rect rect, Rect rectUV, Color32 color32, VertexHelper vh) {
 			int v0 = AddVert(rect.xMin, rect.yMin, rectUV, color32, vh);
 			int v1 = AddVert(rect.xMin, rect.yMax, rectUV, color32, vh);
 			int v2 = AddVert(rect.xMax, rect.yMax, rectUV, color32, vh);
@@ -186,8 +169,7 @@ namespace UnityEngine.UI.Extensions
 			vh.AddTriangle(v2, v3, v0);
 		}
 
-		private static void AddSquare(Vector2 a, Vector2 b, Vector2 c, Vector2 d, Rect rectUV, Color32 color32, VertexHelper vh)
-		{
+		private static void AddSquare(Vector2 a, Vector2 b, Vector2 c, Vector2 d, Rect rectUV, Color32 color32, VertexHelper vh) {
 			int v0 = AddVert(a.x, a.y, rectUV, color32, vh);
 			int v1 = AddVert(b.x, b.y, rectUV, color32, vh);
 			int v2 = AddVert(c.x, c.y, rectUV, color32, vh);
@@ -205,8 +187,7 @@ namespace UnityEngine.UI.Extensions
 		/// <param name="area"></param>
 		/// <param name="color32"></param>
 		/// <param name="vh"></param>
-		private static int AddVert(float x, float y, Rect area, Color32 color32, VertexHelper vh)
-		{
+		private static int AddVert(float x, float y, Rect area, Color32 color32, VertexHelper vh) {
 			var uv = new Vector2(
 				Mathf.InverseLerp(area.xMin, area.xMax, x),
 				Mathf.InverseLerp(area.yMin, area.yMax, y)

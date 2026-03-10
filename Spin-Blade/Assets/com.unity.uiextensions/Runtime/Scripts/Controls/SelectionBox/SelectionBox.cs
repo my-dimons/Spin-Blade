@@ -29,12 +29,10 @@
 using System.Collections.Generic;
 using UnityEngine.Events;
 
-namespace UnityEngine.UI.Extensions
-{
+namespace UnityEngine.UI.Extensions {
 	[RequireComponent(typeof(Canvas))]
 	[AddComponentMenu("UI/Extensions/Selection Box")]
-	public class SelectionBox : MonoBehaviour
-	{
+	public class SelectionBox : MonoBehaviour {
 
 		// The color of the selection box.
 		public Color color;
@@ -70,19 +68,16 @@ namespace UnityEngine.UI.Extensions
 		public SelectionEvent onSelectionChange = new SelectionEvent();
 
 		//Ensures that the canvas that this component is attached to is set to the correct render mode. If not, it will not render the selection box properly.
-		void ValidateCanvas()
-		{
+		void ValidateCanvas() {
 			var canvas = gameObject.GetComponent<Canvas>();
 
-			if (canvas.renderMode != RenderMode.ScreenSpaceOverlay)
-			{
+			if (canvas.renderMode != RenderMode.ScreenSpaceOverlay) {
 				throw new System.Exception("SelectionBox component must be placed on a canvas in Screen Space Overlay mode.");
 			}
 
 			var canvasScaler = gameObject.GetComponent<CanvasScaler>();
 
-			if (canvasScaler && canvasScaler.enabled && (!Mathf.Approximately(canvasScaler.scaleFactor, 1f) || canvasScaler.uiScaleMode != CanvasScaler.ScaleMode.ConstantPixelSize))
-			{
+			if (canvasScaler && canvasScaler.enabled && (!Mathf.Approximately(canvasScaler.scaleFactor, 1f) || canvasScaler.uiScaleMode != CanvasScaler.ScaleMode.ConstantPixelSize)) {
 				Destroy(canvasScaler);
 				Debug.LogWarning("SelectionBox component is on a gameObject with a Canvas Scaler component. As of now, Canvas Scalers without the default settings throw off the coordinates of the selection box. Canvas Scaler has been removed.");
 			}
@@ -95,12 +90,10 @@ namespace UnityEngine.UI.Extensions
 	 * 2) The user can filter which objects should be selectable, for example units versus menu selections
 	 *
 	 */
-		void SetSelectableGroup(IEnumerable<MonoBehaviour> behaviourCollection)
-		{
+		void SetSelectableGroup(IEnumerable<MonoBehaviour> behaviourCollection) {
 
 			// If null, the selectionbox reverts to it's default behaviour
-			if (behaviourCollection == null)
-			{
+			if (behaviourCollection == null) {
 				selectableGroup = null;
 
 				return;
@@ -109,10 +102,8 @@ namespace UnityEngine.UI.Extensions
 			//Runs a double check to ensure each of the objects in the collection can be selectable, and doesn't include them if not.
 			var behaviourList = new List<MonoBehaviour>();
 
-			foreach (var behaviour in behaviourCollection)
-			{
-				if (behaviour as IBoxSelectable != null)
-				{
+			foreach (var behaviour in behaviourCollection) {
+				if (behaviour as IBoxSelectable != null) {
 					behaviourList.Add(behaviour);
 				}
 			}
@@ -120,8 +111,7 @@ namespace UnityEngine.UI.Extensions
 			selectableGroup = behaviourList.ToArray();
 		}
 
-		void CreateBoxRect()
-		{
+		void CreateBoxRect() {
 			var selectionBoxGO = new GameObject();
 
 			selectionBoxGO.name = "Selection Box";
@@ -135,8 +125,7 @@ namespace UnityEngine.UI.Extensions
 		//Set all of the relevant rectTransform properties to zero, 
 		//finally deactivates the boxRect gameobject since it doesn't
 		//need to be enabled when not in a selection action.
-		void ResetBoxRect()
-		{
+		void ResetBoxRect() {
 
 			//Update the art and color on the off chance they've changed
 			Image image = boxRect.GetComponent<Image>();
@@ -154,8 +143,7 @@ namespace UnityEngine.UI.Extensions
 		}
 
 
-		void BeginSelection()
-		{
+		void BeginSelection() {
 			// Click somewhere in the Game View.
 			if (!UIExtensionsInputManager.GetMouseButtonDown(0))
 				return;
@@ -167,8 +155,7 @@ namespace UnityEngine.UI.Extensions
 			origin = new Vector2(UIExtensionsInputManager.MousePosition.x, UIExtensionsInputManager.MousePosition.y);
 
 			//If the initial click point is not inside the selection mask, we abort the selection
-			if (!PointIsValidAgainstSelectionMask(origin))
-			{
+			if (!PointIsValidAgainstSelectionMask(origin)) {
 				ResetBoxRect();
 				return;
 			}
@@ -179,34 +166,28 @@ namespace UnityEngine.UI.Extensions
 			MonoBehaviour[] behavioursToGetSelectionsFrom;
 
 			// If we do not have a group of selectables already set, we'll just loop through every object that's a monobehaviour, and look for selectable interfaces in them
-			if (selectableGroup == null)
-			{
+			if (selectableGroup == null) {
 #if UNITY_2023_1_OR_NEWER
 				behavioursToGetSelectionsFrom = GameObject.FindObjectsByType<MonoBehaviour>(FindObjectsSortMode.None);
 #else
 				behavioursToGetSelectionsFrom = GameObject.FindObjectsOfType<MonoBehaviour>();
 #endif
-			}
-			else
-			{
+			} else {
 				behavioursToGetSelectionsFrom = selectableGroup;
 			}
 
 			//Temporary list to store the found selectables before converting to the main selectables array
 			List<IBoxSelectable> selectableList = new List<IBoxSelectable>();
 
-			foreach (MonoBehaviour behaviour in behavioursToGetSelectionsFrom)
-			{
+			foreach (MonoBehaviour behaviour in behavioursToGetSelectionsFrom) {
 
 				//If the behaviour implements the selectable interface, we add it to the selectable list
 				IBoxSelectable selectable = behaviour as IBoxSelectable;
-				if (selectable != null)
-				{
+				if (selectable != null) {
 					selectableList.Add(selectable);
 
 					//We're using left shift to act as the "Add To Selection" command. So if left shift isn't pressed, we want everything to begin deselected
-					if (!UIExtensionsInputManager.GetKey(KeyCode.LeftShift))
-					{
+					if (!UIExtensionsInputManager.GetKey(KeyCode.LeftShift)) {
 						selectable.selected = false;
 					}
 				}
@@ -219,11 +200,9 @@ namespace UnityEngine.UI.Extensions
 
 		}
 
-		bool PointIsValidAgainstSelectionMask(Vector2 screenPoint)
-		{
+		bool PointIsValidAgainstSelectionMask(Vector2 screenPoint) {
 			//If there is no selection mask, any point is valid
-			if (!selectionMask)
-			{
+			if (!selectionMask) {
 				return true;
 			}
 
@@ -232,37 +211,30 @@ namespace UnityEngine.UI.Extensions
 			return RectTransformUtility.RectangleContainsScreenPoint(selectionMask, screenPoint, screenPointCamera);
 		}
 
-		IBoxSelectable GetSelectableAtMousePosition()
-		{
+		IBoxSelectable GetSelectableAtMousePosition() {
 			//Firstly, we cannot click on something that is not inside the selection mask (if we have one)
-			if (!PointIsValidAgainstSelectionMask(UIExtensionsInputManager.MousePosition))
-			{
+			if (!PointIsValidAgainstSelectionMask(UIExtensionsInputManager.MousePosition)) {
 				return null;
 			}
 
 			//This gets a bit tricky, because we have to make considerations depending on the hierarchy of the selectable's gameObject
-			foreach (var selectable in selectables)
-			{
+			foreach (var selectable in selectables) {
 
 				//First we check to see if the selectable has a rectTransform
 				var rectTransform = (selectable.transform as RectTransform);
 
-				if (rectTransform)
-				{
+				if (rectTransform) {
 					//Because if it does, the camera we use to calculate it's screen point will vary
 					var screenCamera = GetScreenPointCamera(rectTransform);
 
 					//Once we've found the rendering camera, we check if the selectables rectTransform contains the click. That way we
 					//Can click anywhere on a rectTransform to select it.
-					if (RectTransformUtility.RectangleContainsScreenPoint(rectTransform, UIExtensionsInputManager.MousePosition, screenCamera))
-					{
+					if (RectTransformUtility.RectangleContainsScreenPoint(rectTransform, UIExtensionsInputManager.MousePosition, screenCamera)) {
 
 						//And if it does, we select it and send it back
 						return selectable;
 					}
-				}
-				else
-				{
+				} else {
 					//If it doesn't have a rectTransform, we need to get the radius so we can use it as an area around the center to detect a click.
 					//This works because a 2D or 3D renderer will both return a radius
 					var radius = selectable.transform.GetComponent<UnityEngine.Renderer>().bounds.extents.magnitude;
@@ -270,8 +242,7 @@ namespace UnityEngine.UI.Extensions
 					var selectableScreenPoint = GetScreenPointOfSelectable(selectable);
 
 					//Check that the click fits within the screen-radius of the selectable
-					if (Vector2.Distance(selectableScreenPoint, UIExtensionsInputManager.MousePosition) <= radius)
-					{
+					if (Vector2.Distance(selectableScreenPoint, UIExtensionsInputManager.MousePosition) <= radius) {
 
 						//And if it does, we select it and send it back
 						return selectable;
@@ -284,8 +255,7 @@ namespace UnityEngine.UI.Extensions
 		}
 
 
-		void DragSelection()
-		{
+		void DragSelection() {
 			//Return if we're not dragging or if the selection has been aborted (BoxRect disabled)
 			if (!UIExtensionsInputManager.GetMouseButton(0) || !boxRect.gameObject.activeSelf)
 				return;
@@ -302,13 +272,11 @@ namespace UnityEngine.UI.Extensions
 			Vector2 startPoint = origin;
 
 			// The following code accounts for dragging in various directions.
-			if (difference.x < 0)
-			{
+			if (difference.x < 0) {
 				startPoint.x = currentMousePosition.x;
 				difference.x = -difference.x;
 			}
-			if (difference.y < 0)
-			{
+			if (difference.y < 0) {
 				startPoint.y = currentMousePosition.y;
 				difference.y = -difference.y;
 			}
@@ -318,8 +286,7 @@ namespace UnityEngine.UI.Extensions
 			boxRect.sizeDelta = difference;
 
 			//Then we check our list of Selectables to see if they're being preselected or not.
-			foreach (var selectable in selectables)
-			{
+			foreach (var selectable in selectables) {
 
 				Vector3 screenPoint = GetScreenPointOfSelectable(selectable);
 
@@ -330,22 +297,19 @@ namespace UnityEngine.UI.Extensions
 
 			//Finally, since it's possible for our first clicked object to not be within the bounds of the selection box
 			//If it exists, we always ensure that it is preselected.
-			if (clickedBeforeDrag != null)
-			{
+			if (clickedBeforeDrag != null) {
 				clickedBeforeDrag.preSelected = true;
 			}
 		}
 
-		void ApplySingleClickDeselection()
-		{
+		void ApplySingleClickDeselection() {
 
 			//If we didn't touch anything with the original mouse press, we don't need to continue checking
 			if (clickedBeforeDrag == null)
 				return;
 
 			//If we clicked a selectable without dragging, and that selectable was previously selected, we must be trying to deselect it.
-			if (clickedAfterDrag != null && clickedBeforeDrag.selected && clickedBeforeDrag.transform == clickedAfterDrag.transform)
-			{
+			if (clickedAfterDrag != null && clickedBeforeDrag.selected && clickedBeforeDrag.transform == clickedAfterDrag.transform) {
 				clickedBeforeDrag.selected = false;
 				clickedBeforeDrag.preSelected = false;
 
@@ -353,15 +317,12 @@ namespace UnityEngine.UI.Extensions
 
 		}
 
-		void ApplyPreSelections()
-		{
+		void ApplyPreSelections() {
 
-			foreach (var selectable in selectables)
-			{
+			foreach (var selectable in selectables) {
 
 				//If the selectable was preSelected, we finalize it as selected.
-				if (selectable.preSelected)
-				{
+				if (selectable.preSelected) {
 					selectable.selected = true;
 					selectable.preSelected = false;
 				}
@@ -369,16 +330,14 @@ namespace UnityEngine.UI.Extensions
 
 		}
 
-		Vector2 GetScreenPointOfSelectable(IBoxSelectable selectable)
-		{
+		Vector2 GetScreenPointOfSelectable(IBoxSelectable selectable) {
 			//Getting the screen point requires it's own function, because we have to take into consideration the selectables hierarchy.
 
 			//Cast the transform as a rectTransform
 			var rectTransform = selectable.transform as RectTransform;
 
 			//If it has a rectTransform component, it must be in the hierarchy of a canvas, somewhere.
-			if (rectTransform)
-			{
+			if (rectTransform) {
 
 				//And the camera used to calculate it's screen point will vary.
 				Camera renderingCamera = GetScreenPointCamera(rectTransform);
@@ -399,20 +358,17 @@ namespace UnityEngine.UI.Extensions
 	 * 
 	 * This function solves that problem. 
 	 */
-		Camera GetScreenPointCamera(RectTransform rectTransform)
-		{
+		Camera GetScreenPointCamera(RectTransform rectTransform) {
 
 			Canvas rootCanvas = null;
 			RectTransform rectCheck = rectTransform;
 
 			//We're going to check all the canvases in the hierarchy of this rectTransform until we find the root.
-			do
-			{
+			do {
 				rootCanvas = rectCheck.GetComponent<Canvas>();
 
 				//If we found a canvas on this Object, and it's not the rootCanvas, then we don't want to keep it
-				if (rootCanvas && !rootCanvas.isRootCanvas)
-				{
+				if (rootCanvas && !rootCanvas.isRootCanvas) {
 					rootCanvas = null;
 				}
 
@@ -422,8 +378,7 @@ namespace UnityEngine.UI.Extensions
 			} while (rootCanvas == null);
 
 			//Once we've found the root Canvas, we return a camera depending on it's render mode.
-			switch (rootCanvas.renderMode)
-			{
+			switch (rootCanvas.renderMode) {
 				case RenderMode.ScreenSpaceOverlay:
 					//If we send back a camera when set to screen space overlay, the coordinates will not be accurate. If we return null, they will be.
 					return null;
@@ -441,19 +396,15 @@ namespace UnityEngine.UI.Extensions
 
 		}
 
-		public IBoxSelectable[] GetAllSelected()
-		{
-			if (selectables == null)
-			{
+		public IBoxSelectable[] GetAllSelected() {
+			if (selectables == null) {
 				return new IBoxSelectable[0];
 			}
 
 			var selectedList = new List<IBoxSelectable>();
 
-			foreach (var selectable in selectables)
-			{
-				if (selectable.selected)
-				{
+			foreach (var selectable in selectables) {
+				if (selectable.selected) {
 					selectedList.Add(selectable);
 				}
 			}
@@ -461,8 +412,7 @@ namespace UnityEngine.UI.Extensions
 			return selectedList.ToArray();
 		}
 
-		void EndSelection()
-		{
+		void EndSelection() {
 			//Get out if we haven't finished selecting, or if the selection has been aborted (boxRect disabled)
 			if (!UIExtensionsInputManager.GetMouseButtonUp(0) || !boxRect.gameObject.activeSelf)
 				return;
@@ -475,15 +425,13 @@ namespace UnityEngine.UI.Extensions
 			onSelectionChange.Invoke(GetAllSelected());
 		}
 
-		void Start()
-		{
+		void Start() {
 			ValidateCanvas();
 			CreateBoxRect();
 			ResetBoxRect();
 		}
 
-		void Update()
-		{
+		void Update() {
 			BeginSelection();
 			DragSelection();
 			EndSelection();

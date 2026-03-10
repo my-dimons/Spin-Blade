@@ -6,10 +6,8 @@ using System;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
-namespace UnityEngine.UI.Extensions
-{
-	public class ScrollSnapBase : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IScrollSnap, IPointerClickHandler
-	{
+namespace UnityEngine.UI.Extensions {
+	public class ScrollSnapBase : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IScrollSnap, IPointerClickHandler {
 		internal Rect panelDimensions;
 		internal RectTransform _screensContainer;
 		internal bool _isVertical;
@@ -90,23 +88,17 @@ namespace UnityEngine.UI.Extensions
 		[Tooltip("Pixel size to buffer around Mask Area. (optional)")]
 		public float MaskBuffer = 1;
 
-		public int CurrentPage
-		{
+		public int CurrentPage {
 			get => _currentPage;
 
-			internal set
-			{
-				if (_isInfinite)
-				{
+			internal set {
+				if (_isInfinite) {
 					//Work out which infinite window we are in
 					float infWindow = (float)value / (float)_screensContainer.childCount;
 
-					if (infWindow < 0)
-					{
+					if (infWindow < 0) {
 						_infiniteWindow = (int)(Math.Floor(infWindow));
-					}
-					else
-					{
+					} else {
 						_infiniteWindow = value / _screensContainer.childCount;
 					}
 					//Invert the value if negative and differentiate from Window 0
@@ -114,17 +106,13 @@ namespace UnityEngine.UI.Extensions
 
 					//Calculate the page within the child count range
 					value = value % _screensContainer.childCount;
-					if (value < 0)
-					{
+					if (value < 0) {
 						value = _screensContainer.childCount + value;
-					}
-					else if (value > _screensContainer.childCount - 1)
-					{
+					} else if (value > _screensContainer.childCount - 1) {
 						value = value - _screensContainer.childCount;
 					}
 				}
-				if ((value != _currentPage && value >= 0 && value < _screensContainer.childCount) || (value == 0 && _screensContainer.childCount == 0))
-				{
+				if ((value != _currentPage && value >= 0 && value < _screensContainer.childCount) || (value == 0 && _screensContainer.childCount == 0)) {
 					_previousPage = _currentPage;
 					_currentPage = value;
 					if (MaskArea) UpdateVisible();
@@ -161,26 +149,21 @@ namespace UnityEngine.UI.Extensions
 		private SelectionChangeEndEvent m_OnSelectionChangeEndEvent = new SelectionChangeEndEvent();
 		public SelectionChangeEndEvent OnSelectionChangeEndEvent { get => m_OnSelectionChangeEndEvent; set => m_OnSelectionChangeEndEvent = value; }
 
-		void Awake()
-		{
-			if (_scroll_rect == null)
-			{
+		void Awake() {
+			if (_scroll_rect == null) {
 				_scroll_rect = gameObject.GetComponent<ScrollRect>();
 			}
-			if (_scroll_rect.horizontalScrollbar && _scroll_rect.horizontal)
-			{
+			if (_scroll_rect.horizontalScrollbar && _scroll_rect.horizontal) {
 				var hscroll = _scroll_rect.horizontalScrollbar.gameObject.AddComponent<ScrollSnapScrollbarHelper>();
 				hscroll.ss = this;
 			}
-			if (_scroll_rect.verticalScrollbar && _scroll_rect.vertical)
-			{
+			if (_scroll_rect.verticalScrollbar && _scroll_rect.vertical) {
 				var vscroll = _scroll_rect.verticalScrollbar.gameObject.AddComponent<ScrollSnapScrollbarHelper>();
 				vscroll.ss = this;
 			}
 			panelDimensions = gameObject.GetComponent<RectTransform>().rect;
 
-			if (StartingScreen < 0)
-			{
+			if (StartingScreen < 0) {
 				StartingScreen = 0;
 			}
 
@@ -197,54 +180,42 @@ namespace UnityEngine.UI.Extensions
 			_isInfinite = GetComponent<UI_InfiniteScroll>() != null;
 		}
 
-		internal void InitialiseChildObjects()
-		{
-			if (ChildObjects != null && ChildObjects.Length > 0)
-			{
-				if (_screensContainer.transform.childCount > 0)
-				{
+		internal void InitialiseChildObjects() {
+			if (ChildObjects != null && ChildObjects.Length > 0) {
+				if (_screensContainer.transform.childCount > 0) {
 					Debug.LogError("ScrollRect Content has children, this is not supported when using managed Child Objects\n Either remove the ScrollRect Content children or clear the ChildObjects array");
 					return;
 				}
 
 				InitialiseChildObjectsFromArray();
 
-				if (GetComponent<UI_InfiniteScroll>() != null)
-				{
+				if (GetComponent<UI_InfiniteScroll>() != null) {
 					GetComponent<UI_InfiniteScroll>().Init();
 				}
-			}
-			else
-			{
+			} else {
 				InitialiseChildObjectsFromScene();
 			}
 		}
 
-		internal void InitialiseChildObjectsFromScene()
-		{
+		internal void InitialiseChildObjectsFromScene() {
 			int childCount = _screensContainer.childCount;
 			ChildObjects = new GameObject[childCount];
-			for (int i = 0; i < childCount; i++)
-			{
+			for (int i = 0; i < childCount; i++) {
 				ChildObjects[i] = _screensContainer.transform.GetChild(i).gameObject;
-				if (MaskArea && ChildObjects[i].activeSelf)
-				{
+				if (MaskArea && ChildObjects[i].activeSelf) {
 					ChildObjects[i].SetActive(false);
 				}
 			}
 		}
 
-		internal void InitialiseChildObjectsFromArray()
-		{
+		internal void InitialiseChildObjectsFromArray() {
 			int childCount = ChildObjects.Length;
 			RectTransform childRect;
 			GameObject child;
-			for (int i = 0; i < childCount; i++)
-			{
+			for (int i = 0; i < childCount; i++) {
 				child = GameObject.Instantiate(ChildObjects[i]);
 				//Optionally, use original GO transform when initialising, by default will use parent RectTransform position/rotation
-				if (UseParentTransform)
-				{
+				if (UseParentTransform) {
 					childRect = child.GetComponent<RectTransform>();
 					childRect.rotation = _screensContainer.rotation;
 					childRect.localScale = _screensContainer.localScale;
@@ -253,18 +224,15 @@ namespace UnityEngine.UI.Extensions
 
 				child.transform.SetParent(_screensContainer.transform);
 				ChildObjects[i] = child;
-				if (MaskArea && ChildObjects[i].activeSelf)
-				{
+				if (MaskArea && ChildObjects[i].activeSelf) {
 					ChildObjects[i].SetActive(false);
 				}
 			}
 		}
 
-		internal void UpdateVisible()
-		{
+		internal void UpdateVisible() {
 			//If there are no objects in the scene or a mask, exit
-			if (!MaskArea || ChildObjects == null || ChildObjects.Length < 1 || _screensContainer.childCount < 1)
-			{
+			if (!MaskArea || ChildObjects == null || ChildObjects.Length < 1 || _screensContainer.childCount < 1) {
 				return;
 			}
 
@@ -272,28 +240,22 @@ namespace UnityEngine.UI.Extensions
 			_halfNoVisibleItems = (int)Math.Round(_maskSize / (_childSize * MaskBuffer), MidpointRounding.AwayFromZero) / 2;
 			_bottomItem = _topItem = 0;
 			//work out how many items below the current page can be visible
-			for (int i = _halfNoVisibleItems + 1; i > 0; i--)
-			{
+			for (int i = _halfNoVisibleItems + 1; i > 0; i--) {
 				_bottomItem = _currentPage - i < 0 ? 0 : i;
 				if (_bottomItem > 0) break;
 			}
 
 			//work out how many items above the current page can be visible
-			for (int i = _halfNoVisibleItems + 1; i > 0; i--)
-			{
+			for (int i = _halfNoVisibleItems + 1; i > 0; i--) {
 				_topItem = _screensContainer.childCount - _currentPage - i < 0 ? 0 : i;
 				if (_topItem > 0) break;
 			}
 
 			//Set the active items active
-			for (int i = CurrentPage - _bottomItem; i < CurrentPage + _topItem; i++)
-			{
-				try
-				{
+			for (int i = CurrentPage - _bottomItem; i < CurrentPage + _topItem; i++) {
+				try {
 					ChildObjects[i].SetActive(true);
-				}
-				catch
-				{
+				} catch {
 					Debug.Log("Failed to setactive child [" + i + "]");
 				}
 			}
@@ -305,19 +267,14 @@ namespace UnityEngine.UI.Extensions
 		}
 
 		//Function for switching screens with buttons
-		public void NextScreen()
-		{
-			if (_currentPage < _screens - 1 || _isInfinite)
-			{
+		public void NextScreen() {
+			if (_currentPage < _screens - 1 || _isInfinite) {
 				if (!_lerp) StartScreenChange();
 
 				_lerp = true;
-				if (_isInfinite)
-				{
+				if (_isInfinite) {
 					CurrentPage = GetPageforPosition(_screensContainer.anchoredPosition) + 1;
-				}
-				else
-				{
+				} else {
 					CurrentPage = _currentPage + 1;
 				}
 				GetPositionforPage(_currentPage, ref _lerp_target);
@@ -327,19 +284,14 @@ namespace UnityEngine.UI.Extensions
 		}
 
 		//Function for switching screens with buttons
-		public void PreviousScreen()
-		{
-			if (_currentPage > 0 || _isInfinite)
-			{
+		public void PreviousScreen() {
+			if (_currentPage > 0 || _isInfinite) {
 				if (!_lerp) StartScreenChange();
 
 				_lerp = true;
-				if (_isInfinite)
-				{
+				if (_isInfinite) {
 					CurrentPage = GetPageforPosition(_screensContainer.anchoredPosition) - 1;
-				}
-				else
-				{
+				} else {
 					CurrentPage = _currentPage - 1;
 				}
 				GetPositionforPage(_currentPage, ref _lerp_target);
@@ -353,10 +305,8 @@ namespace UnityEngine.UI.Extensions
 		/// </summary>
 		/// <param name="screenIndex">0 starting index of page to jump to</param>
 		/// <param name="pagination">Override the screen movement if driven from a pagination control</param>
-		public void GoToScreen(int screenIndex, bool pagination = false)
-		{
-			if (screenIndex <= _screens - 1 && screenIndex >= 0)
-			{
+		public void GoToScreen(int screenIndex, bool pagination = false) {
+			if (screenIndex <= _screens - 1 && screenIndex >= 0) {
 				if (!_lerp || pagination) StartScreenChange();
 
 				_lerp = true;
@@ -371,8 +321,7 @@ namespace UnityEngine.UI.Extensions
 		/// </summary>
 		/// <param name="pos">Position to test, normally the Scroll Rect container Local position</param>
 		/// <returns>Closest Page number (zero indexed array value)</returns>
-		internal int GetPageforPosition(Vector3 pos)
-		{
+		internal int GetPageforPosition(Vector3 pos) {
 			return _isVertical ?
 				(int)Math.Round((_scrollStartPosition - pos.y) / _childSize) :
 				(int)Math.Round((_scrollStartPosition - pos.x) / _childSize);
@@ -383,8 +332,7 @@ namespace UnityEngine.UI.Extensions
 		/// </summary>
 		/// <param name="pos">Position to test, normally the Scroll Rect container Local position</param>
 		/// <returns>True / False, is the position in the bounds of a page</returns>
-		internal bool IsRectSettledOnaPage(Vector3 pos)
-		{
+		internal bool IsRectSettledOnaPage(Vector3 pos) {
 			return _isVertical ?
 				-((pos.y - _scrollStartPosition) / _childSize) == -(int)Math.Round((pos.y - _scrollStartPosition) / _childSize) :
 				-((pos.x - _scrollStartPosition) / _childSize) == -(int)Math.Round((pos.x - _scrollStartPosition) / _childSize);
@@ -395,17 +343,13 @@ namespace UnityEngine.UI.Extensions
 		/// </summary>
 		/// <param name="page">Page that the position is required for (Zero indexed array value)</param>
 		/// <param name="target">Outputs the local position for the selected page</param>
-		internal void GetPositionforPage(int page, ref Vector3 target)
-		{
+		internal void GetPositionforPage(int page, ref Vector3 target) {
 			_childPos = -_childSize * page;
-			if (_isVertical)
-			{
+			if (_isVertical) {
 				_infiniteOffset = _screensContainer.anchoredPosition.y < 0 ? -_screensContainer.sizeDelta.y * _infiniteWindow : _screensContainer.sizeDelta.y * _infiniteWindow;
 				_infiniteOffset = _infiniteOffset == 0 ? 0 : _infiniteOffset < 0 ? _infiniteOffset - _childSize * _infiniteWindow : _infiniteOffset + _childSize * _infiniteWindow;
 				target.y = _childPos + _scrollStartPosition + _infiniteOffset;
-			}
-			else
-			{
+			} else {
 				_infiniteOffset = _screensContainer.anchoredPosition.x < 0 ? -_screensContainer.sizeDelta.x * _infiniteWindow : _screensContainer.sizeDelta.x * _infiniteWindow;
 				_infiniteOffset = _infiniteOffset == 0 ? 0 : _infiniteOffset < 0 ? _infiniteOffset - _childSize * _infiniteWindow : _infiniteOffset + _childSize * _infiniteWindow;
 				target.x = _childPos + _scrollStartPosition + _infiniteOffset;
@@ -415,8 +359,7 @@ namespace UnityEngine.UI.Extensions
 		/// <summary>
 		/// Updates the _Lerp target to the closest page and updates the pagination bullets.  Each control's update loop will then handle the move.
 		/// </summary>
-		internal void ScrollToClosestElement()
-		{
+		internal void ScrollToClosestElement() {
 			_lerp = true;
 			CurrentPage = GetPageforPosition(_screensContainer.anchoredPosition);
 			GetPositionforPage(_currentPage, ref _lerp_target);
@@ -426,8 +369,7 @@ namespace UnityEngine.UI.Extensions
 		/// <summary>
 		/// notifies pagination indicator and navigation buttons of a screen change
 		/// </summary>
-		internal void OnCurrentScreenChange(int currentScreen)
-		{
+		internal void OnCurrentScreenChange(int currentScreen) {
 			ChangeBulletsInfo(currentScreen);
 			ToggleNavigationButtons(currentScreen);
 		}
@@ -436,12 +378,9 @@ namespace UnityEngine.UI.Extensions
 		/// changes the bullets on the bottom of the page - pagination
 		/// </summary>
 		/// <param name="targetScreen"></param>
-		private void ChangeBulletsInfo(int targetScreen)
-		{
-			if (Pagination)
-			{
-				for (int i = 0; i < Pagination.transform.childCount; i++)
-				{
+		private void ChangeBulletsInfo(int targetScreen) {
+			if (Pagination) {
+				for (int i = 0; i < Pagination.transform.childCount; i++) {
 					Pagination.transform.GetChild(i).GetComponent<Toggle>().isOn = (targetScreen == i) ? true : false;
 				}
 			}
@@ -453,73 +392,57 @@ namespace UnityEngine.UI.Extensions
 		/// disables the page navigation buttons when at the first or last screen
 		/// </summary>
 		/// <param name="targetScreen"></param>
-		private void ToggleNavigationButtons(int targetScreen)
-		{
+		private void ToggleNavigationButtons(int targetScreen) {
 			//If this is using an Infinite Scroll, then don't disable
-			if (!_isInfinite)
-			{
-				if (PrevButton)
-				{
+			if (!_isInfinite) {
+				if (PrevButton) {
 					PrevButton.GetComponent<Button>().interactable = targetScreen > 0;
 				}
 
-				if (NextButton)
-				{
+				if (NextButton) {
 					NextButton.GetComponent<Button>().interactable = targetScreen < _screensContainer.transform.childCount - 1;
 				}
 			}
 		}
 
-		private void OnValidate()
-		{
-			if (_scroll_rect == null)
-			{
+		private void OnValidate() {
+			if (_scroll_rect == null) {
 				_scroll_rect = GetComponent<ScrollRect>();
 			}
-			if (!_scroll_rect.horizontal && !_scroll_rect.vertical)
-			{
+			if (!_scroll_rect.horizontal && !_scroll_rect.vertical) {
 				Debug.LogError("ScrollRect has to have a direction, please select either Horizontal OR Vertical with the appropriate control.");
 			}
-			if (_scroll_rect.horizontal && _scroll_rect.vertical)
-			{
+			if (_scroll_rect.horizontal && _scroll_rect.vertical) {
 				Debug.LogError("ScrollRect has to be unidirectional, only use either Horizontal or Vertical on the ScrollRect, NOT both.");
 			}
 			var ScrollRectContent = gameObject.GetComponent<ScrollRect>().content;
-			if (ScrollRectContent != null)
-			{
+			if (ScrollRectContent != null) {
 				var children = ScrollRectContent.childCount;
-				if (children != 0 || ChildObjects != null)
-				{
+				if (children != 0 || ChildObjects != null) {
 					var childCount = ChildObjects == null || ChildObjects.Length == 0 ? children : ChildObjects.Length;
-					if (StartingScreen > childCount - 1)
-					{
+					if (StartingScreen > childCount - 1) {
 						StartingScreen = childCount - 1;
 					}
 
-					if (StartingScreen < 0)
-					{
+					if (StartingScreen < 0) {
 						StartingScreen = 0;
 					}
 				}
 			}
 
-			if (MaskBuffer <= 0)
-			{
+			if (MaskBuffer <= 0) {
 				MaskBuffer = 1;
 			}
 
-			if (PageStep < 0)
-			{
+			if (PageStep < 0) {
 				PageStep = 0;
 			}
 
-			if (PageStep > 8)
-			{
+			if (PageStep > 8) {
 				PageStep = 9;
 			}
 			var infiniteScroll = GetComponent<UI_InfiniteScroll>();
-			if (ChildObjects != null && ChildObjects.Length > 0 && infiniteScroll != null && !infiniteScroll.InitByUser)
-			{
+			if (ChildObjects != null && ChildObjects.Length > 0 && infiniteScroll != null && !infiniteScroll.InitByUser) {
 				Debug.LogError($"[{gameObject.name}]When using procedural children with a ScrollSnap (Adding Prefab ChildObjects) and the Infinite Scroll component\nYou must set the 'InitByUser' option to true, to enable late initialising");
 			}
 		}
@@ -527,10 +450,8 @@ namespace UnityEngine.UI.Extensions
 		/// <summary>
 		/// Event fires when the user starts to change the page, either via swipe or button.
 		/// </summary>
-		public void StartScreenChange()
-		{
-			if (!_startEventCalled)
-			{
+		public void StartScreenChange() {
+			if (!_startEventCalled) {
 				_suspendEvents = true;
 
 				_startEventCalled = true;
@@ -542,18 +463,15 @@ namespace UnityEngine.UI.Extensions
 		/// <summary>
 		/// Event fires when the currently viewed page changes, also updates while the scroll is moving
 		/// </summary>
-		internal void ScreenChange()
-		{
+		internal void ScreenChange() {
 			OnSelectionPageChangedEvent.Invoke(_currentPage);
 		}
 
 		/// <summary>
 		/// Event fires when control settles on a page, outputs the new page number
 		/// </summary>
-		internal void EndScreenChange()
-		{
-			if (!_endEventCalled)
-			{
+		internal void EndScreenChange() {
+			if (!_endEventCalled) {
 				_suspendEvents = false;
 
 				_endEventCalled = true;
@@ -567,8 +485,7 @@ namespace UnityEngine.UI.Extensions
 		/// Returns the Transform of the Current page
 		/// </summary>
 		/// <returns>Currently selected Page Transform</returns>
-		public Transform CurrentPageObject()
-		{
+		public Transform CurrentPageObject() {
 			return _screensContainer.GetChild(CurrentPage);
 		}
 
@@ -576,8 +493,7 @@ namespace UnityEngine.UI.Extensions
 		/// Returns the Transform of the Current page in an out parameter for performance
 		/// </summary>
 		/// <param name="returnObject">Currently selected Page Transform</param>
-		public void CurrentPageObject(out Transform returnObject)
-		{
+		public void CurrentPageObject(out Transform returnObject) {
 			returnObject = _screensContainer.GetChild(CurrentPage);
 		}
 
@@ -586,8 +502,7 @@ namespace UnityEngine.UI.Extensions
 		/// Touch screen to start swiping
 		/// </summary>
 		/// <param name="eventData"></param>
-		public void OnBeginDrag(PointerEventData eventData)
-		{
+		public void OnBeginDrag(PointerEventData eventData) {
 			_pointerDown = true;
 			_settled = false;
 			StartScreenChange();
@@ -598,8 +513,7 @@ namespace UnityEngine.UI.Extensions
 		/// While dragging do
 		/// </summary>
 		/// <param name="eventData"></param>
-		public void OnDrag(PointerEventData eventData)
-		{
+		public void OnDrag(PointerEventData eventData) {
 			_lerp = false;
 		}
 
@@ -612,29 +526,25 @@ namespace UnityEngine.UI.Extensions
 		/// <summary>
 		/// Added to provide a uniform interface for the ScrollBarHelper
 		/// </summary>
-		int IScrollSnap.CurrentPage()
-		{
+		int IScrollSnap.CurrentPage() {
 			return CurrentPage = GetPageforPosition(_screensContainer.anchoredPosition);
 		}
 
 		/// <summary>
 		/// Added to provide a uniform interface for the ScrollBarHelper
 		/// </summary>
-		public void SetLerp(bool value)
-		{
+		public void SetLerp(bool value) {
 			_lerp = value;
 		}
 
 		/// <summary>
 		/// Added to provide a uniform interface for the ScrollBarHelper
 		/// </summary>
-		public void ChangePage(int page)
-		{
+		public void ChangePage(int page) {
 			GoToScreen(page);
 		}
 
-		public void OnPointerClick(PointerEventData eventData)
-		{
+		public void OnPointerClick(PointerEventData eventData) {
 			var position = _screensContainer.anchoredPosition;
 		}
 

@@ -4,10 +4,8 @@
  * Licensed under MIT (https://github.com/setchi/EasingCore/blob/master/LICENSE)
  */
 
-namespace UnityEngine.UI.Extensions.EasingCore
-{
-	public enum Ease
-	{
+namespace UnityEngine.UI.Extensions.EasingCore {
+	public enum Ease {
 		Linear,
 		InBack,
 		InBounce,
@@ -43,17 +41,14 @@ namespace UnityEngine.UI.Extensions.EasingCore
 
 	public delegate float EasingFunction(float t);
 
-	public static class Easing
-	{
+	public static class Easing {
 		/// <summary>
 		/// Gets the easing function
 		/// </summary>
 		/// <param name="type">Ease type</param>
 		/// <returns>Easing function</returns>
-		public static EasingFunction Get(Ease type)
-		{
-			switch (type)
-			{
+		public static EasingFunction Get(Ease type) {
+			switch (type) {
 				case Ease.Linear: return linear;
 				case Ease.InBack: return inBack;
 				case Ease.InBounce: return inBounce;
@@ -88,35 +83,29 @@ namespace UnityEngine.UI.Extensions.EasingCore
 				default: return linear;
 			}
 
-			float linear(float t)
-			{
+			float linear(float t) {
 				return t;
 			}
 
-			float inBack(float t)
-			{
+			float inBack(float t) {
 				return t * t * t - t * Mathf.Sin(t * Mathf.PI);
 			}
 
-			float outBack(float t)
-			{
+			float outBack(float t) {
 				return 1f - inBack(1f - t);
 			}
 
-			float inOutBack(float t)
-			{
+			float inOutBack(float t) {
 				return t < 0.5f
 					? 0.5f * inBack(2f * t)
 					: 0.5f * outBack(2f * t - 1f) + 0.5f;
 			}
 
-			float inBounce(float t)
-			{
+			float inBounce(float t) {
 				return 1f - outBounce(1f - t);
 			}
 
-			float outBounce(float t)
-			{
+			float outBounce(float t) {
 				return t < 4f / 11.0f ?
 					(121f * t * t) / 16.0f :
 				t < 8f / 11.0f ?
@@ -126,76 +115,63 @@ namespace UnityEngine.UI.Extensions.EasingCore
 					(54f / 5.0f * t * t) - (513f / 25.0f * t) + 268f / 25.0f;
 			}
 
-			float inOutBounce(float t)
-			{
+			float inOutBounce(float t) {
 				return t < 0.5f
 					? 0.5f * inBounce(2f * t)
 					: 0.5f * outBounce(2f * t - 1f) + 0.5f;
 			}
 
-			float inCirc(float t)
-			{
+			float inCirc(float t) {
 				return 1f - Mathf.Sqrt(1f - (t * t));
 			}
 
-			float outCirc(float t)
-			{
+			float outCirc(float t) {
 				return Mathf.Sqrt((2f - t) * t);
 			}
 
-			float inOutCirc(float t)
-			{
+			float inOutCirc(float t) {
 				return t < 0.5f
 					? 0.5f * (1 - Mathf.Sqrt(1f - 4f * (t * t)))
 					: 0.5f * (Mathf.Sqrt(-((2f * t) - 3f) * ((2f * t) - 1f)) + 1f);
 			}
 
-			float inCubic(float t)
-			{
+			float inCubic(float t) {
 				return t * t * t;
 			}
 
-			float outCubic(float t)
-			{
+			float outCubic(float t) {
 				return inCubic(t - 1f) + 1f;
 			}
 
-			float inOutCubic(float t)
-			{
+			float inOutCubic(float t) {
 				return t < 0.5f
 					? 4f * t * t * t
 					: 0.5f * inCubic(2f * t - 2f) + 1f;
 			}
 
-			float inElastic(float t)
-			{
+			float inElastic(float t) {
 				return Mathf.Sin(13f * (Mathf.PI * 0.5f) * t) * Mathf.Pow(2f, 10f * (t - 1f));
 			}
 
-			float outElastic(float t)
-			{
+			float outElastic(float t) {
 				return Mathf.Sin(-13f * (Mathf.PI * 0.5f) * (t + 1)) * Mathf.Pow(2f, -10f * t) + 1f;
 			}
 
-			float inOutElastic(float t)
-			{
+			float inOutElastic(float t) {
 				return t < 0.5f
 					? 0.5f * Mathf.Sin(13f * (Mathf.PI * 0.5f) * (2f * t)) * Mathf.Pow(2f, 10f * ((2f * t) - 1f))
 					: 0.5f * (Mathf.Sin(-13f * (Mathf.PI * 0.5f) * ((2f * t - 1f) + 1f)) * Mathf.Pow(2f, -10f * (2f * t - 1f)) + 2f);
 			}
 
-			float inExpo(float t)
-			{
+			float inExpo(float t) {
 				return Mathf.Approximately(0.0f, t) ? t : Mathf.Pow(2f, 10f * (t - 1f));
 			}
 
-			float outExpo(float t)
-			{
+			float outExpo(float t) {
 				return Mathf.Approximately(1.0f, t) ? t : 1f - Mathf.Pow(2f, -10f * t);
 			}
 
-			float inOutExpo(float v)
-			{
+			float inOutExpo(float v) {
 				return Mathf.Approximately(0.0f, v) || Mathf.Approximately(1.0f, v)
 					? v
 					: v < 0.5f
@@ -203,70 +179,58 @@ namespace UnityEngine.UI.Extensions.EasingCore
 						: -0.5f * Mathf.Pow(2f, (-20f * v) + 10f) + 1f;
 			}
 
-			float inQuad(float t)
-			{
+			float inQuad(float t) {
 				return t * t;
 			}
 
-			float outQuad(float t)
-			{
+			float outQuad(float t) {
 				return -t * (t - 2f);
 			}
 
-			float inOutQuad(float t)
-			{
+			float inOutQuad(float t) {
 				return t < 0.5f
 					? 2f * t * t
 					: -2f * t * t + 4f * t - 1f;
 			}
 
-			float inQuart(float t)
-			{
+			float inQuart(float t) {
 				return t * t * t * t;
 			}
 
-			float outQuart(float t)
-			{
+			float outQuart(float t) {
 				var u = t - 1f;
 				return u * u * u * (1f - t) + 1f;
 			}
 
-			float inOutQuart(float t)
-			{
+			float inOutQuart(float t) {
 				return t < 0.5f
 					? 8f * inQuart(t)
 					: -8f * inQuart(t - 1f) + 1f;
 			}
 
-			float inQuint(float t)
-			{
+			float inQuint(float t) {
 				return t * t * t * t * t;
 			}
 
-			float outQuint(float t)
-			{
+			float outQuint(float t) {
 				return inQuint(t - 1f) + 1f;
 			}
 
-			float inOutQuint(float t)
-			{
+			float inOutQuint(float t) {
 				return t < 0.5f
 					? 16f * inQuint(t)
 					: 0.5f * inQuint(2f * t - 2f) + 1f;
 			}
 
-			float inSine(float t)
-			{
+			float inSine(float t) {
 				return Mathf.Sin((t - 1f) * (Mathf.PI * 0.5f)) + 1f;
 			}
 
-			float outSine(float t)
-			{
+			float outSine(float t) {
 				return Mathf.Sin(t * (Mathf.PI * 0.5f));
 			}
 
-			float inOutSine(float t)
-			{
+			float inOutSine(float t) {
 				return 0.5f * (1f - Mathf.Cos(t * Mathf.PI));
 			}
 		}

@@ -2,30 +2,25 @@ using UnityEditor;
 using UnityEngine;
 
 //  OutlineFx © NullTale - https://x.com/NullTale/
-namespace OutlineFx.Editor
-{
+namespace OutlineFx.Editor {
 	[CustomPropertyDrawer(typeof(Optional<>))]
-	public class OptionalDrawer : PropertyDrawer
-	{
+	public class OptionalDrawer : PropertyDrawer {
 		private const float k_ToggleWidth = 18;
 
 		// =======================================================================
-		public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
-		{
+		public override float GetPropertyHeight(SerializedProperty property, GUIContent label) {
 			var valueProperty = property.FindPropertyRelative("value");
 			return EditorGUI.GetPropertyHeight(valueProperty);
 		}
 
-		public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
-		{
+		public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
 			var valueProperty = property.FindPropertyRelative("value");
 			var enabledProperty = property.FindPropertyRelative("enabled");
 
 			OnGui(position, label, enabledProperty, valueProperty);
 		}
 
-		public static void OnGui(Rect position, GUIContent label, SerializedProperty enabledProperty, SerializedProperty valueProperty)
-		{
+		public static void OnGui(Rect position, GUIContent label, SerializedProperty enabledProperty, SerializedProperty valueProperty) {
 			position.width -= k_ToggleWidth;
 			using (new EditorGUI.DisabledGroupScope(!enabledProperty.boolValue))
 				EditorGUI.PropertyField(position, valueProperty, label, true);

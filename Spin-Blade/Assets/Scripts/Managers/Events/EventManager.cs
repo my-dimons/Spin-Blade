@@ -3,8 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityUtils.ScriptUtils.Audio;
 
-public class EventManager : MonoBehaviour
-{
+public class EventManager : MonoBehaviour {
 	[Header("Event Setup")]
 	public Event[] events;
 
@@ -26,34 +25,29 @@ public class EventManager : MonoBehaviour
 	EnemyManager enemyManager;
 	public static EventManager Instance { get; private set; }
 
-	private void Awake()
-	{
+	private void Awake() {
 		if (Instance == null) Instance = this; else Destroy(gameObject);
 	}
 
 	// Use this for initialization
-	void Start()
-	{
+	void Start() {
 		enemyManager = EnemyManager.Instance;
 
 		StartCoroutine(EventLoop());
 	}
 
-	public void StartSpecificEvent(Event selectedEvent)
-	{
+	public void StartSpecificEvent(Event selectedEvent) {
 		SfxManager.PlaySfxAudioClip(eventPing, 0.7f);
 
 		// Start event
-		if (selectedEvent.IsEnabled())
-		{
+		if (selectedEvent.IsEnabled()) {
 			selectedEvent.ApplyEvent();
 
 			Debug.Log("Started event: " + selectedEvent.GetEventName());
 		}
 	}
 
-	public Event GetRandomEvent()
-	{
+	public Event GetRandomEvent() {
 		int randInt = UnityEngine.Random.Range(0, events.Length);
 
 		Event randomEvent = events[randInt];
@@ -61,13 +55,11 @@ public class EventManager : MonoBehaviour
 		return randomEvent;
 	}
 
-	public void StartRandomEvent()
-	{
+	public void StartRandomEvent() {
 		StartSpecificEvent(GetRandomEvent());
 	}
 
-	IEnumerator EventLoop()
-	{
+	IEnumerator EventLoop() {
 		yield return new WaitForSeconds(eventCooldown);
 
 		if (enableEvents)
@@ -76,8 +68,7 @@ public class EventManager : MonoBehaviour
 		StartCoroutine(EventLoop());
 	}
 
-	public IEnumerator EnableEventText(string text, float eventTextTime)
-	{
+	public IEnumerator EnableEventText(string text, float eventTextTime) {
 		eventText.text = text;
 		eventText.gameObject.SetActive(true);
 

@@ -9,12 +9,10 @@ and drag'n'drop the RectTransform of the options "container" that we'll be scrol
 
 using UnityEngine.EventSystems;
 
-namespace UnityEngine.UI.Extensions
-{
+namespace UnityEngine.UI.Extensions {
 	[AddComponentMenu("UI/Extensions/UI ScrollTo Selection XY")]
 	[RequireComponent(typeof(ScrollRect))]
-	public class UIScrollToSelectionXY : MonoBehaviour
-	{
+	public class UIScrollToSelectionXY : MonoBehaviour {
 
 		#region Variables
 
@@ -34,28 +32,24 @@ namespace UnityEngine.UI.Extensions
 		#endregion
 
 		// Use this for initialization
-		private void Start()
-		{
+		private void Start() {
 			targetScrollRect = GetComponent<ScrollRect>();
 			scrollWindow = targetScrollRect.GetComponent<RectTransform>();
 		}
 
 		// Update is called once per frame
-		private void Update()
-		{
+		private void Update() {
 			ScrollRectToLevelSelection();
 		}
 
-		private void ScrollRectToLevelSelection()
-		{
+		private void ScrollRectToLevelSelection() {
 			// FIX: if you do not do that here events can have null value
 			var events = EventSystem.current;
 
 			// check main references
 			bool referencesAreIncorrect =
 				(targetScrollRect == null || layoutListGroup == null || scrollWindow == null);
-			if (referencesAreIncorrect == true)
-			{
+			if (referencesAreIncorrect == true) {
 				return;
 			}
 
@@ -64,23 +58,20 @@ namespace UnityEngine.UI.Extensions
 				events.currentSelectedGameObject.GetComponent<RectTransform>() :
 				null;
 
-			if (selection != targetScrollObject)
-			{
+			if (selection != targetScrollObject) {
 				scrollToSelection = true;
 			}
 
 			// check if scrolling is possible
 			bool isScrollDirectionUnknown = (selection == null || scrollToSelection == false);
 
-			if (isScrollDirectionUnknown == true || selection.transform.parent != layoutListGroup.transform)
-			{
+			if (isScrollDirectionUnknown == true || selection.transform.parent != layoutListGroup.transform) {
 				return;
 			}
 
 			bool finishedX = false, finishedY = false;
 
-			if (targetScrollRect.vertical)
-			{
+			if (targetScrollRect.vertical) {
 				// move the current scroll rect to correct position
 				float selectionPos = -selection.anchoredPosition.y;
 
@@ -96,8 +87,7 @@ namespace UnityEngine.UI.Extensions
 				finishedY = Mathf.Abs(offlimitsValue) < 2f;
 			}
 
-			if (targetScrollRect.horizontal)
-			{
+			if (targetScrollRect.horizontal) {
 				// move the current scroll rect to correct position
 				float selectionPos = -selection.anchoredPosition.x;
 
@@ -113,8 +103,7 @@ namespace UnityEngine.UI.Extensions
 				finishedX = Mathf.Abs(offlimitsValue) < 2f;
 			}
 			// check if we reached our destination
-			if (finishedX && finishedY)
-			{
+			if (finishedX && finishedY) {
 				scrollToSelection = false;
 			}
 			// save last object we were "heading to" to prevent blocking

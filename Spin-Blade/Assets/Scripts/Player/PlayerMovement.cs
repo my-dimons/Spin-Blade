@@ -1,8 +1,7 @@
 using UnityEngine;
 using UnityUtils.ScriptUtils.Audio;
 
-public class PlayerMovement : MonoBehaviour
-{
+public class PlayerMovement : MonoBehaviour {
 	[Header("Orbit Settings")]
 	public Vector3 orbitPoint = Vector3.zero;
 	public float orbitRadius = 5f;
@@ -25,26 +24,22 @@ public class PlayerMovement : MonoBehaviour
 
 	private MoneyManager moneyManager;
 
-	private void Start()
-	{
+	private void Start() {
 		moneyManager = MoneyManager.Instance;
 	}
 
-	void Update()
-	{
+	void Update() {
 		// Input
 		switchKey = (Input.GetMouseButtonDown(0) && !hoveringOverUI) || Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.Space);
 		// spin sprite
 		sprite.transform.Rotate(0, 0, spinSpeed * Time.deltaTime);
 
-		if (switchKey && Time.timeScale > 0)
-		{
+		if (switchKey && Time.timeScale > 0) {
 			ReverseDirection();
 		}
 	}
 
-	private void FixedUpdate()
-	{
+	private void FixedUpdate() {
 		if (!canMove) return;
 
 		// Update angle
@@ -58,8 +53,7 @@ public class PlayerMovement : MonoBehaviour
 		transform.position = new Vector3(x, y, transform.position.z);
 	}
 
-	private void ReverseDirection()
-	{
+	private void ReverseDirection() {
 		SfxManager.PlaySfxAudioClip(reverseDirectionSound, 0.06f);
 		direction *= -1;
 
@@ -75,14 +69,12 @@ public class PlayerMovement : MonoBehaviour
 		GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>().lShiftPresses++;
 	}
 
-	private void OnDrawGizmos()
-	{
+	private void OnDrawGizmos() {
 		Gizmos.color = Color.yellow; // Circle color
 		Gizmos.DrawWireSphere(orbitPoint, orbitRadius); // Draw orbit circle
 	}
 
-	public void HoverOverUI(bool hovering)
-	{
+	public void HoverOverUI(bool hovering) {
 		hoveringOverUI = hovering;
 	}
 }

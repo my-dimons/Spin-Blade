@@ -4,8 +4,7 @@
 
 using UnityEngine.EventSystems;
 
-namespace UnityEngine.UI.Extensions.ColorPicker
-{
+namespace UnityEngine.UI.Extensions.ColorPicker {
 	/// <summary>
 	/// Samples colors from a screen capture. 
 	/// Warning! In the editor if you're not in Free aspect mode then 
@@ -14,8 +13,7 @@ namespace UnityEngine.UI.Extensions.ColorPicker
 	/// 
 	/// This does not work well with a world space UI as positioning is working with screen space.
 	/// </summary>
-	public class ColorSampler : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler
-	{
+	public class ColorSampler : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler {
 		private Vector2 m_screenPos;
 
 		[SerializeField]
@@ -31,23 +29,20 @@ namespace UnityEngine.UI.Extensions.ColorPicker
 
 		protected Color color;
 
-		protected virtual void OnEnable()
-		{
+		protected virtual void OnEnable() {
 			screenCapture = ScreenCapture.CaptureScreenshotAsTexture();
 			sampleRectTransform = sampler.GetComponent<RectTransform>();
 			sampler.gameObject.SetActive(true);
 			sampler.onClick.AddListener(SelectColor);
 		}
 
-		protected virtual void OnDisable()
-		{
+		protected virtual void OnDisable() {
 			Destroy(screenCapture);
 			sampler.gameObject.SetActive(false);
 			sampler.onClick.RemoveListener(SelectColor);
 		}
 
-		protected virtual void Update()
-		{
+		protected virtual void Update() {
 			if (screenCapture == null)
 				return;
 
@@ -57,38 +52,32 @@ namespace UnityEngine.UI.Extensions.ColorPicker
 			HandleSamplerColoring();
 		}
 
-		protected virtual void HandleSamplerColoring()
-		{
+		protected virtual void HandleSamplerColoring() {
 			sampler.image.color = color;
 
-			if (samplerOutline)
-			{
+			if (samplerOutline) {
 				var c = Color.Lerp(Color.white, Color.black, color.grayscale > 0.5f ? 1 : 0);
 				c.a = samplerOutline.effectColor.a;
 				samplerOutline.effectColor = c;
 			}
 		}
 
-		protected virtual void SelectColor()
-		{
+		protected virtual void SelectColor() {
 			if (oncolorSelected != null)
 				oncolorSelected.Invoke(color);
 
 			enabled = false;
 		}
 
-		public void OnPointerDown(PointerEventData eventData)
-		{
+		public void OnPointerDown(PointerEventData eventData) {
 			m_screenPos = eventData.position;
 		}
 
-		public void OnPointerUp(PointerEventData eventData)
-		{
+		public void OnPointerUp(PointerEventData eventData) {
 			m_screenPos = Vector2.zero;
 		}
 
-		public void OnDrag(PointerEventData eventData)
-		{
+		public void OnDrag(PointerEventData eventData) {
 			m_screenPos = eventData.position;
 		}
 	}

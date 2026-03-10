@@ -1,8 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class PlayerMine : MonoBehaviour
-{
+public class PlayerMine : MonoBehaviour {
 	public float damage;
 	public float knockback;
 	public float stunDuration;
@@ -31,33 +30,27 @@ public class PlayerMine : MonoBehaviour
 	public float explosionRadius = 8f;
 
 	private bool exploded;
-	private void Start()
-	{
+	private void Start() {
 		baseSize = transform.localScale.x;
 		growingAnimationTime = growingCurve[growingCurve.length - 1].time;
 		StartCoroutine(SpawnIn());
 		StartCoroutine(DeathTimer());
 	}
-	private void OnTriggerStay2D(Collider2D collision)
-	{
-		if (collision.CompareTag("Enemy") && !pausePulsing)
-		{
+	private void OnTriggerStay2D(Collider2D collision) {
+		if (collision.CompareTag("Enemy") && !pausePulsing) {
 			// death
 			hitsTaken++;
-			if (hitsTaken >= hitsBeforeDeath)
-			{
+			if (hitsTaken >= hitsBeforeDeath) {
 				StartCoroutine(StartDying());
 			}
 			// exploding circle
-			if (explode)
-			{
+			if (explode) {
 				Explode();
 			}
 		}
 	}
 
-	public void Explode()
-	{
+	public void Explode() {
 		if (exploded) return; // prevent multiple explosions
 		exploded = true;
 
@@ -67,33 +60,28 @@ public class PlayerMine : MonoBehaviour
 		StartCoroutine(StartDying());
 	}
 
-	private void Update()
-	{
+	private void Update() {
 		if (!pausePulsing)
 			PulsingGrowth();
 	}
 
-	void PulsingGrowth()
-	{
+	void PulsingGrowth() {
 		float scale = baseSize + Mathf.Sin((Time.time - pulseOffset) * pulseSpeed) * pulseStrength;
 		transform.localScale = new Vector3(scale, scale, scale);
 	}
 
 
-	IEnumerator DeathTimer()
-	{
+	IEnumerator DeathTimer() {
 		yield return new WaitForSeconds(lifetime);
 		pausePulsing = true;
 		StartCoroutine(StartDying());
 	}
 
-	public IEnumerator ScaleOverTime(Vector3 from, Vector3 to)
-	{
+	public IEnumerator ScaleOverTime(Vector3 from, Vector3 to) {
 		float time = 0f;
 		float duration = growingAnimationTime;
 
-		while (time < duration)
-		{
+		while (time < duration) {
 			float t = time / duration;
 			float curveValue = growingCurve.Evaluate(t);
 
@@ -105,8 +93,7 @@ public class PlayerMine : MonoBehaviour
 
 		transform.localScale = to; // snap at end
 	}
-	IEnumerator StartDying()
-	{
+	IEnumerator StartDying() {
 		pausePulsing = true;
 		StopCoroutine(DeathTimer());
 		// scale to zero
@@ -114,8 +101,7 @@ public class PlayerMine : MonoBehaviour
 		Destroy(this.gameObject);
 	}
 
-	IEnumerator SpawnIn()
-	{
+	IEnumerator SpawnIn() {
 		pausePulsing = true;
 
 		// Run the spawn scale
@@ -127,8 +113,7 @@ public class PlayerMine : MonoBehaviour
 		pausePulsing = false;
 	}
 
-	private void OnDrawGizmos()
-	{
+	private void OnDrawGizmos() {
 		Gizmos.color = Color.cyan;
 		Gizmos.DrawWireSphere(transform.position, explosionRadius);
 	}

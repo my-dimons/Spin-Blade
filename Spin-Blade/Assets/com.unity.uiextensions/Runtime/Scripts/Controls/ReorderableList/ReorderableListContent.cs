@@ -4,11 +4,9 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace UnityEngine.UI.Extensions
-{
+namespace UnityEngine.UI.Extensions {
 	[DisallowMultipleComponent]
-	public class ReorderableListContent : MonoBehaviour
-	{
+	public class ReorderableListContent : MonoBehaviour {
 		private List<Transform> _cachedChildren;
 		private List<ReorderableListElement> _cachedListElement;
 		private ReorderableListElement _ele;
@@ -16,18 +14,15 @@ namespace UnityEngine.UI.Extensions
 		private RectTransform _rect;
 		private bool _started = false;
 
-		private void OnEnable()
-		{
+		private void OnEnable() {
 			if (_rect) StartCoroutine(RefreshChildren());
 		}
 
-		public void OnTransformChildrenChanged()
-		{
+		public void OnTransformChildrenChanged() {
 			if (this.isActiveAndEnabled) StartCoroutine(RefreshChildren());
 		}
 
-		public void Init(ReorderableList extList)
-		{
+		public void Init(ReorderableList extList) {
 			if (_started) { StopCoroutine(RefreshChildren()); }
 
 			_extList = extList;
@@ -39,11 +34,9 @@ namespace UnityEngine.UI.Extensions
 			_started = true;
 		}
 
-		private IEnumerator RefreshChildren()
-		{
+		private IEnumerator RefreshChildren() {
 			//Handle new children
-			for (int i = 0; i < _rect.childCount; i++)
-			{
+			for (int i = 0; i < _rect.childCount; i++) {
 				if (_cachedChildren.Contains(_rect.GetChild(i)))
 					continue;
 
@@ -60,10 +53,8 @@ namespace UnityEngine.UI.Extensions
 			yield return 0;
 
 			//Remove deleted child
-			for (int i = _cachedChildren.Count - 1; i >= 0; i--)
-			{
-				if (_cachedChildren[i] == null)
-				{
+			for (int i = _cachedChildren.Count - 1; i >= 0; i--) {
+				if (_cachedChildren[i] == null) {
 					_cachedChildren.RemoveAt(i);
 					_cachedListElement.RemoveAt(i);
 				}

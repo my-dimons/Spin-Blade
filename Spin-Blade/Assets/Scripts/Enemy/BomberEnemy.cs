@@ -1,14 +1,12 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Enemy))]
-public class BomberEnemy : MonoBehaviour
-{
+public class BomberEnemy : MonoBehaviour {
 	[Header("Bomber Enemy")]
 	public float explosionRadius = 6;
 	private bool hasExploded = false;
 
-	void BomberDeath()
-	{
+	void BomberDeath() {
 		if (hasExploded) return; // prevent multiple explosions
 		hasExploded = true;
 
@@ -19,19 +17,16 @@ public class BomberEnemy : MonoBehaviour
 			playerHealth.ExplodeCircle(transform.position, playerHealth.damage, explosionRadius, true);
 	}
 
-	private void OnDrawGizmos()
-	{
+	private void OnDrawGizmos() {
 		Gizmos.color = Color.cyan;
 		Gizmos.DrawWireSphere(transform.position, explosionRadius);
 	}
 
-	private void OnEnable()
-	{
+	private void OnEnable() {
 		GetComponent<Enemy>().OnDeath += BomberDeath;
 	}
 
-	private void OnDisable()
-	{
+	private void OnDisable() {
 		GetComponent<Enemy>().OnDeath -= BomberDeath;
 	}
 }

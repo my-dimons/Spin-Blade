@@ -5,12 +5,10 @@ using System;
 using System.Collections;
 using UnityEngine.UI.Extensions.Tweens;
 
-namespace UnityEngine.UI.Extensions
-{
+namespace UnityEngine.UI.Extensions {
 	[RequireComponent(typeof(RectTransform), typeof(LayoutElement))]
 	[AddComponentMenu("UI/Extensions/Accordion/Accordion Element")]
-	public class AccordionElement : Toggle
-	{
+	public class AccordionElement : Toggle {
 
 		[SerializeField] private float m_MinHeight = 18f;
 
@@ -27,16 +25,14 @@ namespace UnityEngine.UI.Extensions
 		[NonSerialized]
 		private readonly TweenRunner<FloatTween> m_FloatTweenRunner;
 
-		protected AccordionElement()
-		{
+		protected AccordionElement() {
 			if (this.m_FloatTweenRunner == null)
 				this.m_FloatTweenRunner = new TweenRunner<FloatTween>();
 
 			this.m_FloatTweenRunner.Init(this);
 		}
 
-		protected override void Awake()
-		{
+		protected override void Awake() {
 			base.Awake();
 			base.transition = Transition.None;
 			base.toggleTransition = ToggleTransition.None;
@@ -46,52 +42,38 @@ namespace UnityEngine.UI.Extensions
 			this.onValueChanged.AddListener(OnValueChanged);
 		}
 
-		private new IEnumerator Start()
-		{
+		private new IEnumerator Start() {
 			base.Start();
 			yield return new WaitForEndOfFrame(); // Wait for the first frame
 			OnValueChanged(this.isOn);
 		}
 
 #if UNITY_EDITOR
-		protected override void OnValidate()
-		{
+		protected override void OnValidate() {
 			base.OnValidate();
 			this.m_Accordion = this.gameObject.GetComponentInParent<Accordion>();
 
-			if (this.group == null)
-			{
+			if (this.group == null) {
 				ToggleGroup tg = this.GetComponentInParent<ToggleGroup>();
 
-				if (tg != null)
-				{
+				if (tg != null) {
 					this.group = tg;
 				}
 			}
 
 			LayoutElement le = this.gameObject.GetComponent<LayoutElement>();
 
-			if (le != null && m_Accordion != null)
-			{
-				if (this.isOn)
-				{
-					if (m_Accordion.ExpandVerticval)
-					{
+			if (le != null && m_Accordion != null) {
+				if (this.isOn) {
+					if (m_Accordion.ExpandVerticval) {
 						le.preferredHeight = -1f;
-					}
-					else
-					{
+					} else {
 						le.preferredWidth = -1f;
 					}
-				}
-				else
-				{
-					if (m_Accordion.ExpandVerticval)
-					{
+				} else {
+					if (m_Accordion.ExpandVerticval) {
 						le.preferredHeight = this.m_MinHeight;
-					}
-					else
-					{
+					} else {
 						le.preferredWidth = this.m_MinWidth;
 
 					}
@@ -100,67 +82,44 @@ namespace UnityEngine.UI.Extensions
 		}
 #endif
 
-		public void OnValueChanged(bool state)
-		{
+		public void OnValueChanged(bool state) {
 			if (this.m_LayoutElement == null)
 				return;
 
 			Accordion.Transition transition = (this.m_Accordion != null) ? this.m_Accordion.transition : Accordion.Transition.Instant;
 
-			if (transition == Accordion.Transition.Instant && m_Accordion != null)
-			{
-				if (state)
-				{
-					if (m_Accordion.ExpandVerticval)
-					{
+			if (transition == Accordion.Transition.Instant && m_Accordion != null) {
+				if (state) {
+					if (m_Accordion.ExpandVerticval) {
 						this.m_LayoutElement.preferredHeight = -1f;
-					}
-					else
-					{
+					} else {
 						this.m_LayoutElement.preferredWidth = -1f;
 					}
-				}
-				else
-				{
-					if (m_Accordion.ExpandVerticval)
-					{
+				} else {
+					if (m_Accordion.ExpandVerticval) {
 						this.m_LayoutElement.preferredHeight = this.m_MinHeight;
-					}
-					else
-					{
+					} else {
 						this.m_LayoutElement.preferredWidth = this.m_MinWidth;
 					}
 				}
-			}
-			else if (transition == Accordion.Transition.Tween)
-			{
-				if (state)
-				{
-					if (m_Accordion.ExpandVerticval)
-					{
+			} else if (transition == Accordion.Transition.Tween) {
+				if (state) {
+					if (m_Accordion.ExpandVerticval) {
 						this.StartTween(this.m_MinHeight, this.GetExpandedHeight());
-					}
-					else
-					{
+					} else {
 						this.StartTween(this.m_MinWidth, this.GetExpandedWidth());
 					}
-				}
-				else
-				{
-					if (m_Accordion.ExpandVerticval)
-					{
+				} else {
+					if (m_Accordion.ExpandVerticval) {
 						this.StartTween(this.m_RectTransform.rect.height, this.m_MinHeight);
-					}
-					else
-					{
+					} else {
 						this.StartTween(this.m_RectTransform.rect.width, this.m_MinWidth);
 					}
 				}
 			}
 		}
 
-		protected float GetExpandedHeight()
-		{
+		protected float GetExpandedHeight() {
 			if (this.m_LayoutElement == null)
 				return this.m_MinHeight;
 
@@ -172,8 +131,7 @@ namespace UnityEngine.UI.Extensions
 			return h;
 		}
 
-		protected float GetExpandedWidth()
-		{
+		protected float GetExpandedWidth() {
 			if (this.m_LayoutElement == null)
 				return this.m_MinWidth;
 
@@ -185,38 +143,31 @@ namespace UnityEngine.UI.Extensions
 			return w;
 		}
 
-		protected void StartTween(float startFloat, float targetFloat)
-		{
+		protected void StartTween(float startFloat, float targetFloat) {
 			float duration = (this.m_Accordion != null) ? this.m_Accordion.transitionDuration : 0.3f;
 
-			FloatTween info = new FloatTween
-			{
+			FloatTween info = new FloatTween {
 				duration = duration,
 				startFloat = startFloat,
 				targetFloat = targetFloat
 			};
-			if (m_Accordion.ExpandVerticval)
-			{
+			if (m_Accordion.ExpandVerticval) {
 				info.AddOnChangedCallback(SetHeight);
-			}
-			else
-			{
+			} else {
 				info.AddOnChangedCallback(SetWidth);
 			}
 			info.ignoreTimeScale = true;
 			this.m_FloatTweenRunner.StartTween(info);
 		}
 
-		protected void SetHeight(float height)
-		{
+		protected void SetHeight(float height) {
 			if (this.m_LayoutElement == null)
 				return;
 
 			this.m_LayoutElement.preferredHeight = height;
 		}
 
-		protected void SetWidth(float width)
-		{
+		protected void SetWidth(float width) {
 			if (this.m_LayoutElement == null)
 				return;
 

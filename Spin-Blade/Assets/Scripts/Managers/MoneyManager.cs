@@ -5,14 +5,12 @@ using UnityEngine;
 using UnityUtils.ScriptUtils.Audio;
 using UnityUtils.ScriptUtils.Objects;
 
-public class MoneyManager : MonoBehaviour
-{
+public class MoneyManager : MonoBehaviour {
 	public static MoneyManager Instance { get; private set; }
 
 	[Header("=-- CURRENCY --=")]
 	public Currency currency;
-	public enum Currency
-	{
+	public enum Currency {
 		money,
 		bits
 	}
@@ -70,25 +68,20 @@ public class MoneyManager : MonoBehaviour
 	[HideInInspector] public bool hoveringOverShopElement;
 	private bool firstShopToggle;
 
-	private void OnValidate()
-	{
+	private void OnValidate() {
 		moneyColor = Utils.ColorFromHex("#FFF564");
 		bitsColor = Utils.ColorFromHex("#64C8FF");
 	}
 
-	private void Awake()
-	{
+	private void Awake() {
 		if (Instance == null) Instance = this; else Destroy(gameObject);
 	}
-	private void Start()
-	{
+	private void Start() {
 		moneyMultiplier *= DifficultyVariables.Instance.moneyMultiplier;
 		shopMenuPos = skillTreeObject.GetComponent<RectTransform>().anchoredPosition;
 		// add all upgrades to an array
-		foreach (Transform child in upgradeParent.transform)
-		{
-			if (child.GetComponent<Upgrade>())
-			{
+		foreach (Transform child in upgradeParent.transform) {
+			if (child.GetComponent<Upgrade>()) {
 				upgrades.Add(child.gameObject);
 			}
 		}
@@ -96,12 +89,10 @@ public class MoneyManager : MonoBehaviour
 		InvokeRepeating(nameof(PassiveIncome), 0, 1);
 	}
 	// Update is called once per frame
-	void Update()
-	{
+	void Update() {
 		toggleShopKey = Input.GetKeyDown(KeyCode.Tab) || Input.GetKeyDown(KeyCode.Escape);
 
-		if (toggleShopKey && !animatingShop)
-		{
+		if (toggleShopKey && !animatingShop) {
 			ToggleShop(shopMenu);
 		}
 
@@ -110,8 +101,7 @@ public class MoneyManager : MonoBehaviour
 
 	}
 
-	private void UpdateCurrencyText()
-	{
+	private void UpdateCurrencyText() {
 		// money & bits text
 		string bitsString = String.Empty;
 		string moneyString;
@@ -141,8 +131,7 @@ public class MoneyManager : MonoBehaviour
 		#region money per second text
 		// money per second text
 		string moneyPerSecondString = "";
-		if (passiveIncome > 0)
-		{
+		if (passiveIncome > 0) {
 			moneyPerSecondString = "+" + passiveIncome.ToString("F1") + "/s";
 		}
 		moneyPerSecondText.text = moneyPerSecondString;
@@ -172,8 +161,7 @@ public class MoneyManager : MonoBehaviour
 		#endregion
 	}
 
-	public void ToggleShop(GameObject menu)
-	{
+	public void ToggleShop(GameObject menu) {
 		if (GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealthAndDamage>().dead) return;
 
 		shopOpen = !shopOpen;
@@ -186,21 +174,17 @@ public class MoneyManager : MonoBehaviour
 
 		Time.timeScale = Time.timeScale == 0 ? 1 : 0; // pause or unpause the game
 
-		if (menu.activeSelf == true)
-		{
+		if (menu.activeSelf == true) {
 			animatingShop = true;
 			ObjectAnimations.AnimateTransformScale(menu.transform, grownShopSize, shrunkAnimationSize, animationTime, true, upgradeInfoAnimCurve);
 			ObjectDelays.CallFunctionAfterTime(() => menu.SetActive(false), animationTime);
 			ObjectDelays.ChangeValueAfterTime<bool>(value => animatingShop = value, false, animationTime, true);
 
 			OnShopClose?.Invoke();
-		}
-		else
-		{
+		} else {
 			menu.SetActive(true);
 
-			if (firstShopToggle == false)
-			{
+			if (firstShopToggle == false) {
 				GetUpgradePostcursors();
 				firstShopToggle = true;
 			}
@@ -212,10 +196,8 @@ public class MoneyManager : MonoBehaviour
 			OnShopOpen?.Invoke();
 		}
 
-		foreach (GameObject upgrade in upgrades)
-		{
-			foreach (Transform child in upgrade.transform)
-			{
+		foreach (GameObject upgrade in upgrades) {
+			foreach (Transform child in upgrade.transform) {
 				if (child.CompareTag("UpgradeDsc"))
 					child.gameObject.SetActive(false);
 				// reset to default size
@@ -225,29 +207,23 @@ public class MoneyManager : MonoBehaviour
 		}
 	}
 
-	public void PassiveIncome()
-	{
+	public void PassiveIncome() {
 		if (Time.timeScale > 0)
 			money += passiveIncome;
 	}
 
-	void GetUpgradePostcursors()
-	{
-		foreach (GameObject var in GameObject.FindGameObjectsWithTag("Upgrade"))
-		{
-			foreach (GameObject precursor in var.GetComponent<Upgrade>().skillTreePrecursors)
-			{
+	void GetUpgradePostcursors() {
+		foreach (GameObject var in GameObject.FindGameObjectsWithTag("Upgrade")) {
+			foreach (GameObject precursor in var.GetComponent<Upgrade>().skillTreePrecursors) {
 				precursor.GetComponent<Upgrade>().skillTreePostcursors.Add(var);
 			}
 		}
 	}
 
-	public float CalculateCurrency(float amount, Currency currencyType = Currency.money)
-	{
+	public float CalculateCurrency(float amount, Currency currencyType = Currency.money) {
 		float money = amount;
 
-		switch (currencyType)
-		{
+		switch (currencyType) {
 			case Currency.money:
 				money *= moneyMultiplier * eventMoneyMultiplier;
 				break;
@@ -258,25 +234,21 @@ public class MoneyManager : MonoBehaviour
 
 		return money;
 	}
-	public void AddCurrency(float value, Currency currencyType = Currency.money)
-	{
+	public void AddCurrency(float value, Currency currencyType = Currency.money) {
 		GameManager gameManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
 		float currencyGain = value;
 		bool isNegative = value < 0;
 
-		switch (currencyType)
-		{
+		switch (currencyType) {
 			case Currency.money:
-				if (!isNegative)
-				{
+				if (!isNegative) {
 					currencyGain *= moneyMultiplier * eventMoneyMultiplier;
 					gameManager.totalMoneyGained += currencyGain;
 				}
 				money += currencyGain;
 				break;
 			case Currency.bits:
-				if (!isNegative)
-				{
+				if (!isNegative) {
 					currencyGain *= bitsMultiplier;
 					gameManager.totalBitsGained += currencyGain;
 				}
@@ -289,12 +261,10 @@ public class MoneyManager : MonoBehaviour
 	/// <param name="decimalPoints">-1 = auto decimal points</param>
 	/// <param name="currencyType"></param>
 	/// <returns>A string from a currency type and an amount</returns>
-	public static string GetMoneyString(float money, Currency currencyType = Currency.money, int decimalPoints = -1)
-	{
+	public static string GetMoneyString(float money, Currency currencyType = Currency.money, int decimalPoints = -1) {
 		string moneyString;
 		// decimal points
-		if (decimalPoints < 0)
-		{
+		if (decimalPoints < 0) {
 			// auto decimal points
 			if (money >= 1000)
 				moneyString = Math.Round(money, 0).ToString();
@@ -303,12 +273,10 @@ public class MoneyManager : MonoBehaviour
 			else
 				moneyString = Math.Round(money, 2).ToString();
 
-		}
-		else
+		} else
 			moneyString = Math.Round(money, decimalPoints).ToString();
 
-		switch (currencyType)
-		{
+		switch (currencyType) {
 			case Currency.money:
 				moneyString = $"${moneyString}";
 				break;
@@ -320,12 +288,10 @@ public class MoneyManager : MonoBehaviour
 		return moneyString;
 	}
 
-	public static Color GetCurrencyColor(Currency currenyType = Currency.money)
-	{
+	public static Color GetCurrencyColor(Currency currenyType = Currency.money) {
 		Color color = Color.white;
 
-		switch (currenyType)
-		{
+		switch (currenyType) {
 			case Currency.money:
 				color = moneyColor;
 				break;
@@ -337,11 +303,9 @@ public class MoneyManager : MonoBehaviour
 		return color;
 	}
 
-	public bool HasEnoughMoney(float amount, Currency currencyType = Currency.money)
-	{
+	public bool HasEnoughMoney(float amount, Currency currencyType = Currency.money) {
 		bool hasEnoughMoney = false;
-		switch (currencyType)
-		{
+		switch (currencyType) {
 			case Currency.money:
 				if (money >= amount)
 					hasEnoughMoney = true;
@@ -354,8 +318,7 @@ public class MoneyManager : MonoBehaviour
 		return hasEnoughMoney;
 	}
 
-	public void HoverOverUIShopElement(bool hovering)
-	{
+	public void HoverOverUIShopElement(bool hovering) {
 		hoveringOverShopElement = hovering;
 	}
 }

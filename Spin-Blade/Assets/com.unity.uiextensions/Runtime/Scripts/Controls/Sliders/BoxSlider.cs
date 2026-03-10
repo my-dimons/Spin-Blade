@@ -5,14 +5,11 @@ using System;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
-namespace UnityEngine.UI.Extensions
-{
+namespace UnityEngine.UI.Extensions {
 	[RequireComponent(typeof(RectTransform))]
 	[AddComponentMenu("UI/Extensions/Sliders/BoxSlider")]
-	public class BoxSlider : Selectable, IDragHandler, IInitializePotentialDragHandler, ICanvasElement
-	{
-		public enum Direction
-		{
+	public class BoxSlider : Selectable, IDragHandler, IInitializePotentialDragHandler, ICanvasElement {
+		public enum Direction {
 			LeftToRight,
 			RightToLeft,
 			BottomToTop,
@@ -42,10 +39,8 @@ namespace UnityEngine.UI.Extensions
 
 		[SerializeField]
 		private float m_ValueX = 1f;
-		public float ValueX
-		{
-			get
-			{
+		public float ValueX {
+			get {
 				if (WholeNumbers)
 					return Mathf.Round(m_ValueX);
 				return m_ValueX;
@@ -54,10 +49,8 @@ namespace UnityEngine.UI.Extensions
 			set => SetX(value);
 		}
 
-		public float NormalizedValueX
-		{
-			get
-			{
+		public float NormalizedValueX {
+			get {
 				if (Mathf.Approximately(MinValue, MaxValue))
 					return 0;
 				return Mathf.InverseLerp(MinValue, MaxValue, ValueX);
@@ -68,10 +61,8 @@ namespace UnityEngine.UI.Extensions
 
 		[SerializeField]
 		private float m_ValueY = 1f;
-		public float ValueY
-		{
-			get
-			{
+		public float ValueY {
+			get {
 				if (WholeNumbers)
 					return Mathf.Round(m_ValueY);
 				return m_ValueY;
@@ -80,10 +71,8 @@ namespace UnityEngine.UI.Extensions
 			set => SetY(value);
 		}
 
-		public float NormalizedValueY
-		{
-			get
-			{
+		public float NormalizedValueY {
+			get {
 				if (Mathf.Approximately(MinValue, MaxValue))
 					return 0;
 				return Mathf.InverseLerp(MinValue, MaxValue, ValueY);
@@ -112,16 +101,13 @@ namespace UnityEngine.UI.Extensions
 		// Size of each step.
 		float StepSize => WholeNumbers ? 1 : (MaxValue - MinValue) * 0.1f;
 
-		protected BoxSlider()
-		{ }
+		protected BoxSlider() { }
 
 #if UNITY_EDITOR
-		protected override void OnValidate()
-		{
+		protected override void OnValidate() {
 			base.OnValidate();
 
-			if (WholeNumbers)
-			{
+			if (WholeNumbers) {
 				m_MinValue = Mathf.Round(m_MinValue);
 				m_MaxValue = Mathf.Round(m_MaxValue);
 			}
@@ -144,26 +130,22 @@ namespace UnityEngine.UI.Extensions
 
 #endif // if UNITY_EDITOR
 
-		public virtual void Rebuild(CanvasUpdate executing)
-		{
+		public virtual void Rebuild(CanvasUpdate executing) {
 #if UNITY_EDITOR
 			if (executing == CanvasUpdate.Prelayout)
 				OnValueChanged.Invoke(ValueX, ValueY);
 #endif
 		}
 
-		public void LayoutComplete()
-		{
+		public void LayoutComplete() {
 
 		}
 
-		public void GraphicUpdateComplete()
-		{
+		public void GraphicUpdateComplete() {
 
 		}
 
-		public static bool SetClass<T>(ref T currentValue, T newValue) where T : class
-		{
+		public static bool SetClass<T>(ref T currentValue, T newValue) where T : class {
 			if ((currentValue == null && newValue == null) || (currentValue != null && currentValue.Equals(newValue)))
 				return false;
 
@@ -171,8 +153,7 @@ namespace UnityEngine.UI.Extensions
 			return true;
 		}
 
-		public static bool SetStruct<T>(ref T currentValue, T newValue) where T : struct
-		{
+		public static bool SetStruct<T>(ref T currentValue, T newValue) where T : struct {
 			if (currentValue.Equals(newValue))
 				return false;
 
@@ -180,8 +161,7 @@ namespace UnityEngine.UI.Extensions
 			return true;
 		}
 
-		protected override void OnEnable()
-		{
+		protected override void OnEnable() {
 			base.OnEnable();
 			UpdateCachedReferences();
 			SetX(m_ValueX, false);
@@ -190,35 +170,28 @@ namespace UnityEngine.UI.Extensions
 			UpdateVisuals();
 		}
 
-		protected override void OnDisable()
-		{
+		protected override void OnDisable() {
 			m_Tracker.Clear();
 			base.OnDisable();
 		}
 
-		void UpdateCachedReferences()
-		{
+		void UpdateCachedReferences() {
 
-			if (m_HandleRect)
-			{
+			if (m_HandleRect) {
 				m_HandleTransform = m_HandleRect.transform;
 				if (m_HandleTransform.parent != null)
 					m_HandleContainerRect = m_HandleTransform.parent.GetComponent<RectTransform>();
-			}
-			else
-			{
+			} else {
 				m_HandleContainerRect = null;
 			}
 		}
 
 		// Set the valueUpdate the visible Image.
-		void SetX(float input)
-		{
+		void SetX(float input) {
 			SetX(input, true);
 		}
 
-		void SetX(float input, bool sendCallback)
-		{
+		void SetX(float input, bool sendCallback) {
 			// Clamp the input
 			float newValue = Mathf.Clamp(input, MinValue, MaxValue);
 			if (WholeNumbers)
@@ -234,13 +207,11 @@ namespace UnityEngine.UI.Extensions
 				m_OnValueChanged.Invoke(newValue, ValueY);
 		}
 
-		void SetY(float input)
-		{
+		void SetY(float input) {
 			SetY(input, true);
 		}
 
-		void SetY(float input, bool sendCallback)
-		{
+		void SetY(float input, bool sendCallback) {
 			// Clamp the input
 			float newValue = Mathf.Clamp(input, MinValue, MaxValue);
 			if (WholeNumbers)
@@ -257,22 +228,19 @@ namespace UnityEngine.UI.Extensions
 		}
 
 
-		protected override void OnRectTransformDimensionsChange()
-		{
+		protected override void OnRectTransformDimensionsChange() {
 			base.OnRectTransformDimensionsChange();
 			UpdateVisuals();
 		}
 
-		enum Axis
-		{
+		enum Axis {
 			Horizontal = 0,
 			Vertical = 1
 		}
 
 
 		// Force-update the slider. Useful if you've changed the properties and want it to update visually.
-		private void UpdateVisuals()
-		{
+		private void UpdateVisuals() {
 #if UNITY_EDITOR
 			if (!Application.isPlaying)
 				UpdateCachedReferences();
@@ -282,16 +250,14 @@ namespace UnityEngine.UI.Extensions
 
 
 			//to business!
-			if (m_HandleContainerRect != null)
-			{
+			if (m_HandleContainerRect != null) {
 				m_Tracker.Add(this, m_HandleRect, DrivenTransformProperties.Anchors);
 				Vector2 anchorMin = Vector2.zero;
 				Vector2 anchorMax = Vector2.one;
 				anchorMin[0] = anchorMax[0] = (NormalizedValueX);
 				anchorMin[1] = anchorMax[1] = (NormalizedValueY);
 
-				if (Application.isPlaying)
-				{
+				if (Application.isPlaying) {
 					m_HandleRect.anchorMin = anchorMin;
 					m_HandleRect.anchorMax = anchorMax;
 				}
@@ -300,11 +266,9 @@ namespace UnityEngine.UI.Extensions
 		}
 
 		// Update the slider's position based on the mouse.
-		void UpdateDrag(PointerEventData eventData, Camera cam)
-		{
+		void UpdateDrag(PointerEventData eventData, Camera cam) {
 			RectTransform clickRect = m_HandleContainerRect;
-			if (clickRect != null && clickRect.rect.size[0] > 0)
-			{
+			if (clickRect != null && clickRect.rect.size[0] > 0) {
 				Vector2 localCursor;
 				if (!RectTransformUtility.ScreenPointToLocalPointInRectangle(clickRect, eventData.position, cam, out localCursor))
 					return;
@@ -319,43 +283,36 @@ namespace UnityEngine.UI.Extensions
 			}
 		}
 
-		private bool CanDrag(PointerEventData eventData)
-		{
+		private bool CanDrag(PointerEventData eventData) {
 			return IsActive() && IsInteractable() && eventData.button == PointerEventData.InputButton.Left;
 		}
 
-		public override void OnPointerDown(PointerEventData eventData)
-		{
+		public override void OnPointerDown(PointerEventData eventData) {
 			if (!CanDrag(eventData))
 				return;
 
 			base.OnPointerDown(eventData);
 
 			m_Offset = Vector2.zero;
-			if (m_HandleContainerRect != null && RectTransformUtility.RectangleContainsScreenPoint(m_HandleRect, eventData.position, eventData.enterEventCamera))
-			{
+			if (m_HandleContainerRect != null && RectTransformUtility.RectangleContainsScreenPoint(m_HandleRect, eventData.position, eventData.enterEventCamera)) {
 				Vector2 localMousePos;
 				if (RectTransformUtility.ScreenPointToLocalPointInRectangle(m_HandleRect, eventData.position, eventData.pressEventCamera, out localMousePos))
 					m_Offset = localMousePos;
 				m_Offset.y = -m_Offset.y;
-			}
-			else
-			{
+			} else {
 				// Outside the slider handle - jump to this point instead
 				UpdateDrag(eventData, eventData.pressEventCamera);
 			}
 		}
 
-		public virtual void OnDrag(PointerEventData eventData)
-		{
+		public virtual void OnDrag(PointerEventData eventData) {
 			if (!CanDrag(eventData))
 				return;
 
 			UpdateDrag(eventData, eventData.pressEventCamera);
 		}
 
-		public virtual void OnInitializePotentialDrag(PointerEventData eventData)
-		{
+		public virtual void OnInitializePotentialDrag(PointerEventData eventData) {
 			eventData.useDragThreshold = false;
 		}
 

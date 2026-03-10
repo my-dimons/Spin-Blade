@@ -2,12 +2,10 @@
 /// Sourced from - http://www.randomchaos.co.uk/SoftAlphaUIMask.aspx
 /// Updated by valtain - https://bitbucket.org/SimonDarksideJ/unity-ui-extensions/pull-requests/33
 
-namespace UnityEngine.UI.Extensions
-{
+namespace UnityEngine.UI.Extensions {
 	[ExecuteInEditMode]
 	[AddComponentMenu("UI/Effects/Extensions/SoftMaskScript")]
-	public class SoftMaskScript : MonoBehaviour
-	{
+	public class SoftMaskScript : MonoBehaviour {
 		Material mat;
 
 		Canvas cachedCanvas = null;
@@ -38,10 +36,8 @@ namespace UnityEngine.UI.Extensions
 		Vector2 maskScale = Vector2.one;
 
 		// Use this for initialization
-		void Start()
-		{
-			if (MaskArea == null)
-			{
+		void Start() {
+			if (MaskArea == null) {
 				MaskArea = GetComponent<RectTransform>();
 			}
 
@@ -50,8 +46,7 @@ namespace UnityEngine.UI.Extensions
 #else
             var text = GetComponent<Text>();
 #endif
-			if (text != null)
-			{
+			if (text != null) {
 				mat = new Material(ShaderLibrary.GetShaderInstance("UI Extensions/SoftMaskShader"));
 				text.material = mat;
 				cachedCanvas = text.canvas;
@@ -66,8 +61,7 @@ namespace UnityEngine.UI.Extensions
 			}
 
 			var graphic = GetComponent<Graphic>();
-			if (graphic != null)
-			{
+			if (graphic != null) {
 				mat = new Material(ShaderLibrary.GetShaderInstance("UI Extensions/SoftMaskShader"));
 				graphic.material = mat;
 				cachedCanvas = graphic.canvas;
@@ -75,16 +69,13 @@ namespace UnityEngine.UI.Extensions
 			}
 		}
 
-		void Update()
-		{
-			if (cachedCanvas != null)
-			{
+		void Update() {
+			if (cachedCanvas != null) {
 				SetMask();
 			}
 		}
 
-		void SetMask()
-		{
+		void SetMask() {
 			var worldRect = GetCanvasRect();
 			var size = worldRect.size;
 			maskScale.Set(1.0f / size.x, 1.0f / size.y);
@@ -101,8 +92,7 @@ namespace UnityEngine.UI.Extensions
 			mat.SetFloat("_CutOff", CutOff);
 		}
 
-		public Rect GetCanvasRect()
-		{
+		public Rect GetCanvasRect() {
 			if (cachedCanvas == null)
 				return new Rect();
 

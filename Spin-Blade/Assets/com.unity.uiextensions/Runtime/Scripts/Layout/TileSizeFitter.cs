@@ -4,14 +4,12 @@
 using System;
 using UnityEngine.EventSystems;
 
-namespace UnityEngine.UI.Extensions
-{
+namespace UnityEngine.UI.Extensions {
 	[Obsolete("TileSizeFitter will be deprecated in next version as Unity has disabled this feature")]
 	[ExecuteInEditMode]
 	[RequireComponent(typeof(RectTransform))]
 	[AddComponentMenu("Layout/Extensions/Tile Size Fitter")]
-	public class TileSizeFitter : UIBehaviour, ILayoutSelfController
-	{
+	public class TileSizeFitter : UIBehaviour, ILayoutSelfController {
 		[SerializeField]
 		private Vector2 m_Border = Vector2.zero;
 		public Vector2 Border { get => m_Border; set { if (SetPropertyUtility.SetStruct(ref m_Border, value)) SetDirty(); } }
@@ -28,14 +26,12 @@ namespace UnityEngine.UI.Extensions
 
 		#region Unity Lifetime calls
 
-		protected override void OnEnable()
-		{
+		protected override void OnEnable() {
 			base.OnEnable();
 			SetDirty();
 		}
 
-		protected override void OnDisable()
-		{
+		protected override void OnDisable() {
 			m_Tracker.Clear();
 			LayoutRebuilder.MarkLayoutForRebuild(rectTransform);
 			base.OnDisable();
@@ -43,13 +39,11 @@ namespace UnityEngine.UI.Extensions
 
 		#endregion
 
-		protected override void OnRectTransformDimensionsChange()
-		{
+		protected override void OnRectTransformDimensionsChange() {
 			UpdateRect();
 		}
 
-		private void UpdateRect()
-		{
+		private void UpdateRect() {
 			if (!IsActive())
 				return;
 
@@ -77,8 +71,7 @@ namespace UnityEngine.UI.Extensions
 			rectTransform.sizeDelta = -sizeDelta;
 		}
 
-		private Vector2 GetParentSize()
-		{
+		private Vector2 GetParentSize() {
 			RectTransform parent = rectTransform.parent as RectTransform;
 			if (!parent)
 				return Vector2.zero;
@@ -88,8 +81,7 @@ namespace UnityEngine.UI.Extensions
 		public virtual void SetLayoutHorizontal() { }
 		public virtual void SetLayoutVertical() { }
 
-		protected void SetDirty()
-		{
+		protected void SetDirty() {
 			if (!IsActive())
 				return;
 
@@ -97,8 +89,7 @@ namespace UnityEngine.UI.Extensions
 		}
 
 #if UNITY_EDITOR
-		protected override void OnValidate()
-		{
+		protected override void OnValidate() {
 			m_TileSize.x = Mathf.Clamp(m_TileSize.x, 0.001f, 1000f);
 			m_TileSize.y = Mathf.Clamp(m_TileSize.y, 0.001f, 1000f);
 			SetDirty();

@@ -3,12 +3,10 @@
 
 using UnityEngine.EventSystems;
 
-namespace UnityEngine.UI.Extensions
-{
+namespace UnityEngine.UI.Extensions {
 	[AddComponentMenu("UI/Extensions/UI Highlightable Extension")]
 	[RequireComponent(typeof(RectTransform), typeof(Graphic))]
-	public class UIHighlightable : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler
-	{
+	public class UIHighlightable : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler {
 		private Graphic m_Graphic;
 		private bool m_Highlighted;
 		private bool m_Pressed;
@@ -27,25 +25,20 @@ namespace UnityEngine.UI.Extensions
 		[Tooltip("Does the panel remain in the pressed state when clicked? (default false)")]
 		private bool m_ClickToHold;
 
-		public bool Interactable
-		{
+		public bool Interactable {
 			get => m_Interactable;
-			set
-			{
+			set {
 				m_Interactable = value;
 				HighlightInteractable(m_Graphic);
 				OnInteractableChanged?.Invoke(m_Interactable);
 
-				if (!m_Interactable)
-				{
-					if (m_Highlighted)
-					{
+				if (!m_Interactable) {
+					if (m_Highlighted) {
 						m_Highlighted = false;
 						OnHighlightChanged?.Invoke(false);
 					}
 
-					if (m_Pressed)
-					{
+					if (m_Pressed) {
 						m_Pressed = false;
 						OnPressChanged?.Invoke(false);
 					}
@@ -53,49 +46,38 @@ namespace UnityEngine.UI.Extensions
 			}
 		}
 
-		public bool ClickToHold
-		{
+		public bool ClickToHold {
 			get => m_ClickToHold;
-			set
-			{
+			set {
 				m_ClickToHold = value;
 
-				if (!m_ClickToHold && m_Pressed)
-				{
+				if (!m_ClickToHold && m_Pressed) {
 					m_Pressed = false;
 					OnPressChanged?.Invoke(false);
 				}
 			}
 		}
 
-		public bool Highlighted
-		{
+		public bool Highlighted {
 			get => m_Highlighted;
-			set
-			{
-				if (m_Highlighted != value)
-				{
+			set {
+				if (m_Highlighted != value) {
 					m_Highlighted = value;
 					HighlightInteractable(m_Graphic);
-					if (m_Interactable)
-					{
+					if (m_Interactable) {
 						OnHighlightChanged?.Invoke(m_Highlighted);
 					}
 				}
 			}
 		}
 
-		public bool Pressed
-		{
+		public bool Pressed {
 			get => m_Pressed;
-			set
-			{
-				if (m_Pressed != value)
-				{
+			set {
+				if (m_Pressed != value) {
 					m_Pressed = value;
 					m_Graphic.color = (m_Pressed ? PressedColor : NormalColor);
-					if (m_Interactable)
-					{
+					if (m_Interactable) {
 						OnPressChanged?.Invoke(m_Pressed);
 					}
 				}
@@ -118,89 +100,65 @@ namespace UnityEngine.UI.Extensions
 		[Tooltip("Event for when the panel press state is activated or deactivated")]
 		public PressChangedEvent OnPressChanged;
 
-		void Awake()
-		{
+		void Awake() {
 			m_Graphic = GetComponent<Graphic>();
 		}
 
-		public void OnPointerEnter(PointerEventData eventData)
-		{
-			if (Interactable && !m_Pressed)
-			{
+		public void OnPointerEnter(PointerEventData eventData) {
+			if (Interactable && !m_Pressed) {
 				m_Highlighted = true;
 				m_Graphic.color = HighlightedColor;
 				OnHighlightChanged?.Invoke(true);
 			}
 		}
 
-		public void OnPointerExit(PointerEventData eventData)
-		{
-			if (Interactable && !m_Pressed)
-			{
+		public void OnPointerExit(PointerEventData eventData) {
+			if (Interactable && !m_Pressed) {
 				m_Highlighted = false;
 				m_Graphic.color = NormalColor;
 				OnHighlightChanged?.Invoke(false);
 			}
 		}
 
-		public void OnPointerDown(PointerEventData eventData)
-		{
-			if (Interactable)
-			{
+		public void OnPointerDown(PointerEventData eventData) {
+			if (Interactable) {
 				m_Graphic.color = PressedColor;
-				if (ClickToHold)
-				{
-					if (m_Pressed)
-					{
+				if (ClickToHold) {
+					if (m_Pressed) {
 						m_Pressed = false;
-					}
-					else
-					{
+					} else {
 						m_Pressed = true;
 						OnPressChanged?.Invoke(true);
 					}
-				}
-				else
-				{
+				} else {
 					OnPressChanged?.Invoke(true);
 				}
 			}
 		}
 
-		public void OnPointerUp(PointerEventData eventData)
-		{
-			if (!m_Pressed)
-			{
+		public void OnPointerUp(PointerEventData eventData) {
+			if (!m_Pressed) {
 				HighlightInteractable(m_Graphic);
-				if (m_Interactable)
-				{
+				if (m_Interactable) {
 					OnPressChanged?.Invoke(false);
 				}
 			}
 		}
 
-		private void HighlightInteractable(Graphic graphic)
-		{
-			if (m_Interactable)
-			{
-				if (m_Highlighted)
-				{
+		private void HighlightInteractable(Graphic graphic) {
+			if (m_Interactable) {
+				if (m_Highlighted) {
 					graphic.color = HighlightedColor;
-				}
-				else
-				{
+				} else {
 					graphic.color = NormalColor;
 				}
-			}
-			else
-			{
+			} else {
 				graphic.color = DisabledColor;
 			}
 		}
 
 #if UNITY_EDITOR
-		private void OnValidate()
-		{
+		private void OnValidate() {
 			HighlightInteractable(GetComponent<Graphic>());
 		}
 #endif

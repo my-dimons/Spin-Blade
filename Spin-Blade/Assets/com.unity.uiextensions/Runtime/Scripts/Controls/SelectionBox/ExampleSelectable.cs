@@ -3,22 +3,18 @@
 /// Updated Credit BenZed
 /// Sourced from - http://forum.unity3d.com/threads/color-picker.267043/
 
-namespace UnityEngine.UI.Extensions
-{
-	public class ExampleSelectable : MonoBehaviour, IBoxSelectable
-	{
+namespace UnityEngine.UI.Extensions {
+	public class ExampleSelectable : MonoBehaviour, IBoxSelectable {
 		#region Implemented members of IBoxSelectable
 		bool _selected = false;
-		public bool selected
-		{
+		public bool selected {
 			get => _selected;
 
 			set => _selected = value;
 		}
 
 		bool _preSelected = false;
-		public bool preSelected
-		{
+		public bool preSelected {
 			get => _preSelected;
 
 			set => _preSelected = value;
@@ -34,8 +30,7 @@ namespace UnityEngine.UI.Extensions
         Text text;
 #endif
 
-		void Start()
-		{
+		void Start() {
 			spriteRenderer = transform.GetComponent<SpriteRenderer>();
 			image = transform.GetComponent<Image>();
 #if UNITY_2022_1_OR_NEWER
@@ -45,8 +40,7 @@ namespace UnityEngine.UI.Extensions
 #endif
 		}
 
-		void Update()
-		{
+		void Update() {
 
 			//What the game object does with the knowledge that it is selected is entirely up to it.
 			//In this case we're just going to change the color.
@@ -54,32 +48,23 @@ namespace UnityEngine.UI.Extensions
 			//White if deselected.
 			Color color = Color.white;
 
-			if (preSelected)
-			{
+			if (preSelected) {
 				//Yellow if preselected
 				color = Color.yellow;
 			}
-			if (selected)
-			{
+			if (selected) {
 				//And green if selected.
 				color = Color.green;
 			}
 
 			//Set the color depending on what the game object has.
-			if (spriteRenderer)
-			{
+			if (spriteRenderer) {
 				spriteRenderer.color = color;
-			}
-			else if (text)
-			{
+			} else if (text) {
 				text.color = color;
-			}
-			else if (image)
-			{
+			} else if (image) {
 				image.color = color;
-			}
-			else if (GetComponent<UnityEngine.Renderer>())
-			{
+			} else if (GetComponent<UnityEngine.Renderer>()) {
 				GetComponent<UnityEngine.Renderer>().material.color = color;
 			}
 		}

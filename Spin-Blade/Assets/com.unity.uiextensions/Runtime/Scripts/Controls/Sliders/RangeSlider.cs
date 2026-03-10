@@ -7,33 +7,26 @@ using System;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
-namespace UnityEngine.UI.Extensions
-{
+namespace UnityEngine.UI.Extensions {
 	[ExecuteInEditMode]
 	[RequireComponent(typeof(RectTransform))]
 	[AddComponentMenu("UI/Extensions/Sliders/Range Slider", 34)]
-	public class RangeSlider : Selectable, IDragHandler, IInitializePotentialDragHandler, ICanvasElement
-	{
-		public enum Direction
-		{
+	public class RangeSlider : Selectable, IDragHandler, IInitializePotentialDragHandler, ICanvasElement {
+		public enum Direction {
 			Horizontal,
 			Vertical
 		}
 
 		[Serializable]
-		public class RangeSliderEvent : UnityEvent<float, float>
-		{
+		public class RangeSliderEvent : UnityEvent<float, float> {
 		}
 
 		[SerializeField] private RectTransform m_FillRect;
 
-		public RectTransform FillRect
-		{
+		public RectTransform FillRect {
 			get => m_FillRect;
-			set
-			{
-				if (SetClass(ref m_FillRect, value))
-				{
+			set {
+				if (SetClass(ref m_FillRect, value)) {
 					UpdateCachedReferences();
 					UpdateVisuals();
 				}
@@ -42,13 +35,10 @@ namespace UnityEngine.UI.Extensions
 
 		[SerializeField] private RectTransform m_LowHandleRect;
 
-		public RectTransform LowHandleRect
-		{
+		public RectTransform LowHandleRect {
 			get => m_LowHandleRect;
-			set
-			{
-				if (SetClass(ref m_LowHandleRect, value))
-				{
+			set {
+				if (SetClass(ref m_LowHandleRect, value)) {
 					UpdateCachedReferences();
 					UpdateVisuals();
 				}
@@ -57,13 +47,10 @@ namespace UnityEngine.UI.Extensions
 
 		[SerializeField] private RectTransform m_HighHandleRect;
 
-		public RectTransform HighHandleRect
-		{
+		public RectTransform HighHandleRect {
 			get => m_HighHandleRect;
-			set
-			{
-				if (SetClass(ref m_HighHandleRect, value))
-				{
+			set {
+				if (SetClass(ref m_HighHandleRect, value)) {
 					UpdateCachedReferences();
 					UpdateVisuals();
 				}
@@ -72,24 +59,19 @@ namespace UnityEngine.UI.Extensions
 
 		[Space][SerializeField] private Direction m_Direction = Direction.Horizontal;
 
-		public Direction direction
-		{
+		public Direction direction {
 			get => m_Direction;
-			set
-			{
+			set {
 				if (SetPropertyUtility.SetStruct(ref m_Direction, value)) UpdateVisuals();
 			}
 		}
 
 		[SerializeField] private float m_MinValue = 0;
 
-		public float MinValue
-		{
+		public float MinValue {
 			get => m_MinValue;
-			set
-			{
-				if (SetStruct(ref m_MinValue, value))
-				{
+			set {
+				if (SetStruct(ref m_MinValue, value)) {
 					SetLow(m_LowValue);
 					SetHigh(m_HighValue);
 					UpdateVisuals();
@@ -100,13 +82,10 @@ namespace UnityEngine.UI.Extensions
 
 		[SerializeField] private float m_MaxValue = 1;
 
-		public float MaxValue
-		{
+		public float MaxValue {
 			get => m_MaxValue;
-			set
-			{
-				if (SetStruct(ref m_MaxValue, value))
-				{
+			set {
+				if (SetStruct(ref m_MaxValue, value)) {
 					SetLow(m_LowValue);
 					SetHigh(m_HighValue);
 					UpdateVisuals();
@@ -116,13 +95,10 @@ namespace UnityEngine.UI.Extensions
 
 		[SerializeField] private bool m_WholeNumbers = false;
 
-		public bool WholeNumbers
-		{
+		public bool WholeNumbers {
 			get => m_WholeNumbers;
-			set
-			{
-				if (SetStruct(ref m_WholeNumbers, value))
-				{
+			set {
+				if (SetStruct(ref m_WholeNumbers, value)) {
 					SetLow(m_LowValue);
 					SetHigh(m_HighValue);
 					UpdateVisuals();
@@ -132,12 +108,9 @@ namespace UnityEngine.UI.Extensions
 
 		[SerializeField] private float m_LowValue;
 
-		public virtual float LowValue
-		{
-			get
-			{
-				if (WholeNumbers)
-				{
+		public virtual float LowValue {
+			get {
+				if (WholeNumbers) {
 					return Mathf.Round(m_LowValue);
 				}
 
@@ -147,12 +120,9 @@ namespace UnityEngine.UI.Extensions
 			set => SetLow(value);
 		}
 
-		public float NormalizedLowValue
-		{
-			get
-			{
-				if (Mathf.Approximately(MinValue, MaxValue))
-				{
+		public float NormalizedLowValue {
+			get {
+				if (Mathf.Approximately(MinValue, MaxValue)) {
 					return 0;
 				}
 
@@ -165,12 +135,9 @@ namespace UnityEngine.UI.Extensions
 
 		[SerializeField] private float m_HighValue;
 
-		public virtual float HighValue
-		{
-			get
-			{
-				if (WholeNumbers)
-				{
+		public virtual float HighValue {
+			get {
+				if (WholeNumbers) {
 					return Mathf.Round(m_HighValue);
 				}
 
@@ -180,12 +147,9 @@ namespace UnityEngine.UI.Extensions
 			set => SetHigh(value);
 		}
 
-		public float NormalizedHighValue
-		{
-			get
-			{
-				if (Mathf.Approximately(MinValue, MaxValue))
-				{
+		public float NormalizedHighValue {
+			get {
+				if (Mathf.Approximately(MinValue, MaxValue)) {
 					return 0;
 				}
 
@@ -199,8 +163,7 @@ namespace UnityEngine.UI.Extensions
 		/// Set the value of the slider without invoking onValueChanged callback.
 		/// </summary>
 		/// <param name="input">The new value for the slider.</param>
-		public virtual void SetValueWithoutNotify(float low, float high)
-		{
+		public virtual void SetValueWithoutNotify(float low, float high) {
 			SetLow(low, false);
 			SetHigh(high, false);
 		}
@@ -214,8 +177,7 @@ namespace UnityEngine.UI.Extensions
 		/// <summary>
 		/// An Enum that says in what state we and interacting with the slider
 		/// </summary>
-		private enum InteractionState
-		{
+		private enum InteractionState {
 			Low,
 			High,
 			Bar,
@@ -243,23 +205,19 @@ namespace UnityEngine.UI.Extensions
 		// Size of each step.
 		float StepSize => WholeNumbers ? 1 : (MaxValue - MinValue) * 0.1f;
 
-		protected RangeSlider()
-		{
+		protected RangeSlider() {
 		}
 
 #if UNITY_EDITOR
-		protected override void OnValidate()
-		{
+		protected override void OnValidate() {
 			base.OnValidate();
 
-			if (WholeNumbers)
-			{
+			if (WholeNumbers) {
 				m_MinValue = Mathf.Round(m_MinValue);
 				m_MaxValue = Mathf.Round(m_MaxValue);
 			}
 
-			if (IsActive())
-			{
+			if (IsActive()) {
 				UpdateCachedReferences();
 				SetLow(m_LowValue, false);
 				SetHigh(m_HighValue, false);
@@ -267,18 +225,15 @@ namespace UnityEngine.UI.Extensions
 				m_DelayedUpdateVisuals = true;
 			}
 
-			if (!UnityEditor.PrefabUtility.IsPartOfPrefabAsset(this) && !Application.isPlaying)
-			{
+			if (!UnityEditor.PrefabUtility.IsPartOfPrefabAsset(this) && !Application.isPlaying) {
 				CanvasUpdateRegistry.RegisterCanvasElementForLayoutRebuild(this);
 			}
 		}
 #endif
 
-		public virtual void Rebuild(CanvasUpdate executing)
-		{
+		public virtual void Rebuild(CanvasUpdate executing) {
 #if UNITY_EDITOR
-			if (executing == CanvasUpdate.Prelayout)
-			{
+			if (executing == CanvasUpdate.Prelayout) {
 				OnValueChanged.Invoke(LowValue, HighValue);
 			}
 #endif
@@ -287,19 +242,16 @@ namespace UnityEngine.UI.Extensions
 		/// <summary>
 		/// See ICanvasElement.LayoutComplete
 		/// </summary>
-		public virtual void LayoutComplete()
-		{
+		public virtual void LayoutComplete() {
 		}
 
 		/// <summary>
 		/// See ICanvasElement.GraphicUpdateComplete
 		/// </summary>
-		public virtual void GraphicUpdateComplete()
-		{
+		public virtual void GraphicUpdateComplete() {
 		}
 
-		public static bool SetClass<T>(ref T currentValue, T newValue) where T : class
-		{
+		public static bool SetClass<T>(ref T currentValue, T newValue) where T : class {
 			if ((currentValue == null && newValue == null) || (currentValue != null && currentValue.Equals(newValue)))
 				return false;
 
@@ -307,8 +259,7 @@ namespace UnityEngine.UI.Extensions
 			return true;
 		}
 
-		public static bool SetStruct<T>(ref T currentValue, T newValue) where T : struct
-		{
+		public static bool SetStruct<T>(ref T currentValue, T newValue) where T : struct {
 			if (currentValue.Equals(newValue))
 				return false;
 
@@ -316,8 +267,7 @@ namespace UnityEngine.UI.Extensions
 			return true;
 		}
 
-		protected override void OnEnable()
-		{
+		protected override void OnEnable() {
 			base.OnEnable();
 			UpdateCachedReferences();
 			SetLow(LowValue, false);
@@ -326,8 +276,7 @@ namespace UnityEngine.UI.Extensions
 			UpdateVisuals();
 		}
 
-		protected override void OnDisable()
-		{
+		protected override void OnDisable() {
 			m_Tracker.Clear();
 			base.OnDisable();
 		}
@@ -336,74 +285,57 @@ namespace UnityEngine.UI.Extensions
 		/// Update the rect based on the delayed update visuals.
 		/// Got around issue of calling sendMessage from onValidate.
 		/// </summary>
-		protected virtual void Update()
-		{
-			if (m_DelayedUpdateVisuals)
-			{
+		protected virtual void Update() {
+			if (m_DelayedUpdateVisuals) {
 				m_DelayedUpdateVisuals = false;
 				UpdateVisuals();
 			}
 		}
 
-		protected override void OnDidApplyAnimationProperties()
-		{
+		protected override void OnDidApplyAnimationProperties() {
 			base.OnDidApplyAnimationProperties();
 		}
 
-		void UpdateCachedReferences()
-		{
-			if (m_FillRect && m_FillRect != (RectTransform)transform)
-			{
+		void UpdateCachedReferences() {
+			if (m_FillRect && m_FillRect != (RectTransform)transform) {
 				m_FillTransform = m_FillRect.transform;
 				m_FillImage = m_FillRect.GetComponent<Image>();
 				if (m_FillTransform.parent != null)
 					m_FillContainerRect = m_FillTransform.parent.GetComponent<RectTransform>();
-			}
-			else
-			{
+			} else {
 				m_FillRect = null;
 				m_FillContainerRect = null;
 				m_FillImage = null;
 			}
 
-			if (m_HighHandleRect && m_HighHandleRect != (RectTransform)transform)
-			{
+			if (m_HighHandleRect && m_HighHandleRect != (RectTransform)transform) {
 				m_HighHandleTransform = m_HighHandleRect.transform;
 				if (m_HighHandleTransform.parent != null)
 					m_HighHandleContainerRect = m_HighHandleTransform.parent.GetComponent<RectTransform>();
-			}
-			else
-			{
+			} else {
 				m_HighHandleRect = null;
 				m_HighHandleContainerRect = null;
 			}
 
-			if (m_LowHandleRect && m_LowHandleRect != (RectTransform)transform)
-			{
+			if (m_LowHandleRect && m_LowHandleRect != (RectTransform)transform) {
 				m_LowHandleTransform = m_LowHandleRect.transform;
-				if (m_LowHandleTransform.parent != null)
-				{
+				if (m_LowHandleTransform.parent != null) {
 					m_LowHandleContainerRect = m_LowHandleTransform.parent.GetComponent<RectTransform>();
 				}
-			}
-			else
-			{
+			} else {
 				m_LowHandleRect = null;
 				m_LowHandleContainerRect = null;
 			}
 		}
 
-		void SetLow(float input)
-		{
+		void SetLow(float input) {
 			SetLow(input, true);
 		}
 
-		protected virtual void SetLow(float input, bool sendCallback)
-		{
+		protected virtual void SetLow(float input, bool sendCallback) {
 			// Clamp the input
 			float newValue = Mathf.Clamp(input, MinValue, HighValue); //clamp between min and High
-			if (WholeNumbers)
-			{
+			if (WholeNumbers) {
 				newValue = Mathf.Round(newValue);
 			}
 
@@ -413,24 +345,20 @@ namespace UnityEngine.UI.Extensions
 
 			m_LowValue = newValue;
 			UpdateVisuals();
-			if (sendCallback)
-			{
+			if (sendCallback) {
 				UISystemProfilerApi.AddMarker("RangeSlider.lowValue", this);
 				m_OnValueChanged.Invoke(newValue, HighValue);
 			}
 		}
 
-		void SetHigh(float input)
-		{
+		void SetHigh(float input) {
 			SetHigh(input, true);
 		}
 
-		protected virtual void SetHigh(float input, bool sendCallback)
-		{
+		protected virtual void SetHigh(float input, bool sendCallback) {
 			// Clamp the input
 			float newValue = Mathf.Clamp(input, LowValue, MaxValue); //clamp between min and High
-			if (WholeNumbers)
-			{
+			if (WholeNumbers) {
 				newValue = Mathf.Round(newValue);
 			}
 
@@ -440,16 +368,14 @@ namespace UnityEngine.UI.Extensions
 
 			m_HighValue = newValue;
 			UpdateVisuals();
-			if (sendCallback)
-			{
+			if (sendCallback) {
 				UISystemProfilerApi.AddMarker("RangeSlider.highValue", this);
 				m_OnValueChanged.Invoke(LowValue, newValue);
 			}
 		}
 
 
-		protected override void OnRectTransformDimensionsChange()
-		{
+		protected override void OnRectTransformDimensionsChange() {
 			base.OnRectTransformDimensionsChange();
 
 			//This can be invoked before OnEnabled is called. So we shouldn't be accessing other objects, before OnEnable is called.
@@ -459,8 +385,7 @@ namespace UnityEngine.UI.Extensions
 			UpdateVisuals();
 		}
 
-		enum Axis
-		{
+		enum Axis {
 			Horizontal = 0,
 			Vertical = 1
 		}
@@ -468,8 +393,7 @@ namespace UnityEngine.UI.Extensions
 		Axis axis => m_Direction == Direction.Horizontal ? Axis.Horizontal : Axis.Vertical;
 
 		// Force-update the slider. Useful if you've changed the properties and want it to update visually.
-		private void UpdateVisuals()
-		{
+		private void UpdateVisuals() {
 #if UNITY_EDITOR
 			if (!Application.isPlaying)
 				UpdateCachedReferences();
@@ -477,8 +401,7 @@ namespace UnityEngine.UI.Extensions
 
 			m_Tracker.Clear();
 
-			if (m_FillContainerRect != null)
-			{
+			if (m_FillContainerRect != null) {
 				m_Tracker.Add(this, m_FillRect, DrivenTransformProperties.Anchors);
 				Vector2 anchorMin = Vector2.zero;
 				Vector2 anchorMax = Vector2.one;
@@ -492,8 +415,7 @@ namespace UnityEngine.UI.Extensions
 				m_FillRect.anchorMax = anchorMax;
 			}
 
-			if (m_LowHandleContainerRect != null)
-			{
+			if (m_LowHandleContainerRect != null) {
 				m_Tracker.Add(this, m_LowHandleRect, DrivenTransformProperties.Anchors);
 				Vector2 anchorMin = Vector2.zero;
 				Vector2 anchorMax = Vector2.one;
@@ -502,8 +424,7 @@ namespace UnityEngine.UI.Extensions
 				m_LowHandleRect.anchorMax = anchorMax;
 			}
 
-			if (m_HighHandleContainerRect != null)
-			{
+			if (m_HighHandleContainerRect != null) {
 				m_Tracker.Add(this, m_HighHandleRect, DrivenTransformProperties.Anchors);
 				Vector2 anchorMin = Vector2.zero;
 				Vector2 anchorMax = Vector2.one;
@@ -514,15 +435,13 @@ namespace UnityEngine.UI.Extensions
 		}
 
 		// Update the slider's position based on the mouse.
-		void UpdateDrag(PointerEventData eventData, Camera cam)
-		{
+		void UpdateDrag(PointerEventData eventData, Camera cam) {
 			//this needs to differ from slider in that we have two handles, and need to move the right one. 
 			//and if it was neither handle, we will have a separate case where both handles move uniformly 
 			//moving the entire range
 
 			//this is where we use our interationState
-			switch (interactionState)
-			{
+			switch (interactionState) {
 				case InteractionState.Low:
 					NormalizedLowValue = CalculateDrag(eventData, cam, m_LowHandleContainerRect);
 					break;
@@ -538,15 +457,12 @@ namespace UnityEngine.UI.Extensions
 			}
 		}
 
-		private float CalculateDrag(PointerEventData eventData, Camera cam, RectTransform containerRect)
-		{
+		private float CalculateDrag(PointerEventData eventData, Camera cam, RectTransform containerRect) {
 			RectTransform clickRect = containerRect ?? m_FillContainerRect;
-			if (clickRect != null && clickRect.rect.size[(int)axis] > 0)
-			{
+			if (clickRect != null && clickRect.rect.size[(int)axis] > 0) {
 				Vector2 localCursor;
 				if (!RectTransformUtility.ScreenPointToLocalPointInRectangle(clickRect, eventData.position, cam,
-						out localCursor))
-				{
+						out localCursor)) {
 					return 0f;
 				}
 
@@ -560,15 +476,12 @@ namespace UnityEngine.UI.Extensions
 			return 0;
 		}
 
-		private void CalculateBarDrag(PointerEventData eventData, Camera cam)
-		{
+		private void CalculateBarDrag(PointerEventData eventData, Camera cam) {
 			RectTransform clickRect = m_FillContainerRect;
-			if (clickRect != null && clickRect.rect.size[(int)axis] > 0)
-			{
+			if (clickRect != null && clickRect.rect.size[(int)axis] > 0) {
 				Vector2 localCursor;
 				if (!RectTransformUtility.ScreenPointToLocalPointInRectangle(clickRect, eventData.position, cam,
-						out localCursor))
-				{
+						out localCursor)) {
 					return;
 				}
 
@@ -577,8 +490,7 @@ namespace UnityEngine.UI.Extensions
 				//now we need to get the delta drag on the bar
 				//and move both the normalized low and high values by this amount
 				//but also check that neither is going beyond the bounds
-				if (NormalizedLowValue >= 0 && NormalizedHighValue <= 1)
-				{
+				if (NormalizedLowValue >= 0 && NormalizedHighValue <= 1) {
 					//find the mid point on the current bar
 					float mid = (NormalizedHighValue + NormalizedLowValue) / 2;
 					//find where the new mid point should be
@@ -586,12 +498,9 @@ namespace UnityEngine.UI.Extensions
 					//calculate the delta
 					float delta = val - mid;
 					//check the clamp range
-					if (NormalizedLowValue + delta < 0)
-					{
+					if (NormalizedLowValue + delta < 0) {
 						delta = -NormalizedLowValue;
-					}
-					else if (NormalizedHighValue + delta > 1)
-					{
+					} else if (NormalizedHighValue + delta > 1) {
 						delta = 1 - NormalizedHighValue;
 					}
 
@@ -602,47 +511,34 @@ namespace UnityEngine.UI.Extensions
 			}
 		}
 
-		private bool MayDrag(PointerEventData eventData)
-		{
+		private bool MayDrag(PointerEventData eventData) {
 			return IsActive() && IsInteractable() && eventData.button == PointerEventData.InputButton.Left;
 		}
 
-		public override void OnPointerDown(PointerEventData eventData)
-		{
+		public override void OnPointerDown(PointerEventData eventData) {
 			if (!MayDrag(eventData))
 				return;
 
 			//HANDLE DRAG EVENTS
 			m_Offset = Vector2.zero;
-			if (m_LowHandleRect != null && LowValue == MaxValue && RectTransformUtility.RectangleContainsScreenPoint(m_LowHandleRect, eventData.position, eventData.enterEventCamera))
-			{
+			if (m_LowHandleRect != null && LowValue == MaxValue && RectTransformUtility.RectangleContainsScreenPoint(m_LowHandleRect, eventData.position, eventData.enterEventCamera)) {
 				SetToMoveLowValueHandle(m_LowHandleRect, eventData);
-			}
-			else if (m_HighHandleRect != null && RectTransformUtility.RectangleContainsScreenPoint(m_HighHandleRect, eventData.position, eventData.enterEventCamera))
-			{
+			} else if (m_HighHandleRect != null && RectTransformUtility.RectangleContainsScreenPoint(m_HighHandleRect, eventData.position, eventData.enterEventCamera)) {
 				SetToMoveHighValueHandle(m_HighHandleRect, eventData);
-			}
-			else if (m_LowHandleRect != null && RectTransformUtility.RectangleContainsScreenPoint(m_LowHandleRect, eventData.position, eventData.enterEventCamera))
-			{
+			} else if (m_LowHandleRect != null && RectTransformUtility.RectangleContainsScreenPoint(m_LowHandleRect, eventData.position, eventData.enterEventCamera)) {
 				SetToMoveLowValueHandle(m_LowHandleRect, eventData);
-			}
-			else if (m_FillRect != null && RectTransformUtility.RectangleContainsScreenPoint(m_FillRect, eventData.position, eventData.enterEventCamera))
-			{
-				if (RectTransformUtility.ScreenPointToLocalPointInRectangle(m_FillRect, eventData.position, eventData.pressEventCamera, out var localMousePos))
-				{
+			} else if (m_FillRect != null && RectTransformUtility.RectangleContainsScreenPoint(m_FillRect, eventData.position, eventData.enterEventCamera)) {
+				if (RectTransformUtility.ScreenPointToLocalPointInRectangle(m_FillRect, eventData.position, eventData.pressEventCamera, out var localMousePos)) {
 					m_Offset = localMousePos;
 				}
 
 				interactionState = InteractionState.Bar;
 
 
-				if (transition == Transition.ColorTint)
-				{
+				if (transition == Transition.ColorTint) {
 					targetGraphic = m_FillImage;
 				}
-			}
-			else
-			{
+			} else {
 				//outside the handles, move the entire slider along
 				UpdateDrag(eventData, eventData.pressEventCamera);
 			}
@@ -650,62 +546,50 @@ namespace UnityEngine.UI.Extensions
 			base.OnPointerDown(eventData);
 		}
 
-		private void SetToMoveLowValueHandle(RectTransform transform, PointerEventData eventData)
-		{
+		private void SetToMoveLowValueHandle(RectTransform transform, PointerEventData eventData) {
 			//dragging the low value handle
-			if (RectTransformUtility.ScreenPointToLocalPointInRectangle(transform, eventData.position, eventData.pressEventCamera, out var localMousePos))
-			{
+			if (RectTransformUtility.ScreenPointToLocalPointInRectangle(transform, eventData.position, eventData.pressEventCamera, out var localMousePos)) {
 				m_Offset = localMousePos;
 			}
 			interactionState = InteractionState.Low;
-			if (transition == Transition.ColorTint)
-			{
+			if (transition == Transition.ColorTint) {
 				targetGraphic = m_LowHandleRect.GetComponent<Graphic>();
 			}
 		}
 
-		private void SetToMoveHighValueHandle(RectTransform transform, PointerEventData eventData)
-		{
+		private void SetToMoveHighValueHandle(RectTransform transform, PointerEventData eventData) {
 			//dragging the low value handle
-			if (RectTransformUtility.ScreenPointToLocalPointInRectangle(transform, eventData.position, eventData.pressEventCamera, out var localMousePos))
-			{
+			if (RectTransformUtility.ScreenPointToLocalPointInRectangle(transform, eventData.position, eventData.pressEventCamera, out var localMousePos)) {
 				m_Offset = localMousePos;
 			}
 			interactionState = InteractionState.High;
-			if (transition == Transition.ColorTint)
-			{
+			if (transition == Transition.ColorTint) {
 				targetGraphic = m_HighHandleRect.GetComponent<Graphic>();
 			}
 		}
 
-		public virtual void OnDrag(PointerEventData eventData)
-		{
-			if (!MayDrag(eventData))
-			{
+		public virtual void OnDrag(PointerEventData eventData) {
+			if (!MayDrag(eventData)) {
 				return;
 			}
 
 			UpdateDrag(eventData, eventData.pressEventCamera);
 		}
 
-		public override void OnPointerUp(PointerEventData eventData)
-		{
+		public override void OnPointerUp(PointerEventData eventData) {
 			base.OnPointerUp(eventData);
 			interactionState = InteractionState.None;
 		}
 
-		public override void OnMove(AxisEventData eventData)
-		{
+		public override void OnMove(AxisEventData eventData) {
 			//this requires further investigation
 		}
 
-		public virtual void OnInitializePotentialDrag(PointerEventData eventData)
-		{
+		public virtual void OnInitializePotentialDrag(PointerEventData eventData) {
 			eventData.useDragThreshold = false;
 		}
 
-		public void SetDirection(Direction direction, bool includeRectLayouts)
-		{
+		public void SetDirection(Direction direction, bool includeRectLayouts) {
 			Axis oldAxis = axis;
 			this.direction = direction;
 

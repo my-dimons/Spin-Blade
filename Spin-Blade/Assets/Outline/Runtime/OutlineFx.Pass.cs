@@ -3,10 +3,8 @@ using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
 //  OutlineFx © NullTale - https://x.com/NullTale/
-namespace OutlineFx
-{
-	public partial class OutlineFxFeature
-	{
+namespace OutlineFx {
+	public partial class OutlineFxFeature {
 		private static readonly int s_Alpha = Shader.PropertyToID("_Alpha");
 		private static readonly int s_MainTex = Shader.PropertyToID("_MainTex");
 		private static readonly int s_Step = Shader.PropertyToID("_Step");
@@ -16,8 +14,7 @@ namespace OutlineFx
 		private static readonly int s_AlphaTex = Shader.PropertyToID("_AlphaTex");
 		private static readonly int s_AlphaTO = Shader.PropertyToID("_AlphaTO");
 
-		private class Pass : ScriptableRenderPass
-		{
+		private class Pass : ScriptableRenderPass {
 			public OutlineFxFeature _owner;
 
 			private FilteringSettings _filtering;
@@ -26,14 +23,12 @@ namespace OutlineFx
 			private RTHandle _output;
 
 			// =======================================================================
-			public void Init()
-			{
+			public void Init() {
 				renderPassEvent = _owner._event;
 				_buffer = new RenderTarget().Allocate(nameof(_buffer));
 			}
 
-			public override void Execute(ScriptableRenderContext context, ref RenderingData renderingData)
-			{
+			public override void Execute(ScriptableRenderContext context, ref RenderingData renderingData) {
 				// allocate resources
 				var cmd = CommandBufferPool.Get(nameof(OutlineFxFeature));
 				var desc = renderingData.cameraData.cameraTargetDescriptor;
@@ -46,8 +41,7 @@ namespace OutlineFx
 				_owner._outlineMat.SetFloat(s_Alpha, _owner._alphaCutout);
 				_owner._outlineMat.SetFloat(s_Solid, _owner._solid);
 
-				if (_owner._solidMask._enabled)
-				{
+				if (_owner._solidMask._enabled) {
 					var sm = _owner._solidMask;
 					_owner._outlineMat.SetTexture(s_AlphaTex, sm._pattern);
 					var xPeriod = 1f / (sm._velocity.x / 1000f);
@@ -73,8 +67,7 @@ namespace OutlineFx
 				cmd.SetRenderTarget(_buffer.Handle.nameID);
 				cmd.ClearRenderTarget(false, true, Color.clear, 1f);
 
-				if (_owner._attachDepth)
-				{
+				if (_owner._attachDepth) {
 #if !UNITY_2022_1_OR_NEWER
                     var depth = renderingData.cameraData.renderer.cameraDepthTarget == BuiltinRenderTextureType.CameraTarget
                         ? renderingData.cameraData.renderer.cameraColorTarget
@@ -83,17 +76,14 @@ namespace OutlineFx
 					var depth = renderingData.cameraData.renderer.cameraDepthTargetHandle;
 #endif
 					cmd.SetRenderTarget(_buffer.Handle, depth);
-				}
-				else
-				{
+				} else {
 					cmd.SetRenderTarget(_buffer.Handle);
 				}
 
 				context.ExecuteCommandBuffer(cmd);
 				cmd.Clear();
 
-				foreach (var inst in _renderers)
-				{
+				foreach (var inst in _renderers) {
 					if (inst == null)
 						continue;
 
@@ -110,20 +100,17 @@ namespace OutlineFx
 				_execute();
 
 				// -----------------------------------------------------------------------
-				void _blit(RTHandle from, RTHandle to, Material mat, int pass = 0)
-				{
+				void _blit(RTHandle from, RTHandle to, Material mat, int pass = 0) {
 					OutlineFxFeature._blit(cmd, from, to, mat, pass);
 				}
 
-				void _execute()
-				{
+				void _execute() {
 					context.ExecuteCommandBuffer(cmd);
 					CommandBufferPool.Release(cmd);
 				}
 			}
 
-			public override void FrameCleanup(CommandBuffer cmd)
-			{
+			public override void FrameCleanup(CommandBuffer cmd) {
 				_buffer.Release(cmd);
 
 #if !UNITY_2022_1_OR_NEWER

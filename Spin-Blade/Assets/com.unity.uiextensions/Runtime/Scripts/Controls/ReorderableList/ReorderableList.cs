@@ -4,12 +4,10 @@
 using System;
 using UnityEngine.Events;
 
-namespace UnityEngine.UI.Extensions
-{
+namespace UnityEngine.UI.Extensions {
 	[RequireComponent(typeof(RectTransform)), DisallowMultipleComponent]
 	[AddComponentMenu("UI/Extensions/Re-orderable list")]
-	public class ReorderableList : MonoBehaviour
-	{
+	public class ReorderableList : MonoBehaviour {
 		[Tooltip("Child container with re-orderable items in a layout group")]
 		public LayoutGroup ContentLayout;
 		[Tooltip("Parent area to draw the dragged element on top of containers. Defaults to the root Canvas")]
@@ -49,20 +47,16 @@ namespace UnityEngine.UI.Extensions
 		private RectTransform _content;
 		private ReorderableListContent _listContent;
 
-		public RectTransform Content
-		{
-			get
-			{
-				if (_content == null)
-				{
+		public RectTransform Content {
+			get {
+				if (_content == null) {
 					_content = ContentLayout.GetComponent<RectTransform>();
 				}
 				return _content;
 			}
 		}
 
-		public Canvas GetCanvas()
-		{
+		public Canvas GetCanvas() {
 			Transform t = transform;
 			Canvas canvas = null;
 
@@ -70,10 +64,8 @@ namespace UnityEngine.UI.Extensions
 			int lvlLimit = 100;
 			int lvl = 0;
 
-			while (canvas == null && lvl < lvlLimit)
-			{
-				if (!t.gameObject.TryGetComponent<Canvas>(out canvas))
-				{
+			while (canvas == null && lvl < lvlLimit) {
+				if (!t.gameObject.TryGetComponent<Canvas>(out canvas)) {
 					t = t.parent;
 				}
 
@@ -85,25 +77,20 @@ namespace UnityEngine.UI.Extensions
 		/// <summary>
 		/// Refresh related list content
 		/// </summary>
-		public void Refresh()
-		{
+		public void Refresh() {
 			_listContent = ContentLayout.gameObject.GetOrAddComponent<ReorderableListContent>();
 			_listContent.Init(this);
 		}
 
-		private void Start()
-		{
-			if (ContentLayout == null)
-			{
+		private void Start() {
+			if (ContentLayout == null) {
 				Debug.LogError("You need to have a child LayoutGroup content set for the list: " + name, gameObject);
 				return;
 			}
-			if (DraggableArea == null)
-			{
+			if (DraggableArea == null) {
 				DraggableArea = transform.root.GetComponentInChildren<Canvas>().GetComponent<RectTransform>();
 			}
-			if (IsDropable && !GetComponent<Graphic>())
-			{
+			if (IsDropable && !GetComponent<Graphic>()) {
 				Debug.LogError("You need to have a Graphic control (such as an Image) for the list [" + name + "] to be droppable", gameObject);
 				return;
 			}
@@ -114,8 +101,7 @@ namespace UnityEngine.UI.Extensions
 		#region Nested type: ReorderableListEventStruct
 
 		[Serializable]
-		public struct ReorderableListEventStruct
-		{
+		public struct ReorderableListEventStruct {
 			public GameObject DroppedObject;
 			public int FromIndex;
 			public ReorderableList FromList;
@@ -124,8 +110,7 @@ namespace UnityEngine.UI.Extensions
 			public int ToIndex;
 			public ReorderableList ToList;
 
-			public void Cancel()
-			{
+			public void Cancel() {
 				SourceObject.GetComponent<ReorderableListElement>().isValid = false;
 			}
 		}
@@ -137,8 +122,7 @@ namespace UnityEngine.UI.Extensions
 		[Serializable]
 		public class ReorderableListHandler : UnityEvent<ReorderableListEventStruct> { }
 
-		public void TestReOrderableListTarget(ReorderableListEventStruct item)
-		{
+		public void TestReOrderableListTarget(ReorderableListEventStruct item) {
 			Debug.Log("Event Received");
 			Debug.Log("Hello World, is my item a clone? [" + item.IsAClone + "]");
 		}

@@ -16,14 +16,12 @@
 
 using System.Collections.Generic;
 
-namespace UnityEngine.UI.Extensions
-{
+namespace UnityEngine.UI.Extensions {
 	/**
         Class for representing a Bezier path, and methods for getting suitable points to 
         draw the curve with line segments.
 */
-	public class BezierPath
-	{
+	public class BezierPath {
 		public int SegmentsPerCurve = 10;
 		public float MINIMUM_SQR_DISTANCE = 0.01f;
 
@@ -38,8 +36,7 @@ namespace UnityEngine.UI.Extensions
             Constructs a new empty Bezier curve. Use one of these methods
             to add points: SetControlPoints, Interpolate, SamplePoints.
         */
-		public BezierPath()
-		{
+		public BezierPath() {
 			controlPoints = new List<Vector2>();
 		}
 
@@ -48,15 +45,13 @@ namespace UnityEngine.UI.Extensions
             Points 0-3 forms the first Bezier curve, points 
             3-6 forms the second curve, etc.
         */
-		public void SetControlPoints(List<Vector2> newControlPoints)
-		{
+		public void SetControlPoints(List<Vector2> newControlPoints) {
 			controlPoints.Clear();
 			controlPoints.AddRange(newControlPoints);
 			curveCount = (controlPoints.Count - 1) / 3;
 		}
 
-		public void SetControlPoints(Vector2[] newControlPoints)
-		{
+		public void SetControlPoints(Vector2[] newControlPoints) {
 			controlPoints.Clear();
 			controlPoints.AddRange(newControlPoints);
 			curveCount = (controlPoints.Count - 1) / 3;
@@ -65,8 +60,7 @@ namespace UnityEngine.UI.Extensions
 		/**
             Returns the control points for this Bezier curve.
         */
-		public List<Vector2> GetControlPoints()
-		{
+		public List<Vector2> GetControlPoints() {
 			return controlPoints;
 		}
 
@@ -74,17 +68,14 @@ namespace UnityEngine.UI.Extensions
 		/**
             Calculates a Bezier interpolated path for the given points.
         */
-		public void Interpolate(List<Vector2> segmentPoints, float scale)
-		{
+		public void Interpolate(List<Vector2> segmentPoints, float scale) {
 			controlPoints.Clear();
 
-			if (segmentPoints.Count < 2)
-			{
+			if (segmentPoints.Count < 2) {
 				return;
 			}
 
-			for (int i = 0; i < segmentPoints.Count; i++)
-			{
+			for (int i = 0; i < segmentPoints.Count; i++) {
 				if (i == 0) // is first
 				{
 					Vector2 p1 = segmentPoints[i];
@@ -95,9 +86,8 @@ namespace UnityEngine.UI.Extensions
 
 					controlPoints.Add(p1);
 					controlPoints.Add(q1);
-				}
-				else if (i == segmentPoints.Count - 1) //last
-				{
+				} else if (i == segmentPoints.Count - 1) //last
+				  {
 					Vector2 p0 = segmentPoints[i - 1];
 					Vector2 p1 = segmentPoints[i];
 					Vector2 tangent = (p1 - p0);
@@ -105,9 +95,7 @@ namespace UnityEngine.UI.Extensions
 
 					controlPoints.Add(q0);
 					controlPoints.Add(p1);
-				}
-				else
-				{
+				} else {
 					Vector2 p0 = segmentPoints[i - 1];
 					Vector2 p1 = segmentPoints[i];
 					Vector2 p2 = segmentPoints[i + 1];
@@ -127,10 +115,8 @@ namespace UnityEngine.UI.Extensions
 		/**
             Sample the given points as a Bezier path.
         */
-		public void SamplePoints(List<Vector2> sourcePoints, float minSqrDistance, float maxSqrDistance, float scale)
-		{
-			if (sourcePoints.Count < 2)
-			{
+		public void SamplePoints(List<Vector2> sourcePoints, float minSqrDistance, float maxSqrDistance, float scale) {
+			if (sourcePoints.Count < 2) {
 				return;
 			}
 
@@ -142,12 +128,10 @@ namespace UnityEngine.UI.Extensions
 
 			int i = 2;
 
-			for (i = 2; i < sourcePoints.Count; i++)
-			{
+			for (i = 2; i < sourcePoints.Count; i++) {
 				if (
 					((potentialSamplePoint - sourcePoints[i]).sqrMagnitude > minSqrDistance) &&
-					((samplePoints.Peek() - sourcePoints[i]).sqrMagnitude > maxSqrDistance))
-				{
+					((samplePoints.Peek() - sourcePoints[i]).sqrMagnitude > maxSqrDistance)) {
 					samplePoints.Push(potentialSamplePoint);
 				}
 
@@ -178,8 +162,7 @@ namespace UnityEngine.UI.Extensions
             @param t The parameter indicating where on the curve the point is. 0 corresponds 
             to the "left" point, 1 corresponds to the "right" end point.
         */
-		public Vector2 CalculateBezierPoint(int curveIndex, float t)
-		{
+		public Vector2 CalculateBezierPoint(int curveIndex, float t) {
 			int nodeIndex = curveIndex * 3;
 
 			Vector2 p0 = controlPoints[nodeIndex];
@@ -194,12 +177,10 @@ namespace UnityEngine.UI.Extensions
             Gets the drawing points. This implementation simply calculates a certain number
             of points per curve.
         */
-		public List<Vector2> GetDrawingPoints0()
-		{
+		public List<Vector2> GetDrawingPoints0() {
 			List<Vector2> drawingPoints = new List<Vector2>();
 
-			for (int curveIndex = 0; curveIndex < curveCount; curveIndex++)
-			{
+			for (int curveIndex = 0; curveIndex < curveCount; curveIndex++) {
 				if (curveIndex == 0) //Only do this for the first end point. 
 									 //When i != 0, this coincides with the 
 									 //end point of the previous segment,
@@ -207,8 +188,7 @@ namespace UnityEngine.UI.Extensions
 					drawingPoints.Add(CalculateBezierPoint(curveIndex, 0));
 				}
 
-				for (int j = 1; j <= SegmentsPerCurve; j++)
-				{
+				for (int j = 1; j <= SegmentsPerCurve; j++) {
 					float t = j / (float)SegmentsPerCurve;
 					drawingPoints.Add(CalculateBezierPoint(curveIndex, t));
 				}
@@ -223,12 +203,10 @@ namespace UnityEngine.UI.Extensions
 
             This is a slightly different implementation from the one above.
         */
-		public List<Vector2> GetDrawingPoints1()
-		{
+		public List<Vector2> GetDrawingPoints1() {
 			List<Vector2> drawingPoints = new List<Vector2>();
 
-			for (int i = 0; i < controlPoints.Count - 3; i += 3)
-			{
+			for (int i = 0; i < controlPoints.Count - 3; i += 3) {
 				Vector2 p0 = controlPoints[i];
 				Vector2 p1 = controlPoints[i + 1];
 				Vector2 p2 = controlPoints[i + 2];
@@ -239,8 +217,7 @@ namespace UnityEngine.UI.Extensions
 					drawingPoints.Add(CalculateBezierPoint(0, p0, p1, p2, p3));
 				}
 
-				for (int j = 1; j <= SegmentsPerCurve; j++)
-				{
+				for (int j = 1; j <= SegmentsPerCurve; j++) {
 					float t = j / (float)SegmentsPerCurve;
 					drawingPoints.Add(CalculateBezierPoint(t, p0, p1, p2, p3));
 				}
@@ -253,16 +230,13 @@ namespace UnityEngine.UI.Extensions
             This gets the drawing points of a bezier curve, using recursive division,
             which results in less points for the same accuracy as the above implementation.
         */
-		public List<Vector2> GetDrawingPoints2()
-		{
+		public List<Vector2> GetDrawingPoints2() {
 			List<Vector2> drawingPoints = new List<Vector2>();
 
-			for (int curveIndex = 0; curveIndex < curveCount; curveIndex++)
-			{
+			for (int curveIndex = 0; curveIndex < curveCount; curveIndex++) {
 				List<Vector2> bezierCurveDrawingPoints = FindDrawingPoints(curveIndex);
 
-				if (curveIndex != 0)
-				{
+				if (curveIndex != 0) {
 					//remove the fist point, as it coincides with the last point of the previous Bezier curve.
 					bezierCurveDrawingPoints.RemoveAt(0);
 				}
@@ -273,8 +247,7 @@ namespace UnityEngine.UI.Extensions
 			return drawingPoints;
 		}
 
-		List<Vector2> FindDrawingPoints(int curveIndex)
-		{
+		List<Vector2> FindDrawingPoints(int curveIndex) {
 			List<Vector2> pointList = new List<Vector2>();
 
 			Vector2 left = CalculateBezierPoint(curveIndex, 0);
@@ -293,13 +266,11 @@ namespace UnityEngine.UI.Extensions
             @returns the number of points added.
         */
 		int FindDrawingPoints(int curveIndex, float t0, float t1,
-			List<Vector2> pointList, int insertionIndex)
-		{
+			List<Vector2> pointList, int insertionIndex) {
 			Vector2 left = CalculateBezierPoint(curveIndex, t0);
 			Vector2 right = CalculateBezierPoint(curveIndex, t1);
 
-			if ((left - right).sqrMagnitude < MINIMUM_SQR_DISTANCE)
-			{
+			if ((left - right).sqrMagnitude < MINIMUM_SQR_DISTANCE) {
 				return 0;
 			}
 
@@ -309,8 +280,7 @@ namespace UnityEngine.UI.Extensions
 			Vector2 leftDirection = (left - mid).normalized;
 			Vector2 rightDirection = (right - mid).normalized;
 
-			if (Vector2.Dot(leftDirection, rightDirection) > DIVISION_THRESHOLD || Mathf.Abs(tMid - 0.5f) < 0.0001f)
-			{
+			if (Vector2.Dot(leftDirection, rightDirection) > DIVISION_THRESHOLD || Mathf.Abs(tMid - 0.5f) < 0.0001f) {
 				int pointsAddedCount = 0;
 
 				pointsAddedCount += FindDrawingPoints(curveIndex, t0, tMid, pointList, insertionIndex);
@@ -329,8 +299,7 @@ namespace UnityEngine.UI.Extensions
 		/**
             Calculates a point on the Bezier curve represented with the four control points given.
         */
-		private Vector2 CalculateBezierPoint(float t, Vector2 p0, Vector2 p1, Vector2 p2, Vector2 p3)
-		{
+		private Vector2 CalculateBezierPoint(float t, Vector2 p0, Vector2 p1, Vector2 p2, Vector2 p3) {
 			float u = 1 - t;
 			float tt = t * t;
 			float uu = u * u;
