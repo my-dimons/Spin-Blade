@@ -4,8 +4,7 @@ using UnityEngine;
 using UnityUtils.ScriptUtils.Audio;
 using UnityUtils.ScriptUtils.Particles;
 
-public class Enemy : MonoBehaviour
-{
+public class Enemy : MonoBehaviour {
 	[Header("Movement")]
 	[HideInInspector] public GameObject target;
 	public float speed = 5f;
@@ -52,8 +51,7 @@ public class Enemy : MonoBehaviour
 	public event Action OnCircleHit;
 	public event Action OnHit;
 
-	private void OnValidate()
-	{
+	private void OnValidate() {
 		currentHealth = maxHealth;
 	}
 
@@ -61,16 +59,14 @@ public class Enemy : MonoBehaviour
 	EnemyManager enemyManager;
 	PlayerHealthAndDamage playerHealth;
 
-	void Start()
-	{
+	void Start() {
 		enemyManager = EnemyManager.Instance;
 		playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealthAndDamage>();
 		moneyManager = MoneyManager.Instance;
 
 		speed *= enemyManager.difficulty;
 
-		if (!TryGetComponent<BossEnemy>(out _))
-		{
+		if (!TryGetComponent<BossEnemy>(out _)) {
 			damage *= enemyManager.difficulty;
 			maxHealth *= enemyManager.difficulty;
 
@@ -78,20 +74,17 @@ public class Enemy : MonoBehaviour
 		}
 	}
 
-	private void FixedUpdate()
-	{
+	private void FixedUpdate() {
 		if (target != null)
 			EnemyMovement();
 	}
-	private void Update()
-	{
+	private void Update() {
 		transform.Rotate(0, 0, rotateSpeed * Time.deltaTime);
 
 		currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
 	}
 
-	void RotateTowardsTarget(GameObject target)
-	{
+	void RotateTowardsTarget(GameObject target) {
 		Vector3 vectorToTarget = target.transform.position - transform.position;
 		float angle = Mathf.Atan2(vectorToTarget.y, vectorToTarget.x) * Mathf.Rad2Deg - rotateMultiplier;
 		Quaternion q = Quaternion.AngleAxis(angle, Vector3.forward);
@@ -99,22 +92,18 @@ public class Enemy : MonoBehaviour
 		transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.deltaTime * speed);
 	}
 
-	void EnemyMovement()
-	{
+	void EnemyMovement() {
 		if (rotateSpeed == 0)
 			RotateTowardsTarget(target);
 
 		transform.position = Vector2.MoveTowards(transform.position, target.transform.position, speed * Time.deltaTime * enemyManager.enemySpeedMultiplier);
 	}
 
-	private void OnTriggerEnter2D(Collider2D other)
-	{
-		if (other.CompareTag("PlayerProjectile") && damageFromProjectiles)
-		{
+	private void OnTriggerEnter2D(Collider2D other) {
+		if (other.CompareTag("PlayerProjectile") && damageFromProjectiles) {
 			Projectile proj = other.GetComponent<Projectile>();
 
-			if (other.GetComponent<TriangleProjectile>())
-			{
+			if (other.GetComponent<TriangleProjectile>()) {
 				other.GetComponent<TriangleProjectile>().homingTarget = null;
 			}
 
@@ -125,22 +114,19 @@ public class Enemy : MonoBehaviour
 			TakeDamage(other.transform, proj.damage, particlePos, proj.knockbackForce, proj.stunDuration, playerHealth.knockbackCurve, true);
 		}
 
-		if (other.CompareTag("Circle") && currentHealth > 0)
-		{
+		if (other.CompareTag("Circle") && currentHealth > 0) {
 			HitCircle();
 		}
 	}
 
-	public void TakeDamage(Transform attacker, float damageAmount, Vector3 particlePos, float distance = 0, float duration = 0, AnimationCurve curve = null, bool knockback = false)
-	{
+	public void TakeDamage(Transform attacker, float damageAmount, Vector3 particlePos, float distance = 0, float duration = 0, AnimationCurve curve = null, bool knockback = false) {
 		if (isDead) return;
 
 		OnHit?.Invoke();
 
 		currentHealth -= damageAmount;
 
-		if (currentHealth <= 0)
-		{
+		if (currentHealth <= 0) {
 			Death();
 			return;
 		}
@@ -151,8 +137,7 @@ public class Enemy : MonoBehaviour
 
 		GetComponent<DamageFlash>().Flash(damageFlashColor);
 
-		if (knockback)
-		{
+		if (knockback) {
 			KnockbackFrom(Vector2.zero, distance, duration, curve);
 		}
 
@@ -160,8 +145,7 @@ public class Enemy : MonoBehaviour
 	/// <summary>
 	/// Moves the enemy away from a point by a given distance, following an animation curve.
 	/// </summary>
-	public void KnockbackFrom(Vector3 centerPoint, float distance, float duration, AnimationCurve curve)
-	{
+	public void KnockbackFrom(Vector3 centerPoint, float distance, float duration, AnimationCurve curve) {
 		// Cancel any ongoing knockback
 		if (knockbackRoutine != null)
 			StopCoroutine(knockbackRoutine);
@@ -169,8 +153,7 @@ public class Enemy : MonoBehaviour
 		knockbackRoutine = StartCoroutine(KnockbackRoutine(centerPoint, distance, duration, curve));
 	}
 
-	private IEnumerator KnockbackRoutine(Vector3 centerPoint, float distance, float knockbackDuration, AnimationCurve knockbackCurve)
-	{
+	private IEnumerator KnockbackRoutine(Vector3 centerPoint, float distance, float knockbackDuration, AnimationCurve knockbackCurve) {
 		Vector3 startPos = transform.position;
 
 		// Direction away from the point
@@ -180,8 +163,7 @@ public class Enemy : MonoBehaviour
 		Vector3 endPos = startPos + dir * distance;
 
 		float time = 0f;
-		while (time < knockbackDuration)
-		{
+		while (time < knockbackDuration) {
 			float t = time / knockbackDuration;
 			float curveValue = knockbackCurve.Evaluate(t); // Curve mapping 0 → 1
 
@@ -199,13 +181,11 @@ public class Enemy : MonoBehaviour
 	}
 
 	[ContextMenu("Kill Enemy")]
-	private void ContextMenuDeath()
-	{
+	private void ContextMenuDeath() {
 		Death(false);
 	}
 
-	public void Death(bool playerStatGain = true)
-	{
+	public void Death(bool playerStatGain = true) {
 		if (isDead) return;
 		isDead = true;
 
@@ -223,13 +203,11 @@ public class Enemy : MonoBehaviour
 		Color color;
 		if (value > 0)
 			color = MoneyManager.GetCurrencyColor(valueCurrencyType);
-		else
-		{
+		else {
 			color = badMoneyColor;
 		}
 
-		if (playerStatGain)
-		{
+		if (playerStatGain) {
 			Utils.SpawnFloatingText(deathMoneyText, transform.position, MoneyManager.GetMoneyString(moneyManager.CalculateCurrency(value, valueCurrencyType), valueCurrencyType), 6f, 0.3f, 40f, 0.45f, 0.15f, color);
 
 			moneyManager.AddCurrency(value, valueCurrencyType);
@@ -242,8 +220,7 @@ public class Enemy : MonoBehaviour
 		Destroy(gameObject);
 	}
 
-	public void HitCircle()
-	{
+	public void HitCircle() {
 		OnCircleHit?.Invoke();
 
 		ParticleSpawner.SpawnBurstParticle(deathParticles, transform.position, color: hitColor);
