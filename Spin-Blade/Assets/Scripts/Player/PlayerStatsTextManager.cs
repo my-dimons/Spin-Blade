@@ -41,6 +41,7 @@ public class PlayerStatsTextManager : MonoBehaviour {
 		// Get bought upgrade % if upgrades are found
 		if (GetAllUpgrades().Length > 0) {
 			boughtUpgradePercent = GetPercentOfUnlockedUpgrades();
+			SetUpgradePercentTextColor();
 		}
 
 		// Set text
@@ -48,6 +49,27 @@ public class PlayerStatsTextManager : MonoBehaviour {
 		playerRegenText.text = "+" + playerRegen + "/s";
 		playerDamageText.text = player.damage.ToString();
 		unlockedUpgradePercentText.text = "Upgrades: " + Math.Round(boughtUpgradePercent * 100, percentTextRounding) + "%";
+	}
+
+	/// <summary>
+	/// If 100% of upgrades are fully bought, set upgrade % text to all gold, else if >50% are bought, set it to half gold, otherwise set it to white
+	/// </summary>
+	private void SetUpgradePercentTextColor() {
+		if (boughtUpgradePercent >= 1) {
+			unlockedUpgradePercentText.colorGradient = new VertexGradient(
+				MoneyManager.moneyColor,
+				MoneyManager.moneyColor,
+				MoneyManager.moneyColor,
+				MoneyManager.moneyColor);
+		} else if (boughtUpgradePercent >= 0.5) {
+			unlockedUpgradePercentText.colorGradient = new VertexGradient(
+				Color.white,
+				Color.white,
+				MoneyManager.moneyColor,
+				MoneyManager.moneyColor);
+		} else {
+			unlockedUpgradePercentText.color = Color.white;
+		}
 	}
 
 	private Upgrade[] GetAllUpgrades() {
