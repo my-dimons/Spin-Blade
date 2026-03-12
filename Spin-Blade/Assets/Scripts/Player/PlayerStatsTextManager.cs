@@ -18,7 +18,7 @@ public class PlayerStatsTextManager : MonoBehaviour {
 	[SerializeField] private int playerHealthRounding = 2;
 
 	private PlayerHealthAndDamage player;
-	private float boughtUpgradePercent = 0;
+	private float boughtUpgradeTicksPercent = 0;
 
 	private void Start() {
 		player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealthAndDamage>();
@@ -40,7 +40,7 @@ public class PlayerStatsTextManager : MonoBehaviour {
 
 		// Get bought upgrade % if upgrades are found
 		if (GetAllUpgrades().Length > 0) {
-			boughtUpgradePercent = GetPercentOfUnlockedUpgrades();
+			boughtUpgradeTicksPercent = GetPercentOfUnlockedUpgrades();
 			SetUpgradePercentTextColor();
 		}
 
@@ -48,20 +48,20 @@ public class PlayerStatsTextManager : MonoBehaviour {
 		playerHealthText.text = Math.Round(player.currentHealth, playerHealthRounding) + "/" + Math.Round(player.maxHeath, playerHealthRounding);
 		playerRegenText.text = "+" + playerRegen + "/s";
 		playerDamageText.text = player.damage.ToString();
-		unlockedUpgradePercentText.text = "Upgrades: " + Math.Round(boughtUpgradePercent * 100, percentTextRounding) + "%";
+		unlockedUpgradePercentText.text = "Upgrades: " + Math.Round(boughtUpgradeTicksPercent * 100, percentTextRounding) + "%";
 	}
 
 	/// <summary>
 	/// If 100% of upgrades are fully bought, set upgrade % text to all gold, else if >50% are bought, set it to half gold, otherwise set it to white
 	/// </summary>
 	private void SetUpgradePercentTextColor() {
-		if (boughtUpgradePercent >= 1) {
+		if (boughtUpgradeTicksPercent >= 1) {
 			unlockedUpgradePercentText.colorGradient = new VertexGradient(
 				MoneyManager.moneyColor,
 				MoneyManager.moneyColor,
 				MoneyManager.moneyColor,
 				MoneyManager.moneyColor);
-		} else if (boughtUpgradePercent >= 0.5) {
+		} else if (boughtUpgradeTicksPercent >= 0.5) {
 			unlockedUpgradePercentText.colorGradient = new VertexGradient(
 				Color.white,
 				Color.white,
@@ -112,16 +112,19 @@ public class PlayerStatsTextManager : MonoBehaviour {
 
 	private float GetPercentOfUnlockedUpgrades() {
 		Upgrade[] buyableUpgrades = FilterBuyableUpgrades(GetAllUpgrades());
+		int boughtUpgradeTicks = 0;
+		int allUpgradeTicks = 0;
+		float percentOfUnlockedUpgradeTicks = 0;
 
-		float allUpgradesNumber = buyableUpgrades.Length;
-		float boughtUpgradesNumber = FilterBoughtUpgrades(buyableUpgrades).Length;
-
-		float percentOfUnlockedUpgrades = 0;
-
-		if (allUpgradesNumber != 0) {
-			percentOfUnlockedUpgrades = boughtUpgradesNumber / allUpgradesNumber;
+		foreach (Upgrade upg in buyableUpgrades) {
+			allUpgradeTicks += upg.maxLevel;
+			boughtUpgradeTicks += upg.currentLevel;
 		}
 
-		return percentOfUnlockedUpgrades;
+		if (allUpgradeTicks != 0) {
+			percentOfUnlockedUpgradeTicks = (float)boughtUpgradeTicks / allUpgradeTicks;
+		}
+
+		return percentOfUnlockedUpgradeTicks;
 	}
 }
