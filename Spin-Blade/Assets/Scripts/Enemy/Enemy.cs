@@ -42,6 +42,7 @@ public class Enemy : MonoBehaviour {
 	[Header("Audio and Effects")]
 	public GameObject deathMoneyText;
 	public GameObject takeDamageText;
+	public GameObject dealDamageText;
 	public AudioClip deathSound;
 	public AudioClip hitSound;
 
@@ -232,7 +233,7 @@ public class Enemy : MonoBehaviour {
 		if (TryGetComponent<CurrencyEnemy>(out _) || damage <= 0)
 			flashColor = MoneyManager.GetCurrencyColor(valueCurrencyType);
 		else
-			Utils.SpawnFloatingText(takeDamageText, transform.position, Math.Round(damage, 2).ToString(), 6f, 0.3f, 40f, 0.45f, 0.15f, Color.white);
+			Utils.SpawnFloatingText(dealDamageText, transform.position, Math.Round(damage, 2).ToString(), 6f, 0.3f, 40f, 0.45f, 0.15f, Color.white);
 
 		player.TakeDamage(damage, flashColor);
 
