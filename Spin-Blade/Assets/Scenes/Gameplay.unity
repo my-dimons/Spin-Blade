@@ -23673,8 +23673,8 @@ MonoBehaviour:
   playerRegenText: {fileID: 841406485}
   playerDamageText: {fileID: 63129889}
   unlockedUpgradePercentText: {fileID: 1349148293}
-  reviveImageParent: {fileID: 0}
-  reviveImage: {fileID: 0}
+  reviveImageParent: {fileID: 915716792}
+  reviveImage: {fileID: 7055994591725838140, guid: e01b66585adc37843996b9653efb08f3, type: 3}
   percentTextRounding: 2
   playerHealthRounding: 2
 --- !u!1 &841406482
