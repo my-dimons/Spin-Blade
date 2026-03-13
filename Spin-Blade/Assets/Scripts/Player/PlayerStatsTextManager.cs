@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 
 public class PlayerStatsTextManager : MonoBehaviour {
-	[Header("Text")]
+	[Header("Elements")]
 	public TMP_Text playerHealthText;
 	public TMP_Text playerRegenText;
 	public TMP_Text playerDamageText;
@@ -12,6 +12,11 @@ public class PlayerStatsTextManager : MonoBehaviour {
 	[Space(5)]
 
 	public TMP_Text unlockedUpgradePercentText;
+
+	[Space(5)]
+	public GameObject reviveImageParent;
+	public GameObject reviveImage;
+	private List<GameObject> reviveImages = new List<GameObject>();
 
 	[Header("Constants")]
 	[SerializeField] private int percentTextRounding = 2;
@@ -39,11 +44,37 @@ public class PlayerStatsTextManager : MonoBehaviour {
 			SetUpgradePercentTextColor();
 		}
 
+		UpdateLifeImages();
+
 		// Set text
 		playerHealthText.text = Math.Round(player.currentHealth, playerHealthRounding) + "/" + Math.Round(player.maxHeath, playerHealthRounding);
 		playerRegenText.text = "+" + playerRegen + "/s";
 		playerDamageText.text = player.damage.ToString();
 		unlockedUpgradePercentText.text = "Upgrades: " + Math.Round(boughtUpgradeLevelsPercent * 100, percentTextRounding) + "%";
+	}
+
+	/// <summary>
+	/// Adds or removes images from reviveImages depending on current revives
+	/// </summary>
+	private void UpdateLifeImages() {
+
+		int revives = player.revives;
+		int reviveDifference = revives - reviveImages.Count;
+
+		if (revives != reviveImages.Count) {
+			for (int i = 0; i < Math.Abs(reviveDifference); i++) {
+				if (reviveDifference > 0) {
+					// Create new image
+					GameObject img = Instantiate(reviveImage, reviveImageParent.transform);
+					reviveImages.Add(img);
+				} else if (reviveDifference < 0) {
+					// Destroy image
+					GameObject img = reviveImages[0];
+					Destroy(img);
+					reviveImages.Remove(img);
+				}
+			}
+		}
 	}
 
 	/// <summary>
@@ -105,7 +136,9 @@ public class PlayerStatsTextManager : MonoBehaviour {
 		return filteredUpgrades.ToArray();
 	}
 
-	/// <returns>Percentage (0 -> 1) of upgrade levels bought relative to all the upgrade levels</returns>
+	/// <returns>
+	/// Percentage (0 -> 1 value) of upgrade levels bought relative to all the upgrade levels
+	/// </returns>
 	private float GetPercentOfUnlockedUpgrades() {
 		Upgrade[] buyableUpgrades = FilterBuyableUpgrades(GetAllUpgrades());
 		int boughtUpgradeLevels = 0;
