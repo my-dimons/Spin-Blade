@@ -57,12 +57,12 @@ public class PlayerStatsTextManager : MonoBehaviour {
 	/// Adds or removes images from reviveImages depending on current revives
 	/// </summary>
 	private void UpdateLifeImages() {
-
-		int revives = player.revives;
-		int reviveDifference = revives - reviveImages.Count;
+		int revives = Math.Abs(player.revives);
 
 		if (revives != reviveImages.Count) {
-			for (int i = 0; i < Math.Abs(reviveDifference); i++) {
+            int reviveDifference = revives - reviveImages.Count;
+
+            for (int i = 0; i < Math.Abs(reviveDifference); i++) {
 				if (reviveDifference > 0) {
 					// Create new image
 					GameObject img = Instantiate(reviveImage, reviveImageParent.transform);
