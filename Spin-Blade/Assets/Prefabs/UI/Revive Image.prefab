@@ -89,7 +89,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WinVisuals
   fragmentSprites:
-  - {fileID: -2311659948842064771, guid: ca766cc8564e87642819ce0983bae215, type: 3}
+  - {fileID: 21300000, guid: 3fc214a9bf635a54c9667f82f44291f3, type: 3}
   - {fileID: 21300000, guid: 2cd4528591edeaa4694ad0a558b90f89, type: 3}
   - {fileID: 21300000, guid: 49b7d8dd576a2124d9a19d4eb8817072, type: 3}
   - {fileID: 21300000, guid: 0da1bd65ca724b44fa17c90c516a52c6, type: 3}
