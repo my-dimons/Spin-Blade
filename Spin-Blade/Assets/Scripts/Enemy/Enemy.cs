@@ -231,7 +231,7 @@ public class Enemy : MonoBehaviour {
 
     PlayerHealthAndDamage player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealthAndDamage>();
 
-    Color flashColor = Utils.ColorFromHex("#fcaba9");
+    Color flashColor = Utils.ColorFromHex("#FF4E4E");
     if (TryGetComponent<CurrencyEnemy>(out _) || damage <= 0)
       flashColor = MoneyManager.GetCurrencyColor(valueCurrencyType);
     else
