@@ -1732,7 +1732,7 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: 9a3a7889a15a17249ab5eb91217f3bf4, type: 3}
     - target: {fileID: 3856775334563055168, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_text
-      value: Increases health, speed, and damage
+      value: More speed, +0.5 Health, +0.4 damage
       objectReference: {fileID: 0}
     - target: {fileID: 3856775334563055168, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_hasFontAssetChanged
@@ -2741,7 +2741,7 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: 4234c0ea77110c44c9c6139ae2ad99c6, type: 3}
     - target: {fileID: 3856775334563055168, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_text
-      value: more speed, and a little more damage
+      value: more speed, +0.3 damage
       objectReference: {fileID: 0}
     - target: {fileID: 3856775334563055168, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_hasFontAssetChanged
@@ -9626,7 +9626,7 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: f837eb0a20644e748a6112f2507c1ce9, type: 3}
     - target: {fileID: 3856775334563055168, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_text
-      value: Increases your size and health
+      value: +1 Health and a larger saw
       objectReference: {fileID: 0}
     - target: {fileID: 3856775334563055168, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_hasFontAssetChanged
@@ -29268,7 +29268,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 37691736868015627, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_text
-      value: $300
+      value: $100
       objectReference: {fileID: 0}
     - target: {fileID: 37691736868015627, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_fontColor32.rgba
@@ -29392,7 +29392,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3856775334563055168, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_text
-      value: $300 = 1 bit
+      value: $100 = 1 bit
       objectReference: {fileID: 0}
     - target: {fileID: 3856775334563055168, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_hasFontAssetChanged
@@ -42751,8 +42751,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a87d583b455941a42bc491aa2a263427, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flashMaterial: {fileID: 2100000, guid: 2189cc038fdfa7c439d938b6e7eccaab, type: 2}
-  duration: 0.08
+  logLoadMaterial: 0
+  logFlash: 0
 --- !u!1 &1105603143
 GameObject:
   m_ObjectHideFlags: 0
@@ -54784,6 +54784,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1280713295}
   - component: {fileID: 1280713294}
+  - component: {fileID: 1280713297}
   - component: {fileID: 1280713296}
   m_Layer: 0
   m_Name: GameManager
@@ -54804,19 +54805,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c38175384637fb04086e213805efac38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tutorialText: {fileID: 1254085236}
-  firstUpgrade: {fileID: 1731304178}
-  tutorialStrings:
-  - click to reverse direction!
-  - press the shop button to open the shop!
-  - click and hold to pan!
-  - buy the first upgrade!
-  - Defeat enemies for money to progress!
-  - 
-  - buy the next upgrade in the shop!
-  - Have fun!
-  - 
-  tutorialStage: 0
   sfxSliders:
   - {fileID: 771960861}
   - {fileID: 1359145710}
@@ -54946,6 +54934,31 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1280713297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1280713293}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10a39f811a81ae74c89c5c37b7ca5e35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TutorialManager
+  tutorialText: {fileID: 1254085236}
+  firstUpgrade: {fileID: 1731304178}
+  tutorialStrings:
+  - click to reverse direction!
+  - press the shop button to open the shop!
+  - click and hold to pan!
+  - buy the first upgrade!
+  - Defeat enemies for money to progress!
+  - 
+  - buy the next upgrade in the shop!
+  - Have fun!
+  - 
+  tutorialStage: 0
 --- !u!1001 &1282458554
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -81055,7 +81068,7 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: 57ecb45505e25894a98aaa203c1cb7e3, type: 3}
     - target: {fileID: 3856775334563055168, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_text
-      value: a new curreny!
+      value: a new currency!
       objectReference: {fileID: 0}
     - target: {fileID: 3856775334563055168, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: m_hasFontAssetChanged
@@ -82415,7 +82428,7 @@ MonoBehaviour:
   killRegenAmount: 0
   healthBar: {fileID: 1421786204}
   deathScreen: {fileID: 1581732367}
-  circleDamageFlash: {fileID: 1094684729}
+  circleDamageFlash: {fileID: 0}
   circleFullHealFlashColor: {r: 0.5878833, g: 1, b: 0.57254905, a: 1}
   dead: 0
   damage: 1
