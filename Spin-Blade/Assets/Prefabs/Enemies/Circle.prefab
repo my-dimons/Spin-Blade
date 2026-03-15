@@ -165,8 +165,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a87d583b455941a42bc491aa2a263427, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flashMaterial: {fileID: 2100000, guid: 2189cc038fdfa7c439d938b6e7eccaab, type: 2}
-  duration: 0.08
+  logLoadMaterial: 0
+  logFlash: 0
 --- !u!58 &8583694959669744759
 CircleCollider2D:
   m_ObjectHideFlags: 0

@@ -56,7 +56,7 @@ public class PlayerMine : MonoBehaviour {
       return; // prevent multiple explosions
     exploded = true;
 
-    GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealthAndDamage>().ExplodeCircle(transform.position, explosionRadius);
+    GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealthAndDamage>().ExplodeCircle(transform.position, damage, explosionRadius, false);
 
     if (pausePulsing)
       return;
