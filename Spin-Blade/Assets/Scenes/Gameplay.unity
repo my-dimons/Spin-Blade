@@ -54805,6 +54805,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tutorialText: {fileID: 1254085236}
+  firstUpgrade: {fileID: 1731304178}
   tutorialStrings:
   - click to reverse direction!
   - press the shop button to open the shop!
@@ -78826,6 +78827,17 @@ MonoBehaviour:
   enemyDifficultyIncrease: 0
   enemySpawnRateIncrease: 0
   enemyBossHealthMultiplierIncrease: 0
+--- !u!114 &1731304178 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
+  m_PrefabInstance: {fileID: 1731304171}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1731304172}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c340ab51f94c15746b6abee788171d32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1733229557 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4362258820155142764, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}

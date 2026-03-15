@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -112,7 +113,9 @@ public class Upgrade : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler 
 	bool updateSkillTree = false;
 	MoneyManager moneyManager;
 
-	private void OnValidate() {
+    [HideInInspector] public event Action OnBuyUpgrade;
+
+    private void OnValidate() {
 		UpdateStatText();
 	}
 
@@ -354,6 +357,8 @@ public class Upgrade : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler 
 		// increase price & level
 		currentLevel++;
 		price *= priceIncrease;
+
+		OnBuyUpgrade?.Invoke();
 	}
 
 	public void TogglePopup(bool enable) {

@@ -7,13 +7,16 @@ using UnityUtils.ScriptUtils.Audio;
 
 public class GameManager : MonoBehaviour {
 
+	[Header("Tutorial")]
 	public TextMeshProUGUI tutorialText;
+	public Upgrade firstUpgrade;
 	[TextArea]
 	public string[] tutorialStrings;
 	public int tutorialStage = 0;
-	bool advancedTutorialStage = false;
-	bool tutorialFinished = false;
 
+	private bool advancedTutorialStage = false;
+	private bool tutorialFinished = false;
+	private bool advanceStage3 = false;
 	// used for tutorial
 	float ogMoney;
 
@@ -83,7 +86,7 @@ public class GameManager : MonoBehaviour {
 				break;
 
 			case 3:
-				if (!moneyManager.shopOpen)
+				if (advanceStage3)
 					AdvanceTutorial();
 				break;
 
@@ -113,7 +116,12 @@ public class GameManager : MonoBehaviour {
 		ogMoney = MoneyManager.Instance.money;
 	}
 
-	void AdvanceTutorial(int amount = 1) {
+	private void OnBuyFirstUpgrade()
+	{
+		advanceStage3 = true;
+	}
+
+	private void AdvanceTutorial(int amount = 1) {
 		tutorialStage += amount;
 		tutorialText.text = tutorialStrings[tutorialStage];
 		advancedTutorialStage = false;
@@ -182,4 +190,14 @@ public class GameManager : MonoBehaviour {
 		StartCoroutine(WinScreen());
 		SfxManager.PlaySfxAudioClip(winSfx, 1f);
 	}
+
+    private void OnEnable()
+    {
+        firstUpgrade.OnBuyUpgrade += OnBuyFirstUpgrade;
+    }
+
+    private void OnDisable()
+    {
+        firstUpgrade.OnBuyUpgrade -= OnBuyFirstUpgrade;
+    }
 }
