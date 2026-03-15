@@ -20,7 +20,7 @@ public class PlayerHealthAndDamage : MonoBehaviour {
   public GameObject deathScreen;
   [Space(10)]
   [Header("Damage Flashes")]
-  public DamageFlash circleDamageFlash;
+  public ObjectColorFlash circleDamageFlash;
   public Color circleFullHealFlashColor = Utils.ColorFromHex("#FFE45B");
 
   public bool dead;
@@ -85,10 +85,6 @@ public class PlayerHealthAndDamage : MonoBehaviour {
 
   [Header("Stats")]
   public float explodingCircleCooldown = 10f;
-  [Tooltip("playerDamage * thisvar")]
-  public float explodingCircleDamageMultiplier = 1f;
-  [Header("Unlocks")]
-  public bool explodingCircleKnockback;
 
   float explodingCircleCooldownTimer = 0f;
 
@@ -142,7 +138,7 @@ public class PlayerHealthAndDamage : MonoBehaviour {
 
       if (explodingCircleCooldownTimer >= explodingCircleCooldown) {
         explodingCircleCooldownTimer = 0f;
-        ExplodeCircle(Vector2.zero, damage * explodingCircleDamageMultiplier, explodingCircleVisualFinalSize, explodingCircleKnockback);
+        ExplodeCircle(Vector2.zero, explodingCircleVisualFinalSize);
       }
     }
 
@@ -163,7 +159,7 @@ public class PlayerHealthAndDamage : MonoBehaviour {
     // full health ping
     if (currentHealth >= maxHeath && oldHealth < maxHeath && oldHealth != oldMaxHealth) {
       SfxManager.PlaySfxAudioClip(fullHealthSound, 0.7f);
-      circleDamageFlash.Flash(circleFullHealFlashColor);
+      circleDamageFlash.FlashColor(circleFullHealFlashColor, 0.08f);
     }
 
     // update vars for health ping
@@ -223,24 +219,41 @@ public class PlayerHealthAndDamage : MonoBehaviour {
         mine.GetComponent<PlayerMine>().Explode();
     }
 
-    StartCoroutine(ExplodingCircleVisual());
+    StartCoroutine(ExplodingCircleVisual(spawnPos, finalSize));
 
     float screenshakeDuration = .6f;
     Camera.main.GetComponent<CameraScript>().ScreenshakeFunction(screenshakeDuration);
     SfxManager.PlaySfxAudioClip(explodingCircleSound, 0.8f);
+  }
 
+  public void ExplodeCircle(Vector2 spawnPos, float finalSize) {
+    GameObject[] mines = GameObject.FindGameObjectsWithTag("Mine");
 
-    IEnumerator ExplodingCircleVisual() {
-      GameObject circle = Instantiate(explodingCirclePrefab, spawnPos, Quaternion.identity);
+    // explode nearby mines, and kill all enemies
+    KillEnemies(GetAllSpecificContactEnemies(false));
 
-      Vector3 endScale = finalSize * Vector3.one / 2;
-      ObjectAnimations.AnimateTransformScale(circle.transform, Vector3.zero, endScale, explodingCircleAnimationDuration, animationCurve: explodingCircleSizeAnimationCurve);
-      ObjectAnimations.AnimateSpriteRendererOpacity(circle.GetComponent<SpriteRenderer>(), 1, 0, explodingCircleAnimationDuration);
-
-      yield return new WaitForSeconds(explodingCircleAnimationDuration);
-
-      Destroy(circle);
+    foreach (GameObject mine in mines) {
+      if (Vector2.Distance(spawnPos, mine.transform.position) <= finalSize)
+        mine.GetComponent<PlayerMine>().Explode();
     }
+
+    StartCoroutine(ExplodingCircleVisual(spawnPos, finalSize));
+
+    float screenshakeDuration = .6f;
+    Camera.main.GetComponent<CameraScript>().ScreenshakeFunction(screenshakeDuration);
+    SfxManager.PlaySfxAudioClip(explodingCircleSound, 0.8f);
+  }
+
+  IEnumerator ExplodingCircleVisual(Vector3 spawnPos, float finalSize) {
+    GameObject circle = Instantiate(explodingCirclePrefab, spawnPos, Quaternion.identity);
+
+    Vector3 endScale = finalSize * Vector3.one / 2;
+    ObjectAnimations.AnimateTransformScale(circle.transform, Vector3.zero, endScale, explodingCircleAnimationDuration, animationCurve: explodingCircleSizeAnimationCurve);
+    ObjectAnimations.AnimateSpriteRendererOpacity(circle.GetComponent<SpriteRenderer>(), 1, 0, explodingCircleAnimationDuration);
+
+    yield return new WaitForSeconds(explodingCircleAnimationDuration);
+
+    Destroy(circle);
   }
 
   void SpawnMine() {
@@ -298,7 +311,7 @@ public class PlayerHealthAndDamage : MonoBehaviour {
       currentHealth = maxHeath;
       revives--;
 
-      KillAllEnemies();
+      KillEnemies(GetAllSpecificContactEnemies(false));
 
       return;
     }
@@ -316,7 +329,7 @@ public class PlayerHealthAndDamage : MonoBehaviour {
       flashColor = Color.white;
     currentHealth -= damage;
 
-    circleDamageFlash.Flash(flashColor);
+    circleDamageFlash.FlashColor(flashColor, 0.08f);
 
     Mathf.Clamp(currentHealth, 0, maxHeath);
   }
@@ -339,10 +352,27 @@ public class PlayerHealthAndDamage : MonoBehaviour {
     }
   }
 
-  public void KillAllEnemies() {
-    GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+  public void KillEnemies(GameObject[] enemies) {
     foreach (GameObject enemy in enemies) {
       enemy.GetComponent<Enemy>().Death();
     }
+  }
+
+  /// <summary>
+  /// Returns all enemies that are either contact only or projectile only, based on the parameter
+  /// </summary>
+  /// <param name="contactOnly">If true, will return only the enemies that take no damage from projectiles, and if false, will do the opposite</param>
+  /// <returns></returns>
+  public GameObject[] GetAllSpecificContactEnemies(bool contactOnly) {
+    GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+    List<GameObject> nonContactOnlyEnemies = new List<GameObject>();
+
+    foreach (GameObject enemy in enemies) {
+      if (enemy.GetComponent<Enemy>().damageFromProjectiles == !contactOnly) {
+        nonContactOnlyEnemies.Add(enemy);
+      }
+    }
+
+    return nonContactOnlyEnemies.ToArray();
   }
 }

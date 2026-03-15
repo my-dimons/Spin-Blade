@@ -1,24 +1,18 @@
 using UnityEngine;
 
 public class PlayerExplodingCircleUpgrade : MonoBehaviour, IUpgrade {
-	[Header("Stats")]
-	public float explodingCircleCooldownIncrease;
-	public float explodingCircleDamageMultiplierIncrease;
+  [Header("Stats")]
+  public float explodingCircleCooldownIncrease;
 
-	[Header("Unlocks")]
-	public bool unlockExplodingCircle;
-	public bool unlockExplodingCircleKnockback;
+  [Header("Unlocks")]
+  public bool unlockExplodingCircle;
 
-	public void ApplyUpgrade() {
-		PlayerHealthAndDamage playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealthAndDamage>();
+  public void ApplyUpgrade() {
+    PlayerHealthAndDamage playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealthAndDamage>();
 
-		if (!playerHealth.explodingCircle)
-			playerHealth.explodingCircle = unlockExplodingCircle;
-		if (!playerHealth.explodingCircleKnockback)
-			playerHealth.explodingCircleKnockback = unlockExplodingCircleKnockback;
+    if (!playerHealth.explodingCircle)
+      playerHealth.explodingCircle = unlockExplodingCircle;
 
-		// stats
-		playerHealth.explodingCircleCooldown += explodingCircleCooldownIncrease;
-		playerHealth.explodingCircleDamageMultiplier += explodingCircleDamageMultiplierIncrease;
-	}
+    playerHealth.explodingCircleCooldown += explodingCircleCooldownIncrease;
+  }
 }
