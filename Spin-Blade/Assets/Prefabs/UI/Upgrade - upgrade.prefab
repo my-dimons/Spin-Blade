@@ -345,8 +345,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 94.1, y: -0.9}
-  m_SizeDelta: {x: 144.2305, y: 24.7229}
+  m_AnchoredPosition: {x: 56.2609, y: -0.9}
+  m_SizeDelta: {x: 68.5524, y: 24.7229}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8865819862882579417
 CanvasRenderer:
@@ -376,7 +376,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '99
+  m_text: '999
 
 '
   m_isRightToLeft: 0
@@ -960,8 +960,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -64.7, y: 297.12}
-  m_SizeDelta: {x: 144.2305, y: 24.7229}
+  m_AnchoredPosition: {x: -100.16704, y: 297.12}
+  m_SizeDelta: {x: 85.1188, y: 24.7229}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2427694271527390844
 CanvasRenderer:
@@ -991,7 +991,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '$99
+  m_text: '$999
 
 '
   m_isRightToLeft: 0
@@ -1890,7 +1890,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 129, y: 298.2}
+  m_AnchoredPosition: {x: 110.9, y: 298.2}
   m_SizeDelta: {x: 35, y: 35}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4505110848366576634
@@ -2380,8 +2380,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 93, y: -0.9}
-  m_SizeDelta: {x: 144.2305, y: 24.7229}
+  m_AnchoredPosition: {x: 48.383812, y: -0.9}
+  m_SizeDelta: {x: 54.9982, y: 24.7229}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6008228004827853850
 CanvasRenderer:
@@ -2411,9 +2411,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '99
-
-'
+  m_text: 999
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a9438f3a38047ee42819b03430b8d999, type: 2}
   m_sharedMaterial: {fileID: 2446516073444543409, guid: a9438f3a38047ee42819b03430b8d999, type: 2}
