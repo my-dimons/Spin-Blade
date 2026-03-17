@@ -181,8 +181,8 @@ public class MoneyManager : MonoBehaviour {
     if (menu.activeSelf == true) {
       animatingShop = true;
       ObjectAnimations.AnimateTransformScale(menu.transform, grownShopSize, shrunkAnimationSize, animationTime, true, upgradeInfoAnimCurve);
-      ObjectDelays.CallFunctionAfterTime(() => menu.SetActive(false), animationTime);
-      ObjectDelays.ChangeValueAfterTime<bool>(value => animatingShop = value, false, animationTime, true);
+      ObjectDelays.Delay(() => menu.SetActive(false), animationTime);
+      ObjectDelays.Delay(() => animatingShop = false, animationTime, true);
 
       OnShopClose?.Invoke();
     } else {
@@ -195,7 +195,7 @@ public class MoneyManager : MonoBehaviour {
 
       animatingShop = true;
       ObjectAnimations.AnimateTransformScale(menu.transform, shrunkAnimationSize, grownShopSize, animationTime, true, upgradeInfoAnimCurve);
-      ObjectDelays.ChangeValueAfterTime<bool>(value => animatingShop = value, false, animationTime, true);
+      ObjectDelays.Delay(() => animatingShop = false, animationTime, true);
 
       OnShopOpen?.Invoke();
     }
@@ -229,11 +229,11 @@ public class MoneyManager : MonoBehaviour {
 
     switch (currencyType) {
       case Currency.money:
-      money *= moneyMultiplier * eventMoneyMultiplier;
-      break;
+        money *= moneyMultiplier * eventMoneyMultiplier;
+        break;
       case Currency.bits:
-      money *= bitsMultiplier;
-      break;
+        money *= bitsMultiplier;
+        break;
     }
 
     return money;
@@ -245,19 +245,19 @@ public class MoneyManager : MonoBehaviour {
 
     switch (currencyType) {
       case Currency.money:
-      if (!isNegative) {
-        currencyGain *= moneyMultiplier * eventMoneyMultiplier;
-        gameManager.totalMoneyGained += currencyGain;
-      }
-      money += currencyGain;
-      break;
+        if (!isNegative) {
+          currencyGain *= moneyMultiplier * eventMoneyMultiplier;
+          gameManager.totalMoneyGained += currencyGain;
+        }
+        money += currencyGain;
+        break;
       case Currency.bits:
-      if (!isNegative) {
-        currencyGain *= bitsMultiplier;
-        gameManager.totalBitsGained += currencyGain;
-      }
-      bits += currencyGain;
-      break;
+        if (!isNegative) {
+          currencyGain *= bitsMultiplier;
+          gameManager.totalBitsGained += currencyGain;
+        }
+        bits += currencyGain;
+        break;
     }
   }
 
@@ -282,11 +282,11 @@ public class MoneyManager : MonoBehaviour {
 
     switch (currencyType) {
       case Currency.money:
-      moneyString = $"${moneyString}";
-      break;
+        moneyString = $"${moneyString}";
+        break;
       case Currency.bits:
-      moneyString = $"(${moneyString})";
-      break;
+        moneyString = $"(${moneyString})";
+        break;
     }
 
     return moneyString;
@@ -297,11 +297,11 @@ public class MoneyManager : MonoBehaviour {
 
     switch (currenyType) {
       case Currency.money:
-      color = moneyColor;
-      break;
+        color = moneyColor;
+        break;
       case Currency.bits:
-      color = bitsColor;
-      break;
+        color = bitsColor;
+        break;
     }
 
     return color;
@@ -311,13 +311,13 @@ public class MoneyManager : MonoBehaviour {
     bool hasEnoughMoney = false;
     switch (currencyType) {
       case Currency.money:
-      if (money >= amount)
-        hasEnoughMoney = true;
-      break;
+        if (money >= amount)
+          hasEnoughMoney = true;
+        break;
       case Currency.bits:
-      if (bits >= amount)
-        hasEnoughMoney = true;
-      break;
+        if (bits >= amount)
+          hasEnoughMoney = true;
+        break;
     }
     return hasEnoughMoney;
   }

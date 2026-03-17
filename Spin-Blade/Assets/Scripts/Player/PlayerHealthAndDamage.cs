@@ -159,7 +159,7 @@ public class PlayerHealthAndDamage : MonoBehaviour {
     // full health ping
     if (currentHealth >= maxHeath && oldHealth < maxHeath && oldHealth != oldMaxHealth) {
       SfxManager.PlaySfxAudioClip(fullHealthSound, 0.7f);
-      circleDamageFlash.FlashColor(circleFullHealFlashColor, 0.08f);
+      circleDamageFlash.Flash(circleFullHealFlashColor, 0.08f);
     }
 
     // update vars for health ping
@@ -329,7 +329,7 @@ public class PlayerHealthAndDamage : MonoBehaviour {
       flashColor = Color.white;
     currentHealth -= damage;
 
-    circleDamageFlash.FlashColor(flashColor, 0.08f);
+    circleDamageFlash.Flash(flashColor, 0.08f);
 
     Mathf.Clamp(currentHealth, 0, maxHeath);
   }

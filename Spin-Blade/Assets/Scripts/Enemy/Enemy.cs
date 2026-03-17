@@ -137,7 +137,7 @@ public class Enemy : MonoBehaviour {
     ParticleSpawner.SpawnBurstParticle(hitParticles, particlePos, color: hitColor);
     Utils.SpawnFloatingText(takeDamageText, transform.position, Math.Round(damageAmount, 2).ToString(), 6f, 0.3f, 40f, 0.45f, 0.15f, Color.white);
 
-    GetComponent<ObjectColorFlash>().FlashWhite(0.08f);
+    GetComponent<ObjectColorFlash>().Flash();
 
     if (knockback) {
       KnockbackFrom(Vector2.zero, distance, duration, curve);
