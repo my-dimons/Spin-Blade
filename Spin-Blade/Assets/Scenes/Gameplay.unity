@@ -82424,7 +82424,7 @@ MonoBehaviour:
   healthBar: {fileID: 1421786204}
   deathScreen: {fileID: 1581732367}
   circleDamageFlash: {fileID: 1094684729}
-  circleFullHealFlashColor: {r: 0.7788644, g: 1, b: 0.7704402, a: 1}
+  circleFullHealFlashColor: {r: 0.53139323, g: 1, b: 0.50628924, a: 1}
   dead: 0
   damage: 1
   sizeMultiplier: 1
