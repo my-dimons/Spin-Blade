@@ -23874,7 +23874,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: description
-      value: +5 health
+      value: +4 health
       objectReference: {fileID: 0}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: moneyManager
@@ -80006,7 +80006,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: description
-      value: +3 max Health
+      value: +2 max Health
       objectReference: {fileID: 0}
     - target: {fileID: 879352506774466442, guid: fa1ec5dbdac086944a38863908a832f6, type: 3}
       propertyPath: moneyManager
@@ -80259,7 +80259,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f69679b49ff3d954999dcd8683aec066, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHealthUpgrade
-  healthIncrease: 3
+  healthIncrease: 2
   regenIncrease: 0
   healthOnKillIncrease: 0
   reviveIncreases: 0
@@ -89732,7 +89732,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f69679b49ff3d954999dcd8683aec066, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHealthUpgrade
-  healthIncrease: 5
+  healthIncrease: 4
   regenIncrease: 0
   healthOnKillIncrease: 0
   reviveIncreases: 0
