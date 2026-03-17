@@ -57,28 +57,25 @@ public class Enemy : MonoBehaviour {
   }
 
   MoneyManager moneyManager;
-  EnemyManager enemyManager;
   PlayerHealthAndDamage playerHealth;
 
   void Start() {
-    enemyManager = EnemyManager.Instance;
     playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealthAndDamage>();
     moneyManager = MoneyManager.Instance;
 
     //speed *= enemyManager.difficulty;
 
-    if (!TryGetComponent<BossEnemy>(out _)) {
-      damage *= enemyManager.difficulty;
-      maxHealth *= enemyManager.difficulty;
+    damage = GetCalculatedDamage();
+    maxHealth = GetCalculatedMaxHealth();
 
-      currentHealth = maxHealth;
-    }
+    currentHealth = maxHealth;
   }
 
   private void FixedUpdate() {
     if (target != null)
       EnemyMovement();
   }
+
   private void Update() {
     transform.Rotate(0, 0, rotateSpeed * Time.deltaTime);
 
@@ -97,7 +94,7 @@ public class Enemy : MonoBehaviour {
     if (rotateSpeed == 0)
       RotateTowardsTarget(target);
 
-    transform.position = Vector2.MoveTowards(transform.position, target.transform.position, speed * Time.deltaTime * enemyManager.enemySpeedMultiplier);
+    transform.position = Vector2.MoveTowards(transform.position, target.transform.position, speed * Time.deltaTime * EnemyManager.Instance.enemySpeedMultiplier);
   }
 
   private void OnTriggerEnter2D(Collider2D other) {
@@ -118,6 +115,29 @@ public class Enemy : MonoBehaviour {
     if (other.CompareTag("Circle") && currentHealth > 0) {
       HitCircle();
     }
+  }
+  public float GetCalculatedDamage() {
+    float calculatedDamage = 0;
+
+    if (!TryGetComponent(out BossEnemy boss)) {
+      calculatedDamage = damage * EnemyManager.Instance.difficulty;
+    } else {
+      calculatedDamage = boss.CalculateDamage();
+    }
+
+    return (float)Math.Round(calculatedDamage, 2);
+  }
+
+  public float GetCalculatedMaxHealth() {
+    float calculatedHealth = 0;
+
+    if (!TryGetComponent(out BossEnemy boss)) {
+      calculatedHealth = maxHealth * EnemyManager.Instance.difficulty;
+    } else {
+      calculatedHealth = boss.CalculateMaxHealth();
+    }
+
+    return (float)Math.Round(calculatedHealth, 2);
   }
 
   public void TakeDamage(Transform attacker, float damageAmount, Vector3 particlePos, float distance = 0, float duration = 0, AnimationCurve curve = null, bool knockback = false) {
@@ -142,7 +162,6 @@ public class Enemy : MonoBehaviour {
     if (knockback) {
       KnockbackFrom(Vector2.zero, distance, duration, curve);
     }
-
   }
   /// <summary>
   /// Moves the enemy away from a point by a given distance, following an animation curve.

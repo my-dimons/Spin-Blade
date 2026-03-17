@@ -139,6 +139,7 @@ public class MoneyManager : MonoBehaviour {
     moneyPerSecondText.text = moneyPerSecondString;
 
     #region money per second text anchoring
+    // Could be completely ignored if using a horizontal layout group. TODO.
     string text = moneyText.text;
     int anchorIndex = text.Length - 1;
 
