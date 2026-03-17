@@ -971,6 +971,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   difficulty: 1
   moneyMultiplier: 1
+  crtEnabled: 0
 --- !u!4 &59903994
 Transform:
   m_ObjectHideFlags: 0
@@ -54808,6 +54809,9 @@ MonoBehaviour:
   musicSliders:
   - {fileID: 1202211580}
   - {fileID: 645165686}
+  crtRendererFeature: {fileID: -7034041735436631951, guid: 424799608f7334c24bf367e4bbfa7f9a, type: 2}
+  crtMaterial: {fileID: 2100000, guid: c4ab611945a1ebe43985bd2941acfd2c, type: 2}
+  defaultMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   winScreen: {fileID: 2057161293}
   winTime: 15
   timeText: {fileID: 647402314}
@@ -82466,7 +82470,7 @@ MonoBehaviour:
   miniSaws: []
   miniSawPrefab: {fileID: 734129064361634801, guid: 0425f3bb76713f74597db754a0e730d1, type: 3}
   miniSawParent: {fileID: 1840048646}
-  miniSawBaseSpeed: 0.8
+  miniSawSpeed: 1
   miniSawDamage: 0.5
   unlockedRangedTriangles: 0
   rotationPivot: {fileID: 1094684725}

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;
 using UnityUtils.ScriptUtils.Audio;
 
@@ -9,6 +10,11 @@ public class GameManager : MonoBehaviour {
   [Header("Volume Settings")]
   public Slider[] sfxSliders;
   public Slider[] musicSliders;
+
+  [Header("CRT Shader Settings")]
+  public FullScreenPassRendererFeature crtRendererFeature;
+  public Material crtMaterial;
+  public Material defaultMaterial;
 
   [Header("Win Screen")]
   public GameObject winScreen;
@@ -38,6 +44,12 @@ public class GameManager : MonoBehaviour {
 
   private void Update() {
     totalTimePlayed += Time.deltaTime;
+
+    if (difficultyVariables.crtEnabled) {
+      crtRendererFeature.passMaterial = crtMaterial;
+    } else {
+      crtRendererFeature.passMaterial = defaultMaterial;
+    }
   }
 
   public void LoadMenu() {

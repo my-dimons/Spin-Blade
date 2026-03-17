@@ -50,7 +50,7 @@ public class PlayerHealthAndDamage : MonoBehaviour {
   public GameObject miniSawPrefab;
   public GameObject miniSawParent;
   [Header("Stats")]
-  public float miniSawBaseSpeed = 1f;
+  public float miniSawSpeed = 1f;
   public float miniSawDamage = 1f;
 
   [Space(10)]
@@ -152,6 +152,12 @@ public class PlayerHealthAndDamage : MonoBehaviour {
       }
     }
 
+    // Mini saws stats update
+    foreach (GameObject saw in miniSaws) {
+      saw.GetComponent<Projectile>().damage = miniSawDamage;
+      saw.GetComponent<PlayerMiniSaw>().speed = miniSawSpeed;
+    }
+
     // clamp health & add regen
     float regenAmount = maxHeath * regenPerSecond / 100;
     currentHealth = Mathf.Clamp(currentHealth += regenAmount * Time.deltaTime, 0, maxHeath);
@@ -178,9 +184,16 @@ public class PlayerHealthAndDamage : MonoBehaviour {
   [ContextMenu("Spawn Mini Sawblade")]
   public void SpawnSaw() {
     GameObject saw = Instantiate(miniSawPrefab, Vector3.zero, Quaternion.identity);
-    saw.GetComponent<PlayerMiniSaw>().speed = miniSawBaseSpeed;
+    saw.GetComponent<PlayerMiniSaw>().speed = miniSawSpeed;
     saw.GetComponent<Projectile>().damage = miniSawDamage;
     saw.transform.parent = miniSawParent.transform;
+
+    // Set random offset and direction
+    saw.GetComponent<PlayerMiniSaw>().SetOffset(Random.Range(0f, 360f));
+    if (Random.value > 0.5f) {
+      saw.GetComponent<PlayerMiniSaw>().ReverseDirection();
+    }
+
     miniSaws.Add(saw);
 
     // when a saw spawns it picks a random point along a circle to spawn
