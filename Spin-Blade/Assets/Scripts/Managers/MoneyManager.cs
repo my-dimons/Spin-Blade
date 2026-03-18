@@ -16,7 +16,7 @@ public class MoneyManager : MonoBehaviour {
   }
 
   public static Color moneyColor = Utils.ColorFromHex("#FFF564");
-  public static Color bitsColor = Utils.ColorFromHex("64C8FF");
+  public static Color bitsColor = Utils.ColorFromHex("#64C8FF");
 
   [Header("-- Money --")]
   public float money;
