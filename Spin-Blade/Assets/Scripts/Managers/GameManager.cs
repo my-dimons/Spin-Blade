@@ -53,9 +53,11 @@ public class GameManager : MonoBehaviour {
     totalTimePlayed += Time.deltaTime;
 
     if (difficultyVariables.crtEnabled) {
-      crtRendererFeature.passMaterial = crtMaterial;
+      if (crtMaterial != null)
+        crtRendererFeature.passMaterial = crtMaterial;
     } else {
-      crtRendererFeature.passMaterial = defaultMaterial;
+      if (defaultMaterial != null)
+        crtRendererFeature.passMaterial = defaultMaterial;
     }
   }
 

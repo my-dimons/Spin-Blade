@@ -96,15 +96,6 @@ public class Upgrade : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler 
   public Color fullyBoughtOutlineColor;
 
   [Header("Background Color")]
-  public BackgroundPresetColors backgroundColorTintDropdown;
-  public Color backgroundTintColor;
-  public enum BackgroundPresetColors {
-    None,
-    Enemy,
-    Health,
-    Money,
-    Damage
-  }
 
   [Space(20)]
   [Header("|--- Skill Tree ---|")]
@@ -131,25 +122,6 @@ public class Upgrade : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler 
     }
 
 
-    // bg color
-    switch (backgroundColorTintDropdown) {
-      case BackgroundPresetColors.None:
-        backgroundTintColor = Color.white;
-        break;
-      case BackgroundPresetColors.Enemy:
-        backgroundTintColor = Utils.ColorFromHex("#FFAEAE");
-        break;
-      case BackgroundPresetColors.Health:
-        backgroundTintColor = Utils.ColorFromHex("#A4FFAC");
-        break;
-      case BackgroundPresetColors.Money:
-        backgroundTintColor = Utils.ColorFromHex("#FFEF99");
-        break;
-      case BackgroundPresetColors.Damage:
-        backgroundTintColor = Utils.ColorFromHex("#AED4FF");
-        break;
-    }
-
     if (TryGetComponent<EnemyUpgrade>(out EnemyUpgrade enemyUpgrade)) {
       if (enemyUpgrade.addEnemy != null)
         enemyPopup = true;
@@ -169,9 +141,6 @@ public class Upgrade : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler 
   }
 
   private void UpdateObjects() {
-    // update background tint
-    backgroundObject.GetComponent<Image>().color = backgroundTintColor;
-
     // disable price when at max lvl (or locked, but not when unlockable)
     if ((currentLevel >= maxLevel && maxLevel != 0) || locked && !unlockable) {
       priceParentObject.SetActive(false);
