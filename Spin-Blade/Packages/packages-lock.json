@@ -18,7 +18,7 @@
         "com.coffee.ui-particle": "https://github.com/mob-sakai/ParticleEffectForUGUI.git",
         "com.unity.nuget.newtonsoft-json": "3.2.1"
       },
-      "hash": "1b2bfa2c3bc3c0f48efe2a6bb81697952f949c61"
+      "hash": "e983a11e812301161321e3dcb67aaa67ca8c266d"
     },
     "com.unity.2d.animation": {
       "version": "12.0.2",
