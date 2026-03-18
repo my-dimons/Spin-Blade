@@ -12,6 +12,9 @@ public class GameManager : MonoBehaviour {
   public Slider[] musicSliders;
 
   [Header("CRT Shader Settings")]
+  public Button crtToggle;
+  public GameObject crtToggleCheckmark;
+  [Space(10)]
   public FullScreenPassRendererFeature crtRendererFeature;
   public Material crtMaterial;
   public Material defaultMaterial;
@@ -40,6 +43,10 @@ public class GameManager : MonoBehaviour {
 
   private void Start() {
     difficultyVariables = DifficultyVariables.Instance;
+
+    crtToggle.onClick.AddListener(() => {
+      UpdateCRTEnabled(!difficultyVariables.crtEnabled);
+    });
   }
 
   private void Update() {
@@ -55,6 +62,11 @@ public class GameManager : MonoBehaviour {
   public void LoadMenu() {
     SceneLoader.GetInstance().LoadSceneWithAnimation("Menu");
     Time.timeScale = 1;
+  }
+
+  public void UpdateCRTEnabled(bool enable) {
+    difficultyVariables.crtEnabled = enable;
+    crtToggleCheckmark.SetActive(enable);
   }
 
   public void LoadGame(float difficulty = 1) {
