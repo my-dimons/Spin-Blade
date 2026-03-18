@@ -44,9 +44,11 @@ public class GameManager : MonoBehaviour {
   private void Start() {
     difficultyVariables = DifficultyVariables.Instance;
 
-    crtToggle.onClick.AddListener(() => {
-      UpdateCRTEnabled(!difficultyVariables.crtEnabled);
-    });
+    if (crtToggle != null) {
+      crtToggle.onClick.AddListener(() => {
+        UpdateCRTEnabled(!difficultyVariables.crtEnabled);
+      });
+    }
   }
 
   private void Update() {

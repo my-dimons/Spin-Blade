@@ -17,9 +17,13 @@ ShaderVariantCollection:
         passType: 0
       - keywords: COLOR_FILTER GRADATION_GRADIENT
         passType: 0
+      - keywords: COLOR_FILTER TRANSITION_PATTERN
+        passType: 0
       - keywords: DETAIL_MASKING EDGE_SHINY
         passType: 0
       - keywords: DETAIL_MULTIPLY EDGE_SHINY
+        passType: 0
+      - keywords: DETAIL_REPLACE TRANSITION_PATTERN
         passType: 0
       - keywords: EDGE_PLAIN
         passType: 0
@@ -27,13 +31,43 @@ ShaderVariantCollection:
         passType: 0
       - keywords: EDGE_SHINY
         passType: 0
+      - keywords: EDGE_SHINY GRADATION_COLOR2
+        passType: 0
+      - keywords: EDGE_SHINY GRADATION_GRADIENT
+        passType: 0
+      - keywords: EDGE_SHINY TRANSITION_DISSOLVE
+        passType: 0
+      - keywords: EDGE_SHINY TRANSITION_FADE
+        passType: 0
       - keywords: EDGE_SHINY TRANSITION_PATTERN
+        passType: 0
+      - keywords: EDGE_SHINY TRANSITION_SHINY
         passType: 0
       - keywords: GRADATION_COLOR2
         passType: 0
+      - keywords: GRADATION_COLOR2 TRANSITION_PATTERN
+        passType: 0
+      - keywords: SAMPLING_BLUR_DETAIL TRANSITION_PATTERN
+        passType: 0
+      - keywords: SAMPLING_BLUR_FAST TRANSITION_PATTERN
+        passType: 0
+      - keywords: SAMPLING_BLUR_MEDIUM TRANSITION_PATTERN
+        passType: 0
+      - keywords: SAMPLING_PIXELATION TRANSITION_PATTERN
+        passType: 0
+      - keywords: TARGET_HUE TRANSITION_PATTERN
+        passType: 0
       - keywords: TONE_GRAYSCALE
         passType: 0
+      - keywords: TONE_GRAYSCALE TRANSITION_PATTERN
+        passType: 0
+      - keywords: TONE_NEGATIVE
+        passType: 0
+      - keywords: TONE_NEGATIVE TRANSITION_PATTERN
+        passType: 0
       - keywords: TONE_POSTERIZE
+        passType: 0
+      - keywords: TONE_POSTERIZE TRANSITION_PATTERN
         passType: 0
       - keywords: TONE_SEPIA
         passType: 0
@@ -50,6 +84,23 @@ ShaderVariantCollection:
       - keywords: TRANSITION_PATTERN
         passType: 0
       - keywords: TRANSITION_SHINY
+        passType: 0
+  - first: {fileID: 4800000, guid: 935b7be1c88464d2eb87204fdfab5a38, type: 3}
+    second:
+      variants:
+      - keywords: COLOR_FILTER
+        passType: 0
+      - keywords: EDGE_SHINY
+        passType: 0
+      - keywords: TONE_GRAYSCALE
+        passType: 0
+      - keywords: TONE_NEGATIVE
+        passType: 0
+      - keywords: TONE_POSTERIZE
+        passType: 0
+      - keywords: TONE_SEPIA
+        passType: 0
+      - keywords: TRANSITION_PATTERN
         passType: 0
 --- !u!114 &11400000
 MonoBehaviour:
@@ -71,6 +122,22 @@ MonoBehaviour:
     m_OptionalShaders:
     - key: Hidden/UI/Default (SoftMaskable)
       value: Hidden/UI/Default (UIEffect)
+    - key: Hidden/TextMeshPro/Bitmap (SoftMaskable)
+      value: Hidden/TextMeshPro/Bitmap (UIEffect)
+    - key: Hidden/TextMeshPro/Distance Field (SoftMaskable)
+      value: Hidden/TextMeshPro/Distance Field (UIEffect)
+    - key: Hidden/TextMeshPro/Distance Field Overlay (SoftMaskable)
+      value: Hidden/TextMeshPro/Distance Field Overlay (UIEffect)
+    - key: Hidden/TextMeshPro/Distance Field SSD (SoftMaskable)
+      value: Hidden/TextMeshPro/Distance Field SSD (UIEffect)
+    - key: Hidden/TextMeshPro/Mobile/Bitmap (SoftMaskable)
+      value: Hidden/TextMeshPro/Mobile/Bitmap (UIEffect)
+    - key: Hidden/TextMeshPro/Mobile/Distance Field (SoftMaskable)
+      value: Hidden/TextMeshPro/Mobile/Distance Field (UIEffect)
+    - key: Hidden/TextMeshPro/Mobile/Distance Field Overlay (SoftMaskable)
+      value: Hidden/TextMeshPro/Mobile/Distance Field Overlay (UIEffect)
+    - key: Hidden/TextMeshPro/Mobile/Distance Field SSD (SoftMaskable)
+      value: Hidden/TextMeshPro/Mobile/Distance Field SSD (UIEffect)
     m_Asset: {fileID: -7032825656603850536}
     m_ErrorOnUnregisteredVariant: 0
     m_UnregisteredVariants: []
