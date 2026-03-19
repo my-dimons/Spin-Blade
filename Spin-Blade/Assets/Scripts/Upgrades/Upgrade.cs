@@ -1,450 +1,379 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Security.Cryptography;
 using TMPro;
-using Unity.Collections;
-using Unity.Jobs;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using UnityUtils.ScriptUtils.Audio;
 using UnityUtils.ScriptUtils.Particles;
-using UnityUtils.ScriptUtils.UI;
 
-public class Upgrade : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
-{
-    [Header("SFX")]
-    public AudioClip buySound;
+public class Upgrade : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
+  [Header("SFX")]
+  public AudioClip buySound;
 
-    [Space(20)]
-    [Header("|--- Upgrade Values ---|")]
-    [Header("Details")]
-    public Sprite image; // square image, preferibly somethings like 512x512
-    public string title;
-    [TextArea]
-    public string description;
+  [Space(20)]
+  [Header("|--- Upgrade Values ---|")]
+  [Header("Details")]
+  public Sprite image; // square image, preferibly somethings like 512x512
+  public string title;
+  [TextArea]
+  public string description;
 
-    [Header("Price")]
-    public float price;
-    public MoneyManager.Currency priceCurrencyType = MoneyManager.Currency.money;
-    public float priceIncrease;
+  [Header("Price")]
+  public float price;
+  public MoneyManager.Currency priceCurrencyType = MoneyManager.Currency.money;
+  public float priceIncrease;
 
-    [Header("Level")]
-    [Tooltip("Set this to 0 to have no limit on level")]
-    public int maxLevel;
-    private int currentLevel;
+  [Header("Level")]
+  [Tooltip("Set this to 0 to have no limit on level")]
+  public int maxLevel;
+  public int currentLevel;
 
-    [Header("|--- Upgrade Values ---|")]
-    [Space(20)]
-    [Header("|--- Upgrade Objects ---|")]
-    [Header("Details Objects")]
-    public Image imageObject;
-    public TextMeshProUGUI descriptionObject;
-    public TextMeshProUGUI titleObject;
-    public GameObject priceParentObject;
-    public TextMeshProUGUI priceObject;
-    public TextMeshProUGUI maxLevelObject;
+  [Header("|--- Upgrade Values ---|")]
+  [Space(20)]
+  [Header("|--- Upgrade Objects ---|")]
+  [Header("Details Objects")]
+  public Image imageObject;
+  public TextMeshProUGUI descriptionObject;
+  public TextMeshProUGUI titleObject;
+  public GameObject priceParentObject;
+  public TextMeshProUGUI priceObject;
+  public TextMeshProUGUI maxLevelObject;
 
-    [Space(10)]
-    [Header("Visual Objects")]
-    public GameObject popupObject;
-    // enemy popup
-    [Space(8)]
-    public GameObject enemyPopupObject;
-    public TextMeshProUGUI enemyPopupValueText;
-    public TextMeshProUGUI enemyPopupDamageText;
-    public TextMeshProUGUI enemyPopupHealthText;
-    [Space(10)]
-    public Image enemyPopupValueIconMoney;
-    public Image enemyPopupValueIconBits;
-    [Space(10)]
-    private bool enemyPopup;
-    [Space(10)]
-    public GameObject outlineObject;
-    public GameObject backgroundObject;
-    public GameObject tileObject;
-    [Space(10)]
-    [Header("Lock")]
-    public GameObject miniLockObject;
-    public GameObject lockObject;
-    [Space(10)]
-    public GameObject buyParticlesPrefab;
-    [Header("Buttons")]
-    public GameObject buyButton;
-    [Header("|--- Upgrade Objects ---|")]
-    [Header("|--- Skill Tree ---|")]
+  [Space(10)]
+  [Header("Visual Objects")]
+  public GameObject popupObject;
+  // enemy popup
+  [Space(8)]
+  public GameObject enemyPopupObject;
+  public TextMeshProUGUI enemyPopupValueText;
+  public TextMeshProUGUI enemyPopupDamageText;
+  public TextMeshProUGUI enemyPopupHealthText;
+  [Space(10)]
+  public Image enemyPopupValueIconMoney;
+  public Image enemyPopupValueIconBits;
+  [Space(10)]
+  private bool enemyPopup;
+  [Space(10)]
+  public GameObject outlineObject;
+  public GameObject backgroundObject;
+  public GameObject tileObject;
+  [Space(10)]
+  [Header("Lock")]
+  public GameObject miniLockObject;
+  public GameObject lockObject;
+  [Space(10)]
+  public GameObject buyParticlesPrefab;
+  [Header("Buttons")]
+  public GameObject buyButton;
+  [Header("|--- Upgrade Objects ---|")]
+  [Header("|--- Skill Tree ---|")]
 
-    [Header("-- Extra --")]
-    public bool onlyNeedsOnePrecursor; // otherwise needs all precursors to be bought
-    public bool precursorsMustBeMaxxed;
-    [Header("Buyable Status")]
-    public bool canBeBought;
-    public bool bought;
-    [Header("Locked Status")]
-    public bool lockable;
-    public bool locked;
-    public bool unlockable = true; // can be bought with a special currency when locked
-    public MoneyManager.Currency unlockableCurrency = MoneyManager.Currency.bits;
-    public float unlockablePrice = 1;
-    [Space(20)]
+  [Header("-- Extra --")]
+  public bool onlyNeedsOnePrecursor; // otherwise needs all precursors to be bought
+  public bool precursorsMustBeMaxxed;
+  [Header("Buyable Status")]
+  public bool canBeBought;
+  public bool bought;
+  [Header("Locked Status")]
+  public bool lockable;
+  public bool locked;
+  public bool unlockable = true; // can be bought with a special currency when locked
+  public MoneyManager.Currency unlockableCurrency = MoneyManager.Currency.bits;
+  public float unlockablePrice = 1;
+  [Space(20)]
 
-    [Header("Precursors/Postcursors")]
-    public GameObject[] skillTreePrecursors; // other skills that need to be bought before this one
-    public List<GameObject> skillTreePostcursors;
+  [Header("Precursors/Postcursors")]
+  public GameObject[] skillTreePrecursors; // other skills that need to be bought before this one
+  public List<GameObject> skillTreePostcursors;
 
-    [Header("-- Colors --")]
-    [Header("Outline Colors")]
-    public Color baseOutlineColor;
-    public Color canBeBoughtOutlineColor;
-    public Color boughtOutlineColor;
-    public Color fullyBoughtOutlineColor;
+  [Header("-- Colors --")]
+  [Header("Outline Colors")]
+  public Color baseOutlineColor;
+  public Color canBeBoughtOutlineColor;
+  public Color boughtOutlineColor;
+  public Color fullyBoughtOutlineColor;
 
-    [Header("Background Color")]
-    public BackgroundPresetColors backgroundColorTintDropdown;
-    public Color backgroundTintColor;
-    public enum BackgroundPresetColors
-    {
-        None,
-        Enemy,
-        Health,
-        Money,
-        Damage
+  [Header("Background Color")]
+
+  [Space(20)]
+  [Header("|--- Skill Tree ---|")]
+  [Space(20)]
+
+  bool updateSkillTree = false;
+  MoneyManager moneyManager;
+
+  [HideInInspector] public event Action OnBuyUpgrade;
+
+  private void OnValidate() {
+    UpdateStatText();
+  }
+
+  // Start is called once before the first execution of Update after the MonoBehaviour is created
+  void Start() {
+    if (moneyManager == null)
+      moneyManager = MoneyManager.Instance;
+
+    canBeBought = false;
+
+    if (skillTreePrecursors == null) {
+      canBeBought = true;
     }
 
-    [Space(20)]
-    [Header("|--- Skill Tree ---|")]
-    [Space(20)]
 
-    bool updateSkillTree = false;
-    MoneyManager moneyManager;
-
-    private void OnValidate()
-    {
-        UpdateStatText();
+    if (TryGetComponent<EnemyUpgrade>(out EnemyUpgrade enemyUpgrade)) {
+      if (enemyUpgrade.addEnemy != null)
+        enemyPopup = true;
     }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        if (moneyManager == null)
-            moneyManager = MoneyManager.Instance;
+    StartCoroutine(SkillTreeDelay());
+    IEnumerator SkillTreeDelay() {
+      yield return new WaitForSecondsRealtime(0.1f);
+      updateSkillTree = true;
+    }
+  }
 
-        canBeBought = false;
+  // Update is called once per frame
+  void Update() {
+    if (updateSkillTree)
+      UpdateObjects();
+  }
 
-        if (skillTreePrecursors == null)
-        {
-            canBeBought = true;
-        }
-
-
-        // bg color
-        switch (backgroundColorTintDropdown)
-        {
-            case BackgroundPresetColors.None: backgroundTintColor = Color.white; break;
-            case BackgroundPresetColors.Enemy: backgroundTintColor = Utils.ColorFromHex("#FFAEAE"); break;
-            case BackgroundPresetColors.Health: backgroundTintColor = Utils.ColorFromHex("#A4FFAC"); break;
-            case BackgroundPresetColors.Money: backgroundTintColor = Utils.ColorFromHex("#FFEF99"); break;
-            case BackgroundPresetColors.Damage: backgroundTintColor = Utils.ColorFromHex("#AED4FF"); break;
-        }
-
-        if (TryGetComponent<EnemyUpgrade>(out EnemyUpgrade enemyUpgrade))
-        {
-            if (enemyUpgrade.addEnemy != null)
-                enemyPopup = true;
-        }
-
-        StartCoroutine(SkillTreeDelay());
-        IEnumerator SkillTreeDelay()
-        {
-            yield return new WaitForSecondsRealtime(0.1f);
-            updateSkillTree = true;
-        }
+  private void UpdateObjects() {
+    // disable price when at max lvl (or locked, but not when unlockable)
+    if ((currentLevel >= maxLevel && maxLevel != 0) || locked && !unlockable) {
+      priceParentObject.SetActive(false);
+    } else {
+      priceParentObject.SetActive(true);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (updateSkillTree)
-            UpdateObjects();
-    }
+    UpdateBuyableStatus();
 
-    private void UpdateObjects()
-    {
-        // update background tint
-        backgroundObject.GetComponent<Image>().color = backgroundTintColor;
+    UpdateOutlineColor();
 
-        // disable price when at max lvl (or locked, but not when unlockable)
-        if ((currentLevel >= maxLevel && maxLevel != 0) || locked && !unlockable)
-        {
-            priceParentObject.SetActive(false);
-        }
-        else
-        {
-            priceParentObject.SetActive(true);
-        }
+    UpdateStatText();
 
-        UpdateBuyableStatus();
+    Locking();
 
-        UpdateOutlineColor();
+    EnemyPopup(); // (if enemy upg)
+  }
 
-        UpdateStatText();
-
-        Locking();
-
-        EnemyPopup(); // (if enemy upg)
-    }
-
-    private void UpdateBuyableStatus()
-    {
-        if (!canBeBought)
-        {
-            // check if all precursors are bought
-            List<GameObject> boughtPrecursors = new();
-            foreach (GameObject precursor in skillTreePrecursors)
-            {
-                Upgrade precursorUpgrade = precursor.GetComponent<Upgrade>();
-                if (precursorUpgrade.bought)
-                    boughtPrecursors.Add(precursor);
+  private void UpdateBuyableStatus() {
+    if (!canBeBought) {
+      // check if all precursors are bought
+      List<GameObject> boughtPrecursors = new();
+      foreach (GameObject precursor in skillTreePrecursors) {
+        Upgrade precursorUpgrade = precursor.GetComponent<Upgrade>();
+        if (precursorUpgrade.bought)
+          boughtPrecursors.Add(precursor);
+      }
+      if (boughtPrecursors.Count >= skillTreePrecursors.Length || (onlyNeedsOnePrecursor && boughtPrecursors.Count > 0)) {
+        if (precursorsMustBeMaxxed) {
+          // check if all precursors are maxed
+          bool allMaxed = true;
+          foreach (GameObject precursor in skillTreePrecursors) {
+            Upgrade precursorUpgrade = precursor.GetComponent<Upgrade>();
+            if (precursorUpgrade.currentLevel < precursorUpgrade.maxLevel) {
+              allMaxed = false;
+              break;
             }
-            if (boughtPrecursors.Count >= skillTreePrecursors.Length || (onlyNeedsOnePrecursor && boughtPrecursors.Count > 0))
-            {
-                if (precursorsMustBeMaxxed)
-                {
-                    // check if all precursors are maxed
-                    bool allMaxed = true;
-                    foreach (GameObject precursor in skillTreePrecursors)
-                    {
-                        Upgrade precursorUpgrade = precursor.GetComponent<Upgrade>();
-                        if (precursorUpgrade.currentLevel < precursorUpgrade.maxLevel)
-                        {
-                            allMaxed = false;
-                            break;
-                        }
-                    }
-                    canBeBought = allMaxed;
-                }
-                else
-                    canBeBought = true;
-            }
-        }
-
-        // check if player has enough money, if not disable the button
-        Button button = buyButton.GetComponent<Button>();
-        if (moneyManager.HasEnoughMoney(price, priceCurrencyType) && canBeBought && (currentLevel < maxLevel || maxLevel == 0) && !locked)
-            button.interactable = true;
-        else if (moneyManager.HasEnoughMoney(unlockablePrice, unlockableCurrency) && locked && unlockable)
-        {
-            button.interactable = true;
-            float lockObjOpactiy = 0.5f; // 0-1
-            lockObject.GetComponent<Image>().color = new(Color.white.r, Color.white.g, Color.white.b, lockObjOpactiy);
-        }
-        else
-        {
-            button.GetComponent<Button>().interactable = false;
-            lockObject.GetComponent<Image>().color = Color.white;
-        }
-    }
-
-    private void EnemyPopup()
-    {
-        if (enemyPopup)
-        {
-            enemyPopupObject.SetActive(true);
-            EnemyUpgrade stats = GetComponent<EnemyUpgrade>();
-            Enemy enemy = stats.addEnemy;
-
-            // -- seting stats --
-
-            // set value
-            switch (enemy.valueCurrencyType)
-            {
-                case MoneyManager.Currency.money:
-                    enemyPopupValueIconBits.gameObject.SetActive(false);
-                    enemyPopupValueIconMoney.gameObject.SetActive(true);
-                    break;
-                case MoneyManager.Currency.bits:
-                    enemyPopupValueIconBits.gameObject.SetActive(true);
-                    enemyPopupValueIconMoney.gameObject.SetActive(false);
-                    break;
-                default:
-                    Debug.LogError("Enemy has no currency type set!");
-                    break;
-            }
-            
-            enemyPopupValueText.text = MoneyManager.GetMoneyString(enemy.value, enemy.valueCurrencyType).ToString();
-            enemyPopupValueText.color = MoneyManager.GetCurrencyColor(enemy.valueCurrencyType);
-            
-            enemyPopupHealthText.text = enemy.maxHealth.ToString();
-            enemyPopupDamageText.text = enemy.damage.ToString();
-        }
-        else
-        {
-            enemyPopupObject.SetActive(false);
-        }
-    }
-
-    private void Locking()
-    {
-        // get every precursor, then get their postcursors, if *any* postcurosors have been bought, lock this obj
-        if (lockable)
-        {
-            foreach (GameObject precursor in skillTreePrecursors)
-            {
-                foreach (GameObject postcursor in precursor.GetComponent<Upgrade>().skillTreePostcursors)
-                {
-                    Upgrade postcursorUpgrade = postcursor.GetComponent<Upgrade>();
-                    if (postcursorUpgrade.bought && postcursor != this.gameObject && postcursorUpgrade.lockable)
-                    {
-                        locked = true;
-                        lockable = false;
-                    } else if (postcursor.GetComponent<Upgrade>().locked)
-                    {
-                        lockable = false;
-                    }
-                }
-            }
-        }
-
-        // locking visual objects
-        if (lockable && !locked)
-        {
-            miniLockObject.SetActive(true);
-            lockObject.SetActive(false);
-        }
-        else if (locked)
-        {
-            miniLockObject.SetActive(false);
-            lockObject.SetActive(true);
+          }
+          canBeBought = allMaxed;
         } else
-        {
-            miniLockObject.SetActive(false);
-            lockObject.SetActive(false);
+          canBeBought = true;
+      }
+    }
+
+    // check if player has enough money, if not disable the button
+    Button button = buyButton.GetComponent<Button>();
+    if (moneyManager.HasEnoughMoney(price, priceCurrencyType) && canBeBought && (currentLevel < maxLevel || maxLevel == 0) && !locked)
+      button.interactable = true;
+    else if (moneyManager.HasEnoughMoney(unlockablePrice, unlockableCurrency) && locked && unlockable) {
+      button.interactable = true;
+      float lockObjOpactiy = 0.5f; // 0-1
+      lockObject.GetComponent<Image>().color = new(Color.white.r, Color.white.g, Color.white.b, lockObjOpactiy);
+    } else {
+      button.GetComponent<Button>().interactable = false;
+      lockObject.GetComponent<Image>().color = Color.white;
+    }
+  }
+
+  private void EnemyPopup() {
+    if (enemyPopup) {
+      enemyPopupObject.SetActive(true);
+      EnemyUpgrade stats = GetComponent<EnemyUpgrade>();
+      Enemy enemy = stats.addEnemy;
+
+      // -- seting stats --
+
+      // set values
+      switch (enemy.valueCurrencyType) {
+        case MoneyManager.Currency.money:
+          enemyPopupValueIconBits.gameObject.SetActive(false);
+          enemyPopupValueIconMoney.gameObject.SetActive(true);
+          break;
+        case MoneyManager.Currency.bits:
+          enemyPopupValueIconBits.gameObject.SetActive(true);
+          enemyPopupValueIconMoney.gameObject.SetActive(false);
+          break;
+        default:
+          Debug.LogError("Enemy has no currency type set!");
+          break;
+      }
+
+      // Get enemy value based on if its a currency enemy or not
+      float enemyValue = 0;
+      if (enemy.TryGetComponent(out CurrencyEnemy currencyEnemy)) {
+        enemyValue = currencyEnemy.currencyGain;
+      } else {
+        enemyValue = enemy.value;
+      }
+      enemyValue = MoneyManager.Instance.CalculateCurrency(enemyValue, enemy.valueCurrencyType);
+
+      enemyPopupValueText.text = MoneyManager.GetMoneyString(enemyValue, enemy.valueCurrencyType).ToString();
+      enemyPopupValueText.color = MoneyManager.GetCurrencyColor(enemy.valueCurrencyType);
+
+      enemyPopupHealthText.text = enemy.GetCalculatedMaxHealth().ToString();
+      enemyPopupDamageText.text = enemy.GetCalculatedDamage().ToString();
+    } else {
+      enemyPopupObject.SetActive(false);
+    }
+  }
+
+  private void Locking() {
+    // get every precursor, then get their postcursors, if *any* postcurosors have been bought, lock this obj
+    if (lockable) {
+      foreach (GameObject precursor in skillTreePrecursors) {
+        foreach (GameObject postcursor in precursor.GetComponent<Upgrade>().skillTreePostcursors) {
+          Upgrade postcursorUpgrade = postcursor.GetComponent<Upgrade>();
+          if (postcursorUpgrade.bought && postcursor != this.gameObject && postcursorUpgrade.lockable) {
+            locked = true;
+            lockable = false;
+          } else if (postcursor.GetComponent<Upgrade>().locked) {
+            lockable = false;
+          }
         }
+      }
     }
 
-    private void UpdateOutlineColor()
-    {
-        Image outlineImage = outlineObject.GetComponent<Image>();
-        if ((canBeBought || bought) && !locked)
-        {
-            if (currentLevel >= maxLevel && maxLevel != 0)
-                outlineImage.color = fullyBoughtOutlineColor;
-            else if (currentLevel > 0)
-                outlineImage.color = boughtOutlineColor;
-            else
-                outlineImage.color = canBeBoughtOutlineColor;
-        }
-        else
-        {
-            outlineImage.color = baseOutlineColor;
-        }
+    // locking visual objects
+    if (lockable && !locked) {
+      miniLockObject.SetActive(true);
+      lockObject.SetActive(false);
+    } else if (locked) {
+      miniLockObject.SetActive(false);
+      lockObject.SetActive(true);
+    } else {
+      miniLockObject.SetActive(false);
+      lockObject.SetActive(false);
+    }
+  }
+
+  private void UpdateOutlineColor() {
+    Image outlineImage = outlineObject.GetComponent<Image>();
+    if ((canBeBought || bought) && !locked) {
+      if (currentLevel >= maxLevel && maxLevel != 0)
+        outlineImage.color = fullyBoughtOutlineColor;
+      else if (currentLevel > 0)
+        outlineImage.color = boughtOutlineColor;
+      else
+        outlineImage.color = canBeBoughtOutlineColor;
+    } else {
+      outlineImage.color = baseOutlineColor;
+    }
+  }
+
+  private void UpdateStatText() {
+    // update upgrade name
+    name = "Upgrade - " + title.ToLower();
+
+    // update img, and strings
+    imageObject.sprite = image;
+    titleObject.text = title;
+    descriptionObject.text = description;
+
+    // price
+    if (locked && unlockable) {
+      priceObject.text = MoneyManager.GetMoneyString(unlockablePrice, unlockableCurrency);
+      priceObject.color = MoneyManager.GetCurrencyColor(unlockableCurrency);
+    } else {
+      priceObject.text = MoneyManager.GetMoneyString(price, priceCurrencyType);
+      priceObject.color = MoneyManager.GetCurrencyColor(priceCurrencyType);
     }
 
-    private void UpdateStatText()
-    {
-        // update upgrade name
-        name = "Upgrade - " + title.ToLower();
-
-        // update img, and strings
-        imageObject.sprite = image;
-        titleObject.text = title;
-        descriptionObject.text = description;
-
-        // price
-        if (locked && unlockable)
-        {
-            priceObject.text = MoneyManager.GetMoneyString(unlockablePrice, unlockableCurrency);
-            priceObject.color = MoneyManager.GetCurrencyColor(unlockableCurrency);
-        }
-        else
-        {
-            priceObject.text = MoneyManager.GetMoneyString(price, priceCurrencyType);
-            priceObject.color = MoneyManager.GetCurrencyColor(priceCurrencyType);
-        }
-
-        // sprite opacity
-        if (bought)
-        {
-            imageObject.color = new Color(imageObject.color.r, imageObject.color.g, imageObject.color.b, 1);
-        } else
-        {
-            imageObject.color = new Color(imageObject.color.r, imageObject.color.g, imageObject.color.b, 0.4f);
-        }
-
-        // max lvl
-        if (maxLevel == 0)
-            maxLevelObject.text = currentLevel.ToString();
-        else
-            maxLevelObject.text = currentLevel.ToString() + "/" + maxLevel.ToString();
+    // sprite opacity
+    if (bought) {
+      imageObject.color = new Color(imageObject.color.r, imageObject.color.g, imageObject.color.b, 1);
+    } else {
+      imageObject.color = new Color(imageObject.color.r, imageObject.color.g, imageObject.color.b, 0.4f);
     }
 
-    public void BuyUpgrade()
-    {
-        // double check just in case
-        if (!moneyManager.HasEnoughMoney(price, priceCurrencyType) && !locked)
-            return;
-        else if (!moneyManager.HasEnoughMoney(unlockablePrice, unlockableCurrency) && unlockable && locked)
-            return;
-        else if (locked && !unlockable)
-            return;
+    // max lvl
+    if (maxLevel == 0)
+      maxLevelObject.text = currentLevel.ToString();
+    else
+      maxLevelObject.text = currentLevel.ToString() + "/" + maxLevel.ToString();
+  }
 
-        if (unlockable && locked)
-        {
-            locked = false;
-            moneyManager.AddCurrency(-unlockablePrice, unlockableCurrency);
-        } else if (!locked)
-            moneyManager.AddCurrency(-price, priceCurrencyType);
+  public void BuyUpgrade() {
+    // double check just in case
+    if (!moneyManager.HasEnoughMoney(price, priceCurrencyType) && !locked)
+      return;
+    else if (!moneyManager.HasEnoughMoney(unlockablePrice, unlockableCurrency) && unlockable && locked)
+      return;
+    else if (locked && !unlockable)
+      return;
 
-        SfxManager.PlaySfxAudioClip(buySound, 0.8f);
-        Camera.main.GetComponent<CameraScript>().ScreenshakeFunction(0.1f);
-        ParticleSpawner.SpawnBurstParticle(buyParticlesPrefab, transform.position, transform, MoneyManager.GetCurrencyColor(priceCurrencyType));
+    if (unlockable && locked) {
+      locked = false;
+      moneyManager.AddCurrency(-unlockablePrice, unlockableCurrency);
+    } else if (!locked)
+      moneyManager.AddCurrency(-price, priceCurrencyType);
 
-        foreach (IUpgrade upgrade in GetComponents<IUpgrade>())
-        {
-            upgrade.ApplyUpgrade();
-        }
+    SfxManager.PlaySfxAudioClip(buySound, 0.8f);
+    Camera.main.GetComponent<CameraScript>().ScreenshakeFunction(0.1f);
+    ParticleSpawner.SpawnBurstParticle(buyParticlesPrefab, transform.position, parent: transform, color: MoneyManager.GetCurrencyColor(priceCurrencyType));
 
-        if (!bought)
-            bought = true;
-
-        // increase price & level
-        currentLevel++;
-        price *= priceIncrease;
+    foreach (IUpgrade upgrade in GetComponents<IUpgrade>()) {
+      upgrade.ApplyUpgrade();
     }
 
-    public void TogglePopup(bool enable)
-    {
-        if (enable)
-        {
-            gameObject.transform.SetAsLastSibling(); // bring to front
-        }
-    }
+    if (!bought)
+      bought = true;
 
-    //Detect if the Cursor starts to pass over the GameObject
-    public void OnPointerEnter(PointerEventData pointerEventData)
-    {
-        moneyManager.HoverOverUIShopElement(true);
-    }
+    // increase price & level
+    currentLevel++;
+    price *= priceIncrease;
 
-    //Detect when Cursor leaves the GameObject
-    public void OnPointerExit(PointerEventData pointerEventData)
-    {
-        moneyManager.HoverOverUIShopElement(false);
-    }
+    OnBuyUpgrade?.Invoke();
+  }
 
-    private void DisablePopup()
-    {
-        popupObject.SetActive(false);
+  public void TogglePopup(bool enable) {
+    if (enable) {
+      gameObject.transform.SetAsLastSibling(); // bring to front
     }
+  }
 
-    private void OnEnable()
-    {
-        MoneyManager.Instance.OnShopOpen += DisablePopup;
-    }
+  //Detect if the Cursor starts to pass over the GameObject
+  public void OnPointerEnter(PointerEventData pointerEventData) {
+    moneyManager.HoverOverUIShopElement(true);
+  }
 
-    private void OnDisable()
-    {
-        MoneyManager.Instance.OnShopOpen -= DisablePopup;
-    }
+  //Detect when Cursor leaves the GameObject
+  public void OnPointerExit(PointerEventData pointerEventData) {
+    moneyManager.HoverOverUIShopElement(false);
+  }
+
+  private void DisablePopup() {
+    popupObject.SetActive(false);
+  }
+
+  private void OnEnable() {
+    MoneyManager.Instance.OnShopOpen += DisablePopup;
+  }
+
+  private void OnDisable() {
+    MoneyManager.Instance.OnShopOpen -= DisablePopup;
+  }
 }

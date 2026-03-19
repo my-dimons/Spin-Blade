@@ -3,34 +3,29 @@
 /// Updated SimonDarksideJ - reworked to 4.6.1 standards
 
 using UnityEngine.EventSystems;
-namespace UnityEngine.UI
-{
-    [RequireComponent(typeof(InputField))]
-    [AddComponentMenu("UI/Extensions/Return Key Trigger")]
-    public class ReturnKeyTriggersButton : MonoBehaviour, ISubmitHandler
-    {
-        private EventSystem _system;
+namespace UnityEngine.UI {
+	[RequireComponent(typeof(InputField))]
+	[AddComponentMenu("UI/Extensions/Return Key Trigger")]
+	public class ReturnKeyTriggersButton : MonoBehaviour, ISubmitHandler {
+		private EventSystem _system;
 
-        public Button button;
-        private bool highlight = true;
-        public float highlightDuration = 0.2f;
-        
-        void Start()
-        {
-            _system = EventSystem.current;
-        }
+		public Button button;
+		private bool highlight = true;
+		public float highlightDuration = 0.2f;
 
-        void RemoveHighlight()
-        {
-            button.OnPointerExit(new PointerEventData(_system));
-        }
+		void Start() {
+			_system = EventSystem.current;
+		}
 
-        public void OnSubmit(BaseEventData eventData)
-        {
-            if (highlight) button.OnPointerEnter(new PointerEventData(_system));
-            button.OnPointerClick(new PointerEventData(_system));
+		void RemoveHighlight() {
+			button.OnPointerExit(new PointerEventData(_system));
+		}
 
-            if (highlight) Invoke("RemoveHighlight", highlightDuration);
-        }
-    }
+		public void OnSubmit(BaseEventData eventData) {
+			if (highlight) button.OnPointerEnter(new PointerEventData(_system));
+			button.OnPointerClick(new PointerEventData(_system));
+
+			if (highlight) Invoke("RemoveHighlight", highlightDuration);
+		}
+	}
 }

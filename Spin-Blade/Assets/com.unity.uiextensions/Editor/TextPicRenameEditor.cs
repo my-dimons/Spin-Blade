@@ -21,15 +21,11 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
-using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
-using System;
-using System.Collections;
 
-namespace UnityEngine.UI.Extensions
-{
+namespace UnityEngine.UI.Extensions {
 
 	public class TextPicRenameEditor : EditorWindow {
 		[MenuItem("Window/UI/Extensions/TextPic Rename Icons and Text")]
@@ -49,24 +45,24 @@ namespace UnityEngine.UI.Extensions
 		private string replacementText;
 
 		public void Rename(GameObject o) {
-			#if UNITY_EDITOR
+#if UNITY_EDITOR
 			Debug.Log("Changing icons and text for " + o.name);
 
 
 			TextPic[] children = o.GetComponentsInChildren<TextPic>(true);
-			for(int i = 0; i < children.Length; i++) {
+			for (int i = 0; i < children.Length; i++) {
 				if (children[i] != null) {
 					for (int j = 0; j < children[i].inspectorIconList.Length; j++) {
-						if (!string.IsNullOrEmpty(originalText) 
-						&& children[i].inspectorIconList[j].name.Contains(originalText)) { 
+						if (!string.IsNullOrEmpty(originalText)
+						&& children[i].inspectorIconList[j].name.Contains(originalText)) {
 							children[i].text.Replace(originalText, replacementText);
 							children[i].inspectorIconList[j].name = children[i].inspectorIconList[j].name.Replace(originalText, replacementText);
 							Debug.Log("Renamed icon for " + children[i].inspectorIconList[j].name);
 						}
 
-						if (!string.IsNullOrEmpty(prefix) 
-						&& !string.IsNullOrEmpty(suffix) 
-						&& !children[i].inspectorIconList[j].name.StartsWith(prefix) 
+						if (!string.IsNullOrEmpty(prefix)
+						&& !string.IsNullOrEmpty(suffix)
+						&& !children[i].inspectorIconList[j].name.StartsWith(prefix)
 						&& !children[i].inspectorIconList[j].name.EndsWith(suffix)) {
 							children[i].text.Replace(children[i].inspectorIconList[j].name, prefix + children[i].inspectorIconList[j].name + suffix);
 							children[i].inspectorIconList[j].name = prefix + children[i].inspectorIconList[j].name + suffix;
@@ -78,7 +74,7 @@ namespace UnityEngine.UI.Extensions
 					Debug.Log("Renamed icons for " + children[i].name);
 				}
 			}
-			#endif
+#endif
 		}
 
 		public void OnGUI() {
@@ -87,7 +83,7 @@ namespace UnityEngine.UI.Extensions
 			GUILayout.Label("GameObject", EditorStyles.boldLabel);
 
 			EditorGUI.BeginChangeCheck();
-			
+
 			if (Selection.activeGameObject != null) {
 				o = Selection.activeGameObject;
 			}
@@ -95,31 +91,31 @@ namespace UnityEngine.UI.Extensions
 			EditorGUI.EndChangeCheck();
 
 			if (o != null) {
-				
+
 				EditorGUILayout.BeginHorizontal();
-				
+
 				GUILayout.Label("Prefix:", GUILayout.Width(columnWidth));
 
 				EditorGUILayout.EndHorizontal();
-				
+
 				EditorGUILayout.BeginHorizontal();
-				
+
 				prefix = EditorGUILayout.TextField(prefix, GUILayout.Width(columnWidth));
 
 				EditorGUILayout.EndHorizontal();
 
 				EditorGUILayout.Separator();
-				
+
 				EditorGUILayout.BeginHorizontal();
-				
+
 				GUILayout.Label("Original Text:", GUILayout.Width(columnWidth));
-				
+
 				GUILayout.Label("Replacement Text:", GUILayout.Width(columnWidth));
 
 				EditorGUILayout.EndHorizontal();
 
 				EditorGUILayout.Separator();
-				
+
 				EditorGUILayout.BeginHorizontal();
 
 				originalText = EditorGUILayout.TextField(originalText, GUILayout.Width(columnWidth));
@@ -146,9 +142,9 @@ namespace UnityEngine.UI.Extensions
 
 				EditorGUILayout.BeginHorizontal();
 				if (GUILayout.Button("Rename Icons and Text")) {
-					#if UNITY_EDITOR
+#if UNITY_EDITOR
 					Rename(o);
-					#endif
+#endif
 				}
 
 				EditorGUILayout.EndHorizontal();

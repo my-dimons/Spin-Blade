@@ -21,15 +21,11 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
-using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
-using System;
-using System.Collections;
 
-namespace UnityEngine.UI.Extensions
-{
+namespace UnityEngine.UI.Extensions {
 
 	public class TextPicIconEditor : EditorWindow {
 		[MenuItem("Window/UI/Extensions/TextPic Edit Icons")]
@@ -47,16 +43,16 @@ namespace UnityEngine.UI.Extensions
 		private Sprite icon;
 
 		public void Swap(GameObject o) {
-			#if UNITY_EDITOR
+#if UNITY_EDITOR
 			Debug.Log("Editing icons for " + o.name);
 
 
 			TextPic[] children = o.GetComponentsInChildren<TextPic>(true);
-			for(int i = 0; i < children.Length; i++) {
+			for (int i = 0; i < children.Length; i++) {
 				if (children[i] != null) {
 					for (int j = 0; j < children[i].inspectorIconList.Length; j++) {
-						if (!string.IsNullOrEmpty(iconName) 
-						&& children[i].inspectorIconList[j].name == iconName) { 
+						if (!string.IsNullOrEmpty(iconName)
+						&& children[i].inspectorIconList[j].name == iconName) {
 							children[i].inspectorIconList[j].sprite = icon;
 							Debug.Log("Swapped icon for " + children[i].inspectorIconList[j].name);
 						}
@@ -66,7 +62,7 @@ namespace UnityEngine.UI.Extensions
 					Debug.Log("Swapped icons for " + children[i].name);
 				}
 			}
-			#endif
+#endif
 		}
 
 		public void OnGUI() {
@@ -75,7 +71,7 @@ namespace UnityEngine.UI.Extensions
 			GUILayout.Label("GameObject", EditorStyles.boldLabel);
 
 			EditorGUI.BeginChangeCheck();
-			
+
 			if (Selection.activeGameObject != null) {
 				o = Selection.activeGameObject;
 			}
@@ -96,7 +92,7 @@ namespace UnityEngine.UI.Extensions
 				EditorGUILayout.EndHorizontal();
 
 				EditorGUILayout.Separator();
-				
+
 				EditorGUILayout.BeginHorizontal();
 
 				GUILayout.Label("New Sprite:", GUILayout.Width(columnWidth));
@@ -115,9 +111,9 @@ namespace UnityEngine.UI.Extensions
 
 				EditorGUILayout.BeginHorizontal();
 				if (GUILayout.Button("Edit Icons")) {
-					#if UNITY_EDITOR
+#if UNITY_EDITOR
 					Swap(o);
-					#endif
+#endif
 				}
 
 				EditorGUILayout.EndHorizontal();

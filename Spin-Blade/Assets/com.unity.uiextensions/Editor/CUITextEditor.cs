@@ -3,8 +3,7 @@
 
 using UnityEditor;
 
-namespace UnityEngine.UI.Extensions
-{
-    [CustomEditor(typeof(CUIText))]
-    public class CUITextEditor : CUIGraphicEditor { }
+namespace UnityEngine.UI.Extensions {
+	[CustomEditor(typeof(CUIText))]
+	public class CUITextEditor : CUIGraphicEditor { }
 }

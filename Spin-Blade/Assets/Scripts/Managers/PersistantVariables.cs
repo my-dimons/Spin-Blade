@@ -1,23 +1,20 @@
-using System.Collections;
 using UnityEngine;
 
-public class DifficultyVariables : MonoBehaviour
-{
-    public static DifficultyVariables Instance { get; private set; }
+public class DifficultyVariables : MonoBehaviour {
+  public static DifficultyVariables Instance { get; private set; }
 
-    public float difficulty = 1;
-    public float moneyMultiplier = 1;
+  public float difficulty = 1;
+  public float moneyMultiplier = 1;
+  public bool crtEnabled = false;
 
-    void Awake()
-    {
-        // Singleton pattern
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
-
-        Instance = this;
-        DontDestroyOnLoad(gameObject); 
+  void Awake() {
+    // Singleton pattern
+    if (Instance != null && Instance != this) {
+      Destroy(gameObject);
+      return;
     }
+
+    Instance = this;
+    DontDestroyOnLoad(gameObject);
+  }
 }

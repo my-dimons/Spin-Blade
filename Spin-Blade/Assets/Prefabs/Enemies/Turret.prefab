@@ -32,7 +32,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 0.75}
+  m_LocalScale: {x: 1.2, y: 1.2, z: 0.6}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -116,12 +116,15 @@ MonoBehaviour:
   damage: 0.5
   spawnRate: 0.1
   damageFromProjectiles: 1
-  maxHealth: 3
-  currentHealth: 3
+  maxHealth: 7
+  currentHealth: 7
   hitColor: {r: 1, g: 0.27450982, b: 0.27450982, a: 1}
   deathParticles: {fileID: 8027665320973545451, guid: 4df9d8a8723d05c4686abda48d96cdd3, type: 3}
   hitParticles: {fileID: 8027665320973545451, guid: 355b482682bd0cf40a30ddcfb787b1c7, type: 3}
+  deathParticleScale: 0.23
   deathMoneyText: {fileID: 866898650273556627, guid: fdd8250b469e6e94b8751cb4afca164e, type: 3}
+  takeDamageText: {fileID: 866898650273556627, guid: a99b53d646581e74fa33a22c85b9ed0a, type: 3}
+  dealDamageText: {fileID: 866898650273556627, guid: bff01ac55da12d34e919181dd1edf739, type: 3}
   deathSound: {fileID: 8300000, guid: 4c8a0c216c352fa41b1e3af35bc782bd, type: 3}
   hitSound: {fileID: 8300000, guid: 08538fc898dc37940830c7b0f882c7d9, type: 3}
 --- !u!114 &6763832055766057799
@@ -179,8 +182,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a87d583b455941a42bc491aa2a263427, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flashMaterial: {fileID: 2100000, guid: 2189cc038fdfa7c439d938b6e7eccaab, type: 2}
-  duration: 0.08
+  logLoadMaterial: 0
+  logFlash: 0
 --- !u!58 &5265049673258560358
 CircleCollider2D:
   m_ObjectHideFlags: 0

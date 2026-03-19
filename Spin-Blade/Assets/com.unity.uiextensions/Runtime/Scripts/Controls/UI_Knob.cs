@@ -1,7 +1,6 @@
 ﻿/// Credit Tomasz Schelenz 
 /// Sourced from - https://bitbucket.org/SimonDarksideJ/unity-ui-extensions/issues/46/feature-uiknob#comment-29243988
 
-using System;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
@@ -22,265 +21,222 @@ using UnityEngine.EventSystems;
 /// - while dragging outside of control, the rotation will be canceled
 /// </summary>
 /// 
-namespace UnityEngine.UI.Extensions
-{
-    [RequireComponent(typeof(Image))]
-    [AddComponentMenu("UI/Extensions/UI_Knob")]
-    public class UI_Knob : Selectable, IPointerDownHandler, IPointerUpHandler, IPointerEnterHandler, IPointerExitHandler, IDragHandler, IInitializePotentialDragHandler
-    {
-        public enum Direction { CW, CCW };
-        [Tooltip("Direction of rotation CW - clockwise, CCW - counterClockwise")]
-        public Direction direction = Direction.CW;
-        [HideInInspector]
-        public float KnobValue;
-        [Tooltip("Max value of the knob, maximum RAW output value knob can reach, overrides snap step, IF set to 0 or higher than loops, max value will be set by loops")]
-        public float MaxValue = 0;
-        [Tooltip("How many rotations knob can do, if higher than max value, the latter will limit max value")]
-        public int Loops = 0;
-        [Tooltip("Clamp output value between 0 and 1, useful with loops > 1")]
-        public bool ClampOutput01 = false;
-        [Tooltip("snap to position?")]
-        public bool SnapToPosition = false;
-        [Tooltip("Number of positions to snap")]
-        public int SnapStepsPerLoop = 10;
-        [Tooltip("Parent touch area to extend the touch radius")]
-        public RectTransform ParentTouchMask;
-        [Tooltip("Default background color of the touch mask. Defaults as transparent")]
-        public Color MaskBackground = new Color(0, 0, 0, 0);
-        [Space(30)]
-        public KnobFloatValueEvent OnValueChanged;
-        private float _currentLoops = 0;
-        private float _previousValue = 0;
-        private float _initAngle;
-        private float _currentAngle;
-        private Vector2 _currentVector;
-        private Quaternion _initRotation;
-        private bool _canDrag = false;
+namespace UnityEngine.UI.Extensions {
+	[RequireComponent(typeof(Image))]
+	[AddComponentMenu("UI/Extensions/UI_Knob")]
+	public class UI_Knob : Selectable, IPointerDownHandler, IPointerUpHandler, IPointerEnterHandler, IPointerExitHandler, IDragHandler, IInitializePotentialDragHandler {
+		public enum Direction { CW, CCW };
+		[Tooltip("Direction of rotation CW - clockwise, CCW - counterClockwise")]
+		public Direction direction = Direction.CW;
+		[HideInInspector]
+		public float KnobValue;
+		[Tooltip("Max value of the knob, maximum RAW output value knob can reach, overrides snap step, IF set to 0 or higher than loops, max value will be set by loops")]
+		public float MaxValue = 0;
+		[Tooltip("How many rotations knob can do, if higher than max value, the latter will limit max value")]
+		public int Loops = 0;
+		[Tooltip("Clamp output value between 0 and 1, useful with loops > 1")]
+		public bool ClampOutput01 = false;
+		[Tooltip("snap to position?")]
+		public bool SnapToPosition = false;
+		[Tooltip("Number of positions to snap")]
+		public int SnapStepsPerLoop = 10;
+		[Tooltip("Parent touch area to extend the touch radius")]
+		public RectTransform ParentTouchMask;
+		[Tooltip("Default background color of the touch mask. Defaults as transparent")]
+		public Color MaskBackground = new Color(0, 0, 0, 0);
+		[Space(30)]
+		public KnobFloatValueEvent OnValueChanged;
+		private float _currentLoops = 0;
+		private float _previousValue = 0;
+		private float _initAngle;
+		private float _currentAngle;
+		private Vector2 _currentVector;
+		private Quaternion _initRotation;
+		private bool _canDrag = false;
 		private bool _screenSpaceOverlay;
 
-        protected override void Awake()
-        {
-            _screenSpaceOverlay = GetComponentInParent<Canvas>().rootCanvas.renderMode == RenderMode.ScreenSpaceOverlay;
-        }
+		protected override void Awake() {
+			_screenSpaceOverlay = GetComponentInParent<Canvas>().rootCanvas.renderMode == RenderMode.ScreenSpaceOverlay;
+		}
 
-        protected override void Start()
-        {
-            CheckForParentTouchMask();
-        }
+		protected override void Start() {
+			CheckForParentTouchMask();
+		}
 
-        private void CheckForParentTouchMask()
-        {
-            if (ParentTouchMask)
-            {
-                Image maskImage = ParentTouchMask.gameObject.GetOrAddComponent<Image>();
-                maskImage.color = MaskBackground;
-                EventTrigger trigger = ParentTouchMask.gameObject.GetOrAddComponent<EventTrigger>();
-                trigger.triggers.Clear();
-                //PointerDownEvent
-                EventTrigger.Entry pointerDownEntry = new EventTrigger.Entry();
-                pointerDownEntry.eventID = EventTriggerType.PointerDown;
-                pointerDownEntry.callback.AddListener((data) => { OnPointerDown((PointerEventData)data); });
-                trigger.triggers.Add(pointerDownEntry);
-                //PointerUpEvent
-                EventTrigger.Entry pointerUpEntry = new EventTrigger.Entry();
-                pointerUpEntry.eventID = EventTriggerType.PointerUp;
-                pointerUpEntry.callback.AddListener((data) => { OnPointerUp((PointerEventData)data); });
-                trigger.triggers.Add(pointerUpEntry);
-                //PointerEnterEvent
-                EventTrigger.Entry pointerEnterEntry = new EventTrigger.Entry();
-                pointerEnterEntry.eventID = EventTriggerType.PointerEnter;
-                pointerEnterEntry.callback.AddListener((data) => { OnPointerEnter((PointerEventData)data); });
-                trigger.triggers.Add(pointerEnterEntry);
-                //PointerExitEvent
-                EventTrigger.Entry pointerExitEntry = new EventTrigger.Entry();
-                pointerExitEntry.eventID = EventTriggerType.PointerExit;
-                pointerExitEntry.callback.AddListener((data) => { OnPointerExit((PointerEventData)data); });
-                trigger.triggers.Add(pointerExitEntry);
-                //DragEvent
-                EventTrigger.Entry dragEntry = new EventTrigger.Entry();
-                dragEntry.eventID = EventTriggerType.Drag;
-                dragEntry.callback.AddListener((data) => { OnDrag((PointerEventData)data); });
-                trigger.triggers.Add(dragEntry);
-            }
-        }
-
-        public override void OnPointerUp(PointerEventData eventData)
-        {
-            _canDrag = false;
-        }
-        public override void OnPointerEnter(PointerEventData eventData)
-        {
-            _canDrag = true;
-        }
-        public override void OnPointerExit(PointerEventData eventData)
-        {
-            _canDrag = false;
-        }
-
-        public override void OnPointerDown(PointerEventData eventData)
-        {
-            _canDrag = true;
-
-            base.OnPointerDown(eventData);
-
-            _initRotation = transform.rotation;
-			if (_screenSpaceOverlay)
-            {
-				_currentVector = eventData.position - (Vector2)transform.position;
-            }
-            else
-            {
-				_currentVector = eventData.position - (Vector2)Camera.main.WorldToScreenPoint(transform.position);
-            }
-            _initAngle = Mathf.Atan2(_currentVector.y, _currentVector.x) * Mathf.Rad2Deg;
-        }
-
-        public void OnDrag(PointerEventData eventData)
-        {
-            //CHECK IF CAN DRAG
-            if (!_canDrag)
-            {
-                return;
-            }
-
-			if (_screenSpaceOverlay)
-			{
-				_currentVector = eventData.position - (Vector2)transform.position;
+		private void CheckForParentTouchMask() {
+			if (ParentTouchMask) {
+				Image maskImage = ParentTouchMask.gameObject.GetOrAddComponent<Image>();
+				maskImage.color = MaskBackground;
+				EventTrigger trigger = ParentTouchMask.gameObject.GetOrAddComponent<EventTrigger>();
+				trigger.triggers.Clear();
+				//PointerDownEvent
+				EventTrigger.Entry pointerDownEntry = new EventTrigger.Entry();
+				pointerDownEntry.eventID = EventTriggerType.PointerDown;
+				pointerDownEntry.callback.AddListener((data) => { OnPointerDown((PointerEventData)data); });
+				trigger.triggers.Add(pointerDownEntry);
+				//PointerUpEvent
+				EventTrigger.Entry pointerUpEntry = new EventTrigger.Entry();
+				pointerUpEntry.eventID = EventTriggerType.PointerUp;
+				pointerUpEntry.callback.AddListener((data) => { OnPointerUp((PointerEventData)data); });
+				trigger.triggers.Add(pointerUpEntry);
+				//PointerEnterEvent
+				EventTrigger.Entry pointerEnterEntry = new EventTrigger.Entry();
+				pointerEnterEntry.eventID = EventTriggerType.PointerEnter;
+				pointerEnterEntry.callback.AddListener((data) => { OnPointerEnter((PointerEventData)data); });
+				trigger.triggers.Add(pointerEnterEntry);
+				//PointerExitEvent
+				EventTrigger.Entry pointerExitEntry = new EventTrigger.Entry();
+				pointerExitEntry.eventID = EventTriggerType.PointerExit;
+				pointerExitEntry.callback.AddListener((data) => { OnPointerExit((PointerEventData)data); });
+				trigger.triggers.Add(pointerExitEntry);
+				//DragEvent
+				EventTrigger.Entry dragEntry = new EventTrigger.Entry();
+				dragEntry.eventID = EventTriggerType.Drag;
+				dragEntry.callback.AddListener((data) => { OnDrag((PointerEventData)data); });
+				trigger.triggers.Add(dragEntry);
 			}
-			else
-			{
+		}
+
+		public override void OnPointerUp(PointerEventData eventData) {
+			_canDrag = false;
+		}
+		public override void OnPointerEnter(PointerEventData eventData) {
+			_canDrag = true;
+		}
+		public override void OnPointerExit(PointerEventData eventData) {
+			_canDrag = false;
+		}
+
+		public override void OnPointerDown(PointerEventData eventData) {
+			_canDrag = true;
+
+			base.OnPointerDown(eventData);
+
+			_initRotation = transform.rotation;
+			if (_screenSpaceOverlay) {
+				_currentVector = eventData.position - (Vector2)transform.position;
+			} else {
 				_currentVector = eventData.position - (Vector2)Camera.main.WorldToScreenPoint(transform.position);
 			}
-            _currentAngle = Mathf.Atan2(_currentVector.y, _currentVector.x) * Mathf.Rad2Deg;
+			_initAngle = Mathf.Atan2(_currentVector.y, _currentVector.x) * Mathf.Rad2Deg;
+		}
 
-            Quaternion addRotation = Quaternion.AngleAxis(_currentAngle - _initAngle, this.transform.forward);
-            addRotation.eulerAngles = new Vector3(0, 0, addRotation.eulerAngles.z);
+		public void OnDrag(PointerEventData eventData) {
+			//CHECK IF CAN DRAG
+			if (!_canDrag) {
+				return;
+			}
 
-            Quaternion finalRotation = _initRotation * addRotation;
+			if (_screenSpaceOverlay) {
+				_currentVector = eventData.position - (Vector2)transform.position;
+			} else {
+				_currentVector = eventData.position - (Vector2)Camera.main.WorldToScreenPoint(transform.position);
+			}
+			_currentAngle = Mathf.Atan2(_currentVector.y, _currentVector.x) * Mathf.Rad2Deg;
 
-            if (direction == Direction.CW)
-            {
-                KnobValue = 1 - (finalRotation.eulerAngles.z / 360f);
+			Quaternion addRotation = Quaternion.AngleAxis(_currentAngle - _initAngle, this.transform.forward);
+			addRotation.eulerAngles = new Vector3(0, 0, addRotation.eulerAngles.z);
 
-                if (SnapToPosition)
-                {
-                    SnapToPositionValue(ref KnobValue);
-                    finalRotation.eulerAngles = new Vector3(0, 0, 360 - 360 * KnobValue);
-                }
-            }
-            else
-            {
-                KnobValue = (finalRotation.eulerAngles.z / 360f);
+			Quaternion finalRotation = _initRotation * addRotation;
 
-                if (SnapToPosition)
-                {
-                    SnapToPositionValue(ref KnobValue);
-                    finalRotation.eulerAngles = new Vector3(0, 0, 360 * KnobValue);
-                }
-            }
+			if (direction == Direction.CW) {
+				KnobValue = 1 - (finalRotation.eulerAngles.z / 360f);
 
-            UpdateKnobValue();
+				if (SnapToPosition) {
+					SnapToPositionValue(ref KnobValue);
+					finalRotation.eulerAngles = new Vector3(0, 0, 360 - 360 * KnobValue);
+				}
+			} else {
+				KnobValue = (finalRotation.eulerAngles.z / 360f);
 
-            transform.rotation = finalRotation;
-            InvokeEvents(KnobValue + _currentLoops);
+				if (SnapToPosition) {
+					SnapToPositionValue(ref KnobValue);
+					finalRotation.eulerAngles = new Vector3(0, 0, 360 * KnobValue);
+				}
+			}
 
-            _previousValue = KnobValue;
-        }
+			UpdateKnobValue();
 
-        private void UpdateKnobValue()
-        {
-            //PREVENT OVERROTATION
-            if (Mathf.Abs(KnobValue - _previousValue) > 0.5f)
-            {
-                if (KnobValue < 0.5f && Loops > 1 && _currentLoops < Loops - 1)
-                {
-                    _currentLoops++;
-                }
-                else if (KnobValue > 0.5f && _currentLoops >= 1)
-                {
-                    _currentLoops--;
-                }
-                else
-                {
-                    if (KnobValue > 0.5f && _currentLoops == 0)
-                    {
-                        KnobValue = 0;
-                        transform.localEulerAngles = Vector3.zero;
-                        InvokeEvents(KnobValue + _currentLoops);
-                        return;
-                    }
-                    else if (KnobValue < 0.5f && _currentLoops == Loops - 1)
-                    {
-                        KnobValue = 1;
-                        transform.localEulerAngles = Vector3.zero;
-                        InvokeEvents(KnobValue + _currentLoops);
-                        return;
-                    }
-                }
-            }
+			transform.rotation = finalRotation;
+			InvokeEvents(KnobValue + _currentLoops);
 
-            //CHECK MAX VALUE
-            if (MaxValue > 0)
-            {
-                if (KnobValue + _currentLoops > MaxValue)
-                {
-                    KnobValue = MaxValue;
-                    float maxAngle = direction == Direction.CW ? 360f - 360f * MaxValue : 360f * MaxValue;
-                    transform.localEulerAngles = new Vector3(0, 0, maxAngle);
-                    InvokeEvents(KnobValue);
-                    return;
-                }
-            }
-        }
+			_previousValue = KnobValue;
+		}
 
-        public void SetKnobValue(float value, int loops = 0)
-        {
-            Quaternion newRoation = Quaternion.identity;
-            KnobValue = value;
-            _currentLoops = loops;
+		private void UpdateKnobValue() {
+			//PREVENT OVERROTATION
+			if (Mathf.Abs(KnobValue - _previousValue) > 0.5f) {
+				if (KnobValue < 0.5f && Loops > 1 && _currentLoops < Loops - 1) {
+					_currentLoops++;
+				} else if (KnobValue > 0.5f && _currentLoops >= 1) {
+					_currentLoops--;
+				} else {
+					if (KnobValue > 0.5f && _currentLoops == 0) {
+						KnobValue = 0;
+						transform.localEulerAngles = Vector3.zero;
+						InvokeEvents(KnobValue + _currentLoops);
+						return;
+					} else if (KnobValue < 0.5f && _currentLoops == Loops - 1) {
+						KnobValue = 1;
+						transform.localEulerAngles = Vector3.zero;
+						InvokeEvents(KnobValue + _currentLoops);
+						return;
+					}
+				}
+			}
 
-            if (SnapToPosition)
-            {
-                SnapToPositionValue(ref KnobValue);
+			//CHECK MAX VALUE
+			if (MaxValue > 0) {
+				if (KnobValue + _currentLoops > MaxValue) {
+					KnobValue = MaxValue;
+					float maxAngle = direction == Direction.CW ? 360f - 360f * MaxValue : 360f * MaxValue;
+					transform.localEulerAngles = new Vector3(0, 0, maxAngle);
+					InvokeEvents(KnobValue);
+					return;
+				}
+			}
+		}
 
-            }
-            if (direction == Direction.CW)
-            {
-                newRoation.eulerAngles = new Vector3(0, 0, 360 - 360 * KnobValue);
-            }
-            else
-            {
-                newRoation.eulerAngles = new Vector3(0, 0, 360 * KnobValue);
-            }
+		public void SetKnobValue(float value, int loops = 0) {
+			Quaternion newRoation = Quaternion.identity;
+			KnobValue = value;
+			_currentLoops = loops;
 
-            UpdateKnobValue();
+			if (SnapToPosition) {
+				SnapToPositionValue(ref KnobValue);
 
-            transform.rotation = newRoation;
-            InvokeEvents(KnobValue + _currentLoops);
+			}
+			if (direction == Direction.CW) {
+				newRoation.eulerAngles = new Vector3(0, 0, 360 - 360 * KnobValue);
+			} else {
+				newRoation.eulerAngles = new Vector3(0, 0, 360 * KnobValue);
+			}
 
-            _previousValue = KnobValue;
-        }
+			UpdateKnobValue();
 
-        private void SnapToPositionValue(ref float knobValue)
-        {
-            float snapStep = 1 / (float)SnapStepsPerLoop;
-            float newValue = Mathf.Round(knobValue / snapStep) * snapStep;
-            knobValue = newValue;
-        }
-        private void InvokeEvents(float value)
-        {
-            if (ClampOutput01)
-                value /= Loops;
-            OnValueChanged.Invoke(value);
-        }
+			transform.rotation = newRoation;
+			InvokeEvents(KnobValue + _currentLoops);
 
-        public virtual void OnInitializePotentialDrag(PointerEventData eventData)
-        {
-            eventData.useDragThreshold = false;
-        }
-    }
+			_previousValue = KnobValue;
+		}
 
-    [System.Serializable]
-    public class KnobFloatValueEvent : UnityEvent<float> { }
+		private void SnapToPositionValue(ref float knobValue) {
+			float snapStep = 1 / (float)SnapStepsPerLoop;
+			float newValue = Mathf.Round(knobValue / snapStep) * snapStep;
+			knobValue = newValue;
+		}
+		private void InvokeEvents(float value) {
+			if (ClampOutput01)
+				value /= Loops;
+			OnValueChanged.Invoke(value);
+		}
+
+		public virtual void OnInitializePotentialDrag(PointerEventData eventData) {
+			eventData.useDragThreshold = false;
+		}
+	}
+
+	[System.Serializable]
+	public class KnobFloatValueEvent : UnityEvent<float> { }
 
 }

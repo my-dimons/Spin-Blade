@@ -4,37 +4,32 @@
 /*USAGE:
 Simply place the script on A Text control in the scene to display the current PPI / DPI of the screen*/
 
-namespace UnityEngine.UI.Extensions
-{
+namespace UnityEngine.UI.Extensions {
 #if UNITY_2022_1_OR_NEWER
-    [RequireComponent(typeof(TMPro.TMP_Text))]
+	[RequireComponent(typeof(TMPro.TMP_Text))]
 #else
     [RequireComponent(typeof(Text))]
 #endif
-    [AddComponentMenu("UI/Extensions/PPIViewer")]
-    public class PPIViewer : MonoBehaviour
-    {
+	[AddComponentMenu("UI/Extensions/PPIViewer")]
+	public class PPIViewer : MonoBehaviour {
 #if UNITY_2022_1_OR_NEWER
-        private TMPro.TMP_Text label;
+		private TMPro.TMP_Text label;
 #else
         private Text label;
 #endif
 
-        void Awake()
-        {
+		void Awake() {
 #if UNITY_2022_1_OR_NEWER
-            label = GetComponentInChildren<TMPro.TMP_Text>();
+			label = GetComponentInChildren<TMPro.TMP_Text>();
 #else
             label = GetComponentInChildren<Text>();
 #endif
-        }
+		}
 
-        void Start()
-        {
-            if (label != null)
-            {
-                label.text = "PPI: " + Screen.dpi.ToString();
-            }
-        }
-    }
+		void Start() {
+			if (label != null) {
+				label.text = "PPI: " + Screen.dpi.ToString();
+			}
+		}
+	}
 }

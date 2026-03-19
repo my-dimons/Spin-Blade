@@ -9,16 +9,13 @@ using System;
 /// Sourced from - http://forum.unity3d.com/members/melang.593409/
 /// GC Alloc fix - https://bitbucket.org/UnityUIExtensions/unity-ui-extensions/pull-requests/130
 /// NOT supported in Unity 2022
-namespace UnityEngine.UI.Extensions
-{
+namespace UnityEngine.UI.Extensions {
 #if UNITY_2022_1_OR_NEWER
 	[Obsolete("BestFitOutline is not supported in Unity 2022.1 or newer. Use TMPro instead.")]
-	public class NicerOutline : BaseMeshEffect
-	{
-        public override void ModifyMesh(VertexHelper vh)
-        {
-        }
-    }
+	public class NicerOutline : BaseMeshEffect {
+		public override void ModifyMesh(VertexHelper vh) {
+		}
+	}
 #else
     //An outline that looks a bit nicer than the default one. It has less "holes" in the outline by drawing more copies of the effect
     [AddComponentMenu("UI/Effects/Extensions/Nicer Outline")]
@@ -208,4 +205,4 @@ namespace UnityEngine.UI.Extensions
 #endif
 	}
 #endif
-    }
+}

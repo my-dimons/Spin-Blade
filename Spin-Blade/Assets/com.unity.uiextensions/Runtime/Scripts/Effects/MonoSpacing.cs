@@ -46,16 +46,13 @@ using System;
 
 /// Credit herbst / derived from LetterSpacing by Deeperbeige
 /// Sourced from - http://forum.unity3d.com/threads/adjustable-character-spacing-free-script.288277/
-namespace UnityEngine.UI.Extensions
-{
+namespace UnityEngine.UI.Extensions {
 #if UNITY_2022_1_OR_NEWER
-    [Obsolete("MonoSpacing is not supported in Unity 2022.1 or newer. Use TMPro instead.")]
-    public class MonoSpacing : BaseMeshEffect
-    {
-        public override void ModifyMesh(VertexHelper vh)
-        {
-        }
-    }
+	[Obsolete("MonoSpacing is not supported in Unity 2022.1 or newer. Use TMPro instead.")]
+	public class MonoSpacing : BaseMeshEffect {
+		public override void ModifyMesh(VertexHelper vh) {
+		}
+	}
 #else
     [AddComponentMenu("UI/Effects/Extensions/Mono Spacing")]
     [RequireComponent(typeof(Text))]
@@ -202,4 +199,4 @@ namespace UnityEngine.UI.Extensions
         }
 	}
 #endif
-    }
+}

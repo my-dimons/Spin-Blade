@@ -1,169 +1,154 @@
 using System.Collections.Generic;
-using Unity.Jobs;
 using UnityEngine;
 using UnityEngine.UI.Extensions; // UILineRenderer namespace
 
 [RequireComponent(typeof(Upgrade))]
-public class UpgradeConnections : MonoBehaviour
-{
-    [Header("Line Settings")]
-    public Color connectorDisabledColor;
-    public Color connectorDisabledColorMaxed;
-    public Color connectorEnabledColor;
-    [Space(8)]
-    public float lineThickness = 5f;
-    [Space(8)]
-    public GameObject linePrefab;
-    private GameObject[] skillTreePrecursors;
+public class UpgradeConnections : MonoBehaviour {
+	[Header("Line Settings")]
+	public Color connectorDisabledColor;
+	public Color connectorDisabledColorMaxed;
+	public Color connectorEnabledColor;
+	[Space(8)]
+	public float lineThickness = 5f;
+	[Space(8)]
+	public GameObject linePrefab;
+	private GameObject[] skillTreePrecursors;
 
-    public List<GameObject> lineObjects = new();
-    public List<UILineRenderer> lineRenderers = new();
+	public List<GameObject> lineObjects = new();
+	public List<UILineRenderer> lineRenderers = new();
 
-    private Upgrade upgrade;
+	private Upgrade upgrade;
 
-    // change if changing parent name
-    private string parentName = "lines";
+	// change if changing parent name
+	private string parentName = "lines";
 
-    void Start()
-    {
-        Initialize();
+	void Start() {
+		Initialize();
 
-        CreateLines();
-    }
+		CreateLines();
+	}
 
-    private void Initialize()
-    {
-        if (upgrade == null)
-            upgrade = GetComponent<Upgrade>();
-        skillTreePrecursors = upgrade.skillTreePrecursors;
-    }
+	private void Initialize() {
+		if (upgrade == null)
+			upgrade = GetComponent<Upgrade>();
+		skillTreePrecursors = upgrade.skillTreePrecursors;
+	}
 
-    void Update() 
-    {
-        if (skillTreePrecursors == null || skillTreePrecursors.Length == 0)
-            return;
+	void Update() {
+		if (skillTreePrecursors == null || skillTreePrecursors.Length == 0)
+			return;
 
-        UpdateConnecters();
-    }
+		UpdateConnecters();
+	}
 
-    private void UpdateConnecters()
-    {
-        for (int i = 0; i < skillTreePrecursors.Length; i++)
-        {
-            // set connector color
-            UILineRenderer connectorRenderer = lineRenderers[i];
-            GameObject precursor = skillTreePrecursors[i];
+	private void UpdateConnecters() {
+		for (int i = 0; i < skillTreePrecursors.Length; i++) {
+			// set connector color
+			UILineRenderer connectorRenderer = lineRenderers[i];
+			GameObject precursor = skillTreePrecursors[i];
 
-            UpdateConnecterColor(connectorRenderer);
+			UpdateConnecterColor(connectorRenderer);
 
-            UpdateConnectorPoints(precursor, connectorRenderer);
-        }
-    }
+			UpdateConnectorPoints(precursor, connectorRenderer);
+		}
+	}
 
-    private void UpdateConnectorPoints(GameObject precursor, UILineRenderer lineRenderer)
-    {
-        // Get RectTransforms for buyButtons of current and precursor
-        RectTransform startRect = upgrade.buyButton.GetComponent<RectTransform>();
-        RectTransform endRect = precursor.GetComponent<Upgrade>().buyButton.GetComponent<RectTransform>();
+	private void UpdateConnectorPoints(GameObject precursor, UILineRenderer lineRenderer) {
+		// Get RectTransforms for buyButtons of current and precursor
+		RectTransform startRect = upgrade.buyButton.GetComponent<RectTransform>();
+		RectTransform endRect = precursor.GetComponent<Upgrade>().buyButton.GetComponent<RectTransform>();
 
-        // Convert world positions to local positions relative to the parent canvas or line's RectTransform
+		// Convert world positions to local positions relative to the parent canvas or line's RectTransform
 
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(
-            lineRenderer.rectTransform.parent as RectTransform,
-            RectTransformUtility.WorldToScreenPoint(null, startRect.position),
-            null,
-            out Vector2 localStartPos);
+		RectTransformUtility.ScreenPointToLocalPointInRectangle(
+			lineRenderer.rectTransform.parent as RectTransform,
+			RectTransformUtility.WorldToScreenPoint(null, startRect.position),
+			null,
+			out Vector2 localStartPos);
 
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(
-            lineRenderer.rectTransform.parent as RectTransform,
-            RectTransformUtility.WorldToScreenPoint(null, endRect.position),
-            null,
-            out Vector2 localEndPos);
+		RectTransformUtility.ScreenPointToLocalPointInRectangle(
+			lineRenderer.rectTransform.parent as RectTransform,
+			RectTransformUtility.WorldToScreenPoint(null, endRect.position),
+			null,
+			out Vector2 localEndPos);
 
-        // Update points of UILineRenderer
-        lineRenderer.Points = new Vector2[] { localStartPos, localEndPos };
-    }
+		// Update points of UILineRenderer
+		lineRenderer.Points = new Vector2[] { localStartPos, localEndPos };
+	}
 
-    private void UpdateConnecterColor(UILineRenderer connectorRenderer)
-    {
-        if (upgrade.canBeBought)
-            connectorRenderer.color = connectorEnabledColor;
-        else if (!upgrade.canBeBought && upgrade.precursorsMustBeMaxxed)
-            connectorRenderer.color = connectorDisabledColorMaxed;
-        else
-            connectorRenderer.color = connectorDisabledColor;
-    }
+	private void UpdateConnecterColor(UILineRenderer connectorRenderer) {
+		if (upgrade.canBeBought)
+			connectorRenderer.color = connectorEnabledColor;
+		else if (!upgrade.canBeBought && upgrade.precursorsMustBeMaxxed)
+			connectorRenderer.color = connectorDisabledColorMaxed;
+		else
+			connectorRenderer.color = connectorDisabledColor;
+	}
 
-    void CreateLines()
-    {
-        // Clear old lines
-        foreach (var lineObj in lineObjects)
-            DestroyImmediate(lineObj);
+	void CreateLines() {
+		// Clear old lines
+		foreach (var lineObj in lineObjects)
+			DestroyImmediate(lineObj);
 
-        lineObjects.Clear();
-        lineRenderers.Clear();
+		lineObjects.Clear();
+		lineRenderers.Clear();
 
-        foreach (var precursor in skillTreePrecursors)
-        {
-            if (precursor == null) continue;
+		foreach (var precursor in skillTreePrecursors) {
+			if (precursor == null) continue;
 
-            GameObject lineObj = Instantiate(linePrefab, transform.parent);
-            // set parent
-            if (upgrade.transform.parent.Find(parentName) == null)
-                Debug.LogError("Upgrade Connection cannot find parent named '" + parentName + "'. Please ensure it exists in the hierarchy under 'upgrades'");
-            lineObj.transform.parent = upgrade.transform.parent.Find(parentName);
+			GameObject lineObj = Instantiate(linePrefab, transform.parent);
+			// set parent
+			if (upgrade.transform.parent.Find(parentName) == null)
+				Debug.LogError("Upgrade Connection cannot find parent named '" + parentName + "'. Please ensure it exists in the hierarchy under 'upgrades'");
+			lineObj.transform.parent = upgrade.transform.parent.Find(parentName);
 
-            // check if lineObj has UILineRenderer component
-            if (!lineObj.TryGetComponent<UILineRenderer>(out var lr))
-            {
-                Debug.LogError("Line prefab missing UILineRenderer component!");
-                Destroy(lineObj);
-                continue;
-            }
+			// check if lineObj has UILineRenderer component
+			if (!lineObj.TryGetComponent<UILineRenderer>(out var lr)) {
+				Debug.LogError("Line prefab missing UILineRenderer component!");
+				Destroy(lineObj);
+				continue;
+			}
 
-            // set properties
-            lr.LineThickness = lineThickness;
-            lr.color = connectorEnabledColor;
+			// set properties
+			lr.LineThickness = lineThickness;
+			lr.color = connectorEnabledColor;
 
-            // add to lists
-            lineObjects.Add(lineObj);
-            lineRenderers.Add(lr);
-        }
-    }
+			// add to lists
+			lineObjects.Add(lineObj);
+			lineRenderers.Add(lr);
+		}
+	}
 
-    private void OnDrawGizmos()
-    {
-        float gizmoLineWidth = 0.3f;
-        if (upgrade == null)
-            upgrade = GetComponent<Upgrade>();
+	private void OnDrawGizmos() {
+		float gizmoLineWidth = 0.3f;
+		if (upgrade == null)
+			upgrade = GetComponent<Upgrade>();
 
-        if (upgrade == null || upgrade.skillTreePrecursors == null)
-            return;
+		if (upgrade == null || upgrade.skillTreePrecursors == null)
+			return;
 
-        foreach (var precursor in upgrade.skillTreePrecursors)
-        {
-            if (precursor == null) continue;
+		foreach (var precursor in upgrade.skillTreePrecursors) {
+			if (precursor == null) continue;
 
-            Vector3 start = upgrade.buyButton.transform.position;
-            Vector3 end = precursor.GetComponent<Upgrade>().buyButton.transform.position;
-            Vector3 dir = end - start;
-            float length = dir.magnitude;
+			Vector3 start = upgrade.buyButton.transform.position;
+			Vector3 end = precursor.GetComponent<Upgrade>().buyButton.transform.position;
+			Vector3 dir = end - start;
+			float length = dir.magnitude;
 
-            if (length > 0.0001f)
-            {
-                Vector3 mid = (start + end) / 2f;
+			if (length > 0.0001f) {
+				Vector3 mid = (start + end) / 2f;
 
-                // Build a rotation that points the cube's "up" (Y axis) along dir
-                Quaternion rot = Quaternion.FromToRotation(Vector3.up, dir.normalized);
+				// Build a rotation that points the cube's "up" (Y axis) along dir
+				Quaternion rot = Quaternion.FromToRotation(Vector3.up, dir.normalized);
 
-                if (!upgrade.precursorsMustBeMaxxed)
-                    Gizmos.color = Color.green;
-                else 
-                    Gizmos.color = Color.red;
-                Gizmos.matrix = Matrix4x4.TRS(mid, rot, new Vector3(gizmoLineWidth, length, gizmoLineWidth));
-                Gizmos.DrawCube(Vector3.zero, Vector3.one); // draw unit cube with transform matrix
-                Gizmos.matrix = Matrix4x4.identity; // reset so we don't affect other gizmos
-            }
-        }
-    }
+				if (!upgrade.precursorsMustBeMaxxed)
+					Gizmos.color = Color.green;
+				else
+					Gizmos.color = Color.red;
+				Gizmos.matrix = Matrix4x4.TRS(mid, rot, new Vector3(gizmoLineWidth, length, gizmoLineWidth));
+				Gizmos.DrawCube(Vector3.zero, Vector3.one); // draw unit cube with transform matrix
+				Gizmos.matrix = Matrix4x4.identity; // reset so we don't affect other gizmos
+			}
+		}
+	}
 }

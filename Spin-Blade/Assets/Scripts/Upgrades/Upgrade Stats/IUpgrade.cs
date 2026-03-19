@@ -1,6 +1,3 @@
-using UnityEngine;
-
-public interface IUpgrade
-{
-    public void ApplyUpgrade();
+public interface IUpgrade {
+	public void ApplyUpgrade();
 }

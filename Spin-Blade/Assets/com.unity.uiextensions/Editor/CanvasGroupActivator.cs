@@ -5,116 +5,96 @@
 
 using UnityEditor;
 
-namespace UnityEngine.UI.Extensions
-{
-    public class CanvasGroupActivator : EditorWindow
-    {
-        [MenuItem("Window/UI/Extensions/Canvas Groups Activator")]
-        public static void InitWindow()
-        {
-            EditorWindow.GetWindow<CanvasGroupActivator>();
-        }
+namespace UnityEngine.UI.Extensions {
+	public class CanvasGroupActivator : EditorWindow {
+		[MenuItem("Window/UI/Extensions/Canvas Groups Activator")]
+		public static void InitWindow() {
+			EditorWindow.GetWindow<CanvasGroupActivator>();
+		}
 
-        CanvasGroup[] canvasGroups;
+		CanvasGroup[] canvasGroups;
 
-        void OnEnable()
-        {
-            ObtainCanvasGroups();
-        }
+		void OnEnable() {
+			ObtainCanvasGroups();
+		}
 
-        void OnFocus()
-        {
-            ObtainCanvasGroups();
-        }
+		void OnFocus() {
+			ObtainCanvasGroups();
+		}
 
-        void ObtainCanvasGroups()
-        {
+		void ObtainCanvasGroups() {
 #if UNITY_2023_1_OR_NEWER
 			canvasGroups = GameObject.FindObjectsByType<CanvasGroup>(FindObjectsSortMode.None);
 #else
             canvasGroups = GameObject.FindObjectsOfType<CanvasGroup>();
-#endif            
-        }
+#endif
+		}
 
-        void OnGUI()
-        {
-            if (canvasGroups == null)
-            {
-                return;
-            }
+		void OnGUI() {
+			if (canvasGroups == null) {
+				return;
+			}
 
-            GUILayout.Space(10f);
-            GUILayout.Label("Canvas Groups");
+			GUILayout.Space(10f);
+			GUILayout.Label("Canvas Groups");
 
-            for (int i = 0; i < canvasGroups.Length; i++)
-            {
-                if (canvasGroups[i] == null) { continue; }
+			for (int i = 0; i < canvasGroups.Length; i++) {
+				if (canvasGroups[i] == null) { continue; }
 
-                bool initialActive = false;
-                if (canvasGroups[i].alpha == 1.0f)
-                    initialActive = true;
+				bool initialActive = false;
+				if (canvasGroups[i].alpha == 1.0f)
+					initialActive = true;
 
-                bool active = EditorGUILayout.Toggle(canvasGroups[i].name, initialActive);
-                if (active != initialActive)
-                {
-                    //If deactivated and initially active
-                    if (!active && initialActive)
-                    {
-                        //Deactivate this
-                        canvasGroups[i].alpha = 0f;
-                        canvasGroups[i].interactable = false;
-                        canvasGroups[i].blocksRaycasts = false;
-                    }
-                    //If activated and initially deactivate
-                    else if (active && !initialActive)
-                    {
-                        //Deactivate all others and activate this
-                        HideAllGroups();
+				bool active = EditorGUILayout.Toggle(canvasGroups[i].name, initialActive);
+				if (active != initialActive) {
+					//If deactivated and initially active
+					if (!active && initialActive) {
+						//Deactivate this
+						canvasGroups[i].alpha = 0f;
+						canvasGroups[i].interactable = false;
+						canvasGroups[i].blocksRaycasts = false;
+					}
+					//If activated and initially deactivate
+					else if (active && !initialActive) {
+						//Deactivate all others and activate this
+						HideAllGroups();
 
-                        canvasGroups[i].alpha = 1.0f;
-                        canvasGroups[i].interactable = true;
-                        canvasGroups[i].blocksRaycasts = true;
-                    }
-                }
-            }
+						canvasGroups[i].alpha = 1.0f;
+						canvasGroups[i].interactable = true;
+						canvasGroups[i].blocksRaycasts = true;
+					}
+				}
+			}
 
-            GUILayout.Space(5f);
+			GUILayout.Space(5f);
 
-            if (GUILayout.Button("Show All"))
-            {
-                ShowAllGroups();
-            }
+			if (GUILayout.Button("Show All")) {
+				ShowAllGroups();
+			}
 
-            if (GUILayout.Button("Hide All"))
-            {
-                HideAllGroups();
-            }
-        }
+			if (GUILayout.Button("Hide All")) {
+				HideAllGroups();
+			}
+		}
 
-        void ShowAllGroups()
-        {
-            foreach (var group in canvasGroups)
-            {
-                if (group != null)
-                {
-                    group.alpha = 1.0f;
-                    group.interactable = true;
-                    group.blocksRaycasts = true;
-                }
-            }
-        }
+		void ShowAllGroups() {
+			foreach (var group in canvasGroups) {
+				if (group != null) {
+					group.alpha = 1.0f;
+					group.interactable = true;
+					group.blocksRaycasts = true;
+				}
+			}
+		}
 
-        void HideAllGroups()
-        {
-            foreach (var group in canvasGroups)
-            {
-                if (group != null)
-                {
-                    group.alpha = 0;
-                    group.interactable = false;
-                    group.blocksRaycasts = false;
-                }
-            }
-        }
-    }
+		void HideAllGroups() {
+			foreach (var group in canvasGroups) {
+				if (group != null) {
+					group.alpha = 0;
+					group.interactable = false;
+					group.blocksRaycasts = false;
+				}
+			}
+		}
+	}
 }

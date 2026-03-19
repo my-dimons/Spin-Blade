@@ -21,16 +21,12 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
-using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
-using System;
-using System.Collections;
 using System.Collections.Generic;
 
-namespace UnityEngine.UI.Extensions
-{
+namespace UnityEngine.UI.Extensions {
 
 	public class TextPicIconListCopier : EditorWindow {
 		[MenuItem("Window/UI/Extensions/TextPic Copy Icon Lists")]
@@ -42,44 +38,41 @@ namespace UnityEngine.UI.Extensions
 
 		private List<TextPic> textPicList = new List<TextPic>();
 
-		#if UNITY_EDITOR
+#if UNITY_EDITOR
 		void OnSelectionChange() {
-			if (Selection.objects.Length > 1 )
-			{
-				Debug.Log ("Length? " + Selection.objects.Length);
+			if (Selection.objects.Length > 1) {
+				Debug.Log("Length? " + Selection.objects.Length);
 				textPicList.Clear();
 
-				foreach ( Object o in Selection.objects ) {
-					if ( o is GameObject ) {
+				foreach (Object o in Selection.objects) {
+					if (o is GameObject) {
 						TextPic tp = ((GameObject)o).GetComponent<TextPic>();
 						if (tp != null) {
 							textPicList.Add(tp);
 						}
 					}
 				}
-			}
-			else if (Selection.activeObject is GameObject) {
+			} else if (Selection.activeObject is GameObject) {
 				textPicList.Clear();
 				TextPic tp = ((GameObject)Selection.activeObject).GetComponent<TextPic>();
 				if (tp != null) {
 					textPicList.Add(tp);
 				}
-			} 
-			else {
+			} else {
 				textPicList.Clear();
 			}
-			
+
 			this.Repaint();
 		}
-		#endif
+#endif
 
 		private static int columnWidth = 300;
 
 		private TextPic textPic;
 
 		public void Copy() {
-			#if UNITY_EDITOR
-			foreach(TextPic tp in textPicList) {
+#if UNITY_EDITOR
+			foreach (TextPic tp in textPicList) {
 				if (tp != null) {
 					tp.inspectorIconList = new TextPic.IconName[textPic.inspectorIconList.Length];
 					textPic.inspectorIconList.CopyTo(tp.inspectorIconList, 0);
@@ -89,7 +82,7 @@ namespace UnityEngine.UI.Extensions
 					Debug.Log("Copied icons to " + tp.name);
 				}
 			}
-			#endif
+#endif
 		}
 
 		public void OnGUI() {
@@ -103,17 +96,14 @@ namespace UnityEngine.UI.Extensions
 			EditorGUI.EndChangeCheck();
 
 			if (textPicList.Count > 0) {
-				if ( textPicList.Count == 1 )
-				{
+				if (textPicList.Count == 1) {
 					textPicList[0] = ((TextPic)EditorGUILayout.ObjectField(
 						textPicList[0],
 						typeof(TextPic),
 						true,
 						GUILayout.Width(columnWidth))
 						);
-				} 
-				else
-				{
+				} else {
 					GUILayout.Label("Multiple TextPic: " + textPicList.Count, GUILayout.Width(columnWidth));
 				}
 
@@ -121,17 +111,16 @@ namespace UnityEngine.UI.Extensions
 
 					EditorGUILayout.BeginHorizontal();
 					if (GUILayout.Button("Copy Icons")) {
-						#if UNITY_EDITOR
+#if UNITY_EDITOR
 						Copy();
-						#endif
+#endif
 					}
 
 					EditorGUILayout.EndHorizontal();
 
 					EditorGUILayout.Separator();
 				}
-			}
-			else {
+			} else {
 				GUILayout.Label("Please select objects that have a TextPic component", EditorStyles.boldLabel);
 			}
 		}
