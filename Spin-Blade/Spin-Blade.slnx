@@ -1,0 +1,7 @@
+﻿<Solution>
+  <Project Path="UnityUIExtensions.csproj" />
+  <Project Path="Assembly-CSharp.csproj" />
+  <Project Path="UnityUIExtensions.editor.csproj" />
+  <Project Path="OutlineFx.csproj" />
+  <Project Path="OutlineFx.Editor.csproj" />
+</Solution>
